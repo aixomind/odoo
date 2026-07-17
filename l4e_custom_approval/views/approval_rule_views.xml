@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         l4e.approval.rule — List View
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="l4e_approval_rule_view_list" model="ir.ui.view">
+        <field name="name">l4e.approval.rule.list</field>
+        <field name="model">l4e.approval.rule</field>
+        <field name="arch" type="xml">
+            <list string="Approval Rules" decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="trigger_field_id"/>
+                <field name="trigger_value"/>
+                <field name="approval_mode"/>
+                <field name="active" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         l4e.approval.rule — Form View
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="l4e_approval_rule_view_form" model="ir.ui.view">
+        <field name="name">l4e.approval.rule.form</field>
+        <field name="model">l4e.approval.rule</field>
+        <field name="arch" type="xml">
+            <form string="Approval Rule">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+
+                    <!-- Header row -->
+                    <div class="oe_title">
+                        <label for="name" string="Rule Name"/>
+                        <h1><field name="name" placeholder="e.g. Purchase Order Approval"/></h1>
+                    </div>
+
+                    <group>
+                        <group string="When to trigger">
+                            <field name="model_id"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   placeholder="Select model…"/>
+                            <field name="trigger_field_id"
+                                   domain="[('model_id', '=', model_id), ('ttype', 'not in', ['one2many', 'html'])]"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   placeholder="Select field…"/>
+                            <field name="trigger_field_ttype" invisible="1"/>
+
+                            <!-- Plain text value for non-Many2one fields -->
+                            <field name="trigger_value"
+                                   invisible="trigger_field_ttype == 'many2one'"
+                                   placeholder="e.g. sale / purchase / posted / True / 50000"/>
+
+                            <!-- Record picker for Many2one trigger fields -->
+                            <field name="trigger_value_ref"
+                                   string="Trigger Record"
+                                   invisible="trigger_field_ttype != 'many2one'"
+                                   placeholder="Select record…"/>
+                            <div invisible="trigger_field_ttype != 'many2one'" class="text-muted small">
+                                Select the exact record that triggers approval
+                                (e.g. a specific Stage, Status, or Category).
+                            </div>
+                        </group>
+                        <group string="General">
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <!-- On-Approval Action -->
+                    <group string="On Approval Action"
+                           help="Choose what happens when the approval is granted.">
+                        <group>
+                            <field name="finalize_action" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="finalize_method"
+                                   invisible="finalize_action != 'method'"
+                                   placeholder="e.g. action_confirm"
+                                   required="finalize_action == 'method'"/>
+                            <field name="finalize_method_context"
+                                   invisible="finalize_action != 'method'"
+                                   placeholder='e.g. {"validate_analytic": true}'/>
+                            <div invisible="finalize_action != 'method'" class="text-muted small">
+                                The method is called on the record with no arguments.<br/>
+                                Example: <b>action_confirm</b> with context <b>{"validate_analytic": true}</b>
+                                triggers the full sale order confirmation flow (creates delivery, updates state, etc.).<br/>
+                                Context must be valid JSON. <b>l4e_bypass_approval</b> is always added automatically.
+                            </div>
+                        </group>
+                    </group>
+
+                    <!-- Optional pending/refused state tracking -->
+                    <group string="Pending / Refused State Tracking (Optional)"
+                           help="Configure these only if you want the record to show a specific state while waiting for approval.">
+                        <group>
+                            <field name="pending_field_id"
+                                   domain="[('model_id', '=', model_id), ('ttype', '=', 'selection')]"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   placeholder="Select a selection field…"/>
+                            <field name="pending_value"
+                                   invisible="not pending_field_id"
+                                   placeholder="Value to set while pending (e.g. pending_approval)"/>
+                        </group>
+                        <group>
+                            <field name="refused_value"
+                                   invisible="not pending_field_id"
+                                   placeholder="Value to set on refusal (e.g. draft). Leave empty to not change."/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- ── Tab 1: Conditions ──────────────────────────── -->
+                        <page string="Conditions" name="conditions">
+                            <group>
+                                <field name="condition_logic" widget="radio" class="oe_inline"/>
+                            </group>
+                            <field name="condition_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+
+                                    <!-- Level 1: field on main model -->
+                                    <field name="field_id"
+                                           string="Field"
+                                           domain="[('model_id', '=', parent.model_id), ('ttype', 'not in', ['one2many', 'html'])]"
+                                           options="{'no_create': True, 'no_open': True}"
+                                           placeholder="Field…"/>
+
+                                    <!-- Level 2: sub-field on related model (dotted path) -->
+                                    <field name="related_model_id" column_invisible="True"/>
+                                    <field name="related_field_id"
+                                           string="→ Sub-Field"
+                                           domain="[('model_id', '=', related_model_id), ('ttype', 'not in', ['one2many', 'html'])]"
+                                           options="{'no_create': True, 'no_open': True}"
+                                           placeholder="(optional sub-field)"
+                                           invisible="field_ttype != 'many2one'"/>
+
+                                    <field name="operator"/>
+
+                                    <!-- Plain value: for non-Many2one fields -->
+                                    <field name="value"
+                                           string="Value"
+                                           invisible="operator in ('set', 'not_set') or (field_ttype == 'many2one' and not related_field_id) or (related_field_ttype == 'many2one')"
+                                           placeholder="Value…"/>
+
+                                    <!-- Record picker: for Many2one fields -->
+                                    <field name="value_ref"
+                                           string="Record"
+                                           invisible="operator in ('set', 'not_set') or (field_ttype != 'many2one' and not related_field_id) or (related_field_id and related_field_ttype != 'many2one')"
+                                           placeholder="Select record…"/>
+
+                                    <!-- Hidden helpers -->
+                                    <field name="field_name" column_invisible="True"/>
+                                    <field name="field_ttype" column_invisible="True"/>
+                                    <field name="related_field_name" column_invisible="True"/>
+                                    <field name="related_field_ttype" column_invisible="True"/>
+                                </list>
+                            </field>
+                            <div class="text-muted small mt-1">
+                                <b>Sub-Field</b>: shown only when Field is a Many2one — lets you check a field on the related record (e.g. Opportunity → PO Date).<br/>
+                                <b>Record picker</b>: shown when the field type is Many2one — select a record instead of typing an ID.
+                                If no conditions are added, the rule triggers for <em>all records</em>.
+                            </div>
+                        </page>
+
+                        <!-- ── Tab 2: Approvers ───────────────────────────── -->
+                        <page string="Approvers" name="approvers">
+                            <group>
+                                <field name="approval_mode" widget="radio"/>
+                            </group>
+                            <field name="approver_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="sequence"
+                                           string="Level"
+                                           help="Lower = first to approve. Same level = parallel."/>
+                                    <field name="approver_type"/>
+                                    <field name="user_id"
+                                           invisible="approver_type != 'user'"
+                                           placeholder="Select user…"
+                                           domain="[('share', '=', False)]"/>
+                                    <field name="group_id"
+                                           invisible="approver_type != 'group'"
+                                           placeholder="Select group…"/>
+                                    <field name="field_id"
+                                           invisible="approver_type != 'field'"
+                                           domain="[('model_id', '=', parent.model_id), ('ttype', '=', 'many2one'), ('relation', '=', 'res.users')]"
+                                           options="{'no_create': True, 'no_open': True}"
+                                           placeholder="Select user field on record…"/>
+                                    <field name="label" string="Resolved As" readonly="1"/>
+                                </list>
+                            </field>
+                            <p class="text-muted">
+                                <b>Sequence</b> controls order for Sequential mode.
+                                Same sequence = parallel (all approve at the same time).<br/>
+                                <b>Field on Record</b>: pick a Many2one → User field; the actual approver
+                                is read from each record at runtime (e.g. <em>Purchase Representative</em>).
+                            </p>
+                        </page>
+
+                        <!-- ── Tab 3: Notifications ───────────────────────── -->
+                        <page string="Notifications &amp; Notes" name="notifications">
+
+                            <group string="Channels">
+                                <group>
+                                    <field name="send_email" widget="boolean_toggle"/>
+                                    <field name="send_dm" widget="boolean_toggle"/>
+                                    <field name="notify_requester" widget="boolean_toggle"/>
+                                </group>
+                            </group>
+
+                            <group string="Extra Notification Users">
+                                <group>
+                                    <field name="notify_extra_request_ids"
+                                           string="Also Notify on Request"
+                                           widget="many2many_tags"
+                                           domain="[('share', '=', False)]"
+                                           placeholder="Users notified when a request is created…"/>
+                                </group>
+                                <group>
+                                    <field name="notify_extra_decision_ids"
+                                           string="Also Notify on Decision"
+                                           widget="many2many_tags"
+                                           domain="[('share', '=', False)]"
+                                           placeholder="Users notified on approve/refuse…"/>
+                                </group>
+                            </group>
+
+                            <group string="Request Notification Message"
+                                   help="Sent to approvers when a request is created. Placeholders: {record_name}, {rule_name}, {requester_name}, {model_name}">
+                                <field name="request_message_tmpl" nolabel="1"
+                                       placeholder="{record_name}, {rule_name}, {requester_name}, {model_name}"/>
+                            </group>
+
+                            <group string="Decision Notification Message"
+                                   help="Sent to requester on approve/refuse. Placeholders: {record_name}, {rule_name}, {decision}, {approver_name}, {note}">
+                                <field name="decision_message_tmpl" nolabel="1"
+                                       placeholder="{record_name}, {rule_name}, {decision}, {approver_name}, {note}"/>
+                            </group>
+
+                            <group string="Note for Approvers (shown in approval request)">
+                                <field name="note" nolabel="1" widget="html"/>
+                            </group>
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         l4e.approval.rule — Search View
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="l4e_approval_rule_view_search" model="ir.ui.view">
+        <field name="name">l4e.approval.rule.search</field>
+        <field name="model">l4e.approval.rule</field>
+        <field name="arch" type="xml">
+            <search string="Approval Rules">
+                <field name="name"/>
+                <field name="model_id"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Group by Model" name="by_model" context="{'group_by': 'model_id'}"/>
+                <filter string="Group by Approval Mode" name="by_mode" context="{'group_by': 'approval_mode'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         Actions
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="action_l4e_approval_rule" model="ir.actions.act_window">
+        <field name="name">Approval Rules</field>
+        <field name="res_model">l4e.approval.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first dynamic approval rule
+            </p>
+            <p>
+                Define which model, field, and value triggers an approval request —
+                with optional conditions and multi-level approvers.
+                No code needed to add new models.
+            </p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         Refuse Wizard
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="l4e_approval_refuse_wizard_view_form" model="ir.ui.view">
+        <field name="name">l4e.approval.refuse.wizard.form</field>
+        <field name="model">l4e.approval.refuse.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Refuse Approval">
+                <group>
+                    <field name="request_id" readonly="1"/>
+                    <field name="note" placeholder="Enter reason for refusal…" required="1"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_refuse" type="object"
+                            string="Refuse" class="btn-danger"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         Menu — Top-level Approvals menu
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <menuitem id="menu_l4e_approval_root"
+              name="Approvals"
+              sequence="90"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_l4e_approval_rules"
+              name="Approval Rules"
+              parent="menu_l4e_approval_root"
+              action="action_l4e_approval_rule"
+              sequence="10"
+              groups="base.group_system"/>
+
+</odoo>
