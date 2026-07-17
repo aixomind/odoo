@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- L4E Custom Approval — no custom groups needed.
+         Access control is handled via base.group_system and base.group_user
+         in ir.model.access.csv -->
+</odoo>
