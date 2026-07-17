@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Journal Entry Transfer / Bulk Change Journal & Account',
-    'version': '1.0',
+    'version': '18.0',
     'category': 'Accounting',
     'summary': 'Allows changing the Journal and Account lines of posted invoices/bills via wizard.',
     'description': """
