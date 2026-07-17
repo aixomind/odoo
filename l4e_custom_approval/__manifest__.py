@@ -41,7 +41,7 @@ Models covered out-of-the-box:
         'views/sale_order_views.xml',
     ],
     'images': [
-        'static/description/banner_screenshot_slides (1).gif',
+        'static/description/banner_screenshot.gif',
     ],
     'installable': True,
     'auto_install': False,
