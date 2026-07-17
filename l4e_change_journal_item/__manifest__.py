@@ -17,7 +17,7 @@ Key Features:
 * Auto-extract and populate old journals, accounts, and analytic accounts.
 * Success toast notification on update completion.
     """,
-    'author': 'Links4engg',
+    'author': 'L4e',
     'website': 'https://www.links4engg.com',
     'depends': ['account', 'accountant'],
     'data': [
