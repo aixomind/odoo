@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_l4e_discount" model="ir.ui.view">
+        <field name="name">res.config.settings.view.l4e.discount</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='pricing_setting_container']" position="inside">
+                <setting id="l4e_discount_approval"
+                         string="Require Discount Approval"
+                         help="When enabled, discounts exceeding a salesperson's limit require manager approval before the order can be confirmed.">
+                    <field name="l4e_discount_approval_required" widget="boolean_toggle"/>
+                    <div class="content-group" invisible="not l4e_discount_approval_required">
+                        <div class="mt8 row">
+                            <label for="l4e_default_global_limit"
+                                   class="col-lg-4 o_light_label"
+                                   string="Default Global Limit (%)"/>
+                            <field name="l4e_default_global_limit" class="col-lg-3"/>
+                        </div>
+                        <div class="mt4 row">
+                            <label for="l4e_default_line_limit"
+                                   class="col-lg-4 o_light_label"
+                                   string="Default Per-Line Limit (%)"/>
+                            <field name="l4e_default_line_limit" class="col-lg-3"/>
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
