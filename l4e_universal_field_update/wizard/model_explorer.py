@@ -4,6 +4,7 @@ from odoo.exceptions import UserError, AccessError
 import logging
 import json
 import uuid
+from psycopg2.extras import Json as PgJson
 from odoo.exceptions import UserError, AccessError, ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -607,7 +608,14 @@ class UniversalFieldUpdater(models.TransientModel):
         row = snapshot['row']
         col_list = ', '.join('"%s"' % c for c in columns)
         placeholders = ', '.join(['%s'] * len(columns))
-        values = [row[c] for c in columns]
+        # jsonb columns (e.g. res.partner's "properties") round-trip through
+        # JSON as plain dict/list objects. psycopg2 can't adapt those directly
+        # as query parameters — wrap them so they're sent as jsonb literals
+        # instead of raising "can't adapt type 'dict'".
+        values = [
+            PgJson(row[c]) if isinstance(row[c], (dict, list)) else row[c]
+            for c in columns
+        ]
         self.env.cr.execute(
             'INSERT INTO "%s" (%s) VALUES (%s)' % (table, col_list, placeholders),
             values,
