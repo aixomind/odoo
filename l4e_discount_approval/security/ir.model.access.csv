@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l4e_discount_limit_user,l4e.discount.limit user,model_l4e_discount_limit,base.group_user,1,0,0,0
+access_l4e_discount_limit_manager,l4e.discount.limit manager,model_l4e_discount_limit,l4e_discount_approval.group_discount_manager,1,1,1,1
+access_l4e_discount_tier_user,l4e.discount.tier user,model_l4e_discount_tier,base.group_user,1,0,0,0
+access_l4e_discount_tier_manager,l4e.discount.tier manager,model_l4e_discount_tier,l4e_discount_approval.group_discount_manager,1,1,1,1
+access_l4e_discount_approval_request_user,l4e.discount.approval.request user,model_l4e_discount_approval_request,base.group_user,1,1,1,0
+access_l4e_discount_approval_request_manager,l4e.discount.approval.request manager,model_l4e_discount_approval_request,l4e_discount_approval.group_discount_manager,1,1,1,1
+access_l4e_discount_refuse_wizard,l4e.discount.refuse.wizard,model_l4e_discount_refuse_wizard,base.group_user,1,1,1,1
