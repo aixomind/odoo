@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l4e_approval_rule_admin,l4e.approval.rule admin,model_l4e_approval_rule,base.group_system,1,1,1,1
+access_l4e_approval_rule_user,l4e.approval.rule user,model_l4e_approval_rule,base.group_user,1,0,0,0
+access_l4e_approval_rule_condition_admin,l4e.approval.rule.condition admin,model_l4e_approval_rule_condition,base.group_system,1,1,1,1
+access_l4e_approval_rule_condition_user,l4e.approval.rule.condition user,model_l4e_approval_rule_condition,base.group_user,1,0,0,0
+access_l4e_approval_rule_approver_admin,l4e.approval.rule.approver admin,model_l4e_approval_rule_approver,base.group_system,1,1,1,1
+access_l4e_approval_rule_approver_user,l4e.approval.rule.approver user,model_l4e_approval_rule_approver,base.group_user,1,0,0,0
+access_l4e_approval_record_request_admin,l4e.approval.record.request admin,model_l4e_approval_record_request,base.group_system,1,1,1,1
+access_l4e_approval_record_request_user,l4e.approval.record.request user,model_l4e_approval_record_request,base.group_user,1,1,1,0
+access_l4e_approval_record_approver_admin,l4e.approval.record.approver admin,model_l4e_approval_record_approver,base.group_system,1,1,1,1
+access_l4e_approval_record_approver_user,l4e.approval.record.approver user,model_l4e_approval_record_approver,base.group_user,1,1,0,0
+access_l4e_approval_refuse_wizard_user,l4e.approval.refuse.wizard user,model_l4e_approval_refuse_wizard,base.group_user,1,1,1,1
+access_approval_raise_query_user,approval.raise.query user,model_approval_raise_query,base.group_user,1,1,1,0
+access_approval_raise_query_admin,approval.raise.query admin,model_approval_raise_query,base.group_system,1,1,1,1
