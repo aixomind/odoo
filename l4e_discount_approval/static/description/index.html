@@ -128,7 +128,7 @@
                 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; height: 100%; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 20px -5px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.05)';">
                     <div style="width: 60px; height: 60px; background: #eff6ff; color: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px;"><i class="fa fa-exclamation-triangle"></i></div>
                     <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Warnings & Status Banners</h4>
-                    <p style="color: #64748b; font-size: 14px; margin: 0;">Highlight over-limit lines immediately with a `⚠ Over Limit` tag. Display dynamic status banners (Pending / Approved / Refused) on the document.</p>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">Highlight over-limit lines immediately with a `&#9888; Over Limit` tag. Display dynamic status banners (Pending / Approved / Refused) on the document.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
@@ -164,8 +164,8 @@
 (User custom override OR company default)
 &#8595;
 <strong>Limit Exceeded?</strong>
-├── <strong>NO</strong> → Order Confirms Normally
-└── <strong>YES</strong> → Confirmation Blocked & request button visible
+&#9500;&#9472;&#9472; <strong>NO</strong> &#8594; Order Confirms Normally
+&#9492;&#9472;&#9472; <strong>YES</strong> &#8594; Confirmation Blocked & request button visible
             &#8595;
       <strong>Create Approval Request</strong>
       (Finds matching tier based on discount % range)
@@ -174,8 +174,8 @@
       (Email / Chatter updates sent to managers)
             &#8595;
       <strong>Manager Decision</strong>
-      ├── <strong>REFUSE</strong> → Requester enters reason, order state set to 'Refused' (Reps must adjust discount or re-request)
-      └── <strong>APPROVE</strong> → Order state set to 'Approved'
+      &#9500;&#9472;&#9472; <strong>REFUSE</strong> &#8594; Requester enters reason, order state set to 'Refused' (Reps must adjust discount or re-request)
+      &#9492;&#9472;&#9472; <strong>APPROVE</strong> &#8594; Order state set to 'Approved'
                   &#8595;
             <strong>Ready for Confirmation!</strong></div>
         </div>
