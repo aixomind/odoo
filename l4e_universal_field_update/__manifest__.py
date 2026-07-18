@@ -40,5 +40,5 @@ Key Features:
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
-    'images': ['static/description/index.html'],
+    'images': ['static/description/banner_card.gif'],
 }
