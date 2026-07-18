@@ -320,6 +320,7 @@
     <menuitem id="menu_l4e_approval_root"
               name="Approvals"
               sequence="90"
+              web_icon="l4e_custom_approval,static/description/icon.png"
               groups="base.group_system"/>
 
     <menuitem id="menu_l4e_approval_rules"
