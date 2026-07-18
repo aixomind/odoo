@@ -20,6 +20,14 @@ Key Highlights:
 * **Warnings & Banners**: Highlights over-limit lines and shows dynamic info banners on the document view.
 """,
     'author': 'Links4Engg',
+    'images': [
+        'static/description/banner_screenshot.gif',
+        'static/description/screenshot1.png',
+        'static/description/screenshot2.png',
+        'static/description/screenshot3.png',
+        'static/description/screenshot4.png',
+        'static/description/screenshot5.png',
+    ],
     'depends': [
         'sale_management',
         'purchase',
