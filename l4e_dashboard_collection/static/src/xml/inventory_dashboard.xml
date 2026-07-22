@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="l4e_dashboard_collection.InventoryDashboard">
+        <div class="l4e_dashboard_wrapper bg-light p-4 overflow-auto h-100">
+
+            <div t-if="state.loading" class="d-flex justify-content-center align-items-center h-100 w-100 position-absolute top-0 start-0 bg-white bg-opacity-75" style="z-index: 1000;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div t-if="state.data" class="d-flex flex-column gap-4">
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 bg-white p-3 rounded-3 shadow-sm">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-4 fw-bold text-dark flex-shrink-0">Inventory Dashboard</span>
+
+                        <div class="position-relative product-dropdown-container" style="width: 220px;">
+                            <div class="input-group input-group-sm cursor-pointer" t-on-click="toggleDropdown">
+                                <span class="input-group-text bg-light border-end-0 text-muted">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0 border-end-0 bg-light" style="min-width: 0;" placeholder="Select Product..." t-model="state.search_query" t-on-input="onSearchInput" t-on-focus="onSearchFocus"/>
+                                <button t-if="state.selected_product_id" class="btn btn-outline-secondary border-start-0 border-end-0 bg-light text-muted px-2" type="button" t-on-click="clearProductFilter">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                <span class="input-group-text bg-light border-start-0 text-muted">
+                                    <i class="fa fa-caret-down"></i>
+                                </span>
+                            </div>
+                            <div t-if="state.show_suggestions &amp;&amp; state.suggestions.length" class="position-absolute bg-white border rounded shadow-lg w-100 mt-1" style="z-index: 1050; max-height: 220px; overflow-y: auto;">
+                                <div class="list-group list-group-flush">
+                                    <t t-foreach="state.suggestions" t-as="prod" t-key="prod.id">
+                                        <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-2 py-2 border-0" t-on-click="() => this.selectProduct(prod.id, prod.name)">
+                                            <img t-attf-src="/web/image/product.product/#{prod.id}/image_128" class="rounded border p-1 bg-white" style="width: 28px; height: 28px; object-fit: cover;" onerror="this.src='/web/static/img/placeholder.png'"/>
+                                            <span class="text-dark small text-truncate fw-semibold" t-out="prod.name"></span>
+                                        </button>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <div class="btn-group btn-group-sm shadow-sm" role="group">
+                            <button type="button" class="btn btn-outline-primary py-1 px-2.5" t-att-class="{'active': state.active_filter === 'this_month'}" t-on-click="() => this.changeFilter('this_month')">This Month</button>
+                            <button type="button" class="btn btn-outline-primary py-1 px-2.5" t-att-class="{'active': state.active_filter === 'last_30_days'}" t-on-click="() => this.changeFilter('last_30_days')">Last 30 Days</button>
+                            <button type="button" class="btn btn-outline-primary py-1 px-2.5" t-att-class="{'active': state.active_filter === 'this_quarter'}" t-on-click="() => this.changeFilter('this_quarter')">This Quarter</button>
+                            <button type="button" class="btn btn-outline-primary py-1 px-2.5" t-att-class="{'active': state.active_filter === 'this_year'}" t-on-click="() => this.changeFilter('this_year')">This Year</button>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-1.5 border rounded p-1 bg-light">
+                            <input type="date" class="form-control form-control-sm border-0 bg-transparent py-0" style="width: 110px; font-size: 0.8rem;" t-model="state.date_from" t-on-change="() => this.changeFilter('custom')"/>
+                            <span class="text-muted small">to</span>
+                            <input type="date" class="form-control form-control-sm border-0 bg-transparent py-0" style="width: 110px; font-size: 0.8rem;" t-model="state.date_to" t-on-change="() => this.changeFilter('custom')"/>
+                            <button class="btn btn-sm btn-primary py-1 px-2" t-on-click="applyCustomDates">Apply</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-3 p-3 kpi-card cursor-pointer" t-on-click="clickTotalInventoryValue">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted small fw-semibold">Total Inventory Value</span>
+                                    <h3 class="fw-bold mt-2 mb-1" t-out="formatCurrency(state.data.kpis.total_value.value)"></h3>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <span class="small fw-semibold" t-att-class="state.data.kpis.total_value.trend >= 0 ? 'text-success' : 'text-danger'">
+                                            <i t-att-class="state.data.kpis.total_value.trend >= 0 ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+                                            <t t-out="Math.abs(state.data.kpis.total_value.trend)"/>%
+                                        </span>
+                                        <span class="text-muted small">vs Last Month</span>
+                                    </div>
+                                </div>
+                                <div class="kpi-icon-bg bg-purple-light rounded-3 p-2 text-purple">
+                                    <i class="fa fa-cubes fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-3 p-3 kpi-card cursor-pointer" t-on-click="clickTotalProducts">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted small fw-semibold">Total Products</span>
+                                    <h3 class="fw-bold mt-2 mb-1" t-out="formatNumber(state.data.kpis.total_products.value)"></h3>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <span class="small fw-semibold" t-att-class="state.data.kpis.total_products.trend >= 0 ? 'text-success' : 'text-danger'">
+                                            <i t-att-class="state.data.kpis.total_products.trend >= 0 ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+                                            <t t-out="Math.abs(state.data.kpis.total_products.trend)"/>%
+                                        </span>
+                                        <span class="text-muted small">vs Last Month</span>
+                                    </div>
+                                </div>
+                                <div class="kpi-icon-bg bg-teal-light rounded-3 p-2 text-teal">
+                                    <i class="fa fa-database fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-3 p-3 kpi-card cursor-pointer" t-on-click="clickStockMoves">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted small fw-semibold">Stock Moves</span>
+                                    <h3 class="fw-bold mt-2 mb-1" t-out="formatNumber(state.data.kpis.stock_moves.value)"></h3>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <span class="small fw-semibold" t-att-class="state.data.kpis.stock_moves.trend >= 0 ? 'text-success' : 'text-danger'">
+                                            <i t-att-class="state.data.kpis.stock_moves.trend >= 0 ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i>
+                                            <t t-out="Math.abs(state.data.kpis.stock_moves.trend)"/>%
+                                        </span>
+                                        <span class="text-muted small">vs Last Month</span>
+                                    </div>
+                                </div>
+                                <div class="kpi-icon-bg bg-orange-light rounded-3 p-2 text-orange">
+                                    <i class="fa fa-exchange fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-3 p-3 kpi-card cursor-pointer" t-on-click="clickLowStock">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted small fw-semibold">Low Stock Products</span>
+                                    <h3 class="fw-bold mt-2 mb-1" t-out="formatNumber(state.data.kpis.low_stock.value)"></h3>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <span class="small fw-semibold" t-att-class="state.data.kpis.low_stock.trend &lt;= 0 ? 'text-success' : 'text-danger'">
+                                            <i t-att-class="state.data.kpis.low_stock.trend &lt;= 0 ? 'fa fa-arrow-down' : 'fa fa-arrow-up'"></i>
+                                            <t t-out="Math.abs(state.data.kpis.low_stock.trend)"/>%
+                                        </span>
+                                        <span class="text-muted small">vs Last Month</span>
+                                    </div>
+                                </div>
+                                <div class="kpi-icon-bg bg-danger-light rounded-3 p-2 text-danger">
+                                    <i class="fa fa-warning fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg">
+                        <div class="card h-100 border-0 shadow-sm rounded-3 p-3 kpi-card">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted small fw-semibold">In / Out (This Month)</span>
+                                    <div class="mt-2 mb-1">
+                                        <div class="d-flex gap-2">
+                                            <span class="fw-bold text-success small">In: </span>
+                                            <span class="fw-bold text-dark small" t-out="formatNumber(state.data.kpis.in_out.in)"></span>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <span class="fw-bold text-danger small">Out: </span>
+                                            <span class="fw-bold text-dark small" t-out="formatNumber(state.data.kpis.in_out.out)"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kpi-icon-bg bg-blue-light rounded-3 p-2 text-blue">
+                                    <i class="fa fa-arrows-h fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-12 col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-3 p-3 chart-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fw-bold text-dark fs-5">Inventory Value Over Time</span>
+                                <span class="badge bg-secondary-light text-secondary rounded-pill px-3 py-2 text-capitalize" t-out="state.active_filter.replace('_', ' ')"></span>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas t-ref="lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-3 p-3 chart-card h-100 d-flex flex-column">
+                            <div class="mb-3 flex-shrink-0">
+                                <span class="fw-bold text-dark fs-5">Inventory by Product Category</span>
+                            </div>
+                            <div class="d-flex flex-row align-items-center justify-content-between gap-2 w-100 flex-grow-1">
+                                <div class="chart-container doughnut-wrapper flex-shrink-0" style="position: relative; height: 180px; width: 180px;">
+                                    <canvas t-ref="donutChart"></canvas>
+                                    <div class="doughnut-center text-center">
+                                        <span class="text-muted d-block" style="font-size: 0.7rem;">Total Value</span>
+                                        <span class="fw-bold text-dark" style="font-size: 0.9rem;" t-out="formattedTotalValue"></span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow-1 overflow-auto" style="max-height: 200px;">
+                                    <div class="d-flex flex-column gap-2">
+                                        <t t-foreach="categoryBreakdown" t-as="cat" t-key="cat.id">
+                                            <div class="d-flex align-items-center justify-content-between gap-1 small cursor-pointer legend-row py-1 px-2" t-on-click="() => this.openCategoryProducts(cat.id, cat.name)">
+                                                <div class="d-flex align-items-center gap-2 text-truncate" style="font-size: 0.72rem;">
+                                                    <span class="legend-dot rounded-circle" t-attf-style="background-color: #{cat.color};"></span>
+                                                    <span class="text-dark text-truncate fw-semibold" t-out="cat.name"></span>
+                                                </div>
+                                                <span class="fw-bold text-muted flex-shrink-0" style="font-size: 0.72rem;">
+                                                    <t t-out="cat.formatted_value"/> (<t t-out="cat.percentage"/>%)
+                                                </span>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-3 p-3 table-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fw-bold text-dark fs-5">Top 5 Products by Value</span>
+                            </div>
+                            <div class="table-responsive flex-grow-1">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr class="small text-muted text-uppercase">
+                                            <th style="width: 50%;">Product</th>
+                                            <th class="text-end" style="width: 25%;">On Hand</th>
+                                            <th class="text-end" style="width: 25%;">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="state.data.top_products" t-as="p" t-key="p.id">
+                                            <tr>
+                                                <td class="cursor-pointer" t-on-click="() => this.openProductForm(p.id)">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <img t-attf-src="/web/image/product.template/#{p.tmpl_id}/image_128" class="rounded border p-1" style="width: 32px; height: 32px; object-fit: cover;" onerror="this.src='/web/static/img/placeholder.png'"/>
+                                                        <span class="fw-semibold text-dark text-truncate d-block" style="max-width: 240px;" t-out="p.name"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-end fw-semibold text-muted" t-out="formatNumber(p.qty_on_hand)"></td>
+                                                <td class="text-end fw-bold text-dark" t-out="formatCurrency(p.value)"></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-start mt-3 pt-2 border-top">
+                                <button class="btn btn-link btn-sm text-primary p-0 d-flex align-items-center gap-1 fw-bold text-decoration-none" t-on-click="viewProducts">
+                                    View all products <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-3 p-3 table-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fw-bold text-dark fs-5">Stock by Location</span>
+                            </div>
+                            <div class="table-responsive flex-grow-1">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr class="small text-muted text-uppercase">
+                                            <th style="width: 45%;">Location</th>
+                                            <th class="text-end" style="width: 25%;">Quantity</th>
+                                            <th class="text-end" style="width: 30%;">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="state.data.locations" t-as="loc" t-key="loc.id">
+                                            <tr>
+                                                <td class="cursor-pointer" t-on-click="() => this.openLocationQuants(loc.id, loc.name)">
+                                                    <span class="fw-semibold text-dark text-truncate d-block" style="max-width: 200px;" t-out="loc.name"></span>
+                                                </td>
+                                                <td class="text-end fw-semibold text-muted" t-out="formatNumber(loc.qty)"></td>
+                                                <td class="text-end fw-bold text-dark">
+                                                    <span t-out="formatCurrency(loc.value)"></span>
+
+                                                    <div class="progress mt-1" style="height: 4px;">
+                                                        <div class="progress-bar bg-purple" role="progressbar" t-attf-style="width: #{(loc.value / (state.data.kpis.total_value.value || 1.0)) * 100}%;"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-start mt-3 pt-2 border-top">
+                                <button class="btn btn-link btn-sm text-primary p-0 d-flex align-items-center gap-1 fw-bold text-decoration-none" t-on-click="viewLocations">
+                                    View all locations <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-3 p-3 table-card h-100 d-flex flex-column">
+                            <div class="mb-3">
+                                <span class="fw-bold text-dark fs-5">In / Out (This Month)</span>
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <div class="p-2 border rounded bg-light cursor-pointer shadow-hover" t-on-click="clickIncomingMoves">
+                                        <span class="text-muted small fw-semibold d-block">Incoming (In)</span>
+                                        <span class="fw-bold text-success fs-5" t-out="formatNumber(state.data.kpis.in_out.in)"></span>
+                                        <div class="text-muted small">
+                                            vs LM <span t-att-class="state.data.kpis.in_out.in_trend >= 0 ? 'text-success' : 'text-danger'"><i t-att-class="state.data.kpis.in_out.in_trend >= 0 ? 'fa fa-arrow-up' : 'fa fa-arrow-down'"></i> <t t-out="Math.abs(state.data.kpis.in_out.in_trend)"/>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-2 border rounded bg-light cursor-pointer shadow-hover" t-on-click="clickOutgoingMoves">
+                                        <span class="text-muted small fw-semibold d-block">Outgoing (Out)</span>
+                                        <span class="fw-bold text-danger fs-5" t-out="formatNumber(state.data.kpis.in_out.out)"></span>
+                                        <div class="text-muted small">
+                                            vs LM <span t-att-class="state.data.kpis.in_out.out_trend >= 0 ? 'text-danger' : 'text-success'"><i t-att-class="state.data.kpis.in_out.out_trend >= 0 ? 'fa fa-arrow-down' : 'fa fa-arrow-up'"></i> <t t-out="Math.abs(state.data.kpis.in_out.out_trend)"/>%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="fw-bold text-dark small text-uppercase mb-2 d-block">Top 5 Product Moves</span>
+
+                            <div class="table-responsive flex-grow-1">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr class="small text-muted text-uppercase">
+                                            <th style="width: 40%;">Product</th>
+                                            <th class="text-end" style="width: 20%;">In</th>
+                                            <th class="text-end" style="width: 20%;">Out</th>
+                                            <th class="text-end" style="width: 20%;">Net</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="state.data.product_moves" t-as="pm" t-key="pm.id">
+                                            <tr>
+                                                <td class="cursor-pointer" t-on-click="() => this.openProductMoves(pm.id, pm.name)">
+                                                    <span class="fw-semibold text-dark text-truncate d-block" style="max-width: 180px;" t-out="pm.name"></span>
+                                                </td>
+                                                <td class="text-end fw-semibold text-success" t-out="formatNumber(pm.in)"></td>
+                                                <td class="text-end fw-semibold text-danger" t-out="formatNumber(pm.out)"></td>
+                                                <td class="text-end fw-bold" t-att-class="pm.net >= 0 ? 'text-success' : 'text-danger'" t-out="formatNumber(pm.net)"></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="text-start mt-3 pt-2 border-top">
+                                <button class="btn btn-link btn-sm text-primary p-0 d-flex align-items-center gap-1 fw-bold text-decoration-none" t-on-click="viewMoves">
+                                    View detailed moves <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
+
