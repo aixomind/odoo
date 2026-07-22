@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_l4e_inventory_dashboard" model="ir.actions.client">
+        <field name="name">Inventory Dashboard</field>
+        <field name="tag">l4e_dashboard_collection.inventory_dashboard</field>
+    </record>
+
+    <record id="product_category_form_view_inherit_l4e" model="ir.ui.view">
+        <field name="name">product.category.form.inherit.l4e.dashboard.collection</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="show_in_dashboard"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
