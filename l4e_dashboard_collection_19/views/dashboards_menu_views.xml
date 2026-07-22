@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_l4e_dashboards_root"
+        name="Dashboards"
+        sequence="5"
+        web_icon="l4e_dashboard_collection_19,static/src/img/home_icon.png"
+    />
+
+    <menuitem
+        id="menu_sale_dashboard"
+        name="Sales Dashboard"
+        parent="menu_l4e_dashboards_root"
+        action="action_sale_dashboard"
+        sequence="1"
+    />
+
+    <menuitem
+        id="menu_l4e_inventory_dashboard"
+        name="Inventory Dashboard"
+        parent="menu_l4e_dashboards_root"
+        action="action_l4e_inventory_dashboard"
+        sequence="2"
+    />
+
+    <menuitem
+        id="menu_financial_dashboard"
+        name="Account Dashboard"
+        parent="menu_l4e_dashboards_root"
+        action="action_financial_dashboard"
+        sequence="3"
+    />
+
+    <menuitem
+        id="menu_amc_dashboard"
+        name="AMC Dashboard"
+        parent="menu_l4e_dashboards_root"
+        action="amc_dashboard_action"
+        sequence="4"
+    />
+</odoo>
