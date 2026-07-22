@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.l4e_dashboard_collection_18</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <field name="is_admin_id_2" invisible="1"/>
+            </xpath>
+            <xpath expr="//app[@name='general_settings']" position="after">
+                <app string="Dashboard Collection" name="l4e_dashboard_collection_18" data-string="Dashboard Collection" groups="base.group_system">
+                    <block title="Dashboard Visibility" name="l4e_dashboard_visibility_block">
+                        <setting string="Sales Dashboard" help="Show Sales Dashboard menu item">
+                            <field name="l4e_show_sales_dashboard"/>
+                        </setting>
+                        <setting string="Inventory Dashboard" help="Show Inventory Dashboard menu item">
+                            <field name="l4e_show_inventory_dashboard"/>
+                        </setting>
+                        <setting string="Account Dashboard" help="Show Account/Financial Dashboard menu item">
+                            <field name="l4e_show_account_dashboard"/>
+                        </setting>
+                        <setting string="AMC Dashboard" help="Show AMC Dashboard menu item">
+                            <field name="l4e_show_amc_dashboard"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_l4e_dashboard_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'l4e_dashboard_collection_18'}</field>
+    </record>
+</odoo>
