@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="amc_dashboard_action" model="ir.actions.client">
+        <field name="name">AMC Dashboard</field>
+        <field name="tag">l4e_dashboard_collection.amc_dashboard</field>
+    </record>
+
+    <record id="edit_project_form_inherit_amc" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.amc</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_amc"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
