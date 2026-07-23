@@ -55,5 +55,14 @@
     },
     'installable': True,
     'application': True,
+    'images': [
+        'static/description/banner.gif',
+        'static/description/home_apps.png',
+        'static/description/screenshot_settings.png',
+        'static/description/screenshot_sale_dashboard.png',
+        'static/description/screenshot_inventory_dashboard.png',
+        'static/description/screenshot_financial_dashboard.png',
+        'static/description/screenshot_amc_dashboard_kpis.png',
+    ],
 }
 
