@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+
+class ProjectProject(models.Model):
+    _inherit = 'project.project'
+
+    is_amc = fields.Boolean(string="Is AMC", default=False)
+
 from datetime import date, datetime, time
 
 class AmcDashboard(models.TransientModel):
@@ -18,13 +24,7 @@ class AmcDashboard(models.TransientModel):
         Task = self.env['project.task']
         SaleOrder = self.env['sale.order']
 
-        sale_orders = SaleOrder.search([
-            ('state', '=', 'sale'),
-            ('order_type', '=', 'amc'),
-            ('project_id', '!=', False),
-        ])
-
-        projects = sale_orders.mapped('project_id').filtered(lambda p: p.is_fsm)
+        projects = Project.search([('is_amc', '=', True)])
         project_ids = projects.ids
 
         base_domain = [('project_id', 'in', project_ids)]
@@ -34,8 +34,19 @@ class AmcDashboard(models.TransientModel):
         if date_to:
             end_dt = datetime.combine(fields.Date.from_string(date_to), time.max)
             base_domain.append(('create_date', '<=', fields.Datetime.to_string(end_dt)))
+        
+        has_employee_field = 'employee_ids' in Task._fields
+        emp_filter = None
         if employee_id:
-            base_domain.append(('employee_ids', 'in', [employee_id]))
+            if has_employee_field:
+                emp_filter = ('employee_ids', 'in', [employee_id])
+            else:
+                user = self.env['hr.employee'].browse(employee_id).user_id
+                if user:
+                    emp_filter = ('user_ids', 'in', [user.id])
+                    
+        if employee_id and emp_filter:
+            base_domain.append(emp_filter)
         if customer_id:
             base_domain.append(('partner_id', '=', customer_id))
 
@@ -48,8 +59,8 @@ class AmcDashboard(models.TransientModel):
         if status_date_to:
             status_end_dt = datetime.combine(fields.Date.from_string(status_date_to), time.max)
             status_domain.append(('create_date', '<=', fields.Datetime.to_string(status_end_dt)))
-        if employee_id:
-            status_domain.append(('employee_ids', 'in', [employee_id]))
+        if employee_id and emp_filter:
+            status_domain.append(emp_filter)
         if customer_id:
             status_domain.append(('partner_id', '=', customer_id))
         status_tasks = Task.search(status_domain)
@@ -61,8 +72,8 @@ class AmcDashboard(models.TransientModel):
         if schedule_date_to:
             schedule_end_dt = datetime.combine(fields.Date.from_string(schedule_date_to), time.max)
             schedule_domain.append(('planned_date_begin', '<=', fields.Datetime.to_string(schedule_end_dt)))
-        if employee_id:
-            schedule_domain.append(('employee_ids', 'in', [employee_id]))
+        if employee_id and emp_filter:
+            schedule_domain.append(emp_filter)
         if customer_id:
             schedule_domain.append(('partner_id', '=', customer_id))
         schedule_tasks = Task.search(schedule_domain)
@@ -121,7 +132,12 @@ class AmcDashboard(models.TransientModel):
                         employee_name = emp.name
                         break
                 if not employee_name:
-                    employee_name = ', '.join(task.employee_ids.mapped('name'))
+                    if has_employee_field:
+                        employee_name = ', '.join(task.employee_ids.mapped('name'))
+                    else:
+                        employee_name = ', '.join(task.user_ids.mapped('name'))
+            elif has_employee_field and task.employee_ids:
+                employee_name = ', '.join(task.employee_ids.mapped('name'))
 
             product_name = ''
             if hasattr(task, 'equipment_id') and task.equipment_id:
@@ -156,7 +172,7 @@ class AmcDashboard(models.TransientModel):
                         'id': emp.id,
                         'name': emp.name,
                     }
-                    for emp in task.employee_ids
+                    for emp in (task.employee_ids if has_employee_field else self.env['hr.employee'].search([('user_id', 'in', task.user_ids.ids)]))
                 ],
                 'status': status,
             })
@@ -211,7 +227,7 @@ class AmcDashboard(models.TransientModel):
     @api.model
     def get_customers(self):
         tasks = self.env['project.task'].search([
-            ('project_id.is_fsm', '=', True),
+            ('project_id.is_amc', '=', True),
             ('partner_id', '!=', False),
         ])
         customers = tasks.mapped('partner_id').sorted(key=lambda partner: partner.name or '')

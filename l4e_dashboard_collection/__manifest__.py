@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'L4E Dashboard Collection',
+    'name': 'All In One dashboard ( Sales , Finance , Inventory, AMC )',
     'version': '18.0.1.0.1',
     'category': 'Extra Tools',
     'summary': 'All-in-one Dashboard Collection: Sales, Inventory, Accounting, and AMC',
@@ -19,9 +19,8 @@
         'stock',
         'stock_account',
         'account',
-        'accountant',
+        'account_accountant',
         'project',
-        'industry_fsm',
         'hr_payroll',
         'hr_payroll_account'
     ],

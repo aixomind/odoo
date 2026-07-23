@@ -1,4 +1,3 @@
-
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, useState, onMounted, onWillUnmount, onWillStart } from "@odoo/owl";
