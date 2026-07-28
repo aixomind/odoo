@@ -1,7 +1,22 @@
 /** @odoo-module **/
-import { Component, onWillStart, useState } from "@odoo/owl";
+import { Component, onWillStart, onMounted, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
+
+function checkIsDarkMode() {
+    try {
+        const matchCookie = document.cookie.split("; ").find(r => r.startsWith("color_scheme="));
+        const cookieScheme = matchCookie ? decodeURIComponent(matchCookie.split("=")[1]) : "";
+        if (cookieScheme === "dark") return true;
+        if (cookieScheme === "light") return false;
+        if (document.documentElement.getAttribute("data-color-scheme") === "dark") return true;
+        if (document.documentElement.getAttribute("data-bs-theme") === "dark") return true;
+        if (document.body.classList.contains("o_dark_user")) return true;
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } catch (e) {
+        return false;
+    }
+}
 
 function saveFilters(filters) {
     const jsonStr = JSON.stringify(filters || {});
@@ -46,7 +61,7 @@ function loadSavedFilters() {
 }
 
 class SalesOfficeDashboard extends Component {
-    static template = "l4e_dashboard_collection.CrmDashboard";
+    static template = "l4e_dashboard_collection.crm_dashboard";
 
     setup() {
         this.orm = useService("orm");
@@ -69,10 +84,30 @@ class SalesOfficeDashboard extends Component {
                 kpi_overdue: currentMonthNum,
                 kpi_today: currentMonthNum,
             },
-            dropdowns: { year: false, month: false, team: false, user: false, kpi_month: false, sales_trend_month: false, pipeline_month: false, team_perf_month: false, recent_won_month: false, top_sp_month: false, top_cust_month: false, activities_month: false },
+            dropdowns: { year: false, team: false, user: false, kpi_month: false },
             data: { kpis: {}, offices: [], teams: [], users: [], performance: [], pipeline: [], lost_reasons: [], people: [] }
         });
         onWillStart(() => this.load());
+        onMounted(() => {
+            this.updateThemeAttribute();
+            if (window.matchMedia) {
+                const mq = window.matchMedia("(prefers-color-scheme: dark)");
+                const listener = () => this.updateThemeAttribute();
+                if (mq.addEventListener) {
+                    mq.addEventListener("change", listener);
+                } else if (mq.addListener) {
+                    mq.addListener(listener);
+                }
+            }
+        });
+    }
+
+    updateThemeAttribute() {
+        const isDark = checkIsDarkMode();
+        const container = document.querySelector(".l4e-dashboard-container");
+        if (container) {
+            container.setAttribute("data-theme", isDark ? "dark" : "light");
+        }
     }
 
     async load() {
@@ -135,12 +170,6 @@ class SalesOfficeDashboard extends Component {
         this.state.dropdowns.team = false;
         this.state.dropdowns.user = false;
         saveFilters(this.state.filters);
-        this.load();
-    }
-
-    setCardFilterValue(key, val) {
-        this.state.card_filters[key] = val;
-        for (const k in this.state.dropdowns) this.state.dropdowns[k] = false;
         this.load();
     }
 
@@ -339,5 +368,7 @@ class SalesOfficeDashboard extends Component {
         }
     }
 }
+
+registry.category("actions").add("l4e_crm_dashboard.overview", SalesOfficeDashboard);
 
 registry.category("actions").add("l4e_dashboard_collection.crm_dashboard", SalesOfficeDashboard);

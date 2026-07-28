@@ -94,23 +94,54 @@ class CrmDashboard(models.TransientModel):
         }
         selected_month_label = month_labels.get(str(m_filter), today.strftime("%B"))
 
-        def _fmt(val):
-            s = currency_info["symbol"]
-            pos = currency_info["position"]
-            formatted = f"{val:,.2f}"
-            return f"{formatted} {s}" if pos == "after" else f"{s}{formatted}"
-
-        def _short_fmt(val):
-            s = currency_info["symbol"]
-            pos = currency_info["position"]
+        def _smart_fmt(val):
+            if val is None:
+                val = 0.0
+            s = currency_info["symbol"] or ""
+            pos = currency_info["position"] or "before"
+            code = (currency_info["name"] or "").upper()
+            is_inr = (code == "INR" or s == "₹")
             abs_v = abs(val)
-            if abs_v >= 1000000:
-                txt = f"{val/1000000:.1f}M"
-            elif abs_v >= 1000:
-                txt = f"{val/1000:.0f}K"
+
+            if is_inr:
+                if abs_v >= 10000000:
+                    num = val / 10000000
+                    num_str = f"{num:.2f}".rstrip("0").rstrip(".")
+                    txt = f"{num_str}Cr"
+                elif abs_v >= 100000:
+                    num = val / 100000
+                    num_str = f"{num:.2f}".rstrip("0").rstrip(".")
+                    txt = f"{num_str}L"
+                elif abs_v >= 1000:
+                    num = val / 1000
+                    num_str = f"{num:.2f}".rstrip("0").rstrip(".")
+                    txt = f"{num_str}K"
+                else:
+                    txt = f"{int(val)}" if val == int(val) else f"{val:,.2f}"
             else:
-                txt = f"{val:,.2f}"
-            return f"{txt} {s}" if pos == "after" else f"{s}{txt}"
+                # All International Currencies (EUR, USD, GBP, CAD, AUD, JPY, AED, SAR, etc.)
+                if abs_v >= 1000000000:
+                    num = val / 1000000000
+                    num_str = f"{num:.2f}".rstrip("0").rstrip(".")
+                    txt = f"{num_str}B"
+                elif abs_v >= 1000000:
+                    num = val / 1000000
+                    num_str = f"{num:.2f}".rstrip("0").rstrip(".")
+                    txt = f"{num_str}M"
+                elif abs_v >= 1000:
+                    num = val / 1000
+                    num_str = f"{num:.2f}".rstrip("0").rstrip(".")
+                    txt = f"{num_str}K"
+                else:
+                    txt = f"{int(val)}" if val == int(val) else f"{val:,.2f}"
+
+            if pos == "after":
+                return f"{txt} {s}".strip()
+            else:
+                return f"{s}{txt}".strip()
+
+        _fmt = _smart_fmt
+        _short_fmt = _smart_fmt
 
         def _build_specific_domains(card_key):
             spec_month = card_filters.get(card_key)
@@ -412,40 +443,43 @@ class CrmDashboard(models.TransientModel):
             })
 
         team_perf_rows.sort(key=lambda x: x["revenue"], reverse=True)
+        team_perf_rows = team_perf_rows[:9]
         max_user_rev = team_perf_rows[0]["revenue"] if team_perf_rows and team_perf_rows[0]["revenue"] > 0 else 1
 
         n_users = len(team_perf_rows)
-        chart_w, chart_h = 500, 200
-        x_axis_y = 155          # baseline y
-        chart_top = 20          # top of chart area
-        chart_area = x_axis_y - chart_top  # 135px usable height
-        stage_colors = ["#818cf8", "#34d399", "#fb923c", "#60a5fa", "#f472b6", "#a78bfa", "#2dd4bf", "#fbbf24"]
+        bar_colors = ["#818cf8", "#34d399", "#fb923c", "#60a5fa", "#f472b6", "#a78bfa", "#2dd4bf", "#fbbf24"]
+
+        # Horizontal bar chart layout
+        bar_h = 24
+        bar_gap = 8
+        name_col_w = 120
+        chart_left = name_col_w + 8
+        chart_right_pad = 70
+        chart_w = 500
+        bar_area_w = chart_w - chart_left - chart_right_pad
+        chart_total_h = n_users * (bar_h + bar_gap) + 16
 
         for idx, row in enumerate(team_perf_rows):
-            if n_users > 1:
-                x = round(60 + idx * ((chart_w - 120) / (n_users - 1)))
-            else:
-                x = round(chart_w / 2)
+            val_pct = row["revenue"] / max_user_rev if max_user_rev > 0 else 0
+            bw = max(6, round(val_pct * bar_area_w))
+            by = 10 + idx * (bar_h + bar_gap)
 
-            val_pct = row["revenue"] / max_user_rev
-            bar_h = max(4, round(val_pct * (chart_area - 20)))  # min 4px so zero bars show
-            bar_y = x_axis_y - bar_h
-            bar_w = max(24, min(48, round((chart_w - 120) / max(n_users, 1) * 0.6)))
-
-            row["x"] = x
-            row["y"] = bar_y
+            row["bar_x"] = chart_left
+            row["bar_y"] = by
+            row["bar_w"] = bw
             row["bar_h"] = bar_h
-            row["bar_y"] = bar_y
-            row["bar_w"] = bar_w
-            row["bar_x"] = x - (bar_w / 2)
-            row["color"] = stage_colors[idx % len(stage_colors)]
+            row["name_x"] = name_col_w
+            row["name_y"] = by + bar_h / 2 + 5
+            row["val_x"] = chart_left + bw + 8
+            row["val_y"] = by + bar_h / 2 + 5
+            row["color"] = bar_colors[idx % len(bar_colors)]
             row["revenue_fmt"] = _fmt(row["revenue"])
-            row["revenue_short"] = _short_fmt(row["revenue"])
-            row["name_short"] = row["name"][:10] + '..' if len(row["name"]) > 12 else row["name"]
+            row["revenue_short"] = _smart_fmt(row["revenue"])
+            row["name_short"] = row["name"][:18] + '..' if len(row["name"]) > 20 else row["name"]
+            row["rank"] = idx + 1
 
         line_path = ""
-        if team_perf_rows:
-            line_path = "M " + " L ".join([f"{r['x']},{r['y']}" for r in team_perf_rows])
+        chart_svg_viewbox = f"0 0 {chart_w} {chart_total_h}" 
 
         # -------------------------------------------------------------
         # 4. Recent Won Orders (Card Specific Filter)
@@ -669,7 +703,9 @@ class CrmDashboard(models.TransientModel):
             "pipeline_details": pipeline_details,
             "sales_team_performance": team_perf_rows,
             "sales_team_performance_line_path": line_path,
-            "sales_team_performance_max_fmt": _short_fmt(max_user_rev) if team_perf_rows else "0",
+            "sales_team_performance_chart_w": chart_w,
+            "chart_svg_viewbox": chart_svg_viewbox,
+            "sales_team_performance_max_fmt": _smart_fmt(max_user_rev) if team_perf_rows else "0",
             "recent_won_orders": recent_won_orders,
             "top_salespersons": top_sp_rows,
             "top_customers": top_customers,

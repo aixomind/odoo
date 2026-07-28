@@ -21,14 +21,15 @@
 #
 ##############################################################################
 {
-    'name': 'All In One dashboard ( Sales , Finance , Inventory, AMC )',
+    'name': 'All In One dashboard ( CRM , Sales , Finance , Inventory, AMC )',
     'version': '19.0.1.0.1',
     'category': 'Extra Tools',
     'summary': 'All-in-one Dashboard Collection: Sales, Inventory, Accounting, and AMC',
     'description': """
         This module consolidates four premium interactive dashboards:
-        1. Sales Dashboard
-        2. Inventory Dashboard
+        1. CRM Dashboard
+        2. Sales Dashboard
+        3. Inventory Dashboard
         3. Accounting Financial Dashboard
         4. AMC (Annual Maintenance Contract) Dashboard
         Visibility of each dashboard can be configured under settings, restricted to the system administrator.
@@ -54,6 +55,7 @@
         'views/financial_dashboard_views.xml',
         'views/amc_dashboard_views.xml',
         'views/crm_sale_views.xml',
+                'views/crm_sale_views.xml',
         'views/crm_dashboard_views.xml',
         'views/dashboards_menu_views.xml',
     ],
@@ -90,6 +92,7 @@
         'static/description/banner.gif',
         'static/description/home_apps.png',
         'static/description/screenshot_settings.png',
+        'static/description/screenshot_crm_dashboard.png',
         'static/description/screenshot_sale_dashboard.png',
         'static/description/screenshot_inventory_dashboard.png',
         'static/description/screenshot_financial_dashboard.png',

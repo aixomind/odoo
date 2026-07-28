@@ -179,5 +179,3 @@ class SaleOrder(models.Model):
             'view_mode': 'list,form',
             'domain': base + extra,
         }
-
-
