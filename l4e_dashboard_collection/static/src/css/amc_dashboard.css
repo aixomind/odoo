@@ -251,10 +251,14 @@
     color: #4a5568;
     cursor: pointer;
     outline: none;
+    width: 120px !important;
+    max-width: 120px !important;
 }
 
 select.amc-chart-period {
-    min-width: 116px;
+    min-width: 120px !important;
+    width: 120px !important;
+    max-width: 120px !important;
 }
 
 .amc-chart-period:hover,

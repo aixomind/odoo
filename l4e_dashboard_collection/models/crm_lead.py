@@ -20,18 +20,25 @@
 # Phone   : +91 471 3592209 | +91 7306889096
 #
 ##############################################################################
-from odoo import models
+from odoo import fields, models
 
 
 class CrmLead(models.Model):
-    """CRM Lead/Opportunity — L4E Dynamic Approval.
+    _inherit = "crm.lead"
 
-    Example rule:
-        Model         : CRM Lead (crm.lead)
-        Trigger Field : Stage (stage_id) or Probability or any field
-        Trigger Value : <stage id or probability value>
-        Conditions    : e.g. Expected Revenue >= 100000
-        Approvers     : Sales Manager group / specific user
-    """
-    _name = 'crm.lead'
-    _inherit = ['crm.lead', 'l4e.approval.mixin']
+    def action_set_lost(self, **kwargs):
+        res = super().action_set_lost(**kwargs)
+        lost_stage = self.env["crm.stage"].search([("name", "ilike", "lost")], limit=1)
+        if lost_stage:
+            self.write({"stage_id": lost_stage.id})
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "active" in vals and not vals["active"]:
+            lost_stage = self.env["crm.stage"].search([("name", "ilike", "lost")], limit=1)
+            if lost_stage:
+                to_update = self.filtered(lambda l: l.stage_id != lost_stage)
+                if to_update:
+                    super(CrmLead, to_update).write({"stage_id": lost_stage.id})
+        return res

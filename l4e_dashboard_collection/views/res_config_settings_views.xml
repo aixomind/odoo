@@ -12,6 +12,9 @@
             <xpath expr="//app[@name='general_settings']" position="after">
                 <app string="Dashboard Collection" name="l4e_dashboard_collection" data-string="Dashboard Collection" groups="base.group_system">
                     <block title="Dashboard Visibility" name="l4e_dashboard_visibility_block">
+                        <setting string="CRM Dashboard" help="Show CRM Dashboard menu item">
+                            <field name="l4e_show_crm_dashboard"/>
+                        </setting>
                         <setting string="Sales Dashboard" help="Show Sales Dashboard menu item">
                             <field name="l4e_show_sales_dashboard"/>
                         </setting>
@@ -39,4 +42,3 @@
         <field name="context">{'module': 'l4e_dashboard_collection'}</field>
     </record>
 </odoo>
-

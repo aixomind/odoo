@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
@@ -19,6 +40,7 @@ class FinancialDashboard(models.AbstractModel):
 
     SALARY_STATE_CONFIG = [
         ("draft", "Draft", "#fff8e7", "#f59f00", "fa-file-text-o"),
+        ("verify", "Waiting", "#fff4ed", "#f97316", "fa-clock-o"),
         ("done", "Waiting", "#fff4ed", "#f97316", "fa-clock-o"),
         ("paid", "Paid", "#edfdf3", "#0f9d58", "fa-check-circle-o"),
         ("cancel", "Cancelled", "#f8fafc", "#334155", "fa-times-circle-o"),
@@ -367,7 +389,7 @@ class FinancialDashboard(models.AbstractModel):
             "sub_label": "Employees",
         }]
         for key, label, background, color, icon in self.SALARY_STATE_CONFIG:
-            state_slips = slips.filtered(lambda slip, target=key: slip.state == target)
+            state_slips = slips.filtered(lambda slip, target=key: slip.state in ("verify", "done") if target == "verify" else slip.state == target)
             lines = PayslipLine.search([
                 ("zip_id", "in", state_slips.ids) if "zip_id" in PayslipLine._fields else ("slip_id", "in", state_slips.ids),
                 ("salary_rule_id.category_id.code", "=", "NET"),
