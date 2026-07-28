@@ -20,7 +20,6 @@
 # Phone   : +91 471 3592209 | +91 7306889096
 #
 ##############################################################################
-# ── Dynamic Approval Engine (new) ─────────────────────────────────────────────
 from . import approval_rule            # l4e.approval.rule + condition + approver config
 from . import approval_mixin           # abstract mixin — must load before models that use it
 from . import approval_record_request  # l4e.approval.record.request + approver lines
