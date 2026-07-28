@@ -12,9 +12,9 @@
             <div class="amc-header-right">
                 <div class="amc-date-picker">
                     <span>&#128197;</span>
-                    <input type="date" t-att-value="state.dateFrom" t-on-change="onDateFromChange"/>
+                    <input type="date" t-att-value="state.dateFrom" t-att-max="state.dateTo" t-on-change="onDateFromChange"/>
                     <span>-</span>
-                    <input type="date" t-att-value="state.dateTo" t-on-change="onDateToChange"/>
+                    <input type="date" t-att-value="state.dateTo" t-att-min="state.dateFrom" t-on-change="onDateToChange"/>
                 </div>
                 <button class="amc-btn-new" t-on-click="onFilter">Apply</button>
             </div>
@@ -111,6 +111,7 @@
                         <div class="amc-chart-card-header">
                             <span class="amc-chart-title">Service Status Distribution</span>
                             <select class="amc-chart-period" t-att-value="state.statusPeriod" t-on-change="onStatusPeriodChange">
+                                <option value="custom" t-if="state.statusPeriod === 'custom'">Custom</option>
                                 <option value="month">This Month</option>
                                 <option value="quarter">This Quarter</option>
                                 <option value="year">This Year</option>
@@ -153,6 +154,7 @@
                         <div class="amc-chart-card-header">
                             <span class="amc-chart-title">Services Scheduled Per Month</span>
                             <select class="amc-chart-period" t-att-value="state.schedulePeriod" t-on-change="onSchedulePeriodChange">
+                                <option value="custom" t-if="state.schedulePeriod === 'custom'">Custom</option>
                                 <option value="month">This Month</option>
                                 <option value="quarter">This Quarter</option>
                                 <option value="year">This Year</option>

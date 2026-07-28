@@ -1,9 +1,33 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
+import logging
 
-class FinancialDashboard(models.AbstractModel):
+_logger = logging.getLogger(__name__)
+
+class FinancialDashboard(models.TransientModel):
     _name = "financial.dashboard"
     _description = "Financial Dashboard"
 
@@ -19,7 +43,7 @@ class FinancialDashboard(models.AbstractModel):
 
     SALARY_STATE_CONFIG = [
         ("draft", "Draft", "#fff8e7", "#f59f00", "fa-file-text-o"),
-        ("done", "Waiting", "#fff4ed", "#f97316", "fa-clock-o"),
+        ("verify", "Waiting", "#fff4ed", "#f97316", "fa-clock-o"),
         ("paid", "Paid", "#edfdf3", "#0f9d58", "fa-check-circle-o"),
         ("cancel", "Cancelled", "#f8fafc", "#334155", "fa-times-circle-o"),
     ]
@@ -44,19 +68,19 @@ class FinancialDashboard(models.AbstractModel):
             "description": "Compares debt, equity, and long-term financial stability",
         },
         "efficiency": {
-            "label": "Efficiency",
-            "icon": "fa-tachometer",
-            "color": "#f97316",
-            "description": "Highlights how effectively assets and working capital are used",
+            "label": "Efficiency Metrics",
+            "icon": "fa-cogs",
+            "color": "#f59f00",
+            "description": "Evaluates how effectively resources generate turnover",
         },
         "valuation": {
-            "label": "Valuation",
+            "label": "Valuation Metrics",
             "icon": "fa-line-chart",
-            "color": "#0f9d58",
-            "description": "Summarizes headline value indicators from the ledger",
+            "color": "#0284c7",
+            "description": "Summarizes overall financial scale and asset backing",
         },
         "cash_flow": {
-            "label": "Cash Flow",
+            "label": "Cash Flow Metrics",
             "icon": "fa-money",
             "color": "#d97706",
             "description": "Shows cash received, spent, and closing bank position",
@@ -70,37 +94,43 @@ class FinancialDashboard(models.AbstractModel):
     }
 
     @api.model
-    def get_dashboard_data(self, period="this_year", category="profitability", filters=None, metric_period=None, metric_date_from=False, metric_date_to=False):
+    def get_dashboard_data(self, period="this_year", category="profitability", filters=None, metric_period=None, metric_date_from=False, metric_date_to=False, **kwargs):
         filters = filters or {}
         company = self.env.company
         sale_filters = self._get_card_filters(filters, "sale")
         salary_filters = self._get_card_filters(filters, "salary")
         purchase_filters = self._get_card_filters(filters, "purchase")
+
         sale_date_from, sale_date_to = self._get_date_range(period, sale_filters.get("date_from"), sale_filters.get("date_to"))
         salary_date_from, salary_date_to = self._get_date_range(period, salary_filters.get("date_from"), salary_filters.get("date_to"))
         purchase_date_from, purchase_date_to = self._get_date_range(period, purchase_filters.get("date_from"), purchase_filters.get("date_to"))
-        metric_date_from, metric_date_to = self._get_date_range(metric_period, metric_date_from, metric_date_to)
+
+        m_date_from, m_date_to = self._get_date_range(metric_period or period, metric_date_from, metric_date_to)
         category = category if category in self.CATEGORY_CONFIG else "profitability"
 
+        cards = [
+            self._get_invoice_summary("sale", sale_date_from, sale_date_to, sale_filters),
+            self._get_salary_summary(salary_date_from, salary_date_to, salary_filters),
+            self._get_invoice_summary("purchase", purchase_date_from, purchase_date_to, purchase_filters),
+        ]
+
         return {
-            "cards": [
-                self._get_invoice_summary("sale", sale_date_from, sale_date_to, sale_filters),
-                self._get_salary_summary(salary_date_from, salary_date_to, salary_filters),
-                self._get_invoice_summary("purchase", purchase_date_from, purchase_date_to, purchase_filters),
-            ],
+            "cards": cards,
             "categories": self._get_categories(),
             "selected_category": category,
-            "metrics": self._get_financial_metrics(category, metric_date_from, metric_date_to),
+            "metrics": self._get_financial_metrics(category, m_date_from, m_date_to),
             "period": {
                 "key": period,
-                "date_from": fields.Date.to_string(metric_date_from) if metric_date_from else False,
-                "date_to": fields.Date.to_string(metric_date_to) if metric_date_to else False,
+                "date_from": fields.Date.to_string(m_date_from) if m_date_from else False,
+                "date_to": fields.Date.to_string(m_date_to) if m_date_to else False,
             },
-            "updated_at": fields.Datetime.context_timestamp(self, datetime.now()).strftime("%d %b %Y %I:%M %p"),
             "currency": {
-                "symbol": company.currency_id.symbol or "",
-                "position": company.currency_id.position,
+                "symbol": company.currency_id.symbol or "$",
+                "code": company.currency_id.name or "USD",
+                "position": company.currency_id.position or "before",
             },
+            "currency_symbol": company.currency_id.symbol or "$",
+            "currency_code": company.currency_id.name or "USD",
         }
 
     @api.model
@@ -119,41 +149,19 @@ class FinancialDashboard(models.AbstractModel):
     @api.model
     def get_filter_options(self):
         partners = self.env["res.partner"].sudo()
-
-        years = []
-        try:
-            self.env.cr.execute("""
-                SELECT DISTINCT EXTRACT(YEAR FROM date) AS year
-                FROM account_move
-                WHERE state = 'posted' AND company_id = %s
-            """, [self.env.company.id])
-            years = [int(r[0]) for r in self.env.cr.fetchall() if r[0]]
-
-            if "hr.payslip" in self.env:
-                self.env.cr.execute("""
-                    SELECT DISTINCT EXTRACT(YEAR FROM date_from) AS year
-                    FROM hr_payslip
-                    WHERE state = 'done' AND company_id = %s
-                """, [self.env.company.id])
-                years.extend([int(r[0]) for r in self.env.cr.fetchall() if r[0]])
-        except Exception as e:
-            pass
-
-        years = sorted(list(set(years)), reverse=True)
         current_year = date.today().year
-        if current_year not in years:
-            years.insert(0, current_year)
+        years = [str(y) for y in range(current_year, current_year - 5, -1)]
 
         return {
             "years": years,
             "customers": partners.search_read(
-                [("customer_rank", ">", 0), ("active", "=", True), ("is_company", "=", True)],
+                [("parent_id", "=", False), ("active", "=", True)],
                 ["id", "name"],
                 limit=250,
                 order="name asc",
             ),
             "vendors": partners.search_read(
-                [("supplier_rank", ">", 0), ("active", "=", True), ("is_company", "=", True)],
+                [("parent_id", "=", False), ("active", "=", True)],
                 ["id", "name"],
                 limit=250,
                 order="name asc",
@@ -181,31 +189,37 @@ class FinancialDashboard(models.AbstractModel):
     @api.model
     def action_open_invoice_records(self, journal_type, status_key=False, period="this_year", filters=None):
         filters = filters or {}
-        date_from, date_to = self._get_date_range(period, filters.get("date_from"), filters.get("date_to"))
-        move_types = ["out_invoice", "out_refund"] if journal_type == "sale" else ["in_invoice", "in_refund"]
+        card_type = "sale" if journal_type in ("sale", "out_invoice") else "purchase"
+        card_filters = self._get_card_filters(filters, card_type)
+        date_from, date_to = self._get_date_range(period, card_filters.get("date_from"), card_filters.get("date_to"))
+        
+        move_types = ["out_invoice", "out_refund"] if journal_type in ("sale", "out_invoice") else ["in_invoice", "in_refund"]
         domain = [
-            ("state", "=", "posted"),
             ("move_type", "in", move_types),
+            ("state", "=", "posted"),
             ("company_id", "=", self.env.company.id),
-        ] + self._invoice_domain_filters(journal_type, date_from, date_to, filters)
-        if status_key and status_key != "total":
+        ] + self._invoice_domain_filters(card_type, date_from, date_to, card_filters)
+
+        if status_key and status_key not in ("total", "total_invoices", "total_expenses"):
             domain.append(("payment_state", "=", status_key))
 
         return {
             "type": "ir.actions.act_window",
-            "name": _("Customer Invoices") if journal_type == "sale" else _("Vendor Bills"),
+            "name": _("Customer Invoices") if journal_type in ("sale", "out_invoice") else _("Vendor Bills"),
             "res_model": "account.move",
             "views": [(False, "list"), (False, "form")],
             "view_mode": "list,form",
             "domain": domain,
-            "context": {"default_move_type": "out_invoice" if journal_type == "sale" else "in_invoice"},
+            "context": {"default_move_type": "out_invoice" if journal_type in ("sale", "out_invoice") else "in_invoice"},
         }
 
     @api.model
     def action_open_salary_records(self, status_key=False, period="this_year", filters=None):
         filters = filters or {}
-        date_from, date_to = self._get_date_range(period, filters.get("date_from"), filters.get("date_to"))
-        domain = self._salary_domain(date_from, date_to, filters)
+        card_filters = self._get_card_filters(filters, "salary")
+        date_from, date_to = self._get_date_range(period, card_filters.get("date_from"), card_filters.get("date_to"))
+        domain = self._salary_domain(date_from, date_to, card_filters)
+
         if isinstance(status_key, str) and status_key.startswith("rule_"):
             rule_code = status_key[5:]
             slips = self.env["hr.payslip"].search(domain + [("state", "!=", "cancel")])
@@ -221,9 +235,12 @@ class FinancialDashboard(models.AbstractModel):
                 ],
             }
         if status_key == "total_net":
-            domain.append(("state", "in", ["draft", "done", "paid"]))
+            domain.append(("state", "in", ["draft", "verify", "done", "paid"]))
+        elif status_key in ("verify", "waiting", "done"):
+            domain.append(("state", "in", ["verify", "done", "waiting", "validated"]))
         elif status_key:
             domain.append(("state", "=", status_key))
+
         return {
             "type": "ir.actions.act_window",
             "name": _("Salaries"),
@@ -245,24 +262,26 @@ class FinancialDashboard(models.AbstractModel):
         if date_from or date_to:
             return (fields.Date.to_date(date_from) if date_from else False,
                     fields.Date.to_date(date_to) if date_to else False)
-        if period == "all":
+        if not period or period == "all":
             return False, False
         if str(period).isdigit():
-            year_val = int(period)
-            return date(year_val, 1, 1), date(year_val, 12, 31)
+            y = int(period)
+            return date(y, 1, 1), date(y, 12, 31)
         if period == "today":
             return today, today
         if period == "this_week":
             start = today - timedelta(days=today.weekday())
             return start, start + timedelta(days=6)
+        if period == "this_month":
+            start = today.replace(day=1)
+            return start, today
         if period == "this_quarter":
-            start_month = ((today.month - 1) // 3) * 3 + 1
-            start = today.replace(month=start_month, day=1)
-            return start, start + relativedelta(months=3, days=-1)
+            qm = ((today.month - 1) // 3) * 3 + 1
+            start = today.replace(month=qm, day=1)
+            return start, today
         if period == "this_year":
             return today.replace(month=1, day=1), today.replace(month=12, day=31)
-        start = today.replace(day=1)
-        return start, start + relativedelta(months=1, days=-1)
+        return False, False
 
     def _invoice_domain_filters(self, journal_type, date_from, date_to, filters):
         domain = []
@@ -270,9 +289,9 @@ class FinancialDashboard(models.AbstractModel):
             domain.append(("invoice_date", ">=", fields.Date.to_string(date_from)))
         if date_to:
             domain.append(("invoice_date", "<=", fields.Date.to_string(date_to)))
-        if journal_type == "sale" and filters.get("customer_id"):
+        if journal_type in ("sale", "out_invoice") and filters.get("customer_id"):
             domain.append(("partner_id", "=", int(filters["customer_id"])))
-        if journal_type == "purchase" and filters.get("vendor_id"):
+        if journal_type in ("purchase", "in_invoice") and filters.get("vendor_id"):
             domain.append(("partner_id", "=", int(filters["vendor_id"])))
         if filters.get("user_id"):
             domain.append(("invoice_user_id", "=", int(filters["user_id"])))
@@ -280,7 +299,7 @@ class FinancialDashboard(models.AbstractModel):
 
     def _get_invoice_summary(self, journal_type, date_from, date_to, filters):
         Move = self.env["account.move"]
-        move_types = ["out_invoice", "out_refund"] if journal_type == "sale" else ["in_invoice", "in_refund"]
+        move_types = ["out_invoice", "out_refund"] if journal_type in ("sale", "out_invoice") else ["in_invoice", "in_refund"]
         base_domain = [
             ("state", "=", "posted"),
             ("move_type", "in", move_types),
@@ -296,49 +315,54 @@ class FinancialDashboard(models.AbstractModel):
                 "key": key,
                 "label": label,
                 "count": len(records),
-                "amount": amount,
+                "amount": abs(amount),
                 "amount_formatted": self._format_amount(abs(amount), currency),
                 "background": background,
                 "color": color,
                 "icon": icon,
             })
 
-        all_records = Move.search(base_domain)
-        if journal_type == "sale":
-            total_amount = sum(all_records.line_ids.mapped("credit")) if all_records else 0.0
-        else:
-            total_amount = sum(all_records.line_ids.mapped("debit")) if all_records else 0.0
-
+        all_moves = Move.search(base_domain)
+        tot_amount = sum(all_moves.mapped("amount_total")) if all_moves else 0.0
+        tot_label = "Total Invoices" if journal_type in ("sale", "out_invoice") else "Total Expenses"
         stats.append({
             "key": "total",
-            "label": "Total Invoices" if journal_type == "sale" else "Total Expenses",
-            "count": len(all_records),
-            "amount": total_amount,
-            "amount_formatted": self._format_amount(abs(total_amount), currency),
-            "background": "#fff1f2" if journal_type == "purchase" else "#f5efff",
-            "color": "#dc3545" if journal_type == "purchase" else "#6d4aff",
-            "icon": "fa-files-o" if journal_type == "sale" else "fa-file-text-o",
+            "label": tot_label,
+            "count": len(all_moves),
+            "amount": abs(tot_amount),
+            "amount_formatted": self._format_amount(abs(tot_amount), currency),
+            "background": "#f8fafc",
+            "color": "#334155",
+            "icon": "fa-file-text-o",
         })
 
         return {
-            "type": journal_type,
-            "title": "Customer Invoices" if journal_type == "sale" else "Vendor Bills",
-            "icon": "fa-file-text-o",
-            "accent": "#16a163" if journal_type == "sale" else "#2563eb",
+            "type": "sale" if journal_type in ("sale", "out_invoice") else "purchase",
+            "title": "Customer Invoices" if journal_type in ("sale", "out_invoice") else "Vendor Bills",
+            "icon": "fa-arrow-down" if journal_type in ("sale", "out_invoice") else "fa-arrow-up",
+            "accent": "#16a163" if journal_type in ("sale", "out_invoice") else "#2563eb",
             "stats": stats,
-            "document_label": "Invoice" if journal_type == "sale" else "Bill",
+            "document_label": "Invoice" if journal_type in ("sale", "out_invoice") else "Bill",
         }
 
     def _salary_domain(self, date_from, date_to, filters):
-        domain = [("company_id", "=", self.env.company.id)]
+        domain = ['|', ("company_id", "=", self.env.company.id), ("company_id", "=", False)]
         if date_from:
-            domain.append(("date_from", ">=", fields.Date.to_string(date_from)))
+            domain.append(("date_to", ">=", fields.Date.to_string(date_from)))
         if date_to:
             domain.append(("date_from", "<=", fields.Date.to_string(date_to)))
-        if filters.get("employee_id"):
-            domain.append(("employee_id", "=", int(filters["employee_id"])))
-        if filters.get("department_id"):
-            domain.append(("department_id", "=", int(filters["department_id"])))
+        if filters and filters.get("employee_id"):
+            try:
+                emp_id = int(filters["employee_id"])
+                domain.append(("employee_id", "=", emp_id))
+            except (ValueError, TypeError):
+                pass
+        if filters and filters.get("department_id"):
+            try:
+                dept_id = int(filters["department_id"])
+                domain.append(("department_id", "=", dept_id))
+            except (ValueError, TypeError):
+                pass
         return domain
 
     def _get_salary_summary(self, date_from, date_to, filters):
@@ -349,12 +373,25 @@ class FinancialDashboard(models.AbstractModel):
         PayslipLine = self.env["hr.payslip.line"]
         slips = Payslip.search(self._salary_domain(date_from, date_to, filters))
         currency = self.env.company.currency_id
-        net_slips = slips.filtered(lambda slip: slip.state in ("draft", "done", "paid"))
-        net_lines = PayslipLine.search([
-            ("zip_id", "in", net_slips.ids) if "zip_id" in PayslipLine._fields else ("slip_id", "in", net_slips.ids),
-            ("salary_rule_id.category_id.code", "=", "NET"),
-        ])
-        net_total = sum(net_lines.mapped("total")) if net_lines else 0.0
+
+        net_slips = slips.filtered(lambda slip: slip.state in ("draft", "verify", "done", "paid"))
+        net_total = 0.0
+        for slip in net_slips:
+            net_lines = PayslipLine.search([
+                ("zip_id", "=", slip.id) if "zip_id" in PayslipLine._fields else ("slip_id", "=", slip.id),
+                ("salary_rule_id.category_id.code", "=", "NET"),
+            ])
+            if net_lines:
+                net_total += sum(net_lines.mapped("total"))
+            elif hasattr(slip, 'net_wage') and slip.net_wage:
+                net_total += slip.net_wage
+            elif hasattr(slip, 'basic_wage') and slip.basic_wage:
+                net_total += slip.basic_wage
+            elif slip.line_ids:
+                net_total += sum(slip.line_ids.mapped("total"))
+            elif hasattr(slip, 'contract_id') and slip.contract_id and hasattr(slip.contract_id, 'wage'):
+                net_total += slip.contract_id.wage
+
         stats = [{
             "key": "total_net",
             "label": "Net Salary",
@@ -366,13 +403,26 @@ class FinancialDashboard(models.AbstractModel):
             "icon": "fa-money",
             "sub_label": "Employees",
         }]
+
         for key, label, background, color, icon in self.SALARY_STATE_CONFIG:
-            state_slips = slips.filtered(lambda slip, target=key: slip.state == target)
-            lines = PayslipLine.search([
-                ("zip_id", "in", state_slips.ids) if "zip_id" in PayslipLine._fields else ("slip_id", "in", state_slips.ids),
-                ("salary_rule_id.category_id.code", "=", "NET"),
-            ])
-            total = sum(lines.mapped("total")) if lines else 0.0
+            state_slips = slips.filtered(lambda slip, target=key: slip.state in ("verify", "done", "waiting", "validated") if target in ("verify", "waiting") else slip.state == target)
+            total = 0.0
+            for slip in state_slips:
+                lines = PayslipLine.search([
+                    ("zip_id", "=", slip.id) if "zip_id" in PayslipLine._fields else ("slip_id", "=", slip.id),
+                    ("salary_rule_id.category_id.code", "=", "NET"),
+                ])
+                if lines:
+                    total += sum(lines.mapped("total"))
+                elif hasattr(slip, 'net_wage') and slip.net_wage:
+                    total += slip.net_wage
+                elif hasattr(slip, 'basic_wage') and slip.basic_wage:
+                    total += slip.basic_wage
+                elif slip.line_ids:
+                    total += sum(slip.line_ids.mapped("total"))
+                elif hasattr(slip, 'contract_id') and slip.contract_id and hasattr(slip.contract_id, 'wage'):
+                    total += slip.contract_id.wage
+
             stats.append({
                 "key": key,
                 "label": label,
@@ -414,19 +464,22 @@ class FinancialDashboard(models.AbstractModel):
             "icon": "fa-user-o",
             "accent": "#6d4aff",
             "stats": stats,
+            "document_label": "Payslip",
         }
 
-    def _get_indicators(self, sums, previous_sums=None):
-        revenue = -sums["income"]
-        cogs = sums["cogs"]
-        expenses = sums["expenses"]
+    def _get_indicators(self, sums, base_sums=None):
+        revenue = abs(sums["income"])
+        cogs = abs(sums["cogs"])
+        expenses = abs(sums["expenses"])
         gross_profit = revenue - cogs
         net_profit = gross_profit - expenses
-        ebitda = net_profit + sums["depreciation"]
+        ebitda = net_profit + abs(sums["depreciation"])
 
-        current_ratio = self._ratio(sums["current_assets"], sums["current_liabilities"])
-        quick_ratio = self._ratio(sums["cash"] + sums["receivables"], sums["current_liabilities"])
-        working_capital = sums["current_assets"] - sums["current_liabilities"]
+        current_assets = sums["current_assets"]
+        current_liabilities = sums["current_liabilities"]
+        current_ratio = self._ratio(current_assets, current_liabilities)
+        quick_ratio = self._ratio(sums["cash"] + sums["receivables"], current_liabilities)
+        working_capital = current_assets - current_liabilities
 
         debt_to_equity = self._ratio(sums["liabilities"], sums["equity"])
         debt_ratio = self._ratio(sums["liabilities"], sums["assets"])
@@ -435,7 +488,7 @@ class FinancialDashboard(models.AbstractModel):
 
         asset_turnover = self._ratio(revenue, sums["assets"])
         receivables_turnover = self._ratio(revenue, sums["receivables"])
-        payables_coverage = self._ratio(expenses + cogs, sums["payables"])
+        payables_coverage = self._ratio(cogs + expenses, sums["payables"])
         operating_expense_ratio = self._percent(expenses, revenue)
 
         roa = self._percent(net_profit, sums["assets"])
@@ -443,8 +496,9 @@ class FinancialDashboard(models.AbstractModel):
         ror = self._percent(net_profit, revenue)
         gross_return = self._percent(gross_profit, revenue)
 
-        previous_revenue = -previous_sums["income"] if previous_sums else 0.0
-        revenue_growth = self._percent(revenue, previous_revenue, growth=True) if previous_sums else 0.0
+        revenue_growth = 0.0
+        if base_sums and base_sums.get("income"):
+            revenue_growth = self._percent(sums["income"], base_sums["income"], growth=True)
 
         return {
             "revenue": revenue,

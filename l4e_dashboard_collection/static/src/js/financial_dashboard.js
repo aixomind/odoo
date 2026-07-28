@@ -76,13 +76,19 @@ export class FinancialDashboard extends Component {
     }
 
     async loadOptions() {
-        this.state.options = await this.orm.call("financial.dashboard", "get_filter_options", []);
+        try {
+            const opts = await this.orm.call("financial.dashboard", "get_filter_options", []);
+            this.state.options = opts || { years: [], customers: [], vendors: [], users: [], employees: [], departments: [] };
+        } catch (e) {
+            console.error("Failed to load options", e);
+            this.state.options = { years: [], customers: [], vendors: [], users: [], employees: [], departments: [] };
+        }
     }
 
     async loadDashboard() {
         this.state.loading = true;
         try {
-            this.state.data = await this.orm.call(
+            const result = await this.orm.call(
                 "financial.dashboard",
                 "get_dashboard_data",
                 [],
@@ -92,8 +98,13 @@ export class FinancialDashboard extends Component {
                     filters: this.rpcFilters,
                 }
             );
+            this.state.data = result || { cards: [], categories: [], metrics: [] };
+            if (!this.state.data.cards) this.state.data.cards = [];
+            if (!this.state.data.categories) this.state.data.categories = [];
+            if (!this.state.data.metrics) this.state.data.metrics = [];
         } catch (error) {
             console.error("Financial dashboard error:", error);
+            this.state.data = { cards: [], categories: [], metrics: [] };
             this.notification.add("Failed to load Financial Dashboard", { type: "danger" });
         } finally {
             this.state.loading = false;

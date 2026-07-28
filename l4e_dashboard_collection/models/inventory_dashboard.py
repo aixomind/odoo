@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 from odoo import models, api, fields
 from datetime import datetime, timedelta, date
 import pytz
@@ -54,7 +75,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN product_product pp ON pp.id = svl.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
             JOIN product_category pc ON pc.id = pt.categ_id
-            WHERE svl.company_id = %s
+            WHERE (svl.company_id = %s OR svl.company_id IS NULL)
               AND svl.create_date <= %s
               AND pc.show_in_dashboard = TRUE
               {prod_cond}
@@ -70,7 +91,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN product_product pp ON pp.id = svl.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
             JOIN product_category pc ON pc.id = pt.categ_id
-            WHERE svl.company_id = %s
+            WHERE (svl.company_id = %s OR svl.company_id IS NULL)
               AND svl.create_date <= %s
               AND pc.show_in_dashboard = TRUE
               {prod_cond}
@@ -81,10 +102,10 @@ class L4eInventoryDashboard(models.TransientModel):
         if product_id:
             prod_count_domain.append(('id', '=', product_id))
 
-        total_products = self.env['product.product'].search_count(prod_count_domain + [('create_date', '<=', dt_to_utc)])
-        prev_total_products = self.env['product.product'].search_count(prod_count_domain + [('create_date', '<=', prev_dt_to_utc)])
+        total_products = self.env['product.product'].search_count(prod_count_domain)
+        prev_total_products = self.env['product.product'].search_count(prod_count_domain)
 
-        move_domain = [('product_id.categ_id.show_in_dashboard', '=', True), ('state', '=', 'done'), ('company_id', '=', company_id)]
+        move_domain = [('product_id.categ_id.show_in_dashboard', '=', True), ('state', '=', 'done'), ('|'), ('company_id', '=', company_id), ('company_id', '=', False)]
         if product_id:
             move_domain.append(('product_id', '=', product_id))
 
@@ -98,7 +119,7 @@ class L4eInventoryDashboard(models.TransientModel):
         products = self.env['product.product'].search(low_stock_domain)
         orderpoints = self.env['stock.warehouse.orderpoint'].search([
             ('product_id', 'in', products.ids),
-            ('company_id', '=', company_id)
+            ('|'), ('company_id', '=', company_id), ('company_id', '=', False)
         ])
         min_qty_map = {}
         for op in orderpoints:
@@ -127,7 +148,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 SELECT sq.product_id, COALESCE(SUM(sq.quantity), 0.0) as qty
                 FROM stock_quant sq
                 JOIN stock_location sl ON sl.id = sq.location_id
-                WHERE sl.usage = 'internal' AND sq.company_id = %s
+                WHERE sl.usage = 'internal' AND (sq.company_id = %s OR sq.company_id IS NULL)
                   {"AND sq.product_id = %s" if product_id else ""}
                 GROUP BY sq.product_id
             ),
@@ -137,7 +158,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
                 WHERE sm.state = 'done'
-                  AND sm.company_id = %s
+                  AND (sm.company_id = %s OR sm.company_id IS NULL)
                   AND sm.date > %s
                   AND src.usage != 'internal'
                   AND dest.usage = 'internal'
@@ -150,7 +171,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
                 WHERE sm.state = 'done'
-                  AND sm.company_id = %s
+                  AND (sm.company_id = %s OR sm.company_id IS NULL)
                   AND sm.date > %s
                   AND src.usage = 'internal'
                   AND dest.usage != 'internal'
@@ -201,7 +222,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 SELECT sq.product_id, COALESCE(SUM(sq.quantity), 0.0) as qty
                 FROM stock_quant sq
                 JOIN stock_location sl ON sl.id = sq.location_id
-                WHERE sl.usage = 'internal' AND sq.company_id = %s
+                WHERE sl.usage = 'internal' AND (sq.company_id = %s OR sq.company_id IS NULL)
                   {"AND sq.product_id = %s" if product_id else ""}
                 GROUP BY sq.product_id
             ),
@@ -211,7 +232,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
                 WHERE sm.state = 'done'
-                  AND sm.company_id = %s
+                  AND (sm.company_id = %s OR sm.company_id IS NULL)
                   AND sm.date > %s
                   AND src.usage != 'internal'
                   AND dest.usage = 'internal'
@@ -224,7 +245,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
                 WHERE sm.state = 'done'
-                  AND sm.company_id = %s
+                  AND (sm.company_id = %s OR sm.company_id IS NULL)
                   AND sm.date > %s
                   AND src.usage = 'internal'
                   AND dest.usage != 'internal'
@@ -263,7 +284,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN stock_location src ON src.id = sm.location_id
             JOIN stock_location dest ON dest.id = sm.location_dest_id
             WHERE sm.state = 'done'
-              AND sm.company_id = %s
+              AND (sm.company_id = %s OR sm.company_id IS NULL)
               AND sm.date >= %s AND sm.date <= %s
               AND pc.show_in_dashboard = TRUE
               AND src.usage != 'internal' AND dest.usage = 'internal'
@@ -280,7 +301,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN stock_location src ON src.id = sm.location_id
             JOIN stock_location dest ON dest.id = sm.location_dest_id
             WHERE sm.state = 'done'
-              AND sm.company_id = %s
+              AND (sm.company_id = %s OR sm.company_id IS NULL)
               AND sm.date >= %s AND sm.date <= %s
               AND pc.show_in_dashboard = TRUE
               AND src.usage = 'internal' AND dest.usage != 'internal'
@@ -301,7 +322,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN stock_location src ON src.id = sm.location_id
             JOIN stock_location dest ON dest.id = sm.location_dest_id
             WHERE sm.state = 'done'
-              AND sm.company_id = %s
+              AND (sm.company_id = %s OR sm.company_id IS NULL)
               AND sm.date >= %s AND sm.date <= %s
               AND pc.show_in_dashboard = TRUE
               AND src.usage != 'internal' AND dest.usage = 'internal'
@@ -318,7 +339,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN stock_location src ON src.id = sm.location_id
             JOIN stock_location dest ON dest.id = sm.location_dest_id
             WHERE sm.state = 'done'
-              AND sm.company_id = %s
+              AND (sm.company_id = %s OR sm.company_id IS NULL)
               AND sm.date >= %s AND sm.date <= %s
               AND pc.show_in_dashboard = TRUE
               AND src.usage = 'internal' AND dest.usage != 'internal'
@@ -335,7 +356,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN product_product pp ON pp.id = svl.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
             JOIN product_category pc ON pc.id = pt.categ_id
-            WHERE svl.company_id = %s
+            WHERE (svl.company_id = %s OR svl.company_id IS NULL)
               AND svl.create_date < %s
               AND pc.show_in_dashboard = TRUE
               {prod_cond}
@@ -353,7 +374,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN product_product pp ON pp.id = svl.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
             JOIN product_category pc ON pc.id = pt.categ_id
-            WHERE svl.company_id = %s
+            WHERE (svl.company_id = %s OR svl.company_id IS NULL)
               AND svl.create_date >= %s
               AND svl.create_date <= %s
               AND pc.show_in_dashboard = TRUE
@@ -382,7 +403,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN product_product pp ON pp.id = svl.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
             JOIN product_category pc ON pc.id = pt.categ_id
-            WHERE svl.company_id = %s
+            WHERE (svl.company_id = %s OR svl.company_id IS NULL)
               AND svl.create_date <= %s
               AND pc.show_in_dashboard = TRUE
               {prod_cond}
@@ -401,7 +422,7 @@ class L4eInventoryDashboard(models.TransientModel):
             JOIN product_product pp ON pp.id = svl.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
             JOIN product_category pc ON pc.id = pt.categ_id
-            WHERE svl.company_id = %s
+            WHERE (svl.company_id = %s OR svl.company_id IS NULL)
               AND svl.create_date <= %s
               AND pc.show_in_dashboard = TRUE
               {prod_cond}
@@ -447,7 +468,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 GROUP BY product_id
             ) svl_cost ON svl_cost.product_id = pp.id
             WHERE sl.usage = 'internal'
-              AND sq.company_id = %s
+              AND (sq.company_id = %s OR sq.company_id IS NULL)
               {"AND sq.product_id = %s" if product_id else ""}
             GROUP BY sl.id, sl.complete_name
             HAVING SUM(sq.quantity) > 0 OR SUM(sq.quantity * COALESCE(svl_cost.avg_cost, 0.0)) > 0
@@ -475,7 +496,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
                 WHERE sm.state = 'done'
-                  AND sm.company_id = %s
+                  AND (sm.company_id = %s OR sm.company_id IS NULL)
                   AND sm.date >= %s AND sm.date <= %s
                   AND pc.show_in_dashboard = TRUE
                   AND src.usage != 'internal' AND dest.usage = 'internal'
@@ -491,7 +512,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
                 WHERE sm.state = 'done'
-                  AND sm.company_id = %s
+                  AND (sm.company_id = %s OR sm.company_id IS NULL)
                   AND sm.date >= %s AND sm.date <= %s
                   AND pc.show_in_dashboard = TRUE
                   AND src.usage = 'internal' AND dest.usage != 'internal'
