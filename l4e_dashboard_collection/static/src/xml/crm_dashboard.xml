@@ -1,5 +1,5 @@
 <templates xml:space="preserve">
-  <t t-name="l4e_dashboard_collection.CrmDashboard" owl="1">
+  <t t-name="l4e_dashboard_collection.crm_dashboard" owl="1">
     <div class="l4e-dashboard-container">
       
       <!-- Top Filter Bar Aligned in Single Clean Line (GLOBAL FILTERS) -->
@@ -23,21 +23,6 @@
             </div>
           </div>
 
-
-          
-          <!-- Custom Global Month Dropdown -->
-          <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.filters.month_filter) ? state.data.months.find(m => m.value == state.filters.month_filter).name : (state.filters.month_filter == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.selectFilter('month_filter', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.selectFilter('month_filter', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
 
           <!-- Custom Team Dropdown -->
           <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('team')">
@@ -73,7 +58,7 @@
             <input name="date_to" type="date" t-att-value="state.filters.date_to || ''" t-on-change="setFilter" title="End Date"/>
           </div>
 
-          <button class="l4e-btn-refresh" t-on-click="resetFilters" title="Refresh Dashboard"><i class="fa fa-refresh"/> Refresh</button>
+          <button class="l4e-btn-refresh" t-on-click="resetFilters" title="Reset Dashboard"><i class="fa fa-undo"/> Reset</button>
         </div>
       </div>
 
@@ -81,18 +66,21 @@
       <div class="l4e-card l4e-kpi-container">
         <div class="card-header">
           <div class="card-header-actions">
-            <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('kpi_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('kpi_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.kpi_total) ? state.data.months.find(m => m.value == state.card_filters.kpi_total).name : (state.card_filters.kpi_total == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.kpi_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setKpiMonthAll('all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setKpiMonthAll(m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+            <select class="mini-select" t-on-change="(e) => this.setKpiMonthAll(e.target.value)">
+              <option value="1"   t-att-selected="state.card_filters.kpi_total == '1'">January</option>
+              <option value="2"   t-att-selected="state.card_filters.kpi_total == '2'">February</option>
+              <option value="3"   t-att-selected="state.card_filters.kpi_total == '3'">March</option>
+              <option value="4"   t-att-selected="state.card_filters.kpi_total == '4'">April</option>
+              <option value="5"   t-att-selected="state.card_filters.kpi_total == '5'">May</option>
+              <option value="6"   t-att-selected="state.card_filters.kpi_total == '6'">June</option>
+              <option value="7"   t-att-selected="state.card_filters.kpi_total == '7'">July</option>
+              <option value="8"   t-att-selected="state.card_filters.kpi_total == '8'">August</option>
+              <option value="9"   t-att-selected="state.card_filters.kpi_total == '9'">September</option>
+              <option value="10"  t-att-selected="state.card_filters.kpi_total == '10'">October</option>
+              <option value="11"  t-att-selected="state.card_filters.kpi_total == '11'">November</option>
+              <option value="12"  t-att-selected="state.card_filters.kpi_total == '12'">December</option>
+              <option value="all" t-att-selected="state.card_filters.kpi_total == 'all'">All Time</option>
+            </select>
           </div>
         </div>
 
@@ -177,18 +165,21 @@
           <div class="card-header">
             <h4>Month Sales Trend</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('sales_trend_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('sales_trend_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.sales_trend) ? state.data.months.find(m => m.value == state.card_filters.sales_trend).name : (state.card_filters.sales_trend == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.sales_trend_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('sales_trend', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('sales_trend', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+              <select class="mini-select" t-att-value="state.card_filters.sales_trend" t-on-change="(e) => this.setCardFilter('sales_trend', e)">
+                <option value="1" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.sales_trend || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
           
@@ -209,8 +200,8 @@
                   <path t-att-d="state.data.month_sales_trend.area_path" fill="url(#purpleGradient)"/>
                   <path t-att-d="state.data.month_sales_trend.line_path" fill="none" stroke="#7c3aed" stroke-width="3"/>
                   <t t-foreach="state.data.month_sales_trend.points" t-as="pt" t-key="pt.label">
-                    <circle t-att-cx="pt.x" t-att-cy="pt.y" r="6" fill="#7c3aed" stroke="#ffffff" stroke-width="2" t-on-click="() => this.openSalesTrendPoint(pt)" style="cursor: pointer;"/>
-                    <text t-att-x="pt.x" t-att-y="pt.y - 10" text-anchor="middle" font-size="10" font-weight="600" fill="#475569" t-on-click="() => this.openSalesTrendPoint(pt)" style="cursor: pointer;"><t t-esc="pt.revenue_formatted"/></text>
+                    <circle t-att-cx="pt.x" t-att-cy="pt.y" r="6" fill="#7c3aed" stroke="var(--l4e-card-bg, #ffffff)" stroke-width="2" t-on-click="() => this.openSalesTrendPoint(pt)" style="cursor: pointer;"/>
+                    <text t-att-x="pt.x" t-att-y="pt.y - 10" text-anchor="middle" font-size="10" font-weight="600" fill="var(--l4e-chart-text, #475569)" t-on-click="() => this.openSalesTrendPoint(pt)" style="cursor: pointer;"><t t-esc="pt.revenue_formatted"/></text>
                   </t>
                 </t>
               </svg>
@@ -230,18 +221,21 @@
           <div class="card-header">
             <h4>Pipeline Details</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('pipeline_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('pipeline_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.pipeline) ? state.data.months.find(m => m.value == state.card_filters.pipeline).name : (state.card_filters.pipeline == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.pipeline_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('pipeline', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('pipeline', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+              <select class="mini-select" t-att-value="state.card_filters.pipeline" t-on-change="(e) => this.setCardFilter('pipeline', e)">
+                <option value="1" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.pipeline || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
 
@@ -289,78 +283,80 @@
           <div class="card-header">
             <h4>Sales Team Performance</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('team_perf_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('team_perf_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.team_perf) ? state.data.months.find(m => m.value == state.card_filters.team_perf).name : (state.card_filters.team_perf == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.team_perf_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('team_perf', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('team_perf', m.value)"><t t-esc="m.name"/></div>
-              </t>
+              <select class="mini-select" t-att-value="state.card_filters.team_perf" t-on-change="(e) => this.setCardFilter('team_perf', e)">
+                <option value="1" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.team_perf || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
-            </div>
-          </div>
-          <div class="card-body chart-body">
-            <div class="chart-legend-badge">
-              <span class="dot-purple"/> Revenue (<t t-esc="state.data.currency ? state.data.currency.name : 'USD'"/>)
-            </div>
+          <div class="card-body chart-body" style="padding: 16px 20px;">
+            <div class="perf-chart-wrap" style="width: 100%; overflow-x: auto;">
+              <svg t-att-viewBox="state.data.chart_svg_viewbox || '0 0 500 60'" preserveAspectRatio="xMinYMin meet" style="width: 100%; font-family: inherit;">
 
-            <div class="perf-chart-wrap">
-              <svg viewBox="0 0 500 200" preserveAspectRatio="none" class="area-chart-svg">
-                <!-- Grid lines -->
-                <line x1="0" y1="20"  x2="500" y2="20"  stroke="#f1f5f9" stroke-width="1"/>
-                <line x1="0" y1="55"  x2="500" y2="55"  stroke="#f1f5f9" stroke-width="1"/>
-                <line x1="0" y1="90"  x2="500" y2="90"  stroke="#f1f5f9" stroke-width="1"/>
-                <line x1="0" y1="125" x2="500" y2="125" stroke="#f1f5f9" stroke-width="1"/>
-                <!-- X-axis baseline -->
-                <line x1="0" y1="155" x2="500" y2="155" stroke="#e2e8f0" stroke-width="1.5"/>
-
-                <t t-if="state.data.sales_team_performance">
+                <t t-if="state.data.sales_team_performance and state.data.sales_team_performance.length > 0">
                   <t t-foreach="state.data.sales_team_performance" t-as="user" t-key="user.id">
-                    <!-- Bar -->
+                    <!-- Salesperson name on the left -->
+                    <text
+                      t-att-x="user.name_x"
+                      t-att-y="user.name_y"
+                      text-anchor="end"
+                      font-size="11"
+                      font-weight="400"
+                      fill="var(--l4e-text-primary, #475569)"
+                      style="cursor: pointer;"
+                      t-on-click="() => this.openSalesPersonDetail(user)"
+                    ><t t-esc="user.name_short"/></text>
+
+                    <!-- Horizontal bar -->
                     <rect
                       t-att-x="user.bar_x"
                       t-att-y="user.bar_y"
                       t-att-width="user.bar_w"
                       t-att-height="user.bar_h"
                       t-att-fill="user.color"
-                      rx="4"
-                      opacity="0.85"
+                      rx="6"
+                      opacity="0.9"
                       t-on-click="() => this.openSalesPersonDetail(user)"
-                      style="cursor: pointer;"
+                      style="cursor: pointer; transition: opacity 0.2s;"
                     >
                       <title><t t-esc="user.name"/>: <t t-esc="user.revenue_fmt"/></title>
                     </rect>
-                    <!-- Revenue above bar -->
+
+                    <!-- Revenue value next to the bar -->
                     <text
-                      t-att-x="user.x"
-                      t-att-y="user.bar_y - 6"
-                      text-anchor="middle"
-                      font-size="10"
-                      font-weight="700"
-                      fill="#334155"
+                      t-att-x="user.val_x"
+                      t-att-y="user.val_y"
+                      text-anchor="start"
+                      font-size="11"
+                      font-weight="600"
+                      fill="var(--l4e-text-primary, #1e293b)"
                       t-on-click="() => this.openSalesPersonDetail(user)"
                       style="cursor: pointer;"
                     ><t t-esc="user.revenue_short"/></text>
-                    <!-- Name below X-axis -->
-                    <text
-                      t-att-x="user.x"
-                      y="172"
-                      text-anchor="middle"
-                      font-size="10"
-                      fill="#64748b"
-                    ><t t-esc="user.name_short"/></text>
                   </t>
                 </t>
 
                 <!-- Empty state -->
                 <t t-if="!state.data.sales_team_performance or state.data.sales_team_performance.length === 0">
-                  <text x="250" y="90" text-anchor="middle" font-size="12" fill="#94a3b8">No data for this period</text>
+                  <text x="450" y="30" text-anchor="middle" font-size="14" font-weight="500" fill="var(--l4e-text-muted, #94a3b8)">No data for this period</text>
                 </t>
               </svg>
+            </div>
+
+            <!-- Legend placed BELOW the chart centered -->
+            <div class="chart-legend-badge" style="justify-content: center; margin-top: 16px; margin-bottom: 0;">
+              <span class="dot-purple"/> Revenue (<t t-esc="state.data.currency ? state.data.currency.name : 'USD'"/>)
             </div>
 
           </div>
@@ -371,18 +367,21 @@
           <div class="card-header">
             <h4>Recent Won Orders</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('recent_won_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('recent_won_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.recent_won) ? state.data.months.find(m => m.value == state.card_filters.recent_won).name : (state.card_filters.recent_won == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.recent_won_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('recent_won', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('recent_won', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+              <select class="mini-select" t-att-value="state.card_filters.recent_won" t-on-change="(e) => this.setCardFilter('recent_won', e)">
+                <option value="1" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.recent_won || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
 
@@ -425,18 +424,21 @@
           <div class="card-header">
             <h4>Top Sales Person</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('top_sp_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('top_sp_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.top_sp) ? state.data.months.find(m => m.value == state.card_filters.top_sp).name : (state.card_filters.top_sp == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.top_sp_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('top_sp', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('top_sp', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+              <select class="mini-select" t-att-value="state.card_filters.top_sp" t-on-change="(e) => this.setCardFilter('top_sp', e)">
+                <option value="1" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.top_sp || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
 
@@ -446,10 +448,8 @@
                 <tr>
                   <th style="width: 30px;">#</th>
                   <th>Salesperson</th>
-                  <th class="text-end">Revenue (<t t-esc="state.data.currency ? state.data.currency.name : 'USD'"/>)</th>
                   <th class="text-end">Won Revenue (<t t-esc="state.data.currency ? state.data.currency.name : 'USD'"/>)</th>
                   <th class="text-center">Deals Won</th>
-                  <th class="text-center">Win Rate</th>
                 </tr>
               </thead>
               <tbody>
@@ -462,12 +462,8 @@
                         <span><t t-esc="sp.name"/></span>
                       </div>
                     </td>
-                    <td class="text-end"><t t-esc="sp.revenue"/></td>
                     <td class="text-end fw-bold"><t t-esc="sp.won_revenue"/></td>
                     <td class="text-center"><t t-esc="sp.deals_won"/></td>
-                    <td class="text-center">
-                      <span t-attf-class="win-badge #{sp.rate_color}"><t t-esc="sp.win_rate"/></span>
-                    </td>
                   </tr>
                 </t>
               </tbody>
@@ -483,18 +479,21 @@
           <div class="card-header">
             <h4>Top Customers</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('top_cust_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('top_cust_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.top_cust) ? state.data.months.find(m => m.value == state.card_filters.top_cust).name : (state.card_filters.top_cust == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.top_cust_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('top_cust', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('top_cust', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+              <select class="mini-select" t-att-value="state.card_filters.top_cust" t-on-change="(e) => this.setCardFilter('top_cust', e)">
+                <option value="1" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.top_cust || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
 
@@ -504,7 +503,6 @@
                 <tr>
                   <th style="width: 30px;">#</th>
                   <th>Customer</th>
-                  <th class="text-end">Revenue (<t t-esc="state.data.currency ? state.data.currency.name : 'USD'"/>)</th>
                   <th class="text-center">Deals</th>
                   <th class="text-end">Won Revenue (<t t-esc="state.data.currency ? state.data.currency.name : 'USD'"/>)</th>
                 </tr>
@@ -519,7 +517,6 @@
                         <span><t t-esc="cust.name"/></span>
                       </div>
                     </td>
-                    <td class="text-end"><t t-esc="cust.revenue"/></td>
                     <td class="text-center"><t t-esc="cust.deals"/></td>
                     <td class="text-end fw-bold"><t t-esc="cust.won_revenue"/></td>
                   </tr>
@@ -540,18 +537,21 @@
           <div class="card-header">
             <h4>Upcoming Activities</h4>
             <div class="card-header-actions">
-              <div class="l4e-dropdown-container" t-on-click-outside="() => this.closeDropdown('activities_month')">
-            <button class="l4e-dropdown-trigger" t-on-click="() => this.toggleDropdown('activities_month')">
-              <span t-esc="state.data.months &amp;&amp; state.data.months.find(m => m.value == state.card_filters.activities) ? state.data.months.find(m => m.value == state.card_filters.activities).name : (state.card_filters.activities == 'all' ? 'All Time' : 'Select Month')"/>
-              <i class="fa fa-chevron-down"/>
-            </button>
-            <div class="l4e-dropdown-menu" t-if="state.dropdowns.activities_month">
-              <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('activities', 'all')">All Time</div>
-              <t t-foreach="state.data.months || []" t-as="m" t-key="m.value">
-                <div class="l4e-dropdown-item" t-on-click="() => this.setCardFilterValue('activities', m.value)"><t t-esc="m.name"/></div>
-              </t>
-            </div>
-          </div>
+              <select class="mini-select" t-att-value="state.card_filters.activities" t-on-change="(e) => this.setCardFilter('activities', e)">
+                <option value="1" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '1'">January</option>
+                <option value="2" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '2'">February</option>
+                <option value="3" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '3'">March</option>
+                <option value="4" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '4'">April</option>
+                <option value="5" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '5'">May</option>
+                <option value="6" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '6'">June</option>
+                <option value="7" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '7'">July</option>
+                <option value="8" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '8'">August</option>
+                <option value="9" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '9'">September</option>
+                <option value="10" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '10'">October</option>
+                <option value="11" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '11'">November</option>
+                <option value="12" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == '12'">December</option>
+                <option value="all" t-att-selected="(state.card_filters.activities || state.filters.month_filter) == 'all'">All Time</option>
+              </select>
             </div>
           </div>
 
