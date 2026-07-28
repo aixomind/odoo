@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_dashboard,crm.dashboard,model_crm_dashboard,base.group_user,1,1,1,1
 access_amc_dashboard,amc.dashboard,model_amc_dashboard,base.group_user,1,1,1,1
 access_l4e_inventory_dashboard,l4e_inventory_dashboard,model_l4e_inventory_dashboard,stock.group_stock_user,1,1,1,1

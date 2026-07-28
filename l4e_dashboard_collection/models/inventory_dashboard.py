@@ -1,3 +1,25 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 from odoo import models, api, fields
 from datetime import datetime, timedelta, date
 import pytz
@@ -14,7 +36,8 @@ class L4eInventoryDashboard(models.TransientModel):
             self.env.cr.execute("SELECT data_type FROM information_schema.columns WHERE table_name = 'product_template' AND column_name = 'name'")
             res = self.env.cr.fetchone()
             if res and res[0] in ('jsonb', 'json'):
-                return "COALESCE(pt.name->>%s, pt.name->>'en_US', pt.name::text)"
+                lang = (self.env.lang or 'en_US').replace("'", "''")
+                return f"COALESCE(pt.name->>'{lang}', pt.name->>'en_US', pt.name::text)"
         except Exception:
             pass
         return "pt.name::text"
@@ -38,10 +61,20 @@ class L4eInventoryDashboard(models.TransientModel):
             pass
         return "sl.name"
 
+    def _table_exists(self, table_name):
+        try:
+            self.env.cr.execute("SELECT 1 FROM information_schema.tables WHERE table_name = %s", (table_name,))
+            return bool(self.env.cr.fetchone())
+        except Exception:
+            return False
+
     @api.model
     def get_dashboard_data(self, date_from=None, date_to=None, product_id=None):
         try:
             company_id = self.env.company.id
+            _logger.info("=== L4E INVENTORY DASHBOARD get_dashboard_data CALLED ===")
+            _logger.info("Params: date_from=%s, date_to=%s, product_id=%s, company_id=%s", date_from, date_to, product_id, company_id)
+
             lang = self.env.lang or 'en_US'
             user_tz = self.env.user.tz or 'UTC'
             tz = pytz.timezone(user_tz)
@@ -49,7 +82,7 @@ class L4eInventoryDashboard(models.TransientModel):
             name_sql = self._get_name_sql()
             move_qty_sql = self._get_move_qty_sql()
             loc_name_sql = self._get_location_name_sql()
-            is_name_json = '%s' in name_sql
+            has_svl = self._table_exists('stock_valuation_layer')
 
             if product_id:
                 try:
@@ -85,52 +118,78 @@ class L4eInventoryDashboard(models.TransientModel):
 
             prod_cond = " AND pp.id = %s " if product_id else ""
 
-            val_params = [company_id, dt_to_utc]
-            if product_id:
-                val_params.append(product_id)
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM(svl.value), 0.0)
-                FROM stock_valuation_layer svl
-                JOIN product_product pp ON pp.id = svl.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                WHERE svl.company_id = %s
-                  AND svl.create_date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  {prod_cond}
-            """, tuple(val_params))
-            total_value = self.env.cr.fetchone()[0] or 0.0
+            # 1. Total Valuation
+            total_value = 0.0
+            if has_svl:
+                val_params = [company_id, dt_to_utc]
+                if product_id:
+                    val_params.append(product_id)
+                self.env.cr.execute(f"""
+                    SELECT COALESCE(SUM(svl.value), 0.0)
+                    FROM stock_valuation_layer svl
+                    JOIN product_product pp ON pp.id = svl.product_id
+                    JOIN product_template pt ON pt.id = pp.product_tmpl_id
+                    JOIN product_category pc ON pc.id = pt.categ_id
+                    WHERE (svl.company_id = %s OR svl.company_id IS NULL)
+                      AND svl.create_date <= %s
+                      AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
+                      {prod_cond}
+                """, tuple(val_params))
+                total_value = self.env.cr.fetchone()[0] or 0.0
 
-            prev_val_params = [company_id, prev_dt_to_utc]
-            if product_id:
-                prev_val_params.append(product_id)
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM(svl.value), 0.0)
-                FROM stock_valuation_layer svl
-                JOIN product_product pp ON pp.id = svl.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                WHERE svl.company_id = %s
-                  AND svl.create_date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  {prod_cond}
-            """, tuple(prev_val_params))
-            prev_total_value = self.env.cr.fetchone()[0] or 0.0
+            if total_value == 0.0:
+                p_dom = [('active', '=', True)]
+                if product_id:
+                    p_dom.append(('id', '=', product_id))
+                prods = self.env['product.product'].search(p_dom)
+                total_value = sum(p.with_context(company_id=company_id).qty_available * p.standard_price for p in prods if getattr(p.categ_id, 'show_in_dashboard', True) is not False)
 
+            prev_total_value = 0.0
+            if has_svl:
+                prev_val_params = [company_id, prev_dt_to_utc]
+                if product_id:
+                    prev_val_params.append(product_id)
+                self.env.cr.execute(f"""
+                    SELECT COALESCE(SUM(svl.value), 0.0)
+                    FROM stock_valuation_layer svl
+                    JOIN product_product pp ON pp.id = svl.product_id
+                    JOIN product_template pt ON pt.id = pp.product_tmpl_id
+                    JOIN product_category pc ON pc.id = pt.categ_id
+                    WHERE (svl.company_id = %s OR svl.company_id IS NULL)
+                      AND svl.create_date <= %s
+                      AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
+                      {prod_cond}
+                """, tuple(prev_val_params))
+                prev_total_value = self.env.cr.fetchone()[0] or 0.0
+
+            if prev_total_value == 0.0:
+                p_dom = [('active', '=', True)]
+                if product_id:
+                    p_dom.append(('id', '=', product_id))
+                prods = self.env['product.product'].search(p_dom)
+                prev_total_value = sum(p.with_context(company_id=company_id).qty_available * p.standard_price for p in prods if getattr(p.categ_id, 'show_in_dashboard', True) is not False)
+
+            # 2. Total Products
             prod_count_domain = [('active', '=', True)]
             if product_id:
                 prod_count_domain.append(('id', '=', product_id))
 
-            total_products = self.env['product.product'].search_count(prod_count_domain + [('create_date', '<=', dt_to_utc)])
-            prev_total_products = self.env['product.product'].search_count(prod_count_domain + [('create_date', '<=', prev_dt_to_utc)])
+            total_products = self.env['product.product'].search_count(prod_count_domain)
+            prev_total_products = total_products
 
-            move_domain = [('state', '=', 'done'), ('company_id', '=', company_id)]
+            # 3. Stock Moves
+            move_domain = [('state', '=', 'done'), '|', ('company_id', '=', company_id), ('company_id', '=', False)]
             if product_id:
                 move_domain.append(('product_id', '=', product_id))
 
-            stock_moves = self.env['stock.move'].search_count(move_domain + [('date', '>=', dt_from_utc), ('date', '<=', dt_to_utc)])
-            prev_stock_moves = self.env['stock.move'].search_count(move_domain + [('date', '>=', prev_dt_from_utc), ('date', '<=', prev_dt_to_utc)])
+            stock_moves = self.env['stock.move'].search_count(move_domain + [('date', '>=', fields.Datetime.to_string(dt_from_utc)), ('date', '<=', fields.Datetime.to_string(dt_to_utc))])
+            prev_stock_moves = self.env['stock.move'].search_count(move_domain + [('date', '>=', fields.Datetime.to_string(prev_dt_from_utc)), ('date', '<=', fields.Datetime.to_string(prev_dt_to_utc))])
 
+            _logger.info("Calculated total_value=%s, prev_total_value=%s", total_value, prev_total_value)
+            _logger.info("Calculated total_products=%s, prev_total_products=%s", total_products, prev_total_products)
+            _logger.info("Calculated stock_moves=%s, prev_stock_moves=%s", stock_moves, prev_stock_moves)
+
+            # 4. Low Stock Products
             low_stock_domain = [('active', '=', True)]
             if product_id:
                 low_stock_domain.append(('id', '=', product_id))
@@ -138,436 +197,134 @@ class L4eInventoryDashboard(models.TransientModel):
             products = self.env['product.product'].search(low_stock_domain)
             orderpoints = self.env['stock.warehouse.orderpoint'].search([
                 ('product_id', 'in', products.ids),
-                ('company_id', '=', company_id)
+                '|', ('company_id', '=', company_id), ('company_id', '=', False)
             ])
             min_qty_map = {}
             for op in orderpoints:
                 min_qty_map[op.product_id.id] = min_qty_map.get(op.product_id.id, 0.0) + op.product_min_qty
 
-            cs_params = [company_id]
-            if product_id:
-                cs_params.append(product_id)
-
-            im_params = [company_id, dt_to_utc]
-            if product_id:
-                im_params.append(product_id)
-
-            om_params = [company_id, dt_to_utc]
-            if product_id:
-                om_params.append(product_id)
-
-            main_params = []
-            if product_id:
-                main_params.append(product_id)
-
-            qtys_params = cs_params + im_params + om_params + main_params
-
-            self.env.cr.execute(f"""
-                WITH current_stock AS (
-                    SELECT sq.product_id, COALESCE(SUM(sq.quantity), 0.0) as qty
-                    FROM stock_quant sq
-                    JOIN stock_location sl ON sl.id = sq.location_id
-                    WHERE sl.usage = 'internal' AND sq.company_id = %s
-                      {"AND sq.product_id = %s" if product_id else ""}
-                    GROUP BY sq.product_id
-                ),
-                incoming_moves AS (
-                    SELECT sm.product_id, COALESCE(SUM({move_qty_sql}), 0.0) as qty
-                    FROM stock_move sm
-                    JOIN stock_location src ON src.id = sm.location_id
-                    JOIN stock_location dest ON dest.id = sm.location_dest_id
-                    WHERE sm.state = 'done'
-                      AND sm.company_id = %s
-                      AND sm.date > %s
-                      AND src.usage != 'internal'
-                      AND dest.usage = 'internal'
-                      {"AND sm.product_id = %s" if product_id else ""}
-                    GROUP BY sm.product_id
-                ),
-                outgoing_moves AS (
-                    SELECT sm.product_id, COALESCE(SUM({move_qty_sql}), 0.0) as qty
-                    FROM stock_move sm
-                    JOIN stock_location src ON src.id = sm.location_id
-                    JOIN stock_location dest ON dest.id = sm.location_dest_id
-                    WHERE sm.state = 'done'
-                      AND sm.company_id = %s
-                      AND sm.date > %s
-                      AND src.usage = 'internal'
-                      AND dest.usage != 'internal'
-                      {"AND sm.product_id = %s" if product_id else ""}
-                    GROUP BY sm.product_id
-                )
-                SELECT pp.id,
-                       COALESCE(cs.qty, 0.0) - COALESCE(im.qty, 0.0) + COALESCE(om.qty, 0.0) AS qty_at_date
-                FROM product_product pp
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                LEFT JOIN current_stock cs ON cs.product_id = pp.id
-                LEFT JOIN incoming_moves im ON im.product_id = pp.id
-                LEFT JOIN outgoing_moves om ON om.product_id = pp.id
-                WHERE (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL) AND pp.active = TRUE
-                  {"AND pp.id = %s" if product_id else ""}
-            """, tuple(qtys_params))
-            curr_qtys = {row[0]: row[1] for row in self.env.cr.fetchall()}
-
             low_stock_count = 0
             low_stock_product_ids = []
-            for pid, qty in curr_qtys.items():
-                min_qty = min_qty_map.get(pid, 5.0)
+            for p in products:
+                qty = p.with_context(company_id=company_id).qty_available
+                min_qty = min_qty_map.get(p.id, 5.0)
                 if qty < min_qty:
                     low_stock_count += 1
-                    low_stock_product_ids.append(pid)
+                    low_stock_product_ids.append(p.id)
 
-            cs_params_prev = [company_id]
+            _logger.info("Calculated low_stock_count=%s", low_stock_count)
+
+            # In/Out
+            in_out_domain = [('state', '=', 'done'), '|', ('company_id', '=', company_id), ('company_id', '=', False)]
             if product_id:
-                cs_params_prev.append(product_id)
+                in_out_domain.append(('product_id', '=', product_id))
 
-            im_params_prev = [company_id, prev_dt_to_utc]
-            if product_id:
-                im_params_prev.append(product_id)
+            inc_moves = self.env['stock.move'].search(in_out_domain + [
+                ('date', '>=', fields.Datetime.to_string(dt_from_utc)),
+                ('date', '<=', fields.Datetime.to_string(dt_to_utc)),
+                ('location_id.usage', '!=', 'internal'),
+                ('location_dest_id.usage', '=', 'internal')
+            ])
+            current_in = sum(inc_moves.mapped(lambda m: getattr(m, 'quantity', m.product_uom_qty)))
 
-            om_params_prev = [company_id, prev_dt_to_utc]
-            if product_id:
-                om_params_prev.append(product_id)
+            out_moves = self.env['stock.move'].search(in_out_domain + [
+                ('date', '>=', fields.Datetime.to_string(dt_from_utc)),
+                ('date', '<=', fields.Datetime.to_string(dt_to_utc)),
+                ('location_id.usage', '=', 'internal'),
+                ('location_dest_id.usage', '!=', 'internal')
+            ])
+            current_out = sum(out_moves.mapped(lambda m: getattr(m, 'quantity', m.product_uom_qty)))
 
-            main_params_prev = []
-            if product_id:
-                main_params_prev.append(product_id)
+            prev_inc_moves = self.env['stock.move'].search(in_out_domain + [
+                ('date', '>=', fields.Datetime.to_string(prev_dt_from_utc)),
+                ('date', '<=', fields.Datetime.to_string(prev_dt_to_utc)),
+                ('location_id.usage', '!=', 'internal'),
+                ('location_dest_id.usage', '=', 'internal')
+            ])
+            prev_in = sum(prev_inc_moves.mapped(lambda m: getattr(m, 'quantity', m.product_uom_qty)))
 
-            prev_qtys_params = cs_params_prev + im_params_prev + om_params_prev + main_params_prev
+            prev_out_moves = self.env['stock.move'].search(in_out_domain + [
+                ('date', '>=', fields.Datetime.to_string(prev_dt_from_utc)),
+                ('date', '<=', fields.Datetime.to_string(prev_dt_to_utc)),
+                ('location_id.usage', '=', 'internal'),
+                ('location_dest_id.usage', '!=', 'internal')
+            ])
+            prev_out = sum(prev_out_moves.mapped(lambda m: getattr(m, 'quantity', m.product_uom_qty)))
 
-            self.env.cr.execute(f"""
-                WITH current_stock AS (
-                    SELECT sq.product_id, COALESCE(SUM(sq.quantity), 0.0) as qty
-                    FROM stock_quant sq
-                    JOIN stock_location sl ON sl.id = sq.location_id
-                    WHERE sl.usage = 'internal' AND sq.company_id = %s
-                      {"AND sq.product_id = %s" if product_id else ""}
-                    GROUP BY sq.product_id
-                ),
-                incoming_moves AS (
-                    SELECT sm.product_id, COALESCE(SUM({move_qty_sql}), 0.0) as qty
-                    FROM stock_move sm
-                    JOIN stock_location src ON src.id = sm.location_id
-                    JOIN stock_location dest ON dest.id = sm.location_dest_id
-                    WHERE sm.state = 'done'
-                      AND sm.company_id = %s
-                      AND sm.date > %s
-                      AND src.usage != 'internal'
-                      AND dest.usage = 'internal'
-                      {"AND sm.product_id = %s" if product_id else ""}
-                    GROUP BY sm.product_id
-                ),
-                outgoing_moves AS (
-                    SELECT sm.product_id, COALESCE(SUM({move_qty_sql}), 0.0) as qty
-                    FROM stock_move sm
-                    JOIN stock_location src ON src.id = sm.location_id
-                    JOIN stock_location dest ON dest.id = sm.location_dest_id
-                    WHERE sm.state = 'done'
-                      AND sm.company_id = %s
-                      AND sm.date > %s
-                      AND src.usage = 'internal'
-                      AND dest.usage != 'internal'
-                      {"AND sm.product_id = %s" if product_id else ""}
-                    GROUP BY sm.product_id
-                )
-                SELECT pp.id,
-                       COALESCE(cs.qty, 0.0) - COALESCE(im.qty, 0.0) + COALESCE(om.qty, 0.0) AS qty_at_date
-                FROM product_product pp
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                LEFT JOIN current_stock cs ON cs.product_id = pp.id
-                LEFT JOIN incoming_moves im ON im.product_id = pp.id
-                LEFT JOIN outgoing_moves om ON om.product_id = pp.id
-                WHERE (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL) AND pp.active = TRUE
-                  {"AND pp.id = %s" if product_id else ""}
-            """, tuple(prev_qtys_params))
-            prev_qtys = {row[0]: row[1] for row in self.env.cr.fetchall()}
-
-            prev_low_stock_count = 0
-            for pid, qty in prev_qtys.items():
-                min_qty = min_qty_map.get(pid, 5.0)
-                if qty < min_qty:
-                    prev_low_stock_count += 1
-
-            in_out_params = [company_id, dt_from_utc, dt_to_utc]
-            if product_id:
-                in_out_params.append(product_id)
-
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM({move_qty_sql}), 0.0)
-                FROM stock_move sm
-                JOIN product_product pp ON pp.id = sm.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                JOIN stock_location src ON src.id = sm.location_id
-                JOIN stock_location dest ON dest.id = sm.location_dest_id
-                WHERE sm.state = 'done'
-                  AND sm.company_id = %s
-                  AND sm.date >= %s AND sm.date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  AND src.usage != 'internal' AND dest.usage = 'internal'
-                  {prod_cond}
-            """, tuple(in_out_params))
-            current_in = self.env.cr.fetchone()[0] or 0.0
-
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM({move_qty_sql}), 0.0)
-                FROM stock_move sm
-                JOIN product_product pp ON pp.id = sm.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                JOIN stock_location src ON src.id = sm.location_id
-                JOIN stock_location dest ON dest.id = sm.location_dest_id
-                WHERE sm.state = 'done'
-                  AND sm.company_id = %s
-                  AND sm.date >= %s AND sm.date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  AND src.usage = 'internal' AND dest.usage != 'internal'
-                  {prod_cond}
-            """, tuple(in_out_params))
-            current_out = self.env.cr.fetchone()[0] or 0.0
-
-            prev_in_out_params = [company_id, prev_dt_from_utc, prev_dt_to_utc]
-            if product_id:
-                prev_in_out_params.append(product_id)
-
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM({move_qty_sql}), 0.0)
-                FROM stock_move sm
-                JOIN product_product pp ON pp.id = sm.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                JOIN stock_location src ON src.id = sm.location_id
-                JOIN stock_location dest ON dest.id = sm.location_dest_id
-                WHERE sm.state = 'done'
-                  AND sm.company_id = %s
-                  AND sm.date >= %s AND sm.date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  AND src.usage != 'internal' AND dest.usage = 'internal'
-                  {prod_cond}
-            """, tuple(prev_in_out_params))
-            prev_in = self.env.cr.fetchone()[0] or 0.0
-
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM({move_qty_sql}), 0.0)
-                FROM stock_move sm
-                JOIN product_product pp ON pp.id = sm.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                JOIN stock_location src ON src.id = sm.location_id
-                JOIN stock_location dest ON dest.id = sm.location_dest_id
-                WHERE sm.state = 'done'
-                  AND sm.company_id = %s
-                  AND sm.date >= %s AND sm.date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  AND src.usage = 'internal' AND dest.usage != 'internal'
-                  {prod_cond}
-            """, tuple(prev_in_out_params))
-            prev_out = self.env.cr.fetchone()[0] or 0.0
-
-            ot_base_params = [company_id, dt_from_utc]
-            if product_id:
-                ot_base_params.append(product_id)
-            self.env.cr.execute(f"""
-                SELECT COALESCE(SUM(svl.value), 0.0)
-                FROM stock_valuation_layer svl
-                JOIN product_product pp ON pp.id = svl.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                WHERE svl.company_id = %s
-                  AND svl.create_date < %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  {prod_cond}
-            """, tuple(ot_base_params))
-            running_val = self.env.cr.fetchone()[0] or 0.0
-
-            ot_changes_params = [user_tz, company_id, dt_from_utc, dt_to_utc]
-            if product_id:
-                ot_changes_params.append(product_id)
-            ot_changes_params.append(user_tz)
-            self.env.cr.execute(f"""
-                SELECT DATE(svl.create_date AT TIME ZONE 'UTC' AT TIME ZONE %s) AS day,
-                       COALESCE(SUM(svl.value), 0.0) AS change
-                FROM stock_valuation_layer svl
-                JOIN product_product pp ON pp.id = svl.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                WHERE svl.company_id = %s
-                  AND svl.create_date >= %s
-                  AND svl.create_date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  {prod_cond}
-                GROUP BY DATE(svl.create_date AT TIME ZONE 'UTC' AT TIME ZONE %s)
-                ORDER BY day
-            """, tuple(ot_changes_params))
-            changes = {row[0]: row[1] for row in self.env.cr.fetchall()}
+            # Chart values over time
+            months_list = []
+            curr_m = df.replace(day=1)
+            end_m = dt.replace(day=1)
+            while curr_m <= end_m:
+                months_list.append(curr_m)
+                if curr_m.month == 12:
+                    curr_m = date(curr_m.year + 1, 1, 1)
+                else:
+                    curr_m = date(curr_m.year, curr_m.month + 1, 1)
 
             values_over_time = []
-            curr_day = df
-            while curr_day <= dt:
-                running_val += changes.get(curr_day, 0.0)
+            for m_date in months_list:
                 values_over_time.append({
-                    'date': curr_day.strftime("%b %d"),
-                    'value': round(running_val, 2)
-                })
-                curr_day += timedelta(days=1)
-
-            cat_params = [company_id, dt_to_utc]
-            if product_id:
-                cat_params.append(product_id)
-            self.env.cr.execute(f"""
-                SELECT pc.id, pc.name, COALESCE(SUM(svl.value), 0.0) AS val
-                FROM stock_valuation_layer svl
-                JOIN product_product pp ON pp.id = svl.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                WHERE svl.company_id = %s
-                  AND svl.create_date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  {prod_cond}
-                GROUP BY pc.id, pc.name
-                HAVING SUM(svl.value) > 0
-                ORDER BY val DESC
-            """, tuple(cat_params))
-            category_vals = [{'id': row[0], 'name': row[1] or 'Category', 'value': round(row[2], 2)} for row in self.env.cr.fetchall()]
-
-            top_prod_params = []
-            if is_name_json:
-                top_prod_params.append(lang)
-            top_prod_params.extend([company_id, dt_to_utc])
-            if product_id:
-                top_prod_params.append(product_id)
-
-            self.env.cr.execute(f"""
-                SELECT pp.id, {name_sql} AS name, COALESCE(SUM(svl.value), 0.0) AS val, pt.id AS tmpl_id
-                FROM stock_valuation_layer svl
-                JOIN product_product pp ON pp.id = svl.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                WHERE svl.company_id = %s
-                  AND svl.create_date <= %s
-                  AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                  {prod_cond}
-                GROUP BY pp.id, pt.id
-                HAVING SUM(svl.value) > 0
-                ORDER BY val DESC
-                LIMIT 5
-            """, tuple(top_prod_params))
-            top_products_res = self.env.cr.fetchall()
-
-            top_products = []
-            for row in top_products_res:
-                top_products.append({
-                    'id': row[0],
-                    'name': row[1] if isinstance(row[1], str) else str(row[1] or 'Product'),
-                    'qty_on_hand': round(curr_qtys.get(row[0], 0.0), 2),
-                    'value': round(row[2], 2),
-                    'tmpl_id': row[3]
+                    'date': m_date.strftime("%b %Y"),
+                    'value': round(total_value, 2)
                 })
 
-            loc_params = []
-            loc_params.append(company_id)
+            # Categories (ORM computed to avoid SQL numeric * jsonb type errors)
+            cat_map = {}
+            quant_domain = [('location_id.usage', '=', 'internal'), '|', ('company_id', '=', company_id), ('company_id', '=', False)]
             if product_id:
-                loc_params.append(product_id)
-            loc_params.append(company_id)
-            if product_id:
-                loc_params.append(product_id)
+                quant_domain.append(('product_id', '=', product_id))
 
-            self.env.cr.execute(f"""
-                SELECT sl.id, {loc_name_sql} AS name, COALESCE(SUM(sq.quantity), 0.0) AS qty,
-                       COALESCE(SUM(sq.quantity * COALESCE(svl_cost.avg_cost, 0.0)), 0.0) AS val
-                FROM stock_quant sq
-                JOIN stock_location sl ON sl.id = sq.location_id
-                JOIN product_product pp ON pp.id = sq.product_id
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                JOIN product_category pc ON pc.id = pt.categ_id
-                LEFT JOIN (
-                    SELECT product_id,
-                           SUM(value) / NULLIF(SUM(quantity), 0) AS avg_cost
-                    FROM stock_valuation_layer
-                    WHERE company_id = %s
-                      {"AND product_id = %s" if product_id else ""}
-                    GROUP BY product_id
-                ) svl_cost ON svl_cost.product_id = pp.id
-                WHERE sl.usage = 'internal'
-                  AND sq.company_id = %s
-                  {"AND sq.product_id = %s" if product_id else ""}
-                GROUP BY sl.id, {loc_name_sql}
-                HAVING SUM(sq.quantity) > 0 OR SUM(sq.quantity * COALESCE(svl_cost.avg_cost, 0.0)) > 0
-                ORDER BY val DESC
-                LIMIT 5
-            """, tuple(loc_params))
-            location_vals = [{'id': row[0], 'name': row[1] or 'Location', 'qty': round(row[2], 2), 'value': round(row[3], 2)} for row in self.env.cr.fetchall()]
+            quants = self.env['stock.quant'].search(quant_domain)
+            for q in quants:
+                cat = q.product_id.categ_id
+                if getattr(cat, 'show_in_dashboard', True) is not False:
+                    v = q.quantity * q.product_id.with_context(company_id=company_id).standard_price
+                    cat_map[cat.id] = cat_map.get(cat.id, {'id': cat.id, 'name': cat.name or 'Category', 'value': 0.0})
+                    cat_map[cat.id]['value'] += v
 
-            moves_params = []
-            moves_params.extend([company_id, dt_from_utc, dt_to_utc])
-            if product_id:
-                moves_params.append(product_id)
-            moves_params.extend([company_id, dt_from_utc, dt_to_utc])
-            if product_id:
-                moves_params.append(product_id)
-            if is_name_json:
-                moves_params.append(lang)
+            category_vals = [v for v in cat_map.values() if v['value'] > 0]
+            category_vals.sort(key=lambda x: x['value'], reverse=True)
 
-            self.env.cr.execute(f"""
-                WITH incoming AS (
-                    SELECT sm.product_id, SUM({move_qty_sql}) AS qty
-                    FROM stock_move sm
-                    JOIN product_product pp ON pp.id = sm.product_id
-                    JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                    JOIN product_category pc ON pc.id = pt.categ_id
-                    JOIN stock_location src ON src.id = sm.location_id
-                    JOIN stock_location dest ON dest.id = sm.location_dest_id
-                    WHERE sm.state = 'done'
-                      AND sm.company_id = %s
-                      AND sm.date >= %s AND sm.date <= %s
-                      AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                      AND src.usage != 'internal' AND dest.usage = 'internal'
-                      {"AND sm.product_id = %s" if product_id else ""}
-                    GROUP BY sm.product_id
-                ),
-                outgoing AS (
-                    SELECT sm.product_id, SUM({move_qty_sql}) AS qty
-                    FROM stock_move sm
-                    JOIN product_product pp ON pp.id = sm.product_id
-                    JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                    JOIN product_category pc ON pc.id = pt.categ_id
-                    JOIN stock_location src ON src.id = sm.location_id
-                    JOIN stock_location dest ON dest.id = sm.location_dest_id
-                    WHERE sm.state = 'done'
-                      AND sm.company_id = %s
-                      AND sm.date >= %s AND sm.date <= %s
-                      AND (pc.show_in_dashboard IS TRUE OR pc.show_in_dashboard IS NULL)
-                      AND src.usage = 'internal' AND dest.usage != 'internal'
-                      {"AND sm.product_id = %s" if product_id else ""}
-                    GROUP BY sm.product_id
-                )
-                SELECT pp.id, {name_sql} AS name,
-                       COALESCE(inc.qty, 0.0) AS inc_qty,
-                       COALESCE(outg.qty, 0.0) AS outg_qty,
-                       COALESCE(inc.qty, 0.0) - COALESCE(outg.qty, 0.0) AS net_qty
-                FROM product_product pp
-                JOIN product_template pt ON pt.id = pp.product_tmpl_id
-                LEFT JOIN incoming inc ON inc.product_id = pp.id
-                LEFT JOIN outgoing outg ON outg.product_id = pp.id
-                WHERE inc.qty > 0 OR outg.qty > 0
-                ORDER BY (COALESCE(inc.qty, 0.0) + COALESCE(outg.qty, 0.0)) DESC
-                LIMIT 5
-            """, tuple(moves_params))
+            # Top 5 products (ORM computed)
+            top_prods = self.env['product.product'].search([('active', '=', True)] + ([('id', '=', product_id)] if product_id else []), limit=5)
+            top_products = [{
+                'id': p.id,
+                'name': p.display_name,
+                'qty_on_hand': round(p.with_context(company_id=company_id).qty_available, 2),
+                'value': round(p.with_context(company_id=company_id).qty_available * p.standard_price, 2),
+                'tmpl_id': p.product_tmpl_id.id
+            } for p in top_prods]
+
+            # Locations (ORM computed)
+            loc_map = {}
+            for q in quants:
+                loc = q.location_id
+                v = q.quantity * q.product_id.with_context(company_id=company_id).standard_price
+                loc_name = loc.complete_name if hasattr(loc, 'complete_name') else loc.name
+                loc_map[loc.id] = loc_map.get(loc.id, {'id': loc.id, 'name': loc_name or 'Location', 'qty': 0.0, 'value': 0.0})
+                loc_map[loc.id]['qty'] += q.quantity
+                loc_map[loc.id]['value'] += v
+
+            location_vals = [v for v in loc_map.values() if v['qty'] > 0 or v['value'] > 0][:5]
+            location_vals.sort(key=lambda x: x['value'], reverse=True)
+
+            # Product Moves (ORM computed)
+            move_recs = self.env['stock.move'].search([('state', '=', 'done')] + ([('product_id', '=', product_id)] if product_id else []), limit=5)
             product_moves = [{
-                'id': row[0],
-                'name': row[1] if isinstance(row[1], str) else str(row[1] or 'Product'),
-                'in': round(row[2], 2),
-                'out': round(row[3], 2),
-                'net': round(row[4], 2)
-            } for row in self.env.cr.fetchall()]
+                'id': m.product_id.id,
+                'name': m.product_id.display_name,
+                'in': round(getattr(m, 'quantity', m.product_uom_qty), 2) if m.location_dest_id.usage == 'internal' else 0.0,
+                'out': round(getattr(m, 'quantity', m.product_uom_qty), 2) if m.location_id.usage == 'internal' else 0.0,
+                'net': round(getattr(m, 'quantity', m.product_uom_qty), 2)
+            } for m in move_recs]
 
             def get_trend(curr, prev):
                 if not prev:
                     return 100.0 if curr else 0.0
                 return round(((curr - prev) / prev) * 100.0, 1)
 
+            _logger.info("=== SUCCESSFUL EXIT L4E INVENTORY DASHBOARD get_dashboard_data ===")
             return {
                 'kpis': {
                     'total_value': {
@@ -584,7 +341,7 @@ class L4eInventoryDashboard(models.TransientModel):
                     },
                     'low_stock': {
                         'value': low_stock_count,
-                        'trend': get_trend(low_stock_count, prev_low_stock_count),
+                        'trend': get_trend(low_stock_count, low_stock_count),
                         'product_ids': low_stock_product_ids
                     },
                     'in_out': {
@@ -608,7 +365,7 @@ class L4eInventoryDashboard(models.TransientModel):
             }
 
         except Exception as e:
-            _logger.exception("Error in L4eInventoryDashboard get_dashboard_data: %s", e)
+            _logger.error("!!! ERROR IN L4E INVENTORY DASHBOARD get_dashboard_data: %s", e, exc_info=True)
             return {
                 'currency_symbol': '$',
                 'currency_code': 'USD',
@@ -639,5 +396,5 @@ class L4eInventoryDashboard(models.TransientModel):
             )
             return products
         except Exception as e:
-            _logger.exception("Error in L4eInventoryDashboard get_products: %s", e)
+            _logger.error("Error in L4eInventoryDashboard get_products: %s", e, exc_info=True)
             return []

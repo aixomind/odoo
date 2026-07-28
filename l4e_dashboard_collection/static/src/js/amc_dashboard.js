@@ -1,3 +1,4 @@
+/** @odoo-module **/
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, useState, onMounted, onWillUnmount, onWillStart } from "@odoo/owl";
@@ -104,6 +105,12 @@ class AmcDashboard extends Component {
     }
 
     _getPeriodRange(period) {
+        if (period === 'custom') {
+            return {
+                dateFrom: this.state.dateFrom || false,
+                dateTo: this.state.dateTo || false,
+            };
+        }
         const today = new Date();
         const start = new Date(today);
         const end = new Date(today);
@@ -282,11 +289,19 @@ class AmcDashboard extends Component {
     }
 
     onDateFromChange(ev) {
-        this.state.dateFrom = ev.target.value;
+        const val = ev.target.value;
+        this.state.dateFrom = val;
+        if (this.state.dateTo && val > this.state.dateTo) {
+            this.state.dateTo = val;
+        }
     }
 
     onDateToChange(ev) {
-        this.state.dateTo = ev.target.value;
+        const val = ev.target.value;
+        this.state.dateTo = val;
+        if (this.state.dateFrom && val < this.state.dateFrom) {
+            this.state.dateFrom = val;
+        }
     }
 
     async onEmployeeChange(ev) {
@@ -302,6 +317,10 @@ class AmcDashboard extends Component {
     }
 
     async onFilter() {
+        if (this.state.dateFrom || this.state.dateTo) {
+            this.state.statusPeriod = 'custom';
+            this.state.schedulePeriod = 'custom';
+        }
         this._saveFilters();
         await this._loadData();
     }

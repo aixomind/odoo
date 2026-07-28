@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
@@ -19,7 +40,7 @@ class FinancialDashboard(models.AbstractModel):
 
     SALARY_STATE_CONFIG = [
         ("draft", "Draft", "#fff8e7", "#f59f00", "fa-file-text-o"),
-        ("done", "Waiting", "#fff4ed", "#f97316", "fa-clock-o"),
+        ("waiting", "Waiting", "#fff4ed", "#f97316", "fa-clock-o"),
         ("paid", "Paid", "#edfdf3", "#0f9d58", "fa-check-circle-o"),
         ("cancel", "Cancelled", "#f8fafc", "#334155", "fa-times-circle-o"),
     ]
@@ -221,7 +242,9 @@ class FinancialDashboard(models.AbstractModel):
                 ],
             }
         if status_key == "total_net":
-            domain.append(("state", "in", ["draft", "done", "paid"]))
+            domain.append(("state", "in", ["draft", "verify", "done", "paid", "waiting", "validated"]))
+        elif status_key in ("waiting", "validated"):
+            domain.append(("state", "=", "validated"))
         elif status_key:
             domain.append(("state", "=", status_key))
         return {
@@ -330,15 +353,23 @@ class FinancialDashboard(models.AbstractModel):
         }
 
     def _salary_domain(self, date_from, date_to, filters):
-        domain = [("company_id", "=", self.env.company.id)]
+        domain = ['|', ("company_id", "=", self.env.company.id), ("company_id", "=", False)]
         if date_from:
-            domain.append(("date_from", ">=", fields.Date.to_string(date_from)))
+            domain.append(("date_to", ">=", fields.Date.to_string(date_from)))
         if date_to:
             domain.append(("date_from", "<=", fields.Date.to_string(date_to)))
-        if filters.get("employee_id"):
-            domain.append(("employee_id", "=", int(filters["employee_id"])))
-        if filters.get("department_id"):
-            domain.append(("department_id", "=", int(filters["department_id"])))
+        if filters and filters.get("employee_id"):
+            try:
+                emp_id = int(filters["employee_id"])
+                domain.append(("employee_id", "=", emp_id))
+            except (ValueError, TypeError):
+                pass
+        if filters and filters.get("department_id"):
+            try:
+                dept_id = int(filters["department_id"])
+                domain.append(("department_id", "=", dept_id))
+            except (ValueError, TypeError):
+                pass
         return domain
 
     def _get_salary_summary(self, date_from, date_to, filters):
@@ -349,7 +380,7 @@ class FinancialDashboard(models.AbstractModel):
         PayslipLine = self.env["hr.payslip.line"]
         slips = Payslip.search(self._salary_domain(date_from, date_to, filters))
         currency = self.env.company.currency_id
-        net_slips = slips.filtered(lambda slip: slip.state in ("draft", "done", "paid"))
+        net_slips = slips.filtered(lambda slip: slip.state in ("draft", "verify", "done", "paid", "waiting", "validated"))
         net_lines = PayslipLine.search([
             ("zip_id", "in", net_slips.ids) if "zip_id" in PayslipLine._fields else ("slip_id", "in", net_slips.ids),
             ("salary_rule_id.category_id.code", "=", "NET"),
@@ -367,12 +398,21 @@ class FinancialDashboard(models.AbstractModel):
             "sub_label": "Employees",
         }]
         for key, label, background, color, icon in self.SALARY_STATE_CONFIG:
-            state_slips = slips.filtered(lambda slip, target=key: slip.state == target)
-            lines = PayslipLine.search([
-                ("zip_id", "in", state_slips.ids) if "zip_id" in PayslipLine._fields else ("slip_id", "in", state_slips.ids),
-                ("salary_rule_id.category_id.code", "=", "NET"),
-            ])
-            total = sum(lines.mapped("total")) if lines else 0.0
+            state_slips = slips.filtered(lambda slip, target=key: slip.state == "validated" if target == "waiting" else slip.state == target)
+            total = 0.0
+            for slip in state_slips:
+                net_lines = PayslipLine.search([
+                    ("zip_id", "=", slip.id) if "zip_id" in PayslipLine._fields else ("slip_id", "=", slip.id),
+                    ("salary_rule_id.category_id.code", "=", "NET"),
+                ])
+                if net_lines:
+                    total += sum(net_lines.mapped("total"))
+                elif hasattr(slip, 'net_wage') and slip.net_wage:
+                    total += slip.net_wage
+                elif hasattr(slip, 'basic_wage') and slip.basic_wage:
+                    total += slip.basic_wage
+                elif slip.line_ids:
+                    total += sum(slip.line_ids.mapped("total"))
             stats.append({
                 "key": key,
                 "label": label,

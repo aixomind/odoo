@@ -23,8 +23,22 @@
 from odoo import fields, models
 
 
-class ResCompany(models.Model):
-    """This class inherits 'res.company' and adds so_double_validation,
-    so_double_validation_limit to add validation limits"""
-    _inherit = 'res.company'
+class CrmLead(models.Model):
+    _inherit = "crm.lead"
 
+    def action_set_lost(self, **kwargs):
+        res = super().action_set_lost(**kwargs)
+        lost_stage = self.env["crm.stage"].search([("name", "ilike", "lost")], limit=1)
+        if lost_stage:
+            self.write({"stage_id": lost_stage.id})
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "active" in vals and not vals["active"]:
+            lost_stage = self.env["crm.stage"].search([("name", "ilike", "lost")], limit=1)
+            if lost_stage:
+                to_update = self.filtered(lambda l: l.stage_id != lost_stage)
+                if to_update:
+                    super(CrmLead, to_update).write({"stage_id": lost_stage.id})
+        return res

@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 {
     'name': 'All In One dashboard ( Sales , Finance , Inventory, AMC )',
     'version': '19.0.1.0.1',
@@ -12,9 +33,10 @@
         4. AMC (Annual Maintenance Contract) Dashboard
         Visibility of each dashboard can be configured under settings, restricted to the system administrator.
     """,
-    'author': 'Links4Engg',
+    'author': 'Krishnaraj',
     'license': 'LGPL-3',
     'depends': [
+        'crm',
         'sale_management',
         'stock',
         'stock_account',
@@ -31,10 +53,20 @@
         'views/inventory_dashboard_views.xml',
         'views/financial_dashboard_views.xml',
         'views/amc_dashboard_views.xml',
+        'views/crm_sale_views.xml',
+        'views/crm_dashboard_views.xml',
         'views/dashboards_menu_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
+            'l4e_dashboard_collection/static/src/scss/analytics.scss',
+            'l4e_dashboard_collection/static/src/scss/charts.scss',
+            'l4e_dashboard_collection/static/src/scss/dashboard.scss',
+            'l4e_dashboard_collection/static/src/scss/scroll.scss',
+            'l4e_dashboard_collection/static/src/scss/summary.scss',
+            'l4e_dashboard_collection/static/src/js/crm_dashboard.js',
+            'l4e_dashboard_collection/static/src/xml/crm_dashboard.xml',
+
             'l4e_dashboard_collection/static/src/css/sale_dashboard.css',
             'l4e_dashboard_collection/static/src/js/sale_dashboard.js',
             'l4e_dashboard_collection/static/src/xml/sale_dashboard.xml',

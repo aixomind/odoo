@@ -11,7 +11,7 @@
                     <label>
                         <span>Card Period Filter</span>
                         <select t-att-value="state.period" t-on-change="onDashboardPeriodChange">
-                            <t t-foreach="state.options.years" t-as="year" t-key="year">
+                            <t t-foreach="state.options.years || []" t-as="year" t-key="year">
                                 <option t-att-value="year" t-att-selected="isPeriodSelected(year)">
                                     <t t-out="year"/>
                                 </option>
@@ -41,7 +41,7 @@
                                 <t t-if="card.type === 'sale'">
                                     <select t-att-value="getSelectValue(card.type, 'customer_id')" t-on-change="(ev) => this.updateFilter(card.type, 'customer_id', ev)">
                                         <option value="" t-att-selected="isSelected(card.type, 'customer_id', '')">All Customers</option>
-                                        <t t-foreach="state.options.customers" t-as="customer" t-key="customer.id">
+                                        <t t-foreach="state.options.customers || []" t-as="customer" t-key="customer.id">
                                             <option t-att-value="customer.id" t-att-selected="isSelected(card.type, 'customer_id', customer.id)">
                                                 <t t-out="customer.name"/>
                                             </option>
@@ -49,7 +49,7 @@
                                     </select>
                                     <select t-att-value="getSelectValue(card.type, 'user_id')" t-on-change="(ev) => this.updateFilter(card.type, 'user_id', ev)">
                                         <option value="" t-att-selected="isSelected(card.type, 'user_id', '')">All Users</option>
-                                        <t t-foreach="state.options.users" t-as="user" t-key="user.id">
+                                        <t t-foreach="state.options.users || []" t-as="user" t-key="user.id">
                                             <option t-att-value="user.id" t-att-selected="isSelected(card.type, 'user_id', user.id)">
                                                 <t t-out="user.name"/>
                                             </option>
@@ -59,7 +59,7 @@
                                 <t t-elif="card.type === 'purchase'">
                                     <select t-att-value="getSelectValue(card.type, 'vendor_id')" t-on-change="(ev) => this.updateFilter(card.type, 'vendor_id', ev)">
                                         <option value="" t-att-selected="isSelected(card.type, 'vendor_id', '')">All Vendors</option>
-                                        <t t-foreach="state.options.vendors" t-as="vendor" t-key="vendor.id">
+                                        <t t-foreach="state.options.vendors || []" t-as="vendor" t-key="vendor.id">
                                             <option t-att-value="vendor.id" t-att-selected="isSelected(card.type, 'vendor_id', vendor.id)">
                                                 <t t-out="vendor.name"/>
                                             </option>
@@ -67,7 +67,7 @@
                                     </select>
                                     <select t-att-value="getSelectValue(card.type, 'user_id')" t-on-change="(ev) => this.updateFilter(card.type, 'user_id', ev)">
                                         <option value="" t-att-selected="isSelected(card.type, 'user_id', '')">All Users</option>
-                                        <t t-foreach="state.options.users" t-as="user" t-key="user.id">
+                                        <t t-foreach="state.options.users || []" t-as="user" t-key="user.id">
                                             <option t-att-value="user.id" t-att-selected="isSelected(card.type, 'user_id', user.id)">
                                                 <t t-out="user.name"/>
                                             </option>
@@ -77,7 +77,7 @@
                                 <t t-else="">
                                     <select t-att-value="getSelectValue(card.type, 'department_id')" t-on-change="(ev) => this.updateFilter(card.type, 'department_id', ev)">
                                         <option value="" t-att-selected="isSelected(card.type, 'department_id', '')">All Departments</option>
-                                        <t t-foreach="state.options.departments" t-as="department" t-key="department.id">
+                                        <t t-foreach="state.options.departments || []" t-as="department" t-key="department.id">
                                             <option t-att-value="department.id" t-att-selected="isSelected(card.type, 'department_id', department.id)">
                                                 <t t-out="department.name"/>
                                             </option>
@@ -85,7 +85,7 @@
                                     </select>
                                     <select t-att-value="getSelectValue(card.type, 'employee_id')" t-on-change="(ev) => this.updateFilter(card.type, 'employee_id', ev)">
                                         <option value="" t-att-selected="isSelected(card.type, 'employee_id', '')">All Employees</option>
-                                        <t t-foreach="state.options.employees" t-as="employee" t-key="employee.id">
+                                        <t t-foreach="state.options.employees || []" t-as="employee" t-key="employee.id">
                                             <option t-att-value="employee.id" t-att-selected="isSelected(card.type, 'employee_id', employee.id)">
                                                 <t t-out="employee.name"/>
                                             </option>
