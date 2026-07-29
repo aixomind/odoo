@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l4e_discount_tier_view_list" model="ir.ui.view">
+        <field name="name">l4e.discount.tier.list</field>
+        <field name="model">l4e.discount.tier</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Tiers" decoration-muted="not active">
+                <field name="name"/>
+                <field name="discount_min" string="From (%)"/>
+                <field name="discount_max" string="To (%)"/>
+                <field name="approver_ids" widget="many2many_tags"/>
+                <field name="approval_mode"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="l4e_discount_tier_view_form" model="ir.ui.view">
+        <field name="name">l4e.discount.tier.form</field>
+        <field name="model">l4e.discount.tier</field>
+        <field name="arch" type="xml">
+            <form string="Discount Tier">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Mid-range Discount"/></h1>
+                    </div>
+                    <group>
+                        <group string="Discount Range">
+                            <field name="discount_min" string="From (%) — exclusive"/>
+                            <field name="discount_max" string="To (%) — inclusive"/>
+                        </group>
+                        <group string="Settings">
+                            <field name="approval_mode" widget="radio"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Approvers">
+                        <field name="approver_ids" nolabel="1"
+                               widget="many2many_tags"
+                               domain="[('share', '=', False)]"
+                               placeholder="Select approvers…"
+                               colspan="2"
+                               class="w-100"/>
+                    </group>
+                    <group string="Description / Policy">
+                        <field name="description" nolabel="1"
+                               placeholder="Optional policy description…"
+                               colspan="2"
+                               class="w-100"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l4e_discount_tier" model="ir.actions.act_window">
+        <field name="name">Discount Approval Tiers</field>
+        <field name="res_model">l4e.discount.tier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first discount tier</p>
+            <p>Define discount ranges and assign approvers for each range.</p>
+        </field>
+    </record>
+</odoo>

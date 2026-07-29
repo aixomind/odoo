@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="purchase_order_view_form_l4e_discount" model="ir.ui.view">
+        <field name="name">purchase.order.view.form.l4e.discount</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Smart button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_discount_approval" type="object"
+                        class="oe_stat_button" icon="fa-percent"
+                        attrs="{'invisible': [('l4e_discount_approval_count', '=', 0)]}">
+                    <field name="l4e_discount_approval_count"
+                           widget="statinfo" string="Disc. Approval"/>
+                </button>
+            </xpath>
+
+            <!-- Status banners -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning mb-0" role="alert"
+                     attrs="{'invisible': [('l4e_discount_approval_state', '!=', 'pending')]}">
+                    <i class="fa fa-clock-o me-1" title="Discount Approval Pending"/>
+                    <strong>Discount Approval Pending</strong> —
+                    Discounts exceed the allowed limit. Waiting for manager approval.
+                    <field name="l4e_discount_approval_state" invisible="1"/>
+                </div>
+                <div class="alert alert-danger mb-0" role="alert"
+                     attrs="{'invisible': [('l4e_discount_approval_state', '!=', 'refused')]}">
+                    <i class="fa fa-times-circle me-1" title="Discount Approval Refused"/>
+                    <strong>Discount Approval Refused</strong> —
+                    Please adjust discounts or request a new approval.
+                </div>
+                <div class="alert alert-info mb-0" role="alert"
+                     attrs="{'invisible': ['|', ('l4e_discount_exceeds_limit', '=', False), ('l4e_discount_approval_state', 'in', ['pending', 'approved', 'refused'])]}">
+                    <i class="fa fa-exclamation-triangle me-1" title="Discount Limit Exceeded"/>
+                    <strong>Discount Limit Exceeded</strong> —
+                    Discounts exceed your allowed limit.
+                    Click <b>Request Discount Approval</b> to proceed.
+                </div>
+            </xpath>
+
+            <!-- Request Approval button before Confirm -->
+            <xpath expr="//button[@name='button_confirm']" position="before">
+                <button name="action_request_discount_approval"
+                        string="Request Discount Approval"
+                        type="object"
+                        class="btn-warning"
+                        attrs="{'invisible': ['|', ('l4e_discount_exceeds_limit', '=', False), ('l4e_discount_approval_state', 'in', ['pending', 'approved'])]}"/>
+            </xpath>
+
+            <!-- Order line: flag over-limit discounts -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="after">
+                <field name="l4e_discount_over_limit"
+                       string="⚠ Over Limit"
+                       readonly="1"
+                       optional="show"
+                       widget="boolean"/>
+            </xpath>
+
+            <!-- Hidden computed fields for visibility -->
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="l4e_discount_exceeds_limit" invisible="1"/>
+                <field name="l4e_discount_approval_state" invisible="1"/>
+                <field name="l4e_discount_approval_count" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l4e_discount_limit_view_list" model="ir.ui.view">
+        <field name="name">l4e.discount.limit.list</field>
+        <field name="model">l4e.discount.limit</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Limits" editable="bottom">
+                <field name="user_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="global_discount_limit" string="Global Limit (%)"/>
+                <field name="line_discount_limit" string="Per-Line Limit (%)"/>
+                <field name="approver_ids" widget="many2many_tags"/>
+                <field name="approval_mode"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="l4e_discount_limit_view_form" model="ir.ui.view">
+        <field name="name">l4e.discount.limit.form</field>
+        <field name="model">l4e.discount.limit</field>
+        <field name="arch" type="xml">
+            <form string="Discount Limit">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Limits">
+                            <field name="global_discount_limit" string="Global Discount Limit (%)"/>
+                            <field name="line_discount_limit" string="Per-Line Discount Limit (%)"/>
+                        </group>
+                    </group>
+                    <group string="Approvers (overrides Tier)">
+                        <field name="approver_ids" widget="many2many_tags"
+                               help="If set, these approvers are used instead of the discount tier approvers when this salesperson requests a discount approval."/>
+                        <field name="approval_mode" attrs="{'invisible': [('approver_ids', '=', False)]}"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="note" nolabel="1" placeholder="Optional notes…" colspan="2" class="w-100"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="l4e_discount_limit_view_search" model="ir.ui.view">
+        <field name="name">l4e.discount.limit.search</field>
+        <field name="model">l4e.discount.limit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <filter string="Group by Salesperson" name="by_user" context="{'group_by': 'user_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l4e_discount_limit" model="ir.actions.act_window">
+        <field name="name">Salesperson Discount Limits</field>
+        <field name="res_model">l4e.discount.limit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Set discount limits per salesperson</p>
+        </field>
+    </record>
+</odoo>

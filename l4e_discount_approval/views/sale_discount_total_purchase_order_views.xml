@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited view form of purchase order -->
+    <record id="view_purchase_order_form_discount" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.sale.discount.total</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Discount fields above the notes/terms area -->
+            <xpath expr="//field[@name='notes']" position="before">
+                <group name="po_discount_group">
+                    <field name="discount_type"/>
+                    <field name="discount_rate" class="oe_inline"
+                           attrs="{'invisible': [('discount_type', '=', 'line')]}"/>
+                    <field name="line_auto_discount"
+                           attrs="{'invisible': [('discount_type', '!=', 'line')]}"/>
+                    <field name="line_discount_apply_type"
+                           attrs="{'invisible': ['|', ('discount_type', '!=', 'line'), ('line_auto_discount', '=', False)]}"/>
+                    <field name="line_discount_apply_value"
+                           attrs="{'invisible': ['|', ('discount_type', '!=', 'line'), ('line_auto_discount', '=', False)]}"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//field[@name='tax_totals']" position="replace">
+                <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id', 'no_symbol': True}"/>
+                <field name="amount_discount" widget="monetary" options="{'currency_field': 'currency_id', 'no_symbol': True}"/>
+                <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id', 'no_symbol': True}"/>
+                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                    <label for="amount_total"/>
+                    <button name="button_dummy" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                </div>
+                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+
+            <!-- Add Disc % and Disc Value columns (not native in Odoo 16 purchase) -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="discount"
+                       string="Discount (%)"
+                       digits="[16, 2]"
+                       attrs="{'column_invisible': [('parent.discount_type', '!=', 'line')], 'readonly': [('parent.line_auto_discount', '=', True)]}"/>
+                <field name="discount_value"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id', 'no_symbol': True}"
+                       optional="show"
+                       attrs="{'column_invisible': [('parent.discount_type', '!=', 'line')], 'readonly': [('parent.line_auto_discount', '=', True)]}"/>
+            </xpath>
+            <!-- Actual Amount (before discount) after Subtotal -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="l4e_actual_amount"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id', 'no_symbol': True}"
+                       string="Actual Amount"
+                       readonly="1"/>
+<!--                       invisible="discount == 0"/>-->
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="options">{'currency_field': 'currency_id', 'no_symbol': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+                <attribute name="options">{'currency_field': 'currency_id', 'no_symbol': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
