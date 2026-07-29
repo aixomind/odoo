@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited view form of sale order-->
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="name">sale.order.view.form.inherit.sale.discount.total
+        </field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='note_group']" position="replace">
+                <group name="note_group" col="6">
+                    <group name="discount" colspan="4">
+                        <field name="discount_type"
+                               groups="sale.group_discount_per_so_line"/>
+                        <field name="discount_rate"
+                               groups="sale.group_discount_per_so_line"
+                               invisible="discount_type == 'line'"/>
+                        <field name="line_auto_discount"
+                               groups="sale.group_discount_per_so_line"
+                               invisible="discount_type != 'line'"/>
+                        <field name="line_discount_apply_type"
+                               groups="sale.group_discount_per_so_line"
+                               invisible="discount_type != 'line' or not line_auto_discount"/>
+                        <field name="line_discount_apply_value"
+                               groups="sale.group_discount_per_so_line"
+                               invisible="discount_type != 'line' or not line_auto_discount"/>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right" colspan="2"
+                           name="sale_total">
+                        <field name="amount_untaxed" widget="monetary"
+                               options="{'currency_field': 'currency_id', 'no_symbol': True}"/>
+                        <field name="amount_discount" widget="monetary"
+                               options="{'currency_field': 'currency_id', 'no_symbol': True}"/>
+                        <field name="amount_tax" widget="monetary"
+                               options="{'currency_field': 'currency_id', 'no_symbol': True}"/>
+                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                            <label for="amount_total"/>
+                            <button name="button_dummy"
+                                    invisible="state not in ['draft','sent']"
+                                    string="(update)"
+                                    type="object"
+                                    class="oe_edit_only oe_link"/>
+                        </div>
+                        <field name="amount_total" nolabel="1"
+                               class="oe_subtotal_footer_separator"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"/>
+                        <field name="margin_test" invisible="not margin_test"/>
+                    </group>
+                    <group colspan="4">
+                        <field colspan="2" name="note" nolabel="1"
+                               placeholder="Terms and conditions..."/>
+                    </group>
+                    <div class="clearfix"/>
+                </group>
+            </xpath>
+            <!-- Roundoff the discount field + hide when not line-wise + readonly on auto -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='discount']"
+                   position="attributes">
+                <attribute name="digits">[16, 2]</attribute>
+                <attribute name="column_invisible">parent.discount_type != 'line'</attribute>
+                <attribute name="readonly">parent.line_auto_discount</attribute>
+            </xpath>
+            <!-- Add Disc Value column after Disc % -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='discount']"
+                   position="after">
+                <field name="discount_value"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id', 'no_symbol': True}"
+                       optional="show"
+                       column_invisible="parent.discount_type != 'line'"
+                       readonly="parent.line_auto_discount"/>
+            </xpath>
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                   position="after">
+                <field name="l4e_actual_amount"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id', 'no_symbol': True}"
+                       string="Actual Amount"
+                       readonly="1"/>
+<!--                       invisible="discount == 0"/>-->
+                <field name="total_discount" force_save="1" column_invisible="1"  optional="hide"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="options">{'currency_field': 'currency_id', 'no_symbol': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="attributes">
+                <attribute name="options">{'currency_field': 'currency_id', 'no_symbol': True}</attribute>
+            </xpath>
+
+             <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                   position="attributes">
+                 <attribute name="invisible">is_downpayment or parent.discount_type != 'line'</attribute>
+            </xpath>
+              <!-- Show Margin % and Margin Value when line_auto_discount is enabled -->
+            <xpath expr="//field[@name='discount_rate']" position="after">
+                 <field name="margin_auto_percent"/>
+                  <field name="margin_auto_value"/>
+              </xpath>
+            
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu -->
+    <menuitem id="menu_l4e_discount_root"
+              name="L4E Discounts"
+              parent="sale.sale_menu_root"
+              sequence="98"
+              groups="l4e_discount_approval.group_discount_manager"/>
+
+    <menuitem id="menu_l4e_discount_tiers"
+              name="Discount Tiers"
+              parent="menu_l4e_discount_root"
+              action="l4e_discount_approval.action_l4e_discount_tier"
+              sequence="10"
+              groups="l4e_discount_approval.group_discount_manager"/>
+
+    <menuitem id="menu_l4e_discount_limits"
+              name="Salesperson Limits"
+              parent="menu_l4e_discount_root"
+              action="l4e_discount_approval.action_l4e_discount_limit"
+              sequence="20"
+              groups="l4e_discount_approval.group_discount_manager"/>
+
+    <menuitem id="menu_l4e_discount_requests"
+              name="Approval Requests"
+              parent="menu_l4e_discount_root"
+              action="l4e_discount_approval.action_l4e_discount_approval_request"
+              sequence="30"
+              groups="l4e_discount_approval.group_discount_manager"/>
+
+    <menuitem id="menu_l4e_my_discount_approvals"
+              name="My Pending Discount Approvals"
+              parent="menu_l4e_discount_root"
+              action="l4e_discount_approval.action_l4e_my_discount_approvals"
+              sequence="5"/>
+
+    <!-- Sequence for request reference -->
+    <record id="seq_l4e_discount_approval_request" model="ir.sequence">
+        <field name="name">L4E Discount Approval Request</field>
+        <field name="code">l4e.discount.approval.request</field>
+        <field name="prefix">DISC-APR/%(year)s/</field>
+        <field name="padding">4</field>
+    </record>
+</odoo>
