@@ -38,7 +38,7 @@
                         <field name="approval_mode" invisible="not approver_ids"/>
                     </group>
                     <group string="Notes">
-                        <field name="note" nolabel="1" placeholder="Optional notes…"/>
+                        <field name="note" nolabel="1" placeholder="Optional notes…" colspan="2" class="w-100"/>
                     </group>
                 </sheet>
             </form>

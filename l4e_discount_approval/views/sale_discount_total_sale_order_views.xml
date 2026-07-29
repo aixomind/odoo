@@ -10,19 +10,14 @@
             <xpath expr="//group[@name='note_group']" position="replace">
                 <group name="note_group" col="6">
                     <group name="discount" colspan="4">
-                        <field name="discount_type"
-                               groups="sale.group_discount_per_so_line"/>
+                        <field name="discount_type"/>
                         <field name="discount_rate"
-                               groups="sale.group_discount_per_so_line"
                                invisible="discount_type == 'line'"/>
                         <field name="line_auto_discount"
-                               groups="sale.group_discount_per_so_line"
                                invisible="discount_type != 'line'"/>
                         <field name="line_discount_apply_type"
-                               groups="sale.group_discount_per_so_line"
                                invisible="discount_type != 'line' or not line_auto_discount"/>
                         <field name="line_discount_apply_value"
-                               groups="sale.group_discount_per_so_line"
                                invisible="discount_type != 'line' or not line_auto_discount"/>
                     </group>
                     <group class="oe_subtotal_footer oe_right" colspan="2"

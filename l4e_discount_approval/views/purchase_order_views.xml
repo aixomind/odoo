@@ -62,6 +62,7 @@
             <xpath expr="//field[@name='state']" position="after">
                 <field name="l4e_discount_exceeds_limit" invisible="1"/>
                 <field name="l4e_discount_approval_state" invisible="1"/>
+                <field name="l4e_discount_approval_count" invisible="1"/>
             </xpath>
 
         </field>

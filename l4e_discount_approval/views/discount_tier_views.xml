@@ -39,10 +39,15 @@
                         <field name="approver_ids" nolabel="1"
                                widget="many2many_tags"
                                domain="[('share', '=', False)]"
-                               placeholder="Select approvers…"/>
+                               placeholder="Select approvers…"
+                               colspan="2"
+                               class="w-100"/>
                     </group>
                     <group string="Description / Policy">
-                        <field name="description" nolabel="1" placeholder="Optional policy description…"/>
+                        <field name="description" nolabel="1"
+                               placeholder="Optional policy description…"
+                               colspan="2"
+                               class="w-100"/>
                     </group>
                 </sheet>
             </form>

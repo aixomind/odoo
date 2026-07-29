@@ -32,6 +32,7 @@
         <field name="arch" type="xml">
             <form string="Discount Approval Request">
                 <header>
+                    <field name="can_approve" invisible="1"/>
                     <button name="action_approve" type="object"
                             string="Approve" class="btn-success"
                             invisible="not can_approve"
@@ -78,10 +79,10 @@
                         </group>
                     </group>
                     <group string="Discount Details" invisible="not discount_info">
-                        <field name="discount_info" readonly="1" nolabel="1"/>
+                        <field name="discount_info" readonly="1" nolabel="1" colspan="2" class="w-100"/>
                     </group>
                     <group string="Refusal Reason" invisible="state != 'refused'">
-                        <field name="refuse_note" readonly="1" nolabel="1"/>
+                        <field name="refuse_note" readonly="1" nolabel="1" colspan="2" class="w-100"/>
                     </group>
                 </sheet>
                 <chatter/>
