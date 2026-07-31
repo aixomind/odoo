@@ -239,7 +239,7 @@ class AmcDashboard(models.TransientModel):
                 monthly_actions[task_date.month].append(task.id)
 
         scheduled_services = []
-        display_tasks = all_tasks.sorted(
+                display_tasks = all_tasks.sorted(
             key=lambda t: t.planned_date_begin if has_planned_date and t.planned_date_begin else (t.date_deadline if has_deadline and t.date_deadline else t.create_date),
             reverse=False
         )[:50]

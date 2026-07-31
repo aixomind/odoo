@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_change_journal_items_wizard,change.journal.items.wizard,model_change_journal_items_wizard,account.group_account_invoice,1,1,1,1
-access_change_journal_items_wizard_line,change.journal.items.wizard.line,model_change_journal_items_wizard_line,account.group_account_invoice,1,1,1,1
-access_bulk_transfer_wizard,bulk.transfer.wizard,model_bulk_transfer_wizard,account.group_account_invoice,1,1,1,1
