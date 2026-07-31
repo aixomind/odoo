@@ -34,7 +34,7 @@
         4. AMC (Annual Maintenance Contract) Dashboard
         Visibility of each dashboard can be configured under settings, restricted to the system administrator.
     """,
-    'author': 'Krishnaraj',
+    'author': 'Links4Engg Pvt. Ltd',
     'license': 'LGPL-3',
     'depends': [
         'crm',
