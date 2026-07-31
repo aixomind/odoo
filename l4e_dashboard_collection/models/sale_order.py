@@ -172,7 +172,10 @@ class SaleOrder(models.Model):
             'type': 'ir.actions.act_window',
             'name': f'Sale Orders - {label}',
             'res_model': 'sale.order',
-            'views': [(False, 'tree'), (False, 'form')],
-            'view_mode': 'tree,form',
+            'views': [
+                (self.env.ref('sale.sale_order_tree').id, 'list'),
+                (False, 'form')
+            ],
+            'view_mode': 'list,form',
             'domain': base + extra,
         }

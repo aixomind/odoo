@@ -49,231 +49,7 @@ function formatDate(dateStr) {
 }
 
 class AmcDashboard extends Component {
-    static template = xml`
-<div class="amc_dashboard">
-
-        <div class="amc-dashboard-header">
-            <div class="amc-header-left">
-                <h1>&#9881; AMC Management Dashboard</h1>
-                <p>Overview of Annual Maintenance Contract services</p>
-            </div>
-            <div class="amc-header-right">
-                <div class="amc-date-picker">
-                    <span>&#128197;</span>
-                    <input type="date" t-att-value="state.dateFrom" t-att-max="state.dateTo" t-on-change="onDateFromChange"/>
-                    <span>-</span>
-                    <input type="date" t-att-value="state.dateTo" t-att-min="state.dateFrom" t-on-change="onDateToChange"/>
-                </div>
-                <button class="amc-btn-new" t-on-click="onFilter">Apply</button>
-            </div>
-        </div>
-
-        <div class="amc-filters-bar">
-            <div class="amc-filter-group">
-                <label>Employee</label>
-                <select class="amc-select" t-att-value="state.employeeId" t-on-change="onEmployeeChange">
-                    <option value="">All Employees</option>
-                    <t t-foreach="state.employees" t-as="emp" t-key="emp.id">
-                        <option t-att-value="emp.id" t-esc="emp.name"/>
-                    </t>
-                </select>
-            </div>
-            <div class="amc-filter-group">
-                <label>Customer</label>
-                <select class="amc-select" t-att-value="state.customerId" t-on-change="onCustomerChange">
-                    <option value="">All Customers</option>
-                    <t t-foreach="state.customers" t-as="customer" t-key="customer.id">
-                        <option t-att-value="customer.id" t-esc="customer.name"/>
-                    </t>
-                </select>
-            </div>
-            <button class="amc-btn-clear" t-on-click="onClearFilters">
-                &#8635; Clear Filters
-            </button>
-        </div>
-
-        <div class="amc-dashboard-body">
-
-            <t t-if="state.loading">
-                <div class="amc-loading">
-                    <div class="amc-spinner"/>
-                    Loading dashboard data...
-                </div>
-            </t>
-
-            <t t-if="!state.loading and state.data">
-
-                <div class="amc-kpi-row">
-                    <div class="amc-kpi-card" t-on-click="() => this.openKpi('projects')" role="button" tabindex="0">
-                        <div class="amc-kpi-icon blue">&#128193;</div>
-                        <div class="amc-kpi-info">
-                            <span class="amc-kpi-label">Projects</span>
-                            <span class="amc-kpi-value" t-esc="state.data.projects"/>
-                            <span class="amc-kpi-trend">&#8599; vs last month</span>
-                        </div>
-                    </div>
-                    <div class="amc-kpi-card" t-on-click="() => this.openKpi('services')" role="button" tabindex="0">
-                        <div class="amc-kpi-icon purple">&#9776;</div>
-                        <div class="amc-kpi-info">
-                            <span class="amc-kpi-label">Services</span>
-                            <span class="amc-kpi-value" t-esc="state.data.services"/>
-                            <span class="amc-kpi-trend">&#8599; vs last month</span>
-                        </div>
-                    </div>
-                    <div class="amc-kpi-card" t-on-click="() => this.openKpi('completed')" role="button" tabindex="0">
-                        <div class="amc-kpi-icon green">&#10003;</div>
-                        <div class="amc-kpi-info">
-                            <span class="amc-kpi-label">Completed</span>
-                            <span class="amc-kpi-value" t-esc="state.data.completed"/>
-                            <span class="amc-kpi-trend">&#8599; vs last month</span>
-                        </div>
-                    </div>
-                    <div class="amc-kpi-card" t-on-click="() => this.openKpi('ongoing')" role="button" tabindex="0">
-                        <div class="amc-kpi-icon orange">&#8635;</div>
-                        <div class="amc-kpi-info">
-                            <span class="amc-kpi-label">Ongoing</span>
-                            <span class="amc-kpi-value" t-esc="state.data.ongoing"/>
-                            <span class="amc-kpi-trend">&#8599; vs last month</span>
-                        </div>
-                    </div>
-                    <div class="amc-kpi-card" t-on-click="() => this.openKpi('not_started')" role="button" tabindex="0">
-                        <div class="amc-kpi-icon gray">&#128337;</div>
-                        <div class="amc-kpi-info">
-                            <span class="amc-kpi-label">Not Started</span>
-                            <span class="amc-kpi-value" t-esc="state.data.not_started"/>
-                            <span class="amc-kpi-trend">&#8599; vs last month</span>
-                        </div>
-                    </div>
-                    <div class="amc-kpi-card" t-on-click="() => this.openKpi('overdue')" role="button" tabindex="0">
-                        <div class="amc-kpi-icon red">&#9888;</div>
-                        <div class="amc-kpi-info">
-                            <span class="amc-kpi-label">Overdue</span>
-                            <span class="amc-kpi-value" t-esc="state.data.overdue"/>
-                            <span class="amc-kpi-trend down">&#8599; vs last month</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="amc-charts-row">
-                    <div class="amc-chart-card">
-                        <div class="amc-chart-card-header">
-                            <span class="amc-chart-title">Service Status Distribution</span>
-                            <select class="amc-chart-period" t-att-value="state.statusPeriod" t-on-change="onStatusPeriodChange">
-                                <option value="custom" t-if="state.statusPeriod === 'custom'">Custom</option>
-                                <option value="month">This Month</option>
-                                <option value="quarter">This Quarter</option>
-                                <option value="year">This Year</option>
-                            </select>
-                        </div>
-                        <div class="amc-donut-wrapper">
-                            <div class="amc-donut-chart">
-                                <canvas id="amcDonutCanvas" width="180" height="180"/>
-                                <div class="amc-donut-center">
-                                    <span class="amc-donut-center-value" t-esc="state.data.status_chart.total"/>
-                                    <span class="amc-donut-center-label">Total</span>
-                                </div>
-                            </div>
-                            <div class="amc-donut-legend">
-                                <div class="amc-legend-item" t-on-click="() => this.openStatusSlice(0)" role="button" tabindex="0">
-                                    <div class="amc-legend-dot" style="background:#4caf50"/>
-                                    <span>Completed</span>
-                                    <span class="amc-legend-count" t-esc="state.data.status_chart.completed + ' (' + getDonutPct(state.data.status_chart.completed) + ')'"/>
-                                </div>
-                                <div class="amc-legend-item" t-on-click="() => this.openStatusSlice(1)" role="button" tabindex="0">
-                                    <div class="amc-legend-dot" style="background:#2196f3"/>
-                                    <span>Ongoing</span>
-                                    <span class="amc-legend-count" t-esc="state.data.status_chart.ongoing + ' (' + getDonutPct(state.data.status_chart.ongoing) + ')'"/>
-                                </div>
-                                <div class="amc-legend-item" t-on-click="() => this.openStatusSlice(2)" role="button" tabindex="0">
-                                    <div class="amc-legend-dot" style="background:#ff9800"/>
-                                    <span>Not Started</span>
-                                    <span class="amc-legend-count" t-esc="state.data.status_chart.not_started + ' (' + getDonutPct(state.data.status_chart.not_started) + ')'"/>
-                                </div>
-                                <div class="amc-legend-item" t-on-click="() => this.openStatusSlice(3)" role="button" tabindex="0">
-                                    <div class="amc-legend-dot" style="background:#f44336"/>
-                                    <span>Overdue</span>
-                                    <span class="amc-legend-count" t-esc="state.data.status_chart.overdue + ' (' + getDonutPct(state.data.status_chart.overdue) + ')'"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="amc-chart-card">
-                        <div class="amc-chart-card-header">
-                            <span class="amc-chart-title">Services Scheduled Per Month</span>
-                            <select class="amc-chart-period" t-att-value="state.schedulePeriod" t-on-change="onSchedulePeriodChange">
-                                <option value="custom" t-if="state.schedulePeriod === 'custom'">Custom</option>
-                                <option value="month">This Month</option>
-                                <option value="quarter">This Quarter</option>
-                                <option value="year">This Year</option>
-                            </select>
-                        </div>
-                        <div class="amc-bar-chart-wrapper" style="height:220px;">
-                            <canvas id="amcBarCanvas"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="amc-table-card">
-                    <div class="amc-table-header">Upcoming Scheduled Services</div>
-                    <div class="amc-table-wrapper">
-                        <table class="amc-table">
-                            <thead>
-                                <tr>
-                                    <th>Customer Name</th>
-                                    <th>AMC Reference</th>
-                                    <th>Scheduled Date &#9660;</th>
-                                    <th>Product / Asset</th>
-                                    <th>Employee</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <t t-if="state.data.scheduled_services.length === 0">
-                                    <tr>
-                                        <td colspan="6" style="text-align:center;color:#718096;padding:32px;">
-                                            No services found for the selected period.
-                                        </td>
-                                    </tr>
-                                </t>
-                                <t t-foreach="state.data.scheduled_services" t-as="svc" t-key="svc.id">
-                                    <tr class="amc-service-row" t-on-click="() => this.openService(svc.id)">
-                                        <td t-esc="svc.customer"/>
-                                        <td t-esc="svc.amc_reference"/>
-                                        <td>
-                                            <span style="display:flex;align-items:center;gap:6px;">
-                                                <t t-esc="formatDate(svc.scheduled_date)"/>
-                                            </span>
-                                        </td>
-                                        <td t-esc="svc.product"/>
-                                        <td>
-                                            <div class="d-flex flex-wrap gap-1">
-                                                <t t-foreach="svc.employees" t-as="emp" t-key="emp.id">
-                                                    <div class="amc-employee-chip">
-                                                        <div class="amc-employee-avatar"
-                                                            t-att-style="'background:' + getAvatarColor(emp.name)"
-                                                            t-esc="getInitials(emp.name)"/>
-                                                        <span t-esc="emp.name"/>
-                                                    </div>
-                                                </t>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span t-att-class="'amc-status-badge ' + getStatusClass(svc.status)"
-                                                  t-esc="svc.status"/>
-                                        </td>
-                                    </tr>
-                                </t>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </t>
-
-        </div>
-    </div>
-`;
+    static template = "l4e_dashboard_collection.AmcDashboard";
 
     setup() {
         this.orm = useService("orm");
@@ -426,62 +202,44 @@ class AmcDashboard extends Component {
         const d = this.state.data;
         const Chart = window.Chart;
         if (!Chart) return;
-
-        const hasData = (d.status_chart.completed + d.status_chart.ongoing + d.status_chart.not_started + d.status_chart.overdue) > 0;
-        const chartData = hasData ? [
-            d.status_chart.completed,
-            d.status_chart.ongoing,
-            d.status_chart.not_started,
-            d.status_chart.overdue,
-        ] : [1];
-        const bgColors = hasData ? ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'] : ['#e2e8f0'];
-
         this._donutChart = new Chart(canvas, {
             type: 'doughnut',
             data: {
                 labels: ['Completed', 'Ongoing', 'Not Started', 'Overdue'],
                 datasets: [{
-                    data: chartData,
-                    backgroundColor: bgColors,
+                    data: [
+                        d.status_chart.completed,
+                        d.status_chart.ongoing,
+                        d.status_chart.not_started,
+                        d.status_chart.overdue,
+                    ],
+                    backgroundColor: ['#4caf50', '#2196f3', '#ff9800', '#f44336'],
                     borderWidth: 0,
-                    hoverOffset: hasData ? 6 : 0,
+                    hoverOffset: 6,
                 }],
             },
             options: {
-                cutoutPercentage: 75,
-                cutout: '75%',
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
+                cutout: '72%',
+                onClick: (_event, elements) => {
+                    if (!elements.length) return;
+                    this.openStatusSlice(elements[0].index);
+                },
+                onHover: (event, elements) => {
+                    const target = event?.native?.target;
+                    if (target) {
+                        target.style.cursor = elements.length ? 'pointer' : 'default';
+                    }
                 },
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
-                        enabled: hasData,
-                        backgroundColor: '#0f172a',
-                        padding: 10,
-                        cornerRadius: 8,
                         callbacks: {
                             label: (ctx) => {
                                 const total = d.status_chart.total || 0;
-                                const val = ctx.raw !== undefined ? ctx.raw : ctx.y;
-                                return ` ${ctx.label}: ${val} (${total ? Math.round(val / total * 100) : 0}%)`;
+                                return ` ${ctx.label}: ${ctx.raw} (${total ? Math.round(ctx.raw / total * 100) : 0}%)`;
                             },
                         },
                     },
-                },
-                onClick: (_event, elements) => {
-                    if (!elements || !elements.length || !hasData) return;
-                    this.openStatusSlice(elements[0].index);
-                },
-                onHover: (evt, activeElements) => {
-                    const target = evt?.native?.target || evt?.target || (evt?.chart && evt.chart.canvas);
-                    if (target && target.style) {
-                        target.style.cursor = (activeElements && activeElements.length) ? 'pointer' : 'default';
-                    }
                 },
             },
         });
@@ -500,11 +258,9 @@ class AmcDashboard extends Component {
                 datasets: [{
                     label: 'Services',
                     data: this.state.data.monthly_data,
-                    backgroundColor: '#3b82f6',
-                    hoverBackgroundColor: '#2563eb',
-                    borderRadius: 6,
+                    backgroundColor: '#2196f3',
+                    borderRadius: 5,
                     borderSkipped: false,
-                    maxBarThickness: 32,
                 }],
             },
             options: {
@@ -514,30 +270,18 @@ class AmcDashboard extends Component {
                     if (!elements.length) return;
                     this.openMonthlySlice(elements[0].index);
                 },
-                onHover: (evt, activeElements) => {
-                    const target = evt?.native?.target || evt?.target || (evt?.chart && evt.chart.canvas);
-                    if (target && target.style) {
-                        target.style.cursor = (activeElements && activeElements.length) ? 'pointer' : 'default';
+                onHover: (event, elements) => {
+                    const target = event?.native?.target;
+                    if (target) {
+                        target.style.cursor = elements.length ? 'pointer' : 'default';
                     }
                 },
                 plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#0f172a',
-                        padding: 10,
-                        cornerRadius: 8,
-                        mode: 'index',
-                        intersect: false
-                    },
+                    legend: { position: 'bottom', labels: { font: { size: 12 }, boxWidth: 12 } },
+                    tooltip: { mode: 'index', intersect: false },
                 },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 0,
-                        suggestedMax: 5,
-                        grid: { color: '#f1f5f9' },
-                        ticks: { stepSize: 1, precision: 0, font: { size: 11 } }
-                    },
+                    y: { beginAtZero: true, grid: { color: '#f0f2f5' }, ticks: { font: { size: 11 } } },
                     x: { grid: { display: false }, ticks: { font: { size: 11 } } },
                 },
             },
