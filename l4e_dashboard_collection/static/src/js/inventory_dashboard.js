@@ -2,6 +2,7 @@ import { Component, onWillStart, onWillUnmount, useEffect, useRef, useState } fr
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { loadJS } from "@web/core/assets";
+import { currencies } from "@web/core/currency";
 
 export class L4eInventoryDashboard extends Component {
     static template = "l4e_dashboard_collection.InventoryDashboard";
@@ -349,10 +350,7 @@ export class L4eInventoryDashboard extends Component {
                 maintainAspectRatio: false,
                 cutout: '70%',
                 onHover: (evt, activeElements) => {
-                    const target = evt?.native?.target || evt?.target || (evt?.chart && evt.chart.canvas);
-                    if (target && target.style) {
-                        target.style.cursor = (activeElements && activeElements.length) ? 'pointer' : 'default';
-                    }
+                    evt.chart.canvas.style.cursor = activeElements.length ? 'pointer' : 'default';
                 },
                 onClick: (evt, activeElements) => {
                     if (activeElements && activeElements.length > 0) {
@@ -401,10 +399,12 @@ export class L4eInventoryDashboard extends Component {
     }
 
     getCompanyCurrency() {
+        const currencyId = this.state.data?.currency_id;
+        const currency = currencyId ? currencies[currencyId] : null;
         return {
-            symbol: this.state.data?.currency_symbol || '$',
-            position: this.state.data?.currency_position || 'before',
-            id: this.state.data?.currency_id
+            symbol: currency ? currency.symbol : (this.state.data?.currency_symbol || '$'),
+            position: currency ? currency.position : (this.state.data?.currency_position || 'before'),
+            id: currencyId
         };
     }
 

@@ -64,7 +64,6 @@ class L4eInventoryDashboard(models.TransientModel):
         prev_dt_from_utc = tz.localize(prev_dt_from_local).astimezone(pytz.utc).replace(tzinfo=None)
         prev_dt_to_utc = tz.localize(prev_dt_to_local).astimezone(pytz.utc).replace(tzinfo=None)
 
-        qty_col = "{qty_col}" if 'quantity' in self.env['stock.move']._fields else "sm.product_uom_qty"
         prod_cond = " AND pp.id = %s " if product_id else ""
 
         val_params = [company_id, dt_to_utc]
@@ -113,7 +112,7 @@ class L4eInventoryDashboard(models.TransientModel):
         stock_moves = self.env['stock.move'].search_count(move_domain + [('date', '>=', dt_from_utc), ('date', '<=', dt_to_utc)])
         prev_stock_moves = self.env['stock.move'].search_count(move_domain + [('date', '>=', prev_dt_from_utc), ('date', '<=', prev_dt_to_utc)])
 
-        low_stock_domain = [('categ_id.show_in_dashboard', '=', True), ('active', '=', True), ('type', 'in', ('consu', 'product'))]
+        low_stock_domain = [('categ_id.show_in_dashboard', '=', True), ('active', '=', True), ('type', '=', 'consu')]
         if product_id:
             low_stock_domain.append(('id', '=', product_id))
 
@@ -154,7 +153,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 GROUP BY sq.product_id
             ),
             incoming_moves AS (
-                SELECT sm.product_id, COALESCE(SUM({qty_col}), 0.0) as qty
+                SELECT sm.product_id, COALESCE(SUM(sm.quantity), 0.0) as qty
                 FROM stock_move sm
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
@@ -167,7 +166,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 GROUP BY sm.product_id
             ),
             outgoing_moves AS (
-                SELECT sm.product_id, COALESCE(SUM({qty_col}), 0.0) as qty
+                SELECT sm.product_id, COALESCE(SUM(sm.quantity), 0.0) as qty
                 FROM stock_move sm
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
@@ -228,7 +227,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 GROUP BY sq.product_id
             ),
             incoming_moves AS (
-                SELECT sm.product_id, COALESCE(SUM({qty_col}), 0.0) as qty
+                SELECT sm.product_id, COALESCE(SUM(sm.quantity), 0.0) as qty
                 FROM stock_move sm
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
@@ -241,7 +240,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 GROUP BY sm.product_id
             ),
             outgoing_moves AS (
-                SELECT sm.product_id, COALESCE(SUM({qty_col}), 0.0) as qty
+                SELECT sm.product_id, COALESCE(SUM(sm.quantity), 0.0) as qty
                 FROM stock_move sm
                 JOIN stock_location src ON src.id = sm.location_id
                 JOIN stock_location dest ON dest.id = sm.location_dest_id
@@ -277,7 +276,7 @@ class L4eInventoryDashboard(models.TransientModel):
             in_out_params.append(product_id)
 
         self.env.cr.execute(f"""
-            SELECT COALESCE(SUM({qty_col}), 0.0)
+            SELECT COALESCE(SUM(sm.quantity), 0.0)
             FROM stock_move sm
             JOIN product_product pp ON pp.id = sm.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
@@ -294,7 +293,7 @@ class L4eInventoryDashboard(models.TransientModel):
         current_in = self.env.cr.fetchone()[0]
 
         self.env.cr.execute(f"""
-            SELECT COALESCE(SUM({qty_col}), 0.0)
+            SELECT COALESCE(SUM(sm.quantity), 0.0)
             FROM stock_move sm
             JOIN product_product pp ON pp.id = sm.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
@@ -315,7 +314,7 @@ class L4eInventoryDashboard(models.TransientModel):
             prev_in_out_params.append(product_id)
 
         self.env.cr.execute(f"""
-            SELECT COALESCE(SUM({qty_col}), 0.0)
+            SELECT COALESCE(SUM(sm.quantity), 0.0)
             FROM stock_move sm
             JOIN product_product pp ON pp.id = sm.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
@@ -332,7 +331,7 @@ class L4eInventoryDashboard(models.TransientModel):
         prev_in = self.env.cr.fetchone()[0]
 
         self.env.cr.execute(f"""
-            SELECT COALESCE(SUM({qty_col}), 0.0)
+            SELECT COALESCE(SUM(sm.quantity), 0.0)
             FROM stock_move sm
             JOIN product_product pp ON pp.id = sm.product_id
             JOIN product_template pt ON pt.id = pp.product_tmpl_id
@@ -489,7 +488,7 @@ class L4eInventoryDashboard(models.TransientModel):
 
         self.env.cr.execute(f"""
             WITH incoming AS (
-                SELECT sm.product_id, SUM({qty_col}) AS qty
+                SELECT sm.product_id, SUM(sm.quantity) AS qty
                 FROM stock_move sm
                 JOIN product_product pp ON pp.id = sm.product_id
                 JOIN product_template pt ON pt.id = pp.product_tmpl_id
@@ -505,7 +504,7 @@ class L4eInventoryDashboard(models.TransientModel):
                 GROUP BY sm.product_id
             ),
             outgoing AS (
-                SELECT sm.product_id, SUM({qty_col}) AS qty
+                SELECT sm.product_id, SUM(sm.quantity) AS qty
                 FROM stock_move sm
                 JOIN product_product pp ON pp.id = sm.product_id
                 JOIN product_template pt ON pt.id = pp.product_tmpl_id
