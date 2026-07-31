@@ -363,71 +363,142 @@
 }
 
 
-/* ==========================================
-   DARK MODE STYLES (Matching CRM Dashboard)
-   Odoo 17, 18, 19
-   ========================================== */
+/* ============================================================
+   COMPLETE DARK MODE - Sales Dashboard (Odoo 17, 18, 19)
+   Matches CRM Dashboard dark theme exactly
+   ============================================================ */
+
 [data-bs-theme="dark"] .l4e_sale_dashboard,
 .o_dark_mode .l4e_sale_dashboard,
 .o_web_client.o_dark .l4e_sale_dashboard,
 body.o_dark .l4e_sale_dashboard {
-    background: #0f172a !important;
+    background-color: #0f172a !important;
     color: #f8fafc !important;
 }
 
-[data-bs-theme="dark"] .sd-kpi-card,
-[data-bs-theme="dark"] .sd-card,
-.o_dark_mode .sd-kpi-card,
-.o_dark_mode .sd-card,
-.o_web_client.o_dark .sd-kpi-card,
-.o_web_client.o_dark .sd-card,
-body.o_dark .sd-kpi-card,
-body.o_dark .sd-card {
-    background: #1e293b !important;
+/* Header/Banner */
+[data-bs-theme="dark"] .l4e_sale_dashboard .sd-header,
+[data-bs-theme="dark"] .l4e_sale_dashboard .sd-banner,
+[data-bs-theme="dark"] .l4e_sale_dashboard .sd-hero,
+.o_dark_mode .l4e_sale_dashboard .sd-header,
+.o_dark_mode .l4e_sale_dashboard .sd-banner,
+.o_dark_mode .l4e_sale_dashboard .sd-hero,
+.o_web_client.o_dark .l4e_sale_dashboard .sd-header,
+.o_web_client.o_dark .l4e_sale_dashboard .sd-banner,
+.o_web_client.o_dark .l4e_sale_dashboard .sd-hero,
+body.o_dark .l4e_sale_dashboard .sd-header,
+body.o_dark .l4e_sale_dashboard .sd-banner,
+body.o_dark .l4e_sale_dashboard .sd-hero {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    color: #f8fafc !important;
+}
+
+/* All bg-white, bg-light, card inside sale dashboard */
+[data-bs-theme="dark"] .l4e_sale_dashboard .bg-white,
+[data-bs-theme="dark"] .l4e_sale_dashboard .bg-light,
+[data-bs-theme="dark"] .l4e_sale_dashboard .card,
+[data-bs-theme="dark"] .l4e_sale_dashboard .sd-card,
+[data-bs-theme="dark"] .l4e_sale_dashboard .sd-kpi-card,
+[data-bs-theme="dark"] .l4e_sale_dashboard .sd-section,
+.o_dark_mode .l4e_sale_dashboard .bg-white,
+.o_dark_mode .l4e_sale_dashboard .bg-light,
+.o_dark_mode .l4e_sale_dashboard .card,
+.o_dark_mode .l4e_sale_dashboard .sd-card,
+.o_dark_mode .l4e_sale_dashboard .sd-kpi-card,
+.o_dark_mode .l4e_sale_dashboard .sd-section,
+.o_web_client.o_dark .l4e_sale_dashboard .bg-white,
+.o_web_client.o_dark .l4e_sale_dashboard .bg-light,
+.o_web_client.o_dark .l4e_sale_dashboard .card,
+.o_web_client.o_dark .l4e_sale_dashboard .sd-card,
+.o_web_client.o_dark .l4e_sale_dashboard .sd-kpi-card,
+.o_web_client.o_dark .l4e_sale_dashboard .sd-section,
+body.o_dark .l4e_sale_dashboard .bg-white,
+body.o_dark .l4e_sale_dashboard .bg-light,
+body.o_dark .l4e_sale_dashboard .card,
+body.o_dark .l4e_sale_dashboard .sd-card,
+body.o_dark .l4e_sale_dashboard .sd-kpi-card,
+body.o_dark .l4e_sale_dashboard .sd-section {
+    background-color: #1e293b !important;
     border-color: #334155 !important;
     color: #f8fafc !important;
 }
 
-[data-bs-theme="dark"] .sd-kpi-title,
-[data-bs-theme="dark"] .sd-card-title,
-.o_dark_mode .sd-kpi-title,
-.o_dark_mode .sd-card-title,
-.o_web_client.o_dark .sd-kpi-title,
-.o_web_client.o_dark .sd-card-title,
-body.o_dark .sd-kpi-title,
-body.o_dark .sd-card-title {
+/* Text overrides */
+[data-bs-theme="dark"] .l4e_sale_dashboard .text-dark,
+.o_dark_mode .l4e_sale_dashboard .text-dark,
+.o_web_client.o_dark .l4e_sale_dashboard .text-dark,
+body.o_dark .l4e_sale_dashboard .text-dark {
+    color: #f8fafc !important;
+}
+[data-bs-theme="dark"] .l4e_sale_dashboard .text-muted,
+.o_dark_mode .l4e_sale_dashboard .text-muted,
+.o_web_client.o_dark .l4e_sale_dashboard .text-muted,
+body.o_dark .l4e_sale_dashboard .text-muted {
     color: #94a3b8 !important;
 }
-
-[data-bs-theme="dark"] .sd-kpi-value,
-.o_dark_mode .sd-kpi-value,
-.o_web_client.o_dark .sd-kpi-value,
-body.o_dark .sd-kpi-value {
-    color: #ffffff !important;
+[data-bs-theme="dark"] .l4e_sale_dashboard h1,
+[data-bs-theme="dark"] .l4e_sale_dashboard h2,
+[data-bs-theme="dark"] .l4e_sale_dashboard h3,
+[data-bs-theme="dark"] .l4e_sale_dashboard h4,
+[data-bs-theme="dark"] .l4e_sale_dashboard h5,
+[data-bs-theme="dark"] .l4e_sale_dashboard .fw-bold,
+.o_dark_mode .l4e_sale_dashboard h1,
+.o_dark_mode .l4e_sale_dashboard h2,
+.o_dark_mode .l4e_sale_dashboard h3,
+.o_dark_mode .l4e_sale_dashboard h4,
+.o_dark_mode .l4e_sale_dashboard h5,
+.o_dark_mode .l4e_sale_dashboard .fw-bold,
+.o_web_client.o_dark .l4e_sale_dashboard h1,
+.o_web_client.o_dark .l4e_sale_dashboard h2,
+.o_web_client.o_dark .l4e_sale_dashboard h3,
+.o_web_client.o_dark .l4e_sale_dashboard h4,
+.o_web_client.o_dark .l4e_sale_dashboard h5,
+.o_web_client.o_dark .l4e_sale_dashboard .fw-bold,
+body.o_dark .l4e_sale_dashboard h1,
+body.o_dark .l4e_sale_dashboard h2,
+body.o_dark .l4e_sale_dashboard h3,
+body.o_dark .l4e_sale_dashboard h4,
+body.o_dark .l4e_sale_dashboard h5,
+body.o_dark .l4e_sale_dashboard .fw-bold {
+    color: #f8fafc !important;
 }
 
-[data-bs-theme="dark"] .sd-table,
-.o_dark_mode .sd-table,
-.o_web_client.o_dark .sd-table,
-body.o_dark .sd-table {
-    background: #1e293b !important;
-    color: #f1f5f9 !important;
+/* Tables */
+[data-bs-theme="dark"] .l4e_sale_dashboard table th,
+.o_dark_mode .l4e_sale_dashboard table th,
+.o_web_client.o_dark .l4e_sale_dashboard table th,
+body.o_dark .l4e_sale_dashboard table th {
+    background-color: #0f172a !important;
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
 }
-
-[data-bs-theme="dark"] .sd-table th,
-.o_dark_mode .sd-table th,
-.o_web_client.o_dark .sd-table th,
-body.o_dark .sd-table th {
-    background: #0f172a !important;
-    color: #cbd5e1 !important;
+[data-bs-theme="dark"] .l4e_sale_dashboard table td,
+[data-bs-theme="dark"] .l4e_sale_dashboard table tr,
+.o_dark_mode .l4e_sale_dashboard table td,
+.o_dark_mode .l4e_sale_dashboard table tr,
+.o_web_client.o_dark .l4e_sale_dashboard table td,
+.o_web_client.o_dark .l4e_sale_dashboard table tr,
+body.o_dark .l4e_sale_dashboard table td,
+body.o_dark .l4e_sale_dashboard table tr {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
     border-color: #334155 !important;
 }
 
-[data-bs-theme="dark"] .sd-table td,
-.o_dark_mode .sd-table td,
-.o_web_client.o_dark .sd-table td,
-body.o_dark .sd-table td {
-    background: #1e293b !important;
-    color: #e2e8f0 !important;
+/* Inputs */
+[data-bs-theme="dark"] .l4e_sale_dashboard input,
+[data-bs-theme="dark"] .l4e_sale_dashboard select,
+[data-bs-theme="dark"] .l4e_sale_dashboard .form-control,
+.o_dark_mode .l4e_sale_dashboard input,
+.o_dark_mode .l4e_sale_dashboard select,
+.o_dark_mode .l4e_sale_dashboard .form-control,
+.o_web_client.o_dark .l4e_sale_dashboard input,
+.o_web_client.o_dark .l4e_sale_dashboard select,
+.o_web_client.o_dark .l4e_sale_dashboard .form-control,
+body.o_dark .l4e_sale_dashboard input,
+body.o_dark .l4e_sale_dashboard select,
+body.o_dark .l4e_sale_dashboard .form-control {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
     border-color: #334155 !important;
 }

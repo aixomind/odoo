@@ -510,61 +510,125 @@
 }
 
 
-/* ==========================================
-   DARK MODE STYLES (Matching CRM Dashboard)
-   Odoo 17, 18, 19
-   ========================================== */
-[data-bs-theme="dark"],
-.o_dark_mode,
-.o_web_client.o_dark,
-body.o_dark {
-    .o_financial_dashboard {
-        background: #0f172a !important;
-        color: #f8fafc !important;
+/* ============================================================
+   COMPLETE DARK MODE - Financial/Account Dashboard (Odoo 17, 18, 19)
+   Matches CRM Dashboard dark theme exactly
+   ============================================================ */
 
-        .o_fd_header h1 {
-            color: #f8fafc !important;
-        }
+[data-bs-theme="dark"] .o_financial_dashboard,
+.o_dark_mode .o_financial_dashboard,
+.o_web_client.o_dark .o_financial_dashboard,
+body.o_dark .o_financial_dashboard {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
 
-        .o_fd_header p {
-            color: #94a3b8 !important;
-        }
+[data-bs-theme="dark"] .o_financial_dashboard .bg-white,
+[data-bs-theme="dark"] .o_financial_dashboard .bg-light,
+[data-bs-theme="dark"] .o_financial_dashboard .card,
+[data-bs-theme="dark"] .o_financial_dashboard .o_fd_card,
+[data-bs-theme="dark"] .o_financial_dashboard .o_fd_section,
+[data-bs-theme="dark"] .o_financial_dashboard .o_fd_kpi_card,
+[data-bs-theme="dark"] .o_financial_dashboard .o_fd_toolbar,
+.o_dark_mode .o_financial_dashboard .bg-white,
+.o_dark_mode .o_financial_dashboard .bg-light,
+.o_dark_mode .o_financial_dashboard .card,
+.o_dark_mode .o_financial_dashboard .o_fd_card,
+.o_dark_mode .o_financial_dashboard .o_fd_section,
+.o_dark_mode .o_financial_dashboard .o_fd_kpi_card,
+.o_dark_mode .o_financial_dashboard .o_fd_toolbar,
+.o_web_client.o_dark .o_financial_dashboard .bg-white,
+.o_web_client.o_dark .o_financial_dashboard .bg-light,
+.o_web_client.o_dark .o_financial_dashboard .card,
+.o_web_client.o_dark .o_financial_dashboard .o_fd_card,
+.o_web_client.o_dark .o_financial_dashboard .o_fd_section,
+.o_web_client.o_dark .o_financial_dashboard .o_fd_kpi_card,
+.o_web_client.o_dark .o_financial_dashboard .o_fd_toolbar,
+body.o_dark .o_financial_dashboard .bg-white,
+body.o_dark .o_financial_dashboard .bg-light,
+body.o_dark .o_financial_dashboard .card,
+body.o_dark .o_financial_dashboard .o_fd_card,
+body.o_dark .o_financial_dashboard .o_fd_section,
+body.o_dark .o_financial_dashboard .o_fd_kpi_card,
+body.o_dark .o_financial_dashboard .o_fd_toolbar {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
 
-        .o_fd_card,
-        .o_fd_kpi_card,
-        .o_fd_section {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-            color: #f8fafc !important;
+[data-bs-theme="dark"] .o_financial_dashboard .text-dark,
+[data-bs-theme="dark"] .o_financial_dashboard h1,
+[data-bs-theme="dark"] .o_financial_dashboard h2,
+[data-bs-theme="dark"] .o_financial_dashboard h3,
+[data-bs-theme="dark"] .o_financial_dashboard h4,
+[data-bs-theme="dark"] .o_financial_dashboard h5,
+[data-bs-theme="dark"] .o_financial_dashboard .fw-bold,
+.o_dark_mode .o_financial_dashboard .text-dark,
+.o_dark_mode .o_financial_dashboard h1,
+.o_dark_mode .o_financial_dashboard h2,
+.o_dark_mode .o_financial_dashboard h3,
+.o_dark_mode .o_financial_dashboard h4,
+.o_dark_mode .o_financial_dashboard h5,
+.o_dark_mode .o_financial_dashboard .fw-bold,
+.o_web_client.o_dark .o_financial_dashboard .text-dark,
+.o_web_client.o_dark .o_financial_dashboard h1,
+.o_web_client.o_dark .o_financial_dashboard h2,
+.o_web_client.o_dark .o_financial_dashboard h3,
+.o_web_client.o_dark .o_financial_dashboard h4,
+.o_web_client.o_dark .o_financial_dashboard h5,
+.o_web_client.o_dark .o_financial_dashboard .fw-bold,
+body.o_dark .o_financial_dashboard .text-dark,
+body.o_dark .o_financial_dashboard h1,
+body.o_dark .o_financial_dashboard h2,
+body.o_dark .o_financial_dashboard h3,
+body.o_dark .o_financial_dashboard h4,
+body.o_dark .o_financial_dashboard h5,
+body.o_dark .o_financial_dashboard .fw-bold {
+    color: #f8fafc !important;
+}
 
-            h1, h2, h3, h4, .o_fd_val, .o_fd_title {
-                color: #f8fafc !important;
-            }
+[data-bs-theme="dark"] .o_financial_dashboard .text-muted,
+.o_dark_mode .o_financial_dashboard .text-muted,
+.o_web_client.o_dark .o_financial_dashboard .text-muted,
+body.o_dark .o_financial_dashboard .text-muted {
+    color: #94a3b8 !important;
+}
 
-            .o_fd_label, .text-muted, label {
-                color: #94a3b8 !important;
-            }
-        }
+[data-bs-theme="dark"] .o_financial_dashboard table th,
+.o_dark_mode .o_financial_dashboard table th,
+.o_web_client.o_dark .o_financial_dashboard table th,
+body.o_dark .o_financial_dashboard table th {
+    background-color: #0f172a !important;
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
+}
 
-        table {
-            background: #1e293b !important;
-            color: #f1f5f9 !important;
-            th {
-                background: #0f172a !important;
-                color: #cbd5e1 !important;
-                border-color: #334155 !important;
-            }
-            td {
-                background: #1e293b !important;
-                color: #e2e8f0 !important;
-                border-color: #334155 !important;
-            }
-        }
+[data-bs-theme="dark"] .o_financial_dashboard table td,
+[data-bs-theme="dark"] .o_financial_dashboard table tr,
+.o_dark_mode .o_financial_dashboard table td,
+.o_dark_mode .o_financial_dashboard table tr,
+.o_web_client.o_dark .o_financial_dashboard table td,
+.o_web_client.o_dark .o_financial_dashboard table tr,
+body.o_dark .o_financial_dashboard table td,
+body.o_dark .o_financial_dashboard table tr {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
 
-        input, select {
-            background: #0f172a !important;
-            color: #f8fafc !important;
-            border-color: #334155 !important;
-        }
-    }
+[data-bs-theme="dark"] .o_financial_dashboard input,
+[data-bs-theme="dark"] .o_financial_dashboard select,
+[data-bs-theme="dark"] .o_financial_dashboard .form-control,
+.o_dark_mode .o_financial_dashboard input,
+.o_dark_mode .o_financial_dashboard select,
+.o_dark_mode .o_financial_dashboard .form-control,
+.o_web_client.o_dark .o_financial_dashboard input,
+.o_web_client.o_dark .o_financial_dashboard select,
+.o_web_client.o_dark .o_financial_dashboard .form-control,
+body.o_dark .o_financial_dashboard input,
+body.o_dark .o_financial_dashboard select,
+body.o_dark .o_financial_dashboard .form-control {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
 }

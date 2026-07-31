@@ -258,10 +258,11 @@
 }
 
 
-/* ==========================================
-   DARK MODE STYLES (Matching CRM Dashboard)
-   Odoo 17, 18, 19
-   ========================================== */
+/* ============================================================
+   COMPLETE DARK MODE - Inventory Dashboard (Odoo 17, 18, 19)
+   Matches CRM Dashboard dark theme exactly
+   ============================================================ */
+
 [data-bs-theme="dark"] .l4e_dashboard_wrapper,
 .o_dark_mode .l4e_dashboard_wrapper,
 .o_web_client.o_dark .l4e_dashboard_wrapper,
@@ -270,105 +271,205 @@ body.o_dark .l4e_dashboard_wrapper {
     color: #f8fafc !important;
 }
 
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .l4e_dashboard_header,
-.o_dark_mode .l4e_dashboard_wrapper .l4e_dashboard_header,
-.o_web_client.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header,
-body.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header {
-    background: #1e293b !important;
+/* Wrapper bg-light override */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper.bg-light,
+.o_dark_mode .l4e_dashboard_wrapper.bg-light,
+.o_web_client.o_dark .l4e_dashboard_wrapper.bg-light,
+body.o_dark .l4e_dashboard_wrapper.bg-light {
+    background-color: #0f172a !important;
+}
+
+/* All white/light backgrounds inside wrapper */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .bg-white,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .bg-light,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .card,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-card,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .chart-card,
+.o_dark_mode .l4e_dashboard_wrapper .bg-white,
+.o_dark_mode .l4e_dashboard_wrapper .bg-light,
+.o_dark_mode .l4e_dashboard_wrapper .card,
+.o_dark_mode .l4e_dashboard_wrapper .kpi-card,
+.o_dark_mode .l4e_dashboard_wrapper .chart-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .bg-white,
+.o_web_client.o_dark .l4e_dashboard_wrapper .bg-light,
+.o_web_client.o_dark .l4e_dashboard_wrapper .card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .chart-card,
+body.o_dark .l4e_dashboard_wrapper .bg-white,
+body.o_dark .l4e_dashboard_wrapper .bg-light,
+body.o_dark .l4e_dashboard_wrapper .card,
+body.o_dark .l4e_dashboard_wrapper .kpi-card,
+body.o_dark .l4e_dashboard_wrapper .chart-card {
+    background-color: #1e293b !important;
     border-color: #334155 !important;
     color: #f8fafc !important;
 }
 
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .l4e_dashboard_header h2,
-.o_dark_mode .l4e_dashboard_wrapper .l4e_dashboard_header h2,
-.o_web_client.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header h2,
-body.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header h2 {
+/* Suggestion dropdown bg-white */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .position-absolute.bg-white,
+.o_dark_mode .l4e_dashboard_wrapper .position-absolute.bg-white,
+.o_web_client.o_dark .l4e_dashboard_wrapper .position-absolute.bg-white,
+body.o_dark .l4e_dashboard_wrapper .position-absolute.bg-white {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+/* text-dark, text-muted, text-secondary */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .text-dark,
+.o_dark_mode .l4e_dashboard_wrapper .text-dark,
+.o_web_client.o_dark .l4e_dashboard_wrapper .text-dark,
+body.o_dark .l4e_dashboard_wrapper .text-dark {
     color: #f8fafc !important;
 }
-
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-kpi-card,
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-chart-card,
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-table-card,
-.o_dark_mode .l4e_dashboard_wrapper .inventory-kpi-card,
-.o_dark_mode .l4e_dashboard_wrapper .inventory-chart-card,
-.o_dark_mode .l4e_dashboard_wrapper .inventory-table-card,
-.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-kpi-card,
-.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-chart-card,
-.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-table-card,
-body.o_dark .l4e_dashboard_wrapper .inventory-kpi-card,
-body.o_dark .l4e_dashboard_wrapper .inventory-chart-card,
-body.o_dark .l4e_dashboard_wrapper .inventory-table-card {
-    background: #1e293b !important;
-    border-color: #334155 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
-}
-
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-label,
 [data-bs-theme="dark"] .l4e_dashboard_wrapper .text-muted,
-.o_dark_mode .l4e_dashboard_wrapper .kpi-label,
 .o_dark_mode .l4e_dashboard_wrapper .text-muted,
-.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-label,
 .o_web_client.o_dark .l4e_dashboard_wrapper .text-muted,
-body.o_dark .l4e_dashboard_wrapper .kpi-label,
 body.o_dark .l4e_dashboard_wrapper .text-muted {
     color: #94a3b8 !important;
-    font-weight: 500 !important;
+}
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .text-secondary,
+.o_dark_mode .l4e_dashboard_wrapper .text-secondary,
+.o_web_client.o_dark .l4e_dashboard_wrapper .text-secondary,
+body.o_dark .l4e_dashboard_wrapper .text-secondary {
+    color: #cbd5e1 !important;
 }
 
-[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-value,
+/* h3, h4, fw-bold inside cards */
 [data-bs-theme="dark"] .l4e_dashboard_wrapper h3,
 [data-bs-theme="dark"] .l4e_dashboard_wrapper h4,
 [data-bs-theme="dark"] .l4e_dashboard_wrapper h5,
-.o_dark_mode .l4e_dashboard_wrapper .kpi-value,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .fw-bold,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .fw-semibold,
 .o_dark_mode .l4e_dashboard_wrapper h3,
 .o_dark_mode .l4e_dashboard_wrapper h4,
 .o_dark_mode .l4e_dashboard_wrapper h5,
-.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-value,
+.o_dark_mode .l4e_dashboard_wrapper .fw-bold,
+.o_dark_mode .l4e_dashboard_wrapper .fw-semibold,
 .o_web_client.o_dark .l4e_dashboard_wrapper h3,
 .o_web_client.o_dark .l4e_dashboard_wrapper h4,
 .o_web_client.o_dark .l4e_dashboard_wrapper h5,
-body.o_dark .l4e_dashboard_wrapper .kpi-value,
+.o_web_client.o_dark .l4e_dashboard_wrapper .fw-bold,
+.o_web_client.o_dark .l4e_dashboard_wrapper .fw-semibold,
 body.o_dark .l4e_dashboard_wrapper h3,
 body.o_dark .l4e_dashboard_wrapper h4,
-body.o_dark .l4e_dashboard_wrapper h5 {
+body.o_dark .l4e_dashboard_wrapper h5,
+body.o_dark .l4e_dashboard_wrapper .fw-bold,
+body.o_dark .l4e_dashboard_wrapper .fw-semibold {
     color: #f8fafc !important;
 }
 
+/* Input/Select/Date fields */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper input,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper select,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .form-control,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .input-group-text,
+.o_dark_mode .l4e_dashboard_wrapper input,
+.o_dark_mode .l4e_dashboard_wrapper select,
+.o_dark_mode .l4e_dashboard_wrapper .form-control,
+.o_dark_mode .l4e_dashboard_wrapper .input-group-text,
+.o_web_client.o_dark .l4e_dashboard_wrapper input,
+.o_web_client.o_dark .l4e_dashboard_wrapper select,
+.o_web_client.o_dark .l4e_dashboard_wrapper .form-control,
+.o_web_client.o_dark .l4e_dashboard_wrapper .input-group-text,
+body.o_dark .l4e_dashboard_wrapper input,
+body.o_dark .l4e_dashboard_wrapper select,
+body.o_dark .l4e_dashboard_wrapper .form-control,
+body.o_dark .l4e_dashboard_wrapper .input-group-text {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+/* Input bg-light override (date picker container) */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .border.rounded.p-1.bg-light,
+.o_dark_mode .l4e_dashboard_wrapper .border.rounded.p-1.bg-light,
+.o_web_client.o_dark .l4e_dashboard_wrapper .border.rounded.p-1.bg-light,
+body.o_dark .l4e_dashboard_wrapper .border.rounded.p-1.bg-light {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+/* Tables */
 [data-bs-theme="dark"] .l4e_dashboard_wrapper table,
 .o_dark_mode .l4e_dashboard_wrapper table,
 .o_web_client.o_dark .l4e_dashboard_wrapper table,
 body.o_dark .l4e_dashboard_wrapper table {
-    background: #1e293b !important;
     color: #f1f5f9 !important;
 }
-
-[data-bs-theme="dark"] .l4e_dashboard_wrapper table th,
-.o_dark_mode .l4e_dashboard_wrapper table th,
-.o_web_client.o_dark .l4e_dashboard_wrapper table th,
-body.o_dark .l4e_dashboard_wrapper table th {
-    background: #0f172a !important;
-    color: #cbd5e1 !important;
-    border-bottom: 2px solid #334155 !important;
+[data-bs-theme="dark"] .l4e_dashboard_wrapper thead,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper th,
+.o_dark_mode .l4e_dashboard_wrapper thead,
+.o_dark_mode .l4e_dashboard_wrapper th,
+.o_web_client.o_dark .l4e_dashboard_wrapper thead,
+.o_web_client.o_dark .l4e_dashboard_wrapper th,
+body.o_dark .l4e_dashboard_wrapper thead,
+body.o_dark .l4e_dashboard_wrapper th {
+    background-color: #0f172a !important;
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
 }
-
-[data-bs-theme="dark"] .l4e_dashboard_wrapper table td,
-.o_dark_mode .l4e_dashboard_wrapper table td,
-.o_web_client.o_dark .l4e_dashboard_wrapper table td,
-body.o_dark .l4e_dashboard_wrapper table td {
-    background: #1e293b !important;
+[data-bs-theme="dark"] .l4e_dashboard_wrapper td,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper tr,
+.o_dark_mode .l4e_dashboard_wrapper td,
+.o_dark_mode .l4e_dashboard_wrapper tr,
+.o_web_client.o_dark .l4e_dashboard_wrapper td,
+.o_web_client.o_dark .l4e_dashboard_wrapper tr,
+body.o_dark .l4e_dashboard_wrapper td,
+body.o_dark .l4e_dashboard_wrapper tr {
+    background-color: #1e293b !important;
     color: #e2e8f0 !important;
-    border-bottom: 1px solid #334155 !important;
+    border-color: #334155 !important;
 }
 
-[data-bs-theme="dark"] .l4e_dashboard_wrapper input,
-[data-bs-theme="dark"] .l4e_dashboard_wrapper select,
-.o_dark_mode .l4e_dashboard_wrapper input,
-.o_dark_mode .l4e_dashboard_wrapper select,
-.o_web_client.o_dark .l4e_dashboard_wrapper input,
-.o_web_client.o_dark .l4e_dashboard_wrapper select,
-body.o_dark .l4e_dashboard_wrapper input,
-body.o_dark .l4e_dashboard_wrapper select {
-    background: #0f172a !important;
+/* list-group items in dropdown */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .list-group-item,
+.o_dark_mode .l4e_dashboard_wrapper .list-group-item,
+.o_web_client.o_dark .l4e_dashboard_wrapper .list-group-item,
+body.o_dark .l4e_dashboard_wrapper .list-group-item {
+    background-color: #1e293b !important;
     color: #f8fafc !important;
     border-color: #334155 !important;
+}
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .list-group-item:hover,
+.o_dark_mode .l4e_dashboard_wrapper .list-group-item:hover,
+.o_web_client.o_dark .l4e_dashboard_wrapper .list-group-item:hover,
+body.o_dark .l4e_dashboard_wrapper .list-group-item:hover {
+    background-color: #334155 !important;
+}
+
+/* Outline buttons */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .btn-outline-primary,
+.o_dark_mode .l4e_dashboard_wrapper .btn-outline-primary,
+.o_web_client.o_dark .l4e_dashboard_wrapper .btn-outline-primary,
+body.o_dark .l4e_dashboard_wrapper .btn-outline-primary {
+    color: #93c5fd !important;
+    border-color: #3b82f6 !important;
+}
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .btn-outline-primary.active,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .btn-outline-primary:hover,
+.o_dark_mode .l4e_dashboard_wrapper .btn-outline-primary.active,
+.o_dark_mode .l4e_dashboard_wrapper .btn-outline-primary:hover,
+.o_web_client.o_dark .l4e_dashboard_wrapper .btn-outline-primary.active,
+.o_web_client.o_dark .l4e_dashboard_wrapper .btn-outline-primary:hover,
+body.o_dark .l4e_dashboard_wrapper .btn-outline-primary.active,
+body.o_dark .l4e_dashboard_wrapper .btn-outline-primary:hover {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+}
+
+/* bg-white on product images */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper img.bg-white,
+.o_dark_mode .l4e_dashboard_wrapper img.bg-white,
+.o_web_client.o_dark .l4e_dashboard_wrapper img.bg-white,
+body.o_dark .l4e_dashboard_wrapper img.bg-white {
+    background-color: #334155 !important;
+    border-color: #475569 !important;
+}
+
+/* Loading spinner overlay */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .bg-white.bg-opacity-75,
+.o_dark_mode .l4e_dashboard_wrapper .bg-white.bg-opacity-75,
+.o_web_client.o_dark .l4e_dashboard_wrapper .bg-white.bg-opacity-75,
+body.o_dark .l4e_dashboard_wrapper .bg-white.bg-opacity-75 {
+    background-color: rgba(15, 23, 42, 0.75) !important;
 }
