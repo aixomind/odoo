@@ -21,7 +21,7 @@
 #
 ##############################################################################
 {
-    'name': 'L4E Custom Approval',
+    'name': 'Global Approval',
     'version': '19.0.5.0.0',
     'category': 'Approvals',
     'summary': 'Dynamic Approval Engine — any model, any field, any condition, user-configured',
@@ -44,7 +44,7 @@ Features:
 Models covered out-of-the-box:
   Sale Order, Purchase Order, Invoice / Journal Entry
     """,
-    'author': 'Links4engg',
+    'author': 'Links4Engg Pvt. Ltd',
     'depends': [
         'sale_management',
         'purchase',

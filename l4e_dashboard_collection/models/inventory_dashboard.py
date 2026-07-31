@@ -47,7 +47,7 @@ class L4eInventoryDashboard(models.TransientModel):
             self.env.cr.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'stock_move' AND column_name IN ('quantity', 'product_uom_qty')")
             cols = [r[0] for r in self.env.cr.fetchall()]
             if 'quantity' in cols:
-                return "sm.quantity"
+                return "{qty_col}"
         except Exception:
             pass
         return "sm.product_uom_qty"
@@ -116,7 +116,8 @@ class L4eInventoryDashboard(models.TransientModel):
             prev_dt_from_utc = tz.localize(prev_dt_from_local).astimezone(pytz.utc).replace(tzinfo=None)
             prev_dt_to_utc = tz.localize(prev_dt_to_local).astimezone(pytz.utc).replace(tzinfo=None)
 
-            prod_cond = " AND pp.id = %s " if product_id else ""
+            qty_col = "{qty_col}" if 'quantity' in self.env['stock.move']._fields else "sm.product_uom_qty"
+        prod_cond = " AND pp.id = %s " if product_id else ""
 
             # 1. Total Valuation
             total_value = 0.0

@@ -38,9 +38,8 @@ Key Features:
 * Auto-extract and populate old journals, accounts, and analytic accounts.
 * Success toast notification on update completion.
     """,
-    'author': 'Links4engg',
-    'website': 'https://www.links4engg.com',
-    'depends': ['account', 'accountant'],
+    'author': 'Links4Engg Pvt. Ltd',
+    'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',
         'wizard/change_journal_items_views.xml',
