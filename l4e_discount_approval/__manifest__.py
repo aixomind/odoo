@@ -21,7 +21,7 @@
 #
 ##############################################################################
 {
-    'name': 'L4E Discount Approval',
+    'name': 'Discount + Approval (Sales , Purchase , Finance )',
     'version': '17.0.1.0.0',
     'category': 'Sales',
     'summary': 'All-in-one discount governance: Per-salesperson global & line limits, tiered approval workflows, and total amount discounts with auto-distribution for Sales, Purchases, and Invoices.',
@@ -40,7 +40,7 @@ Key Highlights:
 * **Approval Audit Trails**: Smart button with request counters, email & chatter notifications, and a full audit log (who approved, when, and refusal reasons).
 * **Warnings & Banners**: Highlights over-limit lines and shows dynamic info banners on the document view.
 """,
-    'author': 'Links4Engg',
+    'author': 'Links4Engg Pvt. Ltd',
     'images': [
         'static/description/banner_screenshot.gif',
         'static/description/screenshot1.png',

@@ -20,26 +20,26 @@ function checkIsDarkMode() {
 
 function saveFilters(filters) {
     const jsonStr = JSON.stringify(filters || {});
-    try { sessionStorage.setItem("l4e_crm_dashboard_filters", jsonStr); } catch (e) {}
+    try { sessionStorage.setItem("l4e_dashboard_collection_filters", jsonStr); } catch (e) {}
     try {
         const expires = new Date(Date.now() + 7 * 864e5).toUTCString();
-        document.cookie = "l4e_crm_dashboard_filters=" + encodeURIComponent(jsonStr) + "; expires=" + expires + "; path=/;";
+        document.cookie = "l4e_dashboard_collection_filters=" + encodeURIComponent(jsonStr) + "; expires=" + expires + "; path=/;";
     } catch (e) {}
 }
 
 function clearSavedFilters() {
-    try { sessionStorage.removeItem("l4e_crm_dashboard_filters"); } catch (e) {}
-    try { document.cookie = "l4e_crm_dashboard_filters=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; } catch (e) {}
+    try { sessionStorage.removeItem("l4e_dashboard_collection_filters"); } catch (e) {}
+    try { document.cookie = "l4e_dashboard_collection_filters=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; } catch (e) {}
 }
 
 function loadSavedFilters() {
     let raw = "";
     const currentYear = String(new Date().getFullYear());
     const currentMonthNum = String(new Date().getMonth() + 1);
-    try { raw = sessionStorage.getItem("l4e_crm_dashboard_filters") || ""; } catch (e) {}
+    try { raw = sessionStorage.getItem("l4e_dashboard_collection_filters") || ""; } catch (e) {}
     if (!raw) {
         try {
-            const match = document.cookie.split("; ").find(r => r.startsWith("l4e_crm_dashboard_filters="));
+            const match = document.cookie.split("; ").find(r => r.startsWith("l4e_dashboard_collection_filters="));
             if (match) raw = decodeURIComponent(match.split("=")[1]);
         } catch (e) {}
     }
@@ -369,6 +369,6 @@ class SalesOfficeDashboard extends Component {
     }
 }
 
-registry.category("actions").add("l4e_crm_dashboard.overview", SalesOfficeDashboard);
+
 
 registry.category("actions").add("l4e_dashboard_collection.crm_dashboard", SalesOfficeDashboard);
