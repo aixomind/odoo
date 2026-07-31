@@ -1,0 +1,468 @@
+.o_financial_dashboard {
+    background: #f8fafc;
+    color: #111827;
+    padding: 20px 24px 28px;
+
+    .o_fd_header {
+        align-items: flex-start;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        margin-bottom: 18px;
+
+        h1 {
+            color: #0f172a;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 6px;
+        }
+
+        p {
+            color: #475569;
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+
+    .o_fd_toolbar {
+        align-items: flex-end;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: flex-end;
+
+        label {
+            color: #0f172a;
+            display: grid;
+            font-size: 11px;
+            font-weight: 700;
+            gap: 5px;
+        }
+
+        select {
+            background: #fff;
+            border: 1px solid #d8e1ef;
+            border-radius: 6px;
+            color: #0f172a;
+            font-weight: 650;
+            min-height: 38px;
+            min-width: 170px;
+            padding: 0 12px;
+        }
+
+        .o_fd_reset_btn {
+            align-items: center;
+            background: #10b981;
+            border: none;
+            border-radius: 9999px;
+            color: #ffffff;
+            display: flex;
+            font-size: 13px;
+            font-weight: 650;
+            gap: 8px;
+            height: 38px;
+            padding: 0 20px;
+            transition: background 0.2s ease, transform 0.16s ease;
+            white-space: nowrap;
+
+            i {
+                font-size: 13px;
+            }
+
+            &:hover {
+                background: #0f9d58;
+                color: #ffffff;
+                transform: translateY(-1px);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .o_fd_updated {
+        align-items: center;
+        color: #475569;
+        display: flex;
+        font-size: 12px;
+        gap: 8px;
+        min-height: 38px;
+        white-space: nowrap;
+    }
+
+    .o_fd_loading {
+        align-items: center;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        display: flex;
+        font-weight: 700;
+        justify-content: center;
+        min-height: 260px;
+    }
+
+    .o_fd_cards {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-bottom: 20px;
+    }
+
+    .o_fd_summary,
+    .o_fd_category_panel,
+    .o_fd_metric_panel {
+        background: #fff;
+        border: 1px solid #e5eaf1;
+        border-radius: 8px;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    }
+
+    .o_fd_summary {
+        padding: 16px;
+    }
+
+    .o_fd_summary_title {
+        align-items: center;
+        color: var(--accent);
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        i {
+            border: 1px solid #e5eaf1;
+            border-radius: 6px;
+            display: grid;
+            height: 30px;
+            place-items: center;
+            width: 30px;
+        }
+
+        h2 {
+            color: #0f172a;
+            font-size: 15px;
+            font-weight: 800;
+            margin: 0;
+        }
+    }
+
+    .o_fd_filter_grid {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-bottom: 14px;
+
+        select,
+        input {
+            background: #fff;
+            border: 1px solid #dce3ee;
+            border-radius: 5px;
+            color: #0f172a;
+            font-size: 12px;
+            height: 34px;
+            min-width: 0;
+            padding: 0 9px;
+            width: 100%;
+        }
+    }
+
+    .o_fd_stat_grid {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .o_fd_metric_dates {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        gap: 12px;
+        margin-left: 12px;
+    }
+
+    .o_fd_metric_dates input {
+        width: 100%;
+        min-height: 42px;
+        padding: 0 5px;
+        border: 1px solid #d9e2ec;
+        border-radius: 8px;
+        background: #fff;
+        color: #1f2937;
+        font-size: 14px;
+        transition: border-color 0.2s ease;
+    }
+
+    .o_fd_metric_dates input:focus {
+        outline: none;
+        border-color: #16a163;
+        box-shadow: 0 0 0 3px rgba(22, 161, 99, 0.12);
+    }
+
+    .o_fd_summary_salary {
+        .o_fd_stat_grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    .o_fd_stat_card {
+        background: var(--stat-bg);
+        border: 1px solid #e5eaf1;
+        border-radius: 6px;
+        color: #0f172a;
+        min-height: 96px;
+        padding: 10px;
+        text-align: left;
+        transition: border-color 0.16s ease, transform 0.16s ease;
+
+        &:hover {
+            border-color: var(--stat-color);
+            transform: translateY(-1px);
+        }
+
+        .o_fd_stat_label {
+            align-items: center;
+            color: #0f172a;
+            display: flex;
+            font-size: 10px;
+            font-weight: 800;
+            gap: 6px;
+            min-height: 28px;
+            text-transform: uppercase;
+
+            i {
+                color: var(--stat-color);
+                font-size: 14px;
+            }
+        }
+
+        strong {
+            color: #0f172a;
+            display: block;
+            font-size: 22px;
+            font-weight: 850;
+            line-height: 1.15;
+            margin: 9px 0 4px;
+            overflow-wrap: anywhere;
+        }
+
+        small {
+            color: #1f2a44;
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+    }
+
+    .o_fd_bottom {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 270px minmax(0, 1fr);
+    }
+
+    .o_fd_category_panel {
+        align-self: start;
+        overflow: hidden;
+
+        h2 {
+            border-bottom: 1px solid #e5eaf1;
+            font-size: 16px;
+            font-weight: 800;
+            margin: 0;
+            padding: 18px 20px;
+        }
+    }
+
+    .o_fd_category_item {
+        align-items: center;
+        background: #fff;
+        border: 0;
+        border-bottom: 1px solid #edf1f6;
+        color: #1f2a44;
+        display: grid;
+        font-weight: 800;
+        gap: 12px;
+        grid-template-columns: 28px 1fr 14px;
+        min-height: 56px;
+        padding: 0 18px;
+        text-align: left;
+        width: 100%;
+
+        i:first-child {
+            color: var(--category-color);
+            font-size: 20px;
+        }
+
+        i:last-child {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        &.active {
+            background: #f0fdf4;
+            box-shadow: inset 4px 0 0 var(--category-color);
+            color: var(--category-color);
+        }
+    }
+
+    .o_fd_metric_panel {
+        overflow: hidden;
+    }
+
+    .o_fd_metric_header {
+        align-items: center;
+        border-bottom: 1px solid #e5eaf1;
+        display: flex;
+        gap: 18px;
+        justify-content: space-between;
+        min-height: 76px;
+        padding: 0 24px;
+
+        > div {
+            align-items: center;
+            color: var(--category-color);
+            display: flex;
+            gap: 14px;
+        }
+
+        i {
+            font-size: 24px;
+        }
+
+        h2 {
+            color: var(--category-color);
+            font-size: 20px;
+            font-weight: 850;
+            margin: 0;
+        }
+
+        p {
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 0;
+            text-align: right;
+        }
+    }
+
+    .o_fd_metric_grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        padding: 24px;
+    }
+
+    .o_fd_metric_card {
+        border: 1px solid #e5eaf1;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        min-height: 220px;
+        padding: 22px;
+
+        .o_fd_metric_title {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+
+            h3 {
+                color: #1f2a44;
+                font-size: 14px;
+                font-weight: 850;
+                margin: 0;
+            }
+
+            i {
+                color: #64748b;
+            }
+        }
+
+        strong {
+            color: #10975c;
+            display: block;
+            font-size: 32px;
+            font-weight: 850;
+            line-height: 1.1;
+            margin: 34px 0 24px;
+            overflow-wrap: anywhere;
+        }
+
+        p {
+            color: #334155;
+            flex: 1;
+            font-size: 13px;
+            font-weight: 650;
+            line-height: 1.45;
+            margin: 0;
+        }
+    }
+
+    .o_fd_metric_delta {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+
+        span {
+            color: #334155;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        em {
+            align-items: center;
+            border-radius: 5px;
+            display: flex;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 850;
+            gap: 6px;
+            padding: 6px 10px;
+
+            &.up {
+                background: #eafaf2;
+                color: #10975c;
+            }
+
+            &.down {
+                background: #fff1f2;
+                color: #dc3545;
+            }
+        }
+    }
+}
+
+@media (max-width: 1400px) {
+    .o_financial_dashboard {
+        .o_fd_cards,
+        .o_fd_metric_grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .o_financial_dashboard {
+        padding: 16px;
+
+        .o_fd_header,
+        .o_fd_metric_header {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .o_fd_toolbar {
+            justify-content: flex-start;
+        }
+
+        .o_fd_cards,
+        .o_fd_bottom,
+        .o_fd_metric_grid {
+            grid-template-columns: 1fr;
+        }
+
+        .o_fd_stat_grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+}

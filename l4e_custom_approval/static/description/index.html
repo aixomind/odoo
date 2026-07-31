@@ -1,0 +1,333 @@
+<section class="oe_container" style="font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.6; max-width: 100%; overflow-x: hidden; box-sizing: border-box;">
+ 
+    <!-- ================== HERO & BANNER SECTION ================== -->
+    <div style="background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); padding: 40px 20px 20px 20px; border-radius: 16px; margin-bottom: 40px;">
+        <div class="row align-items-center mb-4">
+            <div class="col-lg-8 col-md-12 text-center text-lg-left">
+                <h1 style="color: #0f172a; font-weight: 800; font-size: 38px; margin-bottom: 10px; letter-spacing: -0.5px;">
+                    Custom Approval Workflow
+                </h1>
+                <p style="color: #64748b; font-size: 18px; font-weight: 500; margin-bottom: 0;">
+                    Build flexible, multi-level approval matrices for any Odoo document Purchase Orders, Expenses, Sales Discounts, or your own custom records without a single line of code.
+                </p>
+            </div>
+            <!-- <div class="col-lg-4 col-md-12 text-center mt-3 mt-lg-0">
+                <img src="icon.png" alt="Links4Engg" style="max-height: 80px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));"/>
+            </div> -->
+        </div>
+ 
+        <!-- MAIN BANNER -->
+        <div style="border-radius: 12px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e2e8f0;">
+            <!-- REPLACE THIS: Your main wide promotional banner (e.g., 1200x400) -->
+            <img src="banner.svg" alt="Main Banner" style="width: 100%; display: block; min-height: 200px; background: #eef2f5;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjQwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2VlZjJmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2FhYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBsYWNlIHlvdXIgTUFJTiBCQU5ORVIgaGVyZSAoYmFubmVyLnBuZyk8L3RleHQ+PC9zdmc+'"/>
+        </div>
+    </div>
+ 
+    <!-- ================== CUSTOM STYLES ================== -->
+    <style>
+        .l4e-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .l4e-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+            border-color: #cbd5e1;
+        }
+        .l4e-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background: #eff6ff;
+            color: #3b82f6;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .l4e-step-number {
+            background: #3b82f6;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+        /* Screenshot frame: capped & centered, browser-style chrome, no horizontal overflow.
+           Odoo screenshots are native desktop-resolution and were forcing a page-wide
+           scrollbar when stretched to width:100%. Capping max-width + max-height and
+           letting the image shrink to fit (object-fit: contain) keeps it minimized and
+           fully inside the column no matter how large the source screenshot is. */
+        .l4e-screenshot-frame {
+            width: 100%;
+            max-width: 820px;
+            margin: 18px auto 0 auto;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12);
+            overflow: hidden;
+            background: #f8fafc;
+            box-sizing: border-box;
+        }
+        .l4e-screenshot-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: #e2e8f0;
+        }
+        .l4e-screenshot-bar span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .l4e-screenshot {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 260px;
+            margin: 0 auto;
+            object-fit: contain;
+            object-position: top center;
+            background: #ffffff;
+        }
+        .l4e-section-title {
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        .l4e-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 2px;
+        }
+        .l4e-step-block {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .use-case-box {
+            background: #f8fafc;
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+    </style>
+ 
+    <!-- ================== INTRODUCTION & THE PROBLEM ================== -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-6" style="padding: 20px;">
+            <h3 style="color: #0f172a; font-weight: 800; font-size: 26px; margin-bottom: 20px;">Stop Chasing Approvals Over Email and Chat</h3>
+            <p style="font-size: 16px; color: #475569; margin-bottom: 15px; line-height: 1.8;">
+                In a standard Odoo environment, approving high-value Purchase Orders, Expenses, or Discounts often means walking over to someone's desk, sending a chat message, or hoping the right person checks their inbox in time. There is no single place to configure <strong>who must approve what, at what value, and in what order</strong>.
+            </p>
+            <p style="font-size: 16px; color: #475569; line-height: 1.8;">
+                <strong>Custom Approval Workflow</strong> eliminates this uncertainty. It lets you define reusable approval matrices with multiple sequential levels, attach them to any document type, and automatically route requests to the right approvers with full visibility and an audit trail at every step.
+            </p>
+        </div>
+        <div class="col-md-6 text-center" style="padding: 20px;">
+            <div style="background: #eff6ff; padding: 30px; border-radius: 16px; display: inline-block; border: 1px dashed #93c5fd; width: 100%;">
+                <h4 style="color: #1e3a8a; font-weight: 700; margin-bottom: 20px;">The "Before & After"</h4>
+                <div style="display: flex; justify-content: space-between; gap: 20px; text-align: left;">
+                    <div style="flex: 1;">
+                        <span style="color: #ef4444; font-weight: bold; font-size: 16px;"><i class="fa fa-times-circle"></i> Without App</span>
+                        <ul style="padding-left: 20px; margin-top: 15px; font-size: 14px; color: #475569; line-height: 1.8;">
+                            <li>Ping Manager on Chat</li>
+                            <li>Wait for a Reply</li>
+                            <li>Forward to Next Approver</li>
+                            <li>No Record of Who Approved</li>
+                            <li><em>Repeat for every document...</em></li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1;">
+                        <span style="color: #10b981; font-weight: bold; font-size: 16px;"><i class="fa fa-check-circle"></i> With App</span>
+                        <ul style="padding-left: 20px; margin-top: 15px; font-size: 14px; color: #475569; line-height: 1.8;">
+                            <li>Submit for Approval</li>
+                            <li>Auto-Routed to Right Approver</li>
+                            <li>One-Click Approve/Reject</li>
+                            <li><strong>Fully Logged & Traceable!</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ================== COMPREHENSIVE FEATURES (6 CARDS) ================== -->
+    <div class="mb-5 mt-4">
+        <div class="text-center mb-5">
+            <h2 class="l4e-section-title text-center" style="display: inline-block;">Comprehensive Feature List</h2>
+            <p style="color: #64748b; font-size: 16px; max-width: 650px; margin: 0 auto;">Everything you need to enforce accountability and speed on every approval process across your company.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-sitemap"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Multi-Level Approval Matrix</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">Configure any number of sequential approval levels, each with its own designated approvers, minimum amount thresholds, and mandatory or optional status.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-cogs"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Applies to Any Document</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">Attach the approval flow to Purchase Orders, Sales Orders, Expenses, Invoices, or any custom model in your database fully configurable, no coding required.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-bell"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Automatic Notifications</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">Approvers are instantly notified via Odoo activities and email the moment a document is waiting on their decision, keeping the process moving fast.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-tasks"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">One-Click Approve / Reject</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">Approvers get simple, prominent Approve and Reject buttons right on the document, with an optional comment field for rejection reasons.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-history"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Full Audit Trail</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">Every action is logged with the user, timestamp, level, and decision, giving you a complete, tamper-proof history for every approved or rejected record.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-dashboard"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Approval Dashboard</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">A dedicated view lets every approver see exactly what is pending their action, and managers can track the status of any request across the company.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    <hr style="border-top: 1px solid #e2e8f0; margin: 60px 0;">
+ 
+    <!-- ================== STEP-BY-STEP SCREENSHOT GUIDE ================== -->
+    <!-- NOTE: Odoo screenshots are wide and short (browser-shaped), so each step now
+         stacks the description on top and the screenshot full-width below it,
+         inside a browser-style frame. This avoids squeezing a wide image into a
+         half-column (col-md-5/7), which is what was causing the horizontal
+         scrollbar / cramped image in the previous layout. -->
+    <div class="mb-5">
+        <div class="text-center mb-5">
+            <h2 class="l4e-section-title text-center" style="display: inline-block;">How It Works</h2>
+            <p style="color: #64748b; font-size: 16px;">A step-by-step visual walkthrough of the module in action.</p>
+        </div>
+ 
+        <!-- Step 1 -->
+        <div class="l4e-step-block">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">1</span> Configure the Approval Matrix
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                Go to the new <strong>Approval Settings</strong> menu and define your approval levels for a document type: which model, minimum amount, and which users or job positions must approve at each level.
+            </p>
+            <div style="width: 100%; max-width: 820px; margin: 18px auto 0 auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#ef4444;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#f59e0b;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#10b981;"></span>
+                </div>
+                <img src="screenshot_matrix.png" style="display: block; width: 100%; max-width: 100%; height: auto; max-height: 260px; margin: 0 auto; object-fit: contain; object-position: top center; background: #ffffff;" alt="Approval Matrix Configuration Screenshot" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjI1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBsYWNlIHNjcmVlbnNob3RfbWF0cml4LnBuZzwvdGV4dD48L3N2Zz4='"/>
+            </div>
+        </div>
+ 
+        <!-- Step 2 -->
+        <div class="l4e-step-block">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">2</span> Submit the Document
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                When a user creates a document that matches a configured rule, a new <strong>"Submit for Approval"</strong> button appears. Clicking it locks the record and starts the workflow at Level 1.
+            </p>
+            <div style="width: 100%; max-width: 820px; margin: 18px auto 0 auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#ef4444;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#f59e0b;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#10b981;"></span>
+                </div>
+                <img src="screenshot_submit.png" style="display: block; width: 100%; max-width: 100%; height: auto; max-height: 260px; margin: 0 auto; object-fit: contain; object-position: top center; background: #ffffff;" alt="Submit for Approval Screenshot" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjI1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBsYWNlIHNjcmVlbnNob3Rfc3VibWl0LnBuZzwvdGV4dD48L3N2Zz4='"/>
+            </div>
+        </div>
+ 
+        <!-- Step 3 -->
+        <div class="l4e-step-block">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">3</span> Approver Gets Notified
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                The designated approver for the current level instantly receives an activity/notification and can see the request waiting for them on their dashboard.
+            </p>
+            <div style="width: 100%; max-width: 820px; margin: 18px auto 0 auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#ef4444;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#f59e0b;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#10b981;"></span>
+                </div>
+                <img src="screenshot_notification.png" style="display: block; width: 100%; max-width: 100%; height: auto; max-height: 260px; margin: 0 auto; object-fit: contain; object-position: top center; background: #ffffff;" alt="Notification Screenshot" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjI1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBsYWNlIHNjcmVlbnNob3Rfbm90aWZpY2F0aW9uLnBuZzwvdGV4dD48L3N2Zz4='"/>
+            </div>
+        </div>
+ 
+        <!-- Step 4 -->
+        <div class="l4e-step-block">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">4</span> Approve or Reject
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                The approver reviews the record and clicks <strong>Approve</strong> to push it to the next level, or <strong>Reject</strong> with a comment to send it back to the originator.
+            </p>
+            <div style="width: 100%; max-width: 820px; margin: 18px auto 0 auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#ef4444;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#f59e0b;"></span>
+                    <span style="width: 10px; height: 10px; border-radius: 50%; display: inline-block; background:#10b981;"></span>
+                </div>
+                <img src="screenshot_approve.png" style="display: block; width: 100%; max-width: 100%; height: auto; max-height: 260px; margin: 0 auto; object-fit: contain; object-position: top center; background: #ffffff;" alt="Approve Reject Screenshot" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjI1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBsYWNlIHNjcmVlbnNob3RfYXBwcm92ZS5wbmc8L3RleHQ+PC9zdmc+'"/>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- ================== SUPPORT FOOTER ================== -->
+    <div class="text-center" style="border-radius: 16px; padding: 50px 30px; color: #fff; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);">
+        <h2 style="font-weight:800; font-size:32px; margin-bottom:15px; color: #060505; letter-spacing: -0.5px;">Need Help or Customization?</h2>
+        <p style="font-size:16px; color:#0a0a0b; margin-bottom:30px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            Our expert team at <strong>Links4Engg</strong> is ready to assist you. Whether you need support configuring this app or want to request custom Odoo features, get in touch with us!
+        </p>
+        <a href="mailto:support@links4engg.com" style="display: inline-block; background: #1c1e21; color: #060505; text-decoration: none; font-weight:700; padding: 14px 32px; border-radius: 8px; box-shadow: 0 10px 15px -3px rgba(59,130,246,0.3); transition: all 0.3s; font-size: 16px;">
+            <i class="fa fa-envelope" style="margin-right: 8px;"></i> support@links4engg.com
+        </a>
+        <div style="margin-top: 25px;">
+            <a href="https://www.links4engg.com" target="_blank" style="color: #141414; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s;">
+                <i class="fa fa-globe"></i> www.links4engg.com
+            </a>
+        </div>
+    </div>
+ 
+</section>

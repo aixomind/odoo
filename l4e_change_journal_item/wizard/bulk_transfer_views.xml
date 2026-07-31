@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bulk_transfer_move_tree" model="ir.ui.view">
+        <field name="name">bulk.transfer.move.tree</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="1">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="invoice_date"/>
+                <field name="invoice_date_due" string="Due Date"/>
+                <field name="journal_id"/>
+                <field name="amount_untaxed" string="Tax Excluded"/>
+                <field name="amount_total" string="Total"/>
+                <field name="payment_state" widget="badge" string="Status"
+                       decoration-success="payment_state == 'paid'"
+                       decoration-danger="payment_state == 'not_paid'"
+                       decoration-warning="payment_state == 'in_payment'"
+                       decoration-info="payment_state in ('partial', 'reversed')"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="bulk_transfer_wizard_view_form" model="ir.ui.view">
+        <field name="name">bulk.transfer.wizard.form</field>
+        <field name="model">bulk.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Journal Entry Transfer">
+                <header>
+                    <button name="action_confirm" string="Confirm Updates" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </header>
+                <sheet>
+                    <group string="Filters">
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <label for="show_invoice" string="Type"/>
+                            <div class="o_row">
+                                <field name="show_invoice"/>
+                                <label for="show_invoice" string="Invoice"/>
+                                <field name="show_bill"/>
+                                <label for="show_bill" string="Bill"/>
+                                <field name="show_all"/>
+                                <label for="show_all" string="All"/>
+                            </div>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="invoice_no"/>
+                            <field name="journal_id" widget="many2many_tags" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="status_in_payment"/>
+                        </group>
+                    </group>
+                    <group>
+                        <div class="o_row">
+                            <button name="action_search" string="Fetch Invoices" type="object" class="btn-primary"/>
+                            <field name="invoice_count" readonly="1" class="ml-4"/>
+                        </div>
+                    </group>
+                    <notebook>
+                        <page string="Journal Entries">
+                            <field name="move_ids">
+                                <tree create="0" edit="0" delete="1">
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="invoice_date"/>
+                                    <field name="invoice_date_due" string="Due Date"/>
+                                    <field name="journal_id"/>
+                                    <field name="amount_untaxed" string="Tax Excluded"/>
+                                    <field name="amount_total" string="Total"/>
+                                    <field name="payment_state" widget="badge" string="Status"
+                                           decoration-success="payment_state == 'paid'"
+                                           decoration-danger="payment_state == 'not_paid'"
+                                           decoration-warning="payment_state == 'in_payment'"
+                                           decoration-info="payment_state in ('partial', 'reversed')"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group string="Update Operations">
+                        <group>
+                            <field name="change_journal"/>
+                            <field name="old_journal_id" widget="many2many_tags"
+                                   attrs="{'invisible': [('change_journal', '=', False)], 'required': [('change_journal', '=', True)]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="new_journal_id" 
+                                   attrs="{'invisible': [('change_journal', '=', False)], 'required': [('change_journal', '=', True)]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="change_account"/>
+                            <field name="old_account_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('change_account', '=', False)], 'required': [('change_account', '=', True)]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="new_account_id" 
+                                   attrs="{'invisible': [('change_account', '=', False)], 'required': [('change_account', '=', True)]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="change_analytic"/>
+                            <field name="old_analytic_ids" widget="many2many_tags"
+                                   attrs="{'invisible': [('change_analytic', '=', False)]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="new_analytic_id" 
+                                   attrs="{'invisible': [('change_analytic', '=', False)], 'required': [('change_analytic', '=', True)]}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_bulk_transfer_wizard" model="ir.actions.act_window">
+        <field name="name">Journal Entry Transfer</field>
+        <field name="res_model">bulk.transfer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list,tree</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_bulk_transfer_root"
+              name="Journal Transfer"
+              parent="account.menu_finance_entries"
+              sequence="25"/>
+              
+    <menuitem id="menu_bulk_transfer_action"
+              name="Journal Transfer"
+              parent="menu_bulk_transfer_root"
+              action="action_bulk_transfer_wizard"
+              sequence="10"/>
+</odoo>
