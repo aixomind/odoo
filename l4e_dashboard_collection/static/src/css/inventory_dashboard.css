@@ -160,3 +160,215 @@
     background-color: rgba(111, 66, 193, 0.05);
     color: #6f42c1 !important;
 }
+
+
+/* Dark Mode Support for Inventory Dashboard (Odoo 17, 18, 19) */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper,
+.o_dark_mode .l4e_dashboard_wrapper,
+.o_web_client.o_dark .l4e_dashboard_wrapper {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .l4e_dashboard_header,
+.o_dark_mode .l4e_dashboard_wrapper .l4e_dashboard_header,
+.o_web_client.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .l4e_dashboard_header h2,
+.o_dark_mode .l4e_dashboard_wrapper .l4e_dashboard_header h2,
+.o_web_client.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header h2 {
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-kpi-card,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-chart-card,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-table-card,
+.o_dark_mode .l4e_dashboard_wrapper .inventory-kpi-card,
+.o_dark_mode .l4e_dashboard_wrapper .inventory-chart-card,
+.o_dark_mode .l4e_dashboard_wrapper .inventory-table-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-kpi-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-chart-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-table-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-label,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .text-muted,
+.o_dark_mode .l4e_dashboard_wrapper .kpi-label,
+.o_dark_mode .l4e_dashboard_wrapper .text-muted,
+.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-label,
+.o_web_client.o_dark .l4e_dashboard_wrapper .text-muted {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-value,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper h3,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper h4,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper h5,
+.o_dark_mode .l4e_dashboard_wrapper .kpi-value,
+.o_dark_mode .l4e_dashboard_wrapper h3,
+.o_dark_mode .l4e_dashboard_wrapper h4,
+.o_dark_mode .l4e_dashboard_wrapper h5,
+.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-value,
+.o_web_client.o_dark .l4e_dashboard_wrapper h3,
+.o_web_client.o_dark .l4e_dashboard_wrapper h4,
+.o_web_client.o_dark .l4e_dashboard_wrapper h5 {
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper table,
+.o_dark_mode .l4e_dashboard_wrapper table,
+.o_web_client.o_dark .l4e_dashboard_wrapper table {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper table th,
+.o_dark_mode .l4e_dashboard_wrapper table th,
+.o_web_client.o_dark .l4e_dashboard_wrapper table th {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-bottom: 2px solid #334155 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper table td,
+.o_dark_mode .l4e_dashboard_wrapper table td,
+.o_web_client.o_dark .l4e_dashboard_wrapper table td {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper input,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper select,
+.o_dark_mode .l4e_dashboard_wrapper input,
+.o_dark_mode .l4e_dashboard_wrapper select,
+.o_web_client.o_dark .l4e_dashboard_wrapper input,
+.o_web_client.o_dark .l4e_dashboard_wrapper select {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+
+/* ==========================================
+   DARK MODE STYLES (Matching CRM Dashboard)
+   Odoo 17, 18, 19
+   ========================================== */
+[data-bs-theme="dark"] .l4e_dashboard_wrapper,
+.o_dark_mode .l4e_dashboard_wrapper,
+.o_web_client.o_dark .l4e_dashboard_wrapper,
+body.o_dark .l4e_dashboard_wrapper {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .l4e_dashboard_header,
+.o_dark_mode .l4e_dashboard_wrapper .l4e_dashboard_header,
+.o_web_client.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header,
+body.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .l4e_dashboard_header h2,
+.o_dark_mode .l4e_dashboard_wrapper .l4e_dashboard_header h2,
+.o_web_client.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header h2,
+body.o_dark .l4e_dashboard_wrapper .l4e_dashboard_header h2 {
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-kpi-card,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-chart-card,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .inventory-table-card,
+.o_dark_mode .l4e_dashboard_wrapper .inventory-kpi-card,
+.o_dark_mode .l4e_dashboard_wrapper .inventory-chart-card,
+.o_dark_mode .l4e_dashboard_wrapper .inventory-table-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-kpi-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-chart-card,
+.o_web_client.o_dark .l4e_dashboard_wrapper .inventory-table-card,
+body.o_dark .l4e_dashboard_wrapper .inventory-kpi-card,
+body.o_dark .l4e_dashboard_wrapper .inventory-chart-card,
+body.o_dark .l4e_dashboard_wrapper .inventory-table-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-label,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .text-muted,
+.o_dark_mode .l4e_dashboard_wrapper .kpi-label,
+.o_dark_mode .l4e_dashboard_wrapper .text-muted,
+.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-label,
+.o_web_client.o_dark .l4e_dashboard_wrapper .text-muted,
+body.o_dark .l4e_dashboard_wrapper .kpi-label,
+body.o_dark .l4e_dashboard_wrapper .text-muted {
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper .kpi-value,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper h3,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper h4,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper h5,
+.o_dark_mode .l4e_dashboard_wrapper .kpi-value,
+.o_dark_mode .l4e_dashboard_wrapper h3,
+.o_dark_mode .l4e_dashboard_wrapper h4,
+.o_dark_mode .l4e_dashboard_wrapper h5,
+.o_web_client.o_dark .l4e_dashboard_wrapper .kpi-value,
+.o_web_client.o_dark .l4e_dashboard_wrapper h3,
+.o_web_client.o_dark .l4e_dashboard_wrapper h4,
+.o_web_client.o_dark .l4e_dashboard_wrapper h5,
+body.o_dark .l4e_dashboard_wrapper .kpi-value,
+body.o_dark .l4e_dashboard_wrapper h3,
+body.o_dark .l4e_dashboard_wrapper h4,
+body.o_dark .l4e_dashboard_wrapper h5 {
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper table,
+.o_dark_mode .l4e_dashboard_wrapper table,
+.o_web_client.o_dark .l4e_dashboard_wrapper table,
+body.o_dark .l4e_dashboard_wrapper table {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper table th,
+.o_dark_mode .l4e_dashboard_wrapper table th,
+.o_web_client.o_dark .l4e_dashboard_wrapper table th,
+body.o_dark .l4e_dashboard_wrapper table th {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-bottom: 2px solid #334155 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper table td,
+.o_dark_mode .l4e_dashboard_wrapper table td,
+.o_web_client.o_dark .l4e_dashboard_wrapper table td,
+body.o_dark .l4e_dashboard_wrapper table td {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+[data-bs-theme="dark"] .l4e_dashboard_wrapper input,
+[data-bs-theme="dark"] .l4e_dashboard_wrapper select,
+.o_dark_mode .l4e_dashboard_wrapper input,
+.o_dark_mode .l4e_dashboard_wrapper select,
+.o_web_client.o_dark .l4e_dashboard_wrapper input,
+.o_web_client.o_dark .l4e_dashboard_wrapper select,
+body.o_dark .l4e_dashboard_wrapper input,
+body.o_dark .l4e_dashboard_wrapper select {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}

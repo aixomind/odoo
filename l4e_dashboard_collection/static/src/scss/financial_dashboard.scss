@@ -466,3 +466,105 @@
         }
     }
 }
+
+
+/* Dark Mode Support for Financial Dashboard (Odoo 17, 18, 19) */
+[data-bs-theme="dark"],
+.o_dark_mode,
+.o_web_client.o_dark {
+    .l4e_financial_dashboard {
+        background: #0f172a !important;
+        color: #f8fafc !important;
+
+        .fin-header,
+        .fin-card,
+        .fin-kpi-card {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+
+            h1, h2, h3, h4, .fin-val {
+                color: #f8fafc !important;
+            }
+
+            .fin-label, .text-muted {
+                color: #94a3b8 !important;
+            }
+        }
+
+        table {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+            th {
+                background: #0f172a !important;
+                color: #cbd5e1 !important;
+                border-color: #334155 !important;
+            }
+            td {
+                background: #1e293b !important;
+                color: #e2e8f0 !important;
+                border-color: #334155 !important;
+            }
+        }
+    }
+}
+
+
+/* ==========================================
+   DARK MODE STYLES (Matching CRM Dashboard)
+   Odoo 17, 18, 19
+   ========================================== */
+[data-bs-theme="dark"],
+.o_dark_mode,
+.o_web_client.o_dark,
+body.o_dark {
+    .o_financial_dashboard {
+        background: #0f172a !important;
+        color: #f8fafc !important;
+
+        .o_fd_header h1 {
+            color: #f8fafc !important;
+        }
+
+        .o_fd_header p {
+            color: #94a3b8 !important;
+        }
+
+        .o_fd_card,
+        .o_fd_kpi_card,
+        .o_fd_section {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            color: #f8fafc !important;
+
+            h1, h2, h3, h4, .o_fd_val, .o_fd_title {
+                color: #f8fafc !important;
+            }
+
+            .o_fd_label, .text-muted, label {
+                color: #94a3b8 !important;
+            }
+        }
+
+        table {
+            background: #1e293b !important;
+            color: #f1f5f9 !important;
+            th {
+                background: #0f172a !important;
+                color: #cbd5e1 !important;
+                border-color: #334155 !important;
+            }
+            td {
+                background: #1e293b !important;
+                color: #e2e8f0 !important;
+                border-color: #334155 !important;
+            }
+        }
+
+        input, select {
+            background: #0f172a !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
+    }
+}

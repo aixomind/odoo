@@ -30,7 +30,7 @@
                             </div>
                             <div t-if="state.show_suggestions &amp;&amp; state.suggestions.length" class="position-absolute bg-white border rounded shadow-lg w-100 mt-1" style="z-index: 1050; max-height: 220px; overflow-y: auto;">
                                 <div class="list-group list-group-flush">
-                                    <t t-foreach="state.suggestions" t-as="prod" t-key="prod.id">
+                                    <t t-foreach="state.suggestions" t-as="prod" t-key="prod_index">
                                         <button type="button" class="list-group-item list-group-item-action d-flex align-items-center gap-2 py-2 border-0" t-on-click="() => this.selectProduct(prod.id, prod.name)">
                                             <img t-attf-src="/web/image/product.product/#{prod.id}/image_128" class="rounded border p-1 bg-white" style="width: 28px; height: 28px; object-fit: cover;" onerror="this.src='/web/static/img/placeholder.png'"/>
                                             <span class="text-dark small text-truncate fw-semibold" t-out="prod.name"></span>
@@ -198,7 +198,7 @@
 
                                 <div class="flex-grow-1 overflow-auto" style="max-height: 200px;">
                                     <div class="d-flex flex-column gap-2">
-                                        <t t-foreach="categoryBreakdown" t-as="cat" t-key="cat.id">
+                                        <t t-foreach="categoryBreakdown" t-as="cat" t-key="cat_index">
                                             <div class="d-flex align-items-center justify-content-between gap-1 small cursor-pointer legend-row py-1 px-2" t-on-click="() => this.openCategoryProducts(cat.id, cat.name)">
                                                 <div class="d-flex align-items-center gap-2 text-truncate" style="font-size: 0.72rem;">
                                                     <span class="legend-dot rounded-circle" t-attf-style="background-color: #{cat.color};"></span>
@@ -233,7 +233,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="state.data.top_products" t-as="p" t-key="p.id">
+                                        <t t-foreach="state.data.top_products" t-as="p" t-key="p_index">
                                             <tr>
                                                 <td class="cursor-pointer" t-on-click="() => this.openProductForm(p.id)">
                                                     <div class="d-flex align-items-center gap-2">
@@ -271,7 +271,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="state.data.locations" t-as="loc" t-key="loc.id">
+                                        <t t-foreach="state.data.locations" t-as="loc" t-key="loc_index">
                                             <tr>
                                                 <td class="cursor-pointer" t-on-click="() => this.openLocationQuants(loc.id, loc.name)">
                                                     <span class="fw-semibold text-dark text-truncate d-block" style="max-width: 200px;" t-out="loc.name"></span>
@@ -337,7 +337,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="state.data.product_moves" t-as="pm" t-key="pm.id">
+                                        <t t-foreach="state.data.product_moves" t-as="pm" t-key="pm_index">
                                             <tr>
                                                 <td class="cursor-pointer" t-on-click="() => this.openProductMoves(pm.id, pm.name)">
                                                     <span class="fw-semibold text-dark text-truncate d-block" style="max-width: 180px;" t-out="pm.name"></span>

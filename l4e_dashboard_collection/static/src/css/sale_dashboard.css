@@ -303,3 +303,131 @@
     opacity: 0.75;
     transform: translateX(4px);
 }
+
+
+/* Dark Mode Support for Sales Dashboard (Odoo 17, 18, 19) */
+[data-bs-theme="dark"] .l4e_sale_dashboard,
+.o_dark_mode .l4e_sale_dashboard,
+.o_web_client.o_dark .l4e_sale_dashboard {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .sd-kpi-card,
+[data-bs-theme="dark"] .sd-card,
+.o_dark_mode .sd-kpi-card,
+.o_dark_mode .sd-card,
+.o_web_client.o_dark .sd-kpi-card,
+.o_web_client.o_dark .sd-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .sd-kpi-title,
+[data-bs-theme="dark"] .sd-card-title,
+.o_dark_mode .sd-kpi-title,
+.o_dark_mode .sd-card-title,
+.o_web_client.o_dark .sd-kpi-title,
+.o_web_client.o_dark .sd-card-title {
+    color: #94a3b8 !important;
+}
+
+[data-bs-theme="dark"] .sd-kpi-value,
+.o_dark_mode .sd-kpi-value,
+.o_web_client.o_dark .sd-kpi-value {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .sd-table,
+.o_dark_mode .sd-table,
+.o_web_client.o_dark .sd-table {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-bs-theme="dark"] .sd-table th,
+.o_dark_mode .sd-table th,
+.o_web_client.o_dark .sd-table th {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+[data-bs-theme="dark"] .sd-table td,
+.o_dark_mode .sd-table td,
+.o_web_client.o_dark .sd-table td {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+
+/* ==========================================
+   DARK MODE STYLES (Matching CRM Dashboard)
+   Odoo 17, 18, 19
+   ========================================== */
+[data-bs-theme="dark"] .l4e_sale_dashboard,
+.o_dark_mode .l4e_sale_dashboard,
+.o_web_client.o_dark .l4e_sale_dashboard,
+body.o_dark .l4e_sale_dashboard {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .sd-kpi-card,
+[data-bs-theme="dark"] .sd-card,
+.o_dark_mode .sd-kpi-card,
+.o_dark_mode .sd-card,
+.o_web_client.o_dark .sd-kpi-card,
+.o_web_client.o_dark .sd-card,
+body.o_dark .sd-kpi-card,
+body.o_dark .sd-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+[data-bs-theme="dark"] .sd-kpi-title,
+[data-bs-theme="dark"] .sd-card-title,
+.o_dark_mode .sd-kpi-title,
+.o_dark_mode .sd-card-title,
+.o_web_client.o_dark .sd-kpi-title,
+.o_web_client.o_dark .sd-card-title,
+body.o_dark .sd-kpi-title,
+body.o_dark .sd-card-title {
+    color: #94a3b8 !important;
+}
+
+[data-bs-theme="dark"] .sd-kpi-value,
+.o_dark_mode .sd-kpi-value,
+.o_web_client.o_dark .sd-kpi-value,
+body.o_dark .sd-kpi-value {
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .sd-table,
+.o_dark_mode .sd-table,
+.o_web_client.o_dark .sd-table,
+body.o_dark .sd-table {
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
+}
+
+[data-bs-theme="dark"] .sd-table th,
+.o_dark_mode .sd-table th,
+.o_web_client.o_dark .sd-table th,
+body.o_dark .sd-table th {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+[data-bs-theme="dark"] .sd-table td,
+.o_dark_mode .sd-table td,
+.o_web_client.o_dark .sd-table td,
+body.o_dark .sd-table td {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
