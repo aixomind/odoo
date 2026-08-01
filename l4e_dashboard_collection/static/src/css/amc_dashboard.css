@@ -116,6 +116,7 @@
 .amc-filter-group label {
     font-weight: 500;
     white-space: nowrap;
+    color: #ffffff !important;
 }
 
 .amc-btn-clear {
@@ -479,290 +480,123 @@ select.amc-chart-period {
 }
 
 
-/* Dark Mode Support for AMC Dashboard (Odoo 17, 18, 19) */
-[data-bs-theme="dark"] .amc_dashboard,
-.o_dark_mode .amc_dashboard,
-.o_web_client.o_dark .amc_dashboard {
-    background: #0f172a !important;
-    color: #f8fafc !important;
+/* Dynamic Dual-Theme Filter Labels */
+.amc-filter-group label {
+    font-weight: 500;
+    white-space: nowrap;
+    color: #374151;
 }
 
-[data-bs-theme="dark"] .amc-dashboard-header,
-[data-bs-theme="dark"] .amc-filters-bar,
-.o_dark_mode .amc-dashboard-header,
-.o_dark_mode .amc-filters-bar,
-.o_web_client.o_dark .amc-dashboard-header,
-.o_web_client.o_dark .amc-filters-bar {
-    background: #1e293b !important;
-    border-color: #334155 !important;
-}
-
-[data-bs-theme="dark"] .amc-dashboard-header h1,
-.o_dark_mode .amc-dashboard-header h1,
-.o_web_client.o_dark .amc-dashboard-header h1 {
-    color: #f8fafc !important;
-}
-
-[data-bs-theme="dark"] .amc-dashboard-header p,
-.o_dark_mode .amc-dashboard-header p,
-.o_web_client.o_dark .amc-dashboard-header p {
-    color: #94a3b8 !important;
-}
-
-[data-bs-theme="dark"] .amc-kpi-card,
-[data-bs-theme="dark"] .amc-chart-card,
-[data-bs-theme="dark"] .amc-table-card,
-.o_dark_mode .amc-kpi-card,
-.o_dark_mode .amc-chart-card,
-.o_dark_mode .amc-table-card,
-.o_web_client.o_dark .amc-kpi-card,
-.o_web_client.o_dark .amc-chart-card,
-.o_web_client.o_dark .amc-table-card {
-    background: #1e293b !important;
-    border-color: #334155 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
-}
-
-[data-bs-theme="dark"] .amc-kpi-label,
-.o_dark_mode .amc-kpi-label,
-.o_web_client.o_dark .amc-kpi-label {
-    color: #94a3b8 !important;
-}
-
-[data-bs-theme="dark"] .amc-kpi-value,
-[data-bs-theme="dark"] .amc-chart-title,
-[data-bs-theme="dark"] .amc-table-header,
-.o_dark_mode .amc-kpi-value,
-.o_dark_mode .amc-chart-title,
-.o_dark_mode .amc-table-header,
-.o_web_client.o_dark .amc-kpi-value,
-.o_web_client.o_dark .amc-chart-title,
-.o_web_client.o_dark .amc-table-header {
-    color: #f8fafc !important;
-}
-
-[data-bs-theme="dark"] .amc-table,
-.o_dark_mode .amc-table,
-.o_web_client.o_dark .amc-table {
-    background: #1e293b !important;
-    color: #f1f5f9 !important;
-}
-
-[data-bs-theme="dark"] .amc-table th,
-.o_dark_mode .amc-table th,
-.o_web_client.o_dark .amc-table th {
-    background: #0f172a !important;
-    color: #cbd5e1 !important;
-    border-color: #334155 !important;
-}
-
-[data-bs-theme="dark"] .amc-table td,
-.o_dark_mode .amc-table td,
-.o_web_client.o_dark .amc-table td {
-    background: #1e293b !important;
-    color: #e2e8f0 !important;
-    border-color: #334155 !important;
-}
-
-[data-bs-theme="dark"] .amc-select,
-[data-bs-theme="dark"] .amc-date-picker,
-[data-bs-theme="dark"] .amc-chart-period,
-.o_dark_mode .amc-select,
-.o_dark_mode .amc-date-picker,
-.o_dark_mode .amc-chart-period,
-.o_web_client.o_dark .amc-select,
-.o_web_client.o_dark .amc-date-picker,
-.o_web_client.o_dark .amc-chart-period {
-    background: #0f172a !important;
-    color: #f8fafc !important;
-    border-color: #334155 !important;
-}
-
-[data-bs-theme="dark"] .amc-donut-center-value,
-.o_dark_mode .amc-donut-center-value,
-.o_web_client.o_dark .amc-donut-center-value {
+.amc_dashboard[data-theme="dark"] .amc-filter-group label,
+[data-bs-theme="dark"] .amc_dashboard .amc-filter-group label,
+.o_dark_mode .amc_dashboard .amc-filter-group label,
+html.l4e-theme-dark .amc-filter-group label {
     color: #ffffff !important;
 }
 
-[data-bs-theme="dark"] .amc-donut-center-label,
-.o_dark_mode .amc-donut-center-label,
-.o_web_client.o_dark .amc-donut-center-label {
+
+/* Dynamic Dual-Theme In Progress Status Badge */
+.amc-status-badge.in-progress,
+.amc-status-badge.in_progress,
+.amc-status-badge.ongoing {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-status-badge.in-progress,
+.amc_dashboard[data-theme="dark"] .amc-status-badge.in_progress,
+[data-bs-theme="dark"] .amc_dashboard .amc-status-badge.in-progress,
+[data-bs-theme="dark"] .amc_dashboard .amc-status-badge.in_progress,
+.o_dark_mode .amc_dashboard .amc-status-badge.in-progress,
+.o_dark_mode .amc_dashboard .amc-status-badge.in_progress,
+html.l4e-theme-dark .amc-status-badge.in-progress,
+html.l4e-theme-dark .amc-status-badge.in_progress {
+    background: rgba(14, 165, 233, 0.28) !important;
+    color: #38bdf8 !important;
+}
+
+
+/* AMC Donut Legend: Remove background pill box completely */
+.amc-legend-item {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 6px 0 !important;
+}
+
+/* AMC Donut Legend Text: Dual-Theme Architecture */
+.amc-legend-left span,
+.amc-legend-left,
+.amc-legend-count {
+    color: #334155;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-legend-left span,
+.amc_dashboard[data-theme="dark"] .amc-legend-left,
+.amc_dashboard[data-theme="dark"] .amc-legend-count,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left span,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-count,
+.o_dark_mode .amc_dashboard .amc-legend-left span,
+.o_dark_mode .amc_dashboard .amc-legend-left,
+.o_dark_mode .amc_dashboard .amc-legend-count,
+html.l4e-theme-dark .amc-legend-left span,
+html.l4e-theme-dark .amc-legend-left,
+html.l4e-theme-dark .amc-legend-count {
+    color: #f8fafc !important;
+}
+
+/* AMC Donut Center Text ("5 TOTAL"): Dual-Theme Architecture */
+.amc-donut-center-value {
+    color: #0f172a;
+}
+.amc-donut-center-label {
+    color: #64748b;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-donut-center-value,
+[data-bs-theme="dark"] .amc_dashboard .amc-donut-center-value,
+.o_dark_mode .amc_dashboard .amc-donut-center-value,
+html.l4e-theme-dark .amc-donut-center-value {
+    color: #f8fafc !important;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-donut-center-label,
+[data-bs-theme="dark"] .amc_dashboard .amc-donut-center-label,
+.o_dark_mode .amc_dashboard .amc-donut-center-label,
+html.l4e-theme-dark .amc-donut-center-label {
     color: #94a3b8 !important;
 }
 
-[data-bs-theme="dark"] .amc-legend-item,
-.o_dark_mode .amc-legend-item,
-.o_web_client.o_dark .amc-legend-item {
-    background: #0f172a !important;
-    border-color: #334155 !important;
+
+/* Dynamic Dual-Theme Legend Text & Labels (Completed, Ongoing, Not Started, Overdue) */
+.amc-legend-item,
+.amc-legend-item span,
+.amc-legend-left,
+.amc-legend-left span,
+.amc-legend-count {
+    color: #334155 !important;
 }
 
-[data-bs-theme="dark"] .amc-legend-left,
-[data-bs-theme="dark"] .amc-legend-count,
-.o_dark_mode .amc-legend-left,
-.o_dark_mode .amc-legend-count,
-.o_web_client.o_dark .amc-legend-left,
-.o_web_client.o_dark .amc-legend-count {
-    color: #f1f5f9 !important;
-}
-
-
-/* ============================================================
-   COMPLETE DARK MODE - AMC Dashboard (Odoo 17, 18, 19)
-   Matches CRM Dashboard dark theme exactly
-   ============================================================ */
-
-[data-bs-theme="dark"] .amc_dashboard,
-.o_dark_mode .amc_dashboard,
-.o_web_client.o_dark .amc_dashboard,
-body.o_dark .amc_dashboard {
-    background-color: #0f172a !important;
-    color: #f8fafc !important;
-}
-
-/* All white/light bg inside amc dashboard */
-[data-bs-theme="dark"] .amc_dashboard .bg-white,
-[data-bs-theme="dark"] .amc_dashboard .bg-light,
-[data-bs-theme="dark"] .amc_dashboard .card,
-[data-bs-theme="dark"] .amc_dashboard .amc-card,
-[data-bs-theme="dark"] .amc_dashboard .amc-kpi-card,
-[data-bs-theme="dark"] .amc_dashboard .amc-section,
-[data-bs-theme="dark"] .amc_dashboard .amc-chart-card,
-.o_dark_mode .amc_dashboard .bg-white,
-.o_dark_mode .amc_dashboard .bg-light,
-.o_dark_mode .amc_dashboard .card,
-.o_dark_mode .amc_dashboard .amc-card,
-.o_dark_mode .amc_dashboard .amc-kpi-card,
-.o_dark_mode .amc_dashboard .amc-section,
-.o_dark_mode .amc_dashboard .amc-chart-card,
-.o_web_client.o_dark .amc_dashboard .bg-white,
-.o_web_client.o_dark .amc_dashboard .bg-light,
-.o_web_client.o_dark .amc_dashboard .card,
-.o_web_client.o_dark .amc_dashboard .amc-card,
-.o_web_client.o_dark .amc_dashboard .amc-kpi-card,
-.o_web_client.o_dark .amc_dashboard .amc-section,
-.o_web_client.o_dark .amc_dashboard .amc-chart-card,
-body.o_dark .amc_dashboard .bg-white,
-body.o_dark .amc_dashboard .bg-light,
-body.o_dark .amc_dashboard .card,
-body.o_dark .amc_dashboard .amc-card,
-body.o_dark .amc_dashboard .amc-kpi-card,
-body.o_dark .amc_dashboard .amc-section,
-body.o_dark .amc_dashboard .amc-chart-card {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    color: #f8fafc !important;
-}
-
-/* Text */
-[data-bs-theme="dark"] .amc_dashboard .text-dark,
-.o_dark_mode .amc_dashboard .text-dark,
-.o_web_client.o_dark .amc_dashboard .text-dark,
-body.o_dark .amc_dashboard .text-dark {
-    color: #f8fafc !important;
-}
-[data-bs-theme="dark"] .amc_dashboard .text-muted,
-.o_dark_mode .amc_dashboard .text-muted,
-.o_web_client.o_dark .amc_dashboard .text-muted,
-body.o_dark .amc_dashboard .text-muted {
-    color: #94a3b8 !important;
-}
-[data-bs-theme="dark"] .amc_dashboard h1,
-[data-bs-theme="dark"] .amc_dashboard h2,
-[data-bs-theme="dark"] .amc_dashboard h3,
-[data-bs-theme="dark"] .amc_dashboard h4,
-[data-bs-theme="dark"] .amc_dashboard h5,
-[data-bs-theme="dark"] .amc_dashboard .fw-bold,
-[data-bs-theme="dark"] .amc_dashboard .fw-semibold,
-.o_dark_mode .amc_dashboard h1,
-.o_dark_mode .amc_dashboard h2,
-.o_dark_mode .amc_dashboard h3,
-.o_dark_mode .amc_dashboard h4,
-.o_dark_mode .amc_dashboard h5,
-.o_dark_mode .amc_dashboard .fw-bold,
-.o_dark_mode .amc_dashboard .fw-semibold,
-.o_web_client.o_dark .amc_dashboard h1,
-.o_web_client.o_dark .amc_dashboard h2,
-.o_web_client.o_dark .amc_dashboard h3,
-.o_web_client.o_dark .amc_dashboard h4,
-.o_web_client.o_dark .amc_dashboard h5,
-.o_web_client.o_dark .amc_dashboard .fw-bold,
-.o_web_client.o_dark .amc_dashboard .fw-semibold,
-body.o_dark .amc_dashboard h1,
-body.o_dark .amc_dashboard h2,
-body.o_dark .amc_dashboard h3,
-body.o_dark .amc_dashboard h4,
-body.o_dark .amc_dashboard h5,
-body.o_dark .amc_dashboard .fw-bold,
-body.o_dark .amc_dashboard .fw-semibold {
-    color: #f8fafc !important;
-}
-
-/* Filter buttons */
-[data-bs-theme="dark"] .amc_dashboard .btn-outline-secondary,
-[data-bs-theme="dark"] .amc_dashboard .btn-light,
-.o_dark_mode .amc_dashboard .btn-outline-secondary,
-.o_dark_mode .amc_dashboard .btn-light,
-.o_web_client.o_dark .amc_dashboard .btn-outline-secondary,
-.o_web_client.o_dark .amc_dashboard .btn-light,
-body.o_dark .amc_dashboard .btn-outline-secondary,
-body.o_dark .amc_dashboard .btn-light {
-    background-color: #1e293b !important;
-    color: #cbd5e1 !important;
-    border-color: #334155 !important;
-}
-[data-bs-theme="dark"] .amc_dashboard .btn-outline-secondary.active,
-[data-bs-theme="dark"] .amc_dashboard .btn-outline-secondary:hover,
-.o_dark_mode .amc_dashboard .btn-outline-secondary.active,
-.o_dark_mode .amc_dashboard .btn-outline-secondary:hover,
-.o_web_client.o_dark .amc_dashboard .btn-outline-secondary.active,
-.o_web_client.o_dark .amc_dashboard .btn-outline-secondary:hover,
-body.o_dark .amc_dashboard .btn-outline-secondary.active,
-body.o_dark .amc_dashboard .btn-outline-secondary:hover {
-    background-color: #334155 !important;
-    color: #f8fafc !important;
-}
-
-/* Tables */
-[data-bs-theme="dark"] .amc_dashboard table th,
-.o_dark_mode .amc_dashboard table th,
-.o_web_client.o_dark .amc_dashboard table th,
-body.o_dark .amc_dashboard table th {
-    background-color: #0f172a !important;
-    color: #94a3b8 !important;
-    border-color: #334155 !important;
-}
-[data-bs-theme="dark"] .amc_dashboard table td,
-[data-bs-theme="dark"] .amc_dashboard table tr,
-.o_dark_mode .amc_dashboard table td,
-.o_dark_mode .amc_dashboard table tr,
-.o_web_client.o_dark .amc_dashboard table td,
-.o_web_client.o_dark .amc_dashboard table tr,
-body.o_dark .amc_dashboard table td,
-body.o_dark .amc_dashboard table tr {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-    border-color: #334155 !important;
-}
-
-/* Inputs / date pickers */
-[data-bs-theme="dark"] .amc_dashboard input,
-[data-bs-theme="dark"] .amc_dashboard select,
-[data-bs-theme="dark"] .amc_dashboard .form-control,
-[data-bs-theme="dark"] .amc_dashboard .input-group-text,
-.o_dark_mode .amc_dashboard input,
-.o_dark_mode .amc_dashboard select,
-.o_dark_mode .amc_dashboard .form-control,
-.o_dark_mode .amc_dashboard .input-group-text,
-.o_web_client.o_dark .amc_dashboard input,
-.o_web_client.o_dark .amc_dashboard select,
-.o_web_client.o_dark .amc_dashboard .form-control,
-.o_web_client.o_dark .amc_dashboard .input-group-text,
-body.o_dark .amc_dashboard input,
-body.o_dark .amc_dashboard select,
-body.o_dark .amc_dashboard .form-control,
-body.o_dark .amc_dashboard .input-group-text {
-    background-color: #0f172a !important;
-    color: #f8fafc !important;
-    border-color: #334155 !important;
+.amc_dashboard[data-theme="dark"] .amc-legend-item,
+.amc_dashboard[data-theme="dark"] .amc-legend-item span,
+.amc_dashboard[data-theme="dark"] .amc-legend-left,
+.amc_dashboard[data-theme="dark"] .amc-legend-left span,
+.amc_dashboard[data-theme="dark"] .amc-legend-count,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-item,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-item span,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left span,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-count,
+.o_dark_mode .amc_dashboard .amc-legend-item,
+.o_dark_mode .amc_dashboard .amc-legend-item span,
+.o_dark_mode .amc_dashboard .amc-legend-left,
+.o_dark_mode .amc_dashboard .amc-legend-left span,
+.o_dark_mode .amc_dashboard .amc-legend-count,
+html.l4e-theme-dark .amc-legend-item,
+html.l4e-theme-dark .amc-legend-item span,
+html.l4e-theme-dark .amc-legend-left,
+html.l4e-theme-dark .amc-legend-left span,
+html.l4e-theme-dark .amc-legend-count {
+    color: #ffffff !important;
 }

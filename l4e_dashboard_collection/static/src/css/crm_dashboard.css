@@ -1,0 +1,180 @@
+/* ============================================================
+   CRM DASHBOARD - LIGHT & DARK THEMES
+   ============================================================ */
+
+/* ---------------- 1. LIGHT MODE (DEFAULT) ---------------- */
+.crm_dashboard_wrapper:not([data-theme="dark"]) {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    padding: 24px 40px !important;
+    box-sizing: border-box !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-topbar-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    gap: 20px !important;
+    padding-bottom: 20px !important;
+    width: 100% !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-topbar-title,
+.crm_dashboard_wrapper:not([data-theme="dark"]) h1,
+.crm_dashboard_wrapper:not([data-theme="dark"]) h2,
+.crm_dashboard_wrapper:not([data-theme="dark"]) h3,
+.crm_dashboard_wrapper:not([data-theme="dark"]) h4,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .card-title-n,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .card-count-n,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .card-label {
+    color: #0f172a !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-topbar-subtitle,
+.crm_dashboard_wrapper:not([data-theme="dark"]) small {
+    color: #64748b !important;
+}
+
+/* Light Mode Cards */
+.crm_dashboard_wrapper:not([data-theme="dark"]) .kpi-card,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .chart-card,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .card {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 14px !important;
+    padding: 16px 18px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+}
+
+/* Light Mode Topbar Filters & Buttons */
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-dropdown-trigger,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .date-picker-group,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-input-group,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-btn-refresh,
+.crm_dashboard_wrapper:not([data-theme="dark"]) select {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-dropdown-trigger span,
+.crm_dashboard_wrapper:not([data-theme="dark"]) .l4e-dropdown-trigger i {
+    color: #0f172a !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) input[type="date"] {
+    background: transparent !important;
+    border: none !important;
+    color: #0f172a !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) input[type="date"]::-webkit-datetime-edit {
+    color: #0f172a !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") !important;
+    opacity: 0.85 !important;
+    cursor: pointer !important;
+}
+
+.crm_dashboard_wrapper:not([data-theme="dark"]) table th {
+    color: #475569 !important;
+    background: #f8fafc !important;
+}
+.crm_dashboard_wrapper:not([data-theme="dark"]) table td {
+    color: #1e293b !important;
+    background: #ffffff !important;
+}
+
+
+/* ---------------- 2. DARK MODE ---------------- */
+.crm_dashboard_wrapper[data-theme="dark"],
+[data-bs-theme="dark"] .crm_dashboard_wrapper,
+.o_dark_mode .crm_dashboard_wrapper {
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    padding: 24px 40px !important;
+    box-sizing: border-box !important;
+}
+
+.crm_dashboard_wrapper[data-theme="dark"] .l4e-topbar-title,
+.crm_dashboard_wrapper[data-theme="dark"] h1,
+.crm_dashboard_wrapper[data-theme="dark"] h2,
+.crm_dashboard_wrapper[data-theme="dark"] h3,
+.crm_dashboard_wrapper[data-theme="dark"] h4,
+[data-bs-theme="dark"] .crm_dashboard_wrapper h1,
+[data-bs-theme="dark"] .crm_dashboard_wrapper h2,
+[data-bs-theme="dark"] .crm_dashboard_wrapper h3 {
+    color: #f8fafc !important;
+}
+
+/* Dark Mode Cards */
+.crm_dashboard_wrapper[data-theme="dark"] .kpi-card,
+.crm_dashboard_wrapper[data-theme="dark"] .chart-card,
+.crm_dashboard_wrapper[data-theme="dark"] .card,
+[data-bs-theme="dark"] .crm_dashboard_wrapper .kpi-card,
+[data-bs-theme="dark"] .crm_dashboard_wrapper .chart-card {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 14px !important;
+    padding: 16px 18px !important;
+}
+
+/* Dark Mode Topbar Filters & Buttons */
+.crm_dashboard_wrapper[data-theme="dark"] .l4e-dropdown-trigger,
+.crm_dashboard_wrapper[data-theme="dark"] .date-picker-group,
+.crm_dashboard_wrapper[data-theme="dark"] .l4e-input-group,
+.crm_dashboard_wrapper[data-theme="dark"] .l4e-btn-refresh,
+.crm_dashboard_wrapper[data-theme="dark"] select,
+[data-bs-theme="dark"] .crm_dashboard_wrapper .l4e-dropdown-trigger,
+[data-bs-theme="dark"] .crm_dashboard_wrapper .date-picker-group {
+    background: #1e293b !important;
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+}
+
+.crm_dashboard_wrapper[data-theme="dark"] .l4e-dropdown-trigger span,
+.crm_dashboard_wrapper[data-theme="dark"] .l4e-dropdown-trigger i {
+    color: #f8fafc !important;
+}
+
+.crm_dashboard_wrapper[data-theme="dark"] input[type="date"] {
+    background: transparent !important;
+    border: none !important;
+    color: #f8fafc !important;
+    cursor: pointer !important;
+}
+
+.crm_dashboard_wrapper[data-theme="dark"] input[type="date"]::-webkit-datetime-edit {
+    color: #f8fafc !important;
+}
+
+.crm_dashboard_wrapper[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") !important;
+    opacity: 1 !important;
+}
+
+.crm_dashboard_wrapper[data-theme="dark"] table th {
+    color: #cbd5e1 !important;
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+.crm_dashboard_wrapper[data-theme="dark"] table td {
+    color: #e2e8f0 !important;
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}

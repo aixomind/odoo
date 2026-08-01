@@ -69,6 +69,7 @@ class AmcDashboard extends Component {
         });
         this._donutChart = null;
         this._barChart = null;
+        this._themeCleanup = null;
         this._loadSeq = 0;
 
         onWillStart(async () => {
@@ -76,6 +77,12 @@ class AmcDashboard extends Component {
         });
 
         onMounted(async () => {
+            if (window.l4eDashboardTheme) {
+                this._themeCleanup = window.l4eDashboardTheme.subscribe(() => {
+                    this._renderDonut();
+                    this._renderBar();
+                });
+            }
             await this._loadEmployees();
             await this._loadCustomers();
             await this._loadData();
@@ -84,6 +91,7 @@ class AmcDashboard extends Component {
         onWillUnmount(() => {
             if (this._donutChart) this._donutChart.destroy();
             if (this._barChart) this._barChart.destroy();
+            if (this._themeCleanup) this._themeCleanup();
         });
     }
 
@@ -195,6 +203,17 @@ class AmcDashboard extends Component {
         }
     }
 
+    _chartTheme() {
+        const isDark = Boolean(window.l4eDashboardTheme && window.l4eDashboardTheme.isDark());
+        return {
+            axis: isDark ? '#cbd5e1' : '#4a5568',
+            grid: isDark ? '#334155' : '#f0f2f5',
+            legend: isDark ? '#e2e8f0' : '#374151',
+            tooltipBg: isDark ? 'rgba(15, 23, 42, 0.96)' : 'rgba(33, 37, 41, 0.95)',
+            donutBorder: isDark ? '#1e293b' : '#fff',
+        };
+    }
+
     _renderDonut() {
         const canvas = document.getElementById('amcDonutCanvas');
         if (!canvas || !this.state.data) return;
@@ -202,6 +221,7 @@ class AmcDashboard extends Component {
         const d = this.state.data;
         const Chart = window.Chart;
         if (!Chart) return;
+        const theme = this._chartTheme();
         this._donutChart = new Chart(canvas, {
             type: 'doughnut',
             data: {
@@ -214,7 +234,8 @@ class AmcDashboard extends Component {
                         d.status_chart.overdue,
                     ],
                     backgroundColor: ['#4caf50', '#2196f3', '#ff9800', '#f44336'],
-                    borderWidth: 0,
+                    borderColor: theme.donutBorder,
+                    borderWidth: 1,
                     hoverOffset: 6,
                 }],
             },
@@ -233,6 +254,9 @@ class AmcDashboard extends Component {
                 plugins: {
                     legend: { display: false },
                     tooltip: {
+                        backgroundColor: theme.tooltipBg,
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
                         callbacks: {
                             label: (ctx) => {
                                 const total = d.status_chart.total || 0;
@@ -251,6 +275,7 @@ class AmcDashboard extends Component {
         if (this._barChart) this._barChart.destroy();
         const Chart = window.Chart;
         if (!Chart) return;
+        const theme = this._chartTheme();
         this._barChart = new Chart(canvas, {
             type: 'bar',
             data: {
@@ -277,12 +302,12 @@ class AmcDashboard extends Component {
                     }
                 },
                 plugins: {
-                    legend: { position: 'bottom', labels: { font: { size: 12 }, boxWidth: 12 } },
-                    tooltip: { mode: 'index', intersect: false },
+                    legend: { position: 'bottom', labels: { color: theme.legend, font: { size: 12 }, boxWidth: 12 } },
+                    tooltip: { mode: 'index', intersect: false, backgroundColor: theme.tooltipBg, titleColor: '#fff', bodyColor: '#fff' },
                 },
                 scales: {
-                    y: { beginAtZero: true, grid: { color: '#f0f2f5' }, ticks: { font: { size: 11 } } },
-                    x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+                    y: { beginAtZero: true, grid: { color: theme.grid }, ticks: { color: theme.axis, font: { size: 11 } } },
+                    x: { grid: { display: false }, ticks: { color: theme.axis, font: { size: 11 } } },
                 },
             },
         });
