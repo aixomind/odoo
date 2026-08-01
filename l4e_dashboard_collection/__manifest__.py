@@ -61,6 +61,7 @@
     ],
     'assets': {
         'web.assets_backend': [
+            'l4e_dashboard_collection/static/src/js/theme_bridge.js',
             'l4e_dashboard_collection/static/src/scss/analytics.scss',
             'l4e_dashboard_collection/static/src/scss/charts.scss',
             'l4e_dashboard_collection/static/src/scss/dashboard.scss',
@@ -82,6 +83,7 @@
             'l4e_dashboard_collection/static/src/xml/financial_dashboard.xml',
 
             'l4e_dashboard_collection/static/src/css/amc_dashboard.css',
+            'l4e_dashboard_collection/static/src/scss/dark_mode.scss',
             'l4e_dashboard_collection/static/src/js/amc_dashboard.js',
             'l4e_dashboard_collection/static/src/xml/amc_dashboard.xml',
         ],

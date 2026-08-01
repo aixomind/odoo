@@ -1,4 +1,4 @@
-import { Component, onWillStart, onWillUnmount, useEffect, useRef, useState } from "@odoo/owl";
+import { Component, onMounted, onWillStart, onWillUnmount, useEffect, useRef, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { loadJS } from "@web/core/assets";
@@ -69,9 +69,21 @@ export class L4eInventoryDashboard extends Component {
             }
         }, () => [this.state.data]);
 
+        onMounted(() => {
+            if (window.l4eDashboardTheme) {
+                this._themeCleanup = window.l4eDashboardTheme.subscribe(() => {
+                    if (this.state.data) {
+                        this.renderLineChart();
+                        this.renderDonutChart();
+                    }
+                });
+            }
+        });
+
         onWillUnmount(() => {
             if (this.lineChart) this.lineChart.destroy();
             if (this.donutChart) this.donutChart.destroy();
+            if (this._themeCleanup) this._themeCleanup();
         });
     }
 
@@ -232,6 +244,17 @@ export class L4eInventoryDashboard extends Component {
         }
     }
 
+    getChartTheme() {
+        const isDark = Boolean(window.l4eDashboardTheme && window.l4eDashboardTheme.isDark());
+        return {
+            axis: isDark ? '#cbd5e1' : '#6c757d',
+            grid: isDark ? '#334155' : '#e9ecef',
+            pointBorder: isDark ? '#0f172a' : '#fff',
+            tooltipBg: isDark ? 'rgba(15, 23, 42, 0.96)' : 'rgba(33, 37, 41, 0.95)',
+            donutBorder: isDark ? '#1e293b' : '#fff',
+        };
+    }
+
     renderLineChart() {
         if (typeof Chart === "undefined") return;
         if (this.lineChart) {
@@ -241,6 +264,7 @@ export class L4eInventoryDashboard extends Component {
         const ctx = this.lineCanvasRef.el.getContext("2d");
         const labels = this.state.data.values_over_time.map(d => d.date);
         const dataValues = this.state.data.values_over_time.map(d => d.value);
+        const theme = this.getChartTheme();
 
         const gradient = ctx.createLinearGradient(0, 0, 0, 300);
         gradient.addColorStop(0, "rgba(111, 66, 193, 0.4)");
@@ -256,7 +280,7 @@ export class L4eInventoryDashboard extends Component {
                     borderColor: '#6f42c1',
                     borderWidth: 3,
                     pointBackgroundColor: '#6f42c1',
-                    pointBorderColor: '#fff',
+                    pointBorderColor: theme.pointBorder,
                     pointBorderWidth: 2,
                     pointRadius: 4,
                     pointHoverRadius: 6,
@@ -271,7 +295,7 @@ export class L4eInventoryDashboard extends Component {
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: 'rgba(33, 37, 41, 0.95)',
+                        backgroundColor: theme.tooltipBg,
                         titleColor: '#fff',
                         bodyColor: '#fff',
                         padding: 10,
@@ -293,12 +317,12 @@ export class L4eInventoryDashboard extends Component {
                 scales: {
                     x: {
                         grid: { display: false },
-                        ticks: { color: '#6c757d' }
+                        ticks: { color: theme.axis }
                     },
                     y: {
-                        grid: { color: '#e9ecef' },
+                        grid: { color: theme.grid },
                         ticks: {
-                            color: '#6c757d',
+                            color: theme.axis,
                             callback: (value) => {
                                 const currency = this.getCompanyCurrency();
                                 const symbol = currency.symbol;
@@ -332,6 +356,7 @@ export class L4eInventoryDashboard extends Component {
         const dataValues = categories.map(c => c.value);
 
         const colors = ['#0d6efd', '#20c997', '#ffc107', '#d63384', '#6f42c1', '#fd7e14', '#17a2b8', '#6c757d'];
+        const theme = this.getChartTheme();
 
         this.donutChart = new Chart(ctx, {
             type: 'doughnut',
@@ -341,7 +366,7 @@ export class L4eInventoryDashboard extends Component {
                     data: dataValues,
                     backgroundColor: colors.slice(0, dataValues.length),
                     borderWidth: 2,
-                    borderColor: '#fff',
+                    borderColor: theme.donutBorder,
                     hoverOffset: 4
                 }]
             },

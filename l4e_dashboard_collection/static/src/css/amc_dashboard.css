@@ -116,6 +116,7 @@
 .amc-filter-group label {
     font-weight: 500;
     white-space: nowrap;
+    color: #ffffff !important;
 }
 
 .amc-btn-clear {
@@ -476,4 +477,126 @@ select.amc-chart-period {
         flex-direction: column;
         align-items: flex-start;
     }
+}
+
+
+/* Dynamic Dual-Theme Filter Labels */
+.amc-filter-group label {
+    font-weight: 500;
+    white-space: nowrap;
+    color: #374151;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-filter-group label,
+[data-bs-theme="dark"] .amc_dashboard .amc-filter-group label,
+.o_dark_mode .amc_dashboard .amc-filter-group label,
+html.l4e-theme-dark .amc-filter-group label {
+    color: #ffffff !important;
+}
+
+
+/* Dynamic Dual-Theme In Progress Status Badge */
+.amc-status-badge.in-progress,
+.amc-status-badge.in_progress,
+.amc-status-badge.ongoing {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-status-badge.in-progress,
+.amc_dashboard[data-theme="dark"] .amc-status-badge.in_progress,
+[data-bs-theme="dark"] .amc_dashboard .amc-status-badge.in-progress,
+[data-bs-theme="dark"] .amc_dashboard .amc-status-badge.in_progress,
+.o_dark_mode .amc_dashboard .amc-status-badge.in-progress,
+.o_dark_mode .amc_dashboard .amc-status-badge.in_progress,
+html.l4e-theme-dark .amc-status-badge.in-progress,
+html.l4e-theme-dark .amc-status-badge.in_progress {
+    background: rgba(14, 165, 233, 0.28) !important;
+    color: #38bdf8 !important;
+}
+
+
+/* AMC Donut Legend: Remove background pill box completely */
+.amc-legend-item {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 6px 0 !important;
+}
+
+/* AMC Donut Legend Text: Dual-Theme Architecture */
+.amc-legend-left span,
+.amc-legend-left,
+.amc-legend-count {
+    color: #334155;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-legend-left span,
+.amc_dashboard[data-theme="dark"] .amc-legend-left,
+.amc_dashboard[data-theme="dark"] .amc-legend-count,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left span,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-count,
+.o_dark_mode .amc_dashboard .amc-legend-left span,
+.o_dark_mode .amc_dashboard .amc-legend-left,
+.o_dark_mode .amc_dashboard .amc-legend-count,
+html.l4e-theme-dark .amc-legend-left span,
+html.l4e-theme-dark .amc-legend-left,
+html.l4e-theme-dark .amc-legend-count {
+    color: #f8fafc !important;
+}
+
+/* AMC Donut Center Text ("5 TOTAL"): Dual-Theme Architecture */
+.amc-donut-center-value {
+    color: #0f172a;
+}
+.amc-donut-center-label {
+    color: #64748b;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-donut-center-value,
+[data-bs-theme="dark"] .amc_dashboard .amc-donut-center-value,
+.o_dark_mode .amc_dashboard .amc-donut-center-value,
+html.l4e-theme-dark .amc-donut-center-value {
+    color: #f8fafc !important;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-donut-center-label,
+[data-bs-theme="dark"] .amc_dashboard .amc-donut-center-label,
+.o_dark_mode .amc_dashboard .amc-donut-center-label,
+html.l4e-theme-dark .amc-donut-center-label {
+    color: #94a3b8 !important;
+}
+
+
+/* Dynamic Dual-Theme Legend Text & Labels (Completed, Ongoing, Not Started, Overdue) */
+.amc-legend-item,
+.amc-legend-item span,
+.amc-legend-left,
+.amc-legend-left span,
+.amc-legend-count {
+    color: #334155 !important;
+}
+
+.amc_dashboard[data-theme="dark"] .amc-legend-item,
+.amc_dashboard[data-theme="dark"] .amc-legend-item span,
+.amc_dashboard[data-theme="dark"] .amc-legend-left,
+.amc_dashboard[data-theme="dark"] .amc-legend-left span,
+.amc_dashboard[data-theme="dark"] .amc-legend-count,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-item,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-item span,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-left span,
+[data-bs-theme="dark"] .amc_dashboard .amc-legend-count,
+.o_dark_mode .amc_dashboard .amc-legend-item,
+.o_dark_mode .amc_dashboard .amc-legend-item span,
+.o_dark_mode .amc_dashboard .amc-legend-left,
+.o_dark_mode .amc_dashboard .amc-legend-left span,
+.o_dark_mode .amc_dashboard .amc-legend-count,
+html.l4e-theme-dark .amc-legend-item,
+html.l4e-theme-dark .amc-legend-item span,
+html.l4e-theme-dark .amc-legend-left,
+html.l4e-theme-dark .amc-legend-left span,
+html.l4e-theme-dark .amc-legend-count {
+    color: #ffffff !important;
 }
