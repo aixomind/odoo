@@ -48,13 +48,17 @@ class SaleOrder(models.Model):
         return f"{symbol}{amount:,.2f}"
 
     @api.model
-    def get_sale_dashboard_stats(self, partner_id=None, date_from=None, date_to=None):
+    def get_sale_dashboard_stats(self, partner_id=None, team_id=None, user_id=None, date_from=None, date_to=None):
         currency = self.env.company.currency_id
         symbol   = currency.symbol or ''
 
         base = [('company_id', '=', self.env.company.id)]
         if partner_id:
             base.append(('partner_id', '=', int(partner_id)))
+        if team_id:
+            base.append(('team_id', '=', int(team_id)))
+        if user_id:
+            base.append(('user_id', '=', int(user_id)))
         if date_from:
             base.append(('date_order', '>=', date_from + ' 00:00:00'))
         if date_to:
@@ -97,6 +101,67 @@ class SaleOrder(models.Model):
         )
         fp_cnt = len(full_inv)
         fp_amt = sum(full_inv.mapped('amount_total'))
+        total_docs = c_cnt + q_cnt
+        outstanding_amt = ti_amt + pa_amt
+        avg_order_value = c_amt / c_cnt if c_cnt else 0.0
+        conversion_rate = (c_cnt / total_docs * 100.0) if total_docs else 0.0
+
+        chart_year = fields.Date.today().year
+        if date_from:
+            try:
+                chart_year = fields.Date.from_string(date_from).year
+            except Exception:
+                chart_year = fields.Date.today().year
+        month_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        monthly_revenue = []
+        for month in range(1, 13):
+            start = f'{chart_year}-{month:02d}-01 00:00:00'
+            if month == 12:
+                end = f'{chart_year}-12-31 23:59:59'
+            else:
+                end = f'{chart_year}-{month + 1:02d}-01 00:00:00'
+            month_domain = base + [('state', 'in', ('sale', 'done')), ('date_order', '>=', start)]
+            if month == 12:
+                month_domain.append(('date_order', '<=', end))
+            else:
+                month_domain.append(('date_order', '<', end))
+            amount = sum(Order.search(month_domain).mapped('amount_total'))
+            monthly_revenue.append({
+                'label': f'{month_labels[month - 1]} {chart_year}',
+                'short_label': month_labels[month - 1],
+                'value': amount,
+                'formatted': fmt(amount),
+                'date_from': start[:10],
+                'date_to': end[:10],
+            })
+
+        recent_orders = Order.search(base, order='date_order desc, id desc', limit=5)
+        recent_activities = []
+        for order in recent_orders:
+            if order.state in ('draft', 'sent'):
+                title = f'Quotation {order.name} sent'
+                icon = 'fa-file-text-o'
+                tone = 'orange'
+            elif order.invoice_status == 'invoiced':
+                title = f'Sales Order {order.name} fully invoiced'
+                icon = 'fa-check'
+                tone = 'green'
+            elif order.invoice_status in ('to invoice', 'partially_invoiced'):
+                title = f'Invoice pending for {order.name}'
+                icon = 'fa-clock-o'
+                tone = 'pink'
+            else:
+                title = f'Sales Order {order.name} confirmed'
+                icon = 'fa-shopping-bag'
+                tone = 'blue'
+            recent_activities.append({
+                'id': order.id,
+                'title': title,
+                'customer': order.partner_id.display_name,
+                'time_label': fields.Datetime.context_timestamp(self, order.date_order).strftime('%d %b %Y'),
+                'icon': icon,
+                'tone': tone,
+            })
 
         return {
             'cards': [
@@ -104,6 +169,7 @@ class SaleOrder(models.Model):
                     'key':              'total',
                     'label':            'Total Sale Orders',
                     'count':            c_cnt,
+                    'amount':           c_amt,
                     'amount_formatted': fmt(c_amt),
                     'color':            '#5B8DEF',
                     'icon':             'fa-shopping-cart',
@@ -113,6 +179,7 @@ class SaleOrder(models.Model):
                     'key':              'to_invoice',
                     'label':            'To Invoice',
                     'count':            ti_cnt,
+                    'amount':           ti_amt,
                     'amount_formatted': fmt(ti_amt),
                     'color':            '#EBA7A7',
                     'icon':             'fa-file-text-o',
@@ -122,6 +189,7 @@ class SaleOrder(models.Model):
                     'key':              'partial',
                     'label':            'Partially Invoiced',
                     'count':            pa_cnt,
+                    'amount':           pa_amt,
                     'amount_formatted': fmt(pa_amt),
                     'color':            '#AFEDE4',
                     'icon':             'fa-adjust',
@@ -131,6 +199,7 @@ class SaleOrder(models.Model):
                     'key':              'fully_invoiced',
                     'label':            'Fully Invoiced',
                     'count':            fp_cnt,
+                    'amount':           fp_amt,
                     'amount_formatted': fmt(fp_amt),
                     'color':            '#8ADB90',
                     'icon':             'fa-check-circle',
@@ -140,20 +209,37 @@ class SaleOrder(models.Model):
                     'key':              'quotations',
                     'label':            'Quotations',
                     'count':            q_cnt,
+                    'amount':           q_amt,
                     'amount_formatted': fmt(q_amt),
                     'color':            '#E0B294',
                     'icon':             'fa-clock-o',
                     'sub_label':        'Draft / Sent',
                 },
             ],
+            'summary': {
+                'total_revenue': fmt(c_amt),
+                'avg_order_value': fmt(avg_order_value),
+                'conversion_rate': f'{conversion_rate:.1f}%',
+                'avg_delivery_time': '0 Days',
+                'outstanding': fmt(outstanding_amt),
+                'outstanding_orders': ti_cnt + pa_cnt,
+            },
+            'monthly_revenue': monthly_revenue,
+            'recent_activities': recent_activities,
+            'teams': [{'id': team.id, 'name': team.name} for team in self.env['crm.team'].search([])],
+            'users': [{'id': user.id, 'name': user.name} for user in self.env['res.users'].search([('share', '=', False)])],
             'currency_symbol': symbol,
         }
 
     @api.model
-    def action_open_sale_orders_by_status(self, status_key, partner_id=None, date_from=None, date_to=None):
+    def action_open_sale_orders_by_status(self, status_key, partner_id=None, team_id=None, user_id=None, date_from=None, date_to=None):
         base = [('company_id', '=', self.env.company.id)]
         if partner_id:
             base.append(('partner_id', '=', int(partner_id)))
+        if team_id:
+            base.append(('team_id', '=', int(team_id)))
+        if user_id:
+            base.append(('user_id', '=', int(user_id)))
         if date_from:
             base.append(('date_order', '>=', date_from + ' 00:00:00'))
         if date_to:
