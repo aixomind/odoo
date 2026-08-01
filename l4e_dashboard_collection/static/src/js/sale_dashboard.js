@@ -1,126 +1,19 @@
 /** @odoo-module **/
-import { registry }    from "@web/core/registry";
-import { useService }  from "@web/core/utils/hooks";
-import { Component, onWillStart, useState , xml } from "@odoo/owl";
+import { registry } from "@web/core/registry";
+import { useService } from "@web/core/utils/hooks";
+import { Component, onWillStart, useState } from "@odoo/owl";
 
 export class SaleDashboardAction extends Component {
-    static template = xml`
-<div class="o_sdash_page">
-
-    <div class="o_sdash_hero">
-        <div class="o_sdash_hero_left">
-            <div class="o_sdash_hero_icon"><i class="fa fa-bar-chart"/></div>
-            <div>
-                <div class="o_sdash_hero_title">Sales Dashboard</div>
-                <div class="o_sdash_hero_sub">Overview of your sales pipeline &amp; invoice status</div>
-            </div>
-        </div>
-
-        <div class="o_sdash_hero_filters">
-
-            <div class="o_sdash_year_row">
-                <t t-foreach="availableYears" t-as="yr" t-key="yr">
-                    <button class="o_sdash_chip"
-                            t-att-class="{ active: state.filterYear === yr }"
-                            t-on-click="() => this.onSelectYear(yr)">
-                        <t t-out="yr"/>
-                    </button>
-                </t>
-            </div>
-
-            <div class="o_sdash_daterange">
-                <i class="fa fa-calendar o_sdash_dr_icon"/>
-                <input type="date"
-                       class="o_sdash_date_input"
-                       t-att-value="state.fromDate"
-                       t-on-change="(e) => this.onFromDateChange(e)"
-                       title="From date"/>
-                <span class="o_sdash_dr_sep">→</span>
-                <input type="date"
-                       class="o_sdash_date_input"
-                       t-att-value="state.toDate"
-                       t-on-change="(e) => this.onToDateChange(e)"
-                       title="To date"/>
-                <t t-if="state.fromDate or state.toDate">
-                    <button class="o_sdash_clear_btn" t-on-click="onClearDates" title="Clear dates">
-                        <i class="fa fa-times"/>
-                    </button>
-                </t>
-            </div>
-
-        </div>
-    </div>
-
-    <t t-if="activeBadgeLabel">
-        <div class="o_sdash_badge_bar">
-            <span class="o_sdash_badge">
-                <i class="fa fa-filter me-1"/>
-                <t t-out="activeBadgeLabel"/>
-                <button class="o_sdash_badge_clear" t-on-click="onClearDates" title="Clear">
-                    <i class="fa fa-times"/>
-                </button>
-            </span>
-        </div>
-    </t>
-
-    <div class="o_sdash_content">
-
-        <div class="o_sdash_section_head">
-            <span class="o_sdash_section_dot"/>
-            Sale Orders
-        </div>
-
-        <t t-if="state.loading">
-            <div class="o_sdash_loading">
-                <i class="fa fa-spinner fa-spin me-2"/>Loading stats…
-            </div>
-        </t>
-
-        <t t-else="">
-            <div class="o_sdash_grid">
-                <t t-foreach="state.cards" t-as="card" t-key="card.key">
-                    <button class="o_sdash_card"
-                            t-att-style="'--cc:' + card.color"
-                            t-on-click="() => this.onCardClick(card.key)">
-
-                        <div class="o_sdash_card_top">
-                            <span class="o_sdash_card_icon_wrap">
-                                <i t-attf-class="fa {{ card.icon }}"/>
-                            </span>
-                            <span class="o_sdash_card_label" t-out="card.label"/>
-                        </div>
-
-                        <div class="o_sdash_card_count">
-                            <t t-out="card.count"/>
-                            <span class="o_sdash_card_unit"> Orders</span>
-                        </div>
-
-                        <t t-if="card.amount_formatted">
-                            <div class="o_sdash_card_amount" t-out="card.amount_formatted"/>
-                        </t>
-
-                        <div class="o_sdash_card_sub" t-out="card.sub_label"/>
-
-                        <span class="o_sdash_card_arrow"><i class="fa fa-arrow-right"/></span>
-
-                    </button>
-                </t>
-            </div>
-        </t>
-
-    </div>
-
-</div>
-`;
-    static props    = ["*"];
+    static template = "l4e_dashboard_collection.SaleDashboardAction";
+    static props = ["*"];
 
     setup() {
-        this.orm          = useService("orm");
-        this.actionSvc    = useService("action");
+        this.orm = useService("orm");
+        this.actionSvc = useService("action");
         this.notification = useService("notification");
 
-        const today         = new Date();
-        this.currentYear    = today.getFullYear();
+        const today = new Date();
+        this.currentYear = today.getFullYear();
         this.availableYears = [
             this.currentYear,
             this.currentYear - 1,
@@ -129,24 +22,31 @@ export class SaleDashboardAction extends Component {
         ];
 
         this.state = useState({
-            cards:      [],
-            loading:    true,
-            fromDate:   '',
-            toDate:     '',
-            filterYear: null,
+            cards: [],
+            summary: {},
+            monthlyRevenue: [],
+            recentActivities: [],
+            teams: [],
+            users: [],
+            loading: true,
+            fromDate: "",
+            toDate: "",
+            filterYear: this.currentYear,
+            teamId: "",
+            userId: "",
         });
 
         onWillStart(() => this._loadStats());
     }
 
     _effectiveDateFrom() {
-        if (this.state.fromDate)   return this.state.fromDate;
+        if (this.state.fromDate) return this.state.fromDate;
         if (this.state.filterYear) return `${this.state.filterYear}-01-01`;
         return null;
     }
 
     _effectiveDateTo() {
-        if (this.state.toDate)     return this.state.toDate;
+        if (this.state.toDate) return this.state.toDate;
         if (this.state.filterYear) return `${this.state.filterYear}-12-31`;
         return null;
     }
@@ -159,11 +59,18 @@ export class SaleDashboardAction extends Component {
                 "get_sale_dashboard_stats",
                 [],
                 {
+                    team_id: this.state.teamId || false,
+                    user_id: this.state.userId || false,
                     date_from: this._effectiveDateFrom(),
-                    date_to:   this._effectiveDateTo(),
+                    date_to: this._effectiveDateTo(),
                 }
             );
             this.state.cards = result.cards || [];
+            this.state.summary = result.summary || {};
+            this.state.monthlyRevenue = result.monthly_revenue || [];
+            this.state.recentActivities = result.recent_activities || [];
+            this.state.teams = result.teams || [];
+            this.state.users = result.users || [];
         } catch (err) {
             console.error("SaleDashboard load error:", err);
             this.notification.add("Failed to load dashboard stats", { type: "warning" });
@@ -172,35 +79,53 @@ export class SaleDashboardAction extends Component {
         }
     }
 
-    async onSelectYear(year) {
-        this.state.filterYear = (this.state.filterYear === year) ? null : year;
-        this.state.fromDate   = '';
-        this.state.toDate     = '';
+    async onYearChange(ev) {
+        const value = ev.target.value;
+        this.state.filterYear = value ? parseInt(value, 10) : null;
+        this.state.fromDate = "";
+        this.state.toDate = "";
         await this._loadStats();
     }
 
-    async onFromDateChange(e) {
-        this.state.fromDate   = e.target.value || '';
+    async onTeamChange(ev) {
+        this.state.teamId = ev.target.value || "";
+        await this._loadStats();
+    }
+
+    async onUserChange(ev) {
+        this.state.userId = ev.target.value || "";
+        await this._loadStats();
+    }
+
+    async onFromDateChange(ev) {
+        this.state.fromDate = ev.target.value || "";
         this.state.filterYear = null;
-        if ((this.state.fromDate && this.state.toDate) ||
-            (!this.state.fromDate && !this.state.toDate)) {
+        if ((this.state.fromDate && this.state.toDate) || (!this.state.fromDate && !this.state.toDate)) {
             await this._loadStats();
         }
     }
 
-    async onToDateChange(e) {
-        this.state.toDate     = e.target.value || '';
+    async onToDateChange(ev) {
+        this.state.toDate = ev.target.value || "";
         this.state.filterYear = null;
-        if ((this.state.fromDate && this.state.toDate) ||
-            (!this.state.fromDate && !this.state.toDate)) {
+        if ((this.state.fromDate && this.state.toDate) || (!this.state.fromDate && !this.state.toDate)) {
             await this._loadStats();
         }
     }
 
     async onClearDates() {
-        this.state.fromDate   = '';
-        this.state.toDate     = '';
-        this.state.filterYear = null;
+        this.state.fromDate = "";
+        this.state.toDate = "";
+        this.state.filterYear = this.currentYear;
+        await this._loadStats();
+    }
+
+    async resetFilters() {
+        this.state.fromDate = "";
+        this.state.toDate = "";
+        this.state.filterYear = this.currentYear;
+        this.state.teamId = "";
+        this.state.userId = "";
         await this._loadStats();
     }
 
@@ -211,8 +136,10 @@ export class SaleDashboardAction extends Component {
                 "action_open_sale_orders_by_status",
                 [statusKey],
                 {
+                    team_id: this.state.teamId || false,
+                    user_id: this.state.userId || false,
                     date_from: this._effectiveDateFrom(),
-                    date_to:   this._effectiveDateTo(),
+                    date_to: this._effectiveDateTo(),
                 }
             );
             if (act) await this.actionSvc.doAction(act);
@@ -222,12 +149,129 @@ export class SaleDashboardAction extends Component {
         }
     }
 
+    async openSummaryMetric(metricKey) {
+        const statusByMetric = {
+            revenue: "total",
+            avg: "total",
+            conversion: "quotations",
+            delivery: "fully_invoiced",
+            outstanding: "to_invoice",
+        };
+        await this.onCardClick(statusByMetric[metricKey] || "total");
+    }
+
+    async openMonthlyPoint(point) {
+        if (!point || !point.date_from || !point.date_to) return;
+        try {
+            const act = await this.orm.call(
+                "sale.order",
+                "action_open_sale_orders_by_status",
+                ["total"],
+                {
+                    team_id: this.state.teamId || false,
+                    user_id: this.state.userId || false,
+                    date_from: point.date_from,
+                    date_to: point.date_to,
+                }
+            );
+            if (act) await this.actionSvc.doAction(act);
+        } catch (err) {
+            console.error("Monthly navigation error:", err);
+            this.notification.add("Failed to open monthly records", { type: "danger" });
+        }
+    }
+
+    openRecentActivity(activity) {
+        if (!activity || !activity.id) return;
+        this.actionSvc.doAction({
+            type: "ir.actions.act_window",
+            name: activity.title || "Sale Order",
+            res_model: "sale.order",
+            res_id: activity.id,
+            views: [[false, "form"]],
+            target: "current",
+        });
+    }
+
+    _formatCompact(value) {
+        const amount = Math.abs(value || 0);
+        if (amount >= 1000000) return `$${(amount / 1000000).toFixed(0)}M`;
+        if (amount >= 1000) return `$${(amount / 1000).toFixed(0)}K`;
+        return `$${amount.toFixed(0)}`;
+    }
+
+    get primaryCards() {
+        return this.state.cards.slice(0, 5);
+    }
+
+    get summaryMetrics() {
+        const summary = this.state.summary || {};
+        return [
+            { key: "revenue", label: "Total Revenue", value: summary.total_revenue || "$0.00", icon: "fa-bar-chart", tone: "purple", trend: "18.6%" },
+            { key: "avg", label: "Avg Order Value", value: summary.avg_order_value || "$0.00", icon: "fa-line-chart", tone: "green", trend: "12.4%" },
+            { key: "conversion", label: "Conversion Rate", value: summary.conversion_rate || "0.0%", icon: "fa-briefcase", tone: "orange", trend: "4.2%" },
+            { key: "delivery", label: "Avg Delivery Time", value: summary.avg_delivery_time || "0 Days", icon: "fa-calendar", tone: "pink", trend: "1.3%" },
+            { key: "outstanding", label: "Outstanding", value: summary.outstanding || "$0.00", icon: "fa-database", tone: "blue", sub: `${summary.outstanding_orders || 0} Orders` },
+        ];
+    }
+
+    get chartData() {
+        return this.state.monthlyRevenue.length ? this.state.monthlyRevenue : [];
+    }
+
+    get chartPoints() {
+        const data = this.chartData;
+        if (!data.length) return [];
+        const width = 760;
+        const height = 260;
+        const left = 58;
+        const right = 18;
+        const top = 22;
+        const bottom = 36;
+        const max = Math.max(...data.map((item) => item.value || 0), 1);
+        const usableWidth = width - left - right;
+        const usableHeight = height - top - bottom;
+        return data.map((item, index) => {
+            const x = left + (data.length === 1 ? usableWidth / 2 : (index * usableWidth) / (data.length - 1));
+            const y = top + (1 - ((item.value || 0) / max)) * usableHeight;
+            return { ...item, x, y };
+        });
+    }
+
+    get chartPolyline() {
+        return this.chartPoints.map((point) => `${point.x},${point.y}`).join(" ");
+    }
+
+    get chartAreaPath() {
+        const points = this.chartPoints;
+        if (!points.length) return "";
+        const baseY = 224;
+        return `M ${points[0].x} ${baseY} L ${points.map((point) => `${point.x} ${point.y}`).join(" L ")} L ${points[points.length - 1].x} ${baseY} Z`;
+    }
+
+    get chartYTicks() {
+        const max = Math.max(...this.chartData.map((item) => item.value || 0), 1);
+        return [0, 1, 2, 3, 4].map((index) => {
+            const ratio = index / 4;
+            return {
+                y: 22 + ratio * 202,
+                label: this._formatCompact(max * (1 - ratio)),
+            };
+        });
+    }
+
     get activeBadgeLabel() {
-        if (this.state.filterYear)
-            return `Year: ${this.state.filterYear}`;
-        if (this.state.fromDate && this.state.toDate)
-            return `${this.state.fromDate}  →  ${this.state.toDate}`;
-        return null;
+        if (this.state.filterYear) return `Year: ${this.state.filterYear}`;
+        if (this.state.fromDate && this.state.toDate) return `${this.state.fromDate} to ${this.state.toDate}`;
+        return "All Periods";
+    }
+
+    getCardClass(card) {
+        return `o_sdash_order_card tone-${card.key}`;
+    }
+
+    getActivityClass(activity) {
+        return `o_sdash_activity_icon tone-${activity.tone || "blue"}`;
     }
 }
 
@@ -236,4 +280,3 @@ registry.category("actions").add(
     SaleDashboardAction
 );
 export { SaleDashboardAction };
-

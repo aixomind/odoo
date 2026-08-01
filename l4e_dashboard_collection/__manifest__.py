@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'All In One dashboard ( CRM , Sales , Finance , Inventory, AMC )',
-    'version': '17.0.1.0.0',
+    'version': '16.0.1.0.0',
     'category': 'Extra Tools',
     'summary': 'All-in-one Dashboard Collection: Sales, Inventory, Accounting, and AMC',
     'description': """
@@ -55,12 +55,12 @@
         'views/financial_dashboard_views.xml',
         'views/amc_dashboard_views.xml',
         'views/crm_sale_views.xml',
-                'views/crm_sale_views.xml',
         'views/crm_dashboard_views.xml',
         'views/dashboards_menu_views.xml',
     ],
     'assets': {
         'web.assets_backend': [
+            'l4e_dashboard_collection/static/src/js/theme_bridge.js',
             'l4e_dashboard_collection/static/src/scss/analytics.scss',
             'l4e_dashboard_collection/static/src/scss/charts.scss',
             'l4e_dashboard_collection/static/src/scss/dashboard.scss',
@@ -70,6 +70,7 @@
             'l4e_dashboard_collection/static/src/css/inventory_dashboard.css',
             'l4e_dashboard_collection/static/src/scss/financial_dashboard.scss',
             'l4e_dashboard_collection/static/src/css/amc_dashboard.css',
+            'l4e_dashboard_collection/static/src/scss/dark_mode.scss',
 
             'l4e_dashboard_collection/static/src/xml/crm_dashboard.xml',
             'l4e_dashboard_collection/static/src/xml/sale_dashboard.xml',

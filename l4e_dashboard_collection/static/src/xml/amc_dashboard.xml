@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-<t t-name="l4e_dashboard_collection.AmcDashboard">
+<t t-name="l4e_dashboard_collection.AmcDashboard" owl="1">
     <div class="amc_dashboard">
 
         <div class="amc-dashboard-header">

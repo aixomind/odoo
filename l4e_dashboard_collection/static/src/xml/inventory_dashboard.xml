@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="l4e_dashboard_collection.InventoryDashboard">
+    <t t-name="l4e_dashboard_collection.InventoryDashboard" owl="1">
         <div class="l4e_dashboard_wrapper bg-light p-4 overflow-auto h-100">
 
             <div t-if="state.loading" class="d-flex justify-content-center align-items-center h-100 w-100 position-absolute top-0 start-0 bg-white bg-opacity-75" style="z-index: 1000;">

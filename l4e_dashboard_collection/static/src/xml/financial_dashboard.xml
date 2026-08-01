@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="l4e_dashboard_collection.FinancialDashboard">
+    <t t-name="l4e_dashboard_collection.FinancialDashboard" owl="1">
         <div class="o_financial_dashboard h-100 overflow-auto">
             <div class="o_fd_header">
                 <div>

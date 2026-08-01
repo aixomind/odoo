@@ -294,6 +294,7 @@ class AmcDashboard extends Component {
         });
         this._donutChart = null;
         this._barChart = null;
+        this._themeCleanup = null;
         this._loadSeq = 0;
 
         onWillStart(async () => {
@@ -301,6 +302,12 @@ class AmcDashboard extends Component {
         });
 
         onMounted(async () => {
+            if (window.l4eDashboardTheme) {
+                this._themeCleanup = window.l4eDashboardTheme.subscribe(() => {
+                    this._renderDonut();
+                    this._renderBar();
+                });
+            }
             await this._loadEmployees();
             await this._loadCustomers();
             await this._loadData();
@@ -309,6 +316,7 @@ class AmcDashboard extends Component {
         onWillUnmount(() => {
             if (this._donutChart) this._donutChart.destroy();
             if (this._barChart) this._barChart.destroy();
+            if (this._themeCleanup) this._themeCleanup();
         });
     }
 
@@ -420,6 +428,18 @@ class AmcDashboard extends Component {
         }
     }
 
+    _chartTheme() {
+        const isDark = Boolean(window.l4eDashboardTheme && window.l4eDashboardTheme.isDark());
+        return {
+            axis: isDark ? '#cbd5e1' : '#64748b',
+            grid: isDark ? '#334155' : '#f1f5f9',
+            zeroLine: isDark ? '#475569' : '#cbd5e1',
+            tooltipBg: isDark ? 'rgba(15, 23, 42, 0.96)' : '#0f172a',
+            donutBorder: isDark ? '#1e293b' : '#fff',
+            emptySlice: isDark ? '#334155' : '#e2e8f0',
+        };
+    }
+
     _renderDonut() {
         const canvas = document.getElementById('amcDonutCanvas');
         if (!canvas || !this.state.data) return;
@@ -427,6 +447,7 @@ class AmcDashboard extends Component {
         const d = this.state.data;
         const Chart = window.Chart;
         if (!Chart) return;
+        const theme = this._chartTheme();
 
         const hasData = (d.status_chart.completed + d.status_chart.ongoing + d.status_chart.not_started + d.status_chart.overdue) > 0;
         const chartData = hasData ? [
@@ -435,7 +456,7 @@ class AmcDashboard extends Component {
             d.status_chart.not_started,
             d.status_chart.overdue,
         ] : [1];
-        const bgColors = hasData ? ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'] : ['#e2e8f0'];
+        const bgColors = hasData ? ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'] : [theme.emptySlice];
 
         this._donutChart = new Chart(canvas, {
             type: 'doughnut',
@@ -444,7 +465,8 @@ class AmcDashboard extends Component {
                 datasets: [{
                     data: chartData,
                     backgroundColor: bgColors,
-                    borderWidth: 0,
+                    borderColor: theme.donutBorder,
+                    borderWidth: 1,
                     hoverOffset: hasData ? 6 : 0,
                 }],
             },
@@ -462,7 +484,9 @@ class AmcDashboard extends Component {
                     },
                     tooltip: {
                         enabled: hasData,
-                        backgroundColor: '#0f172a',
+                        backgroundColor: theme.tooltipBg,
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
                         padding: 10,
                         cornerRadius: 8,
                         callbacks: {
@@ -494,6 +518,7 @@ class AmcDashboard extends Component {
         if (this._barChart) this._barChart.destroy();
         const Chart = window.Chart;
         if (!Chart) return;
+        const theme = this._chartTheme();
         this._barChart = new Chart(canvas, {
             type: 'bar',
             data: {
@@ -527,7 +552,9 @@ class AmcDashboard extends Component {
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: '#0f172a',
+                        backgroundColor: theme.tooltipBg,
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
                         padding: 10,
                         cornerRadius: 8,
                         mode: 'index',
@@ -542,12 +569,12 @@ class AmcDashboard extends Component {
                             suggestedMax: 5,
                             stepSize: 1,
                             precision: 0,
-                            fontColor: '#64748b',
+                            fontColor: theme.axis,
                             fontSize: 11,
                         },
                         gridLines: {
-                            color: '#f1f5f9',
-                            zeroLineColor: '#cbd5e1',
+                            color: theme.grid,
+                            zeroLineColor: theme.zeroLine,
                         }
                     }],
                     xAxes: [{
@@ -555,7 +582,7 @@ class AmcDashboard extends Component {
                             display: false
                         },
                         ticks: {
-                            fontColor: '#64748b',
+                            fontColor: theme.axis,
                             fontSize: 11,
                         }
                     }],
@@ -563,10 +590,10 @@ class AmcDashboard extends Component {
                         beginAtZero: true,
                         min: 0,
                         suggestedMax: 5,
-                        grid: { color: '#f1f5f9' },
-                        ticks: { stepSize: 1, precision: 0, font: { size: 11 } }
+                        grid: { color: theme.grid },
+                        ticks: { color: theme.axis, stepSize: 1, precision: 0, font: { size: 11 } }
                     },
-                    x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+                    x: { grid: { display: false }, ticks: { color: theme.axis, font: { size: 11 } } },
                 },
             },
         });
