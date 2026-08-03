@@ -152,7 +152,7 @@
                             <p t-out="selectedCategory.description"/>
                             <div class="o_fd_toolbar">
                                 <label>
-                                    <span>Metric Period Filter</span>
+                                    <!-- <span>Metric Period Filter</span> -->
                                     <select t-att-value="state.metricPeriod" t-on-change="onPeriodChange">
                                         <t t-foreach="periods" t-as="period" t-key="period.key">
                                             <option t-att-value="period.key" t-att-selected="period.key === state.metricPeriod">

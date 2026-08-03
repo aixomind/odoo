@@ -466,3 +466,6 @@
         }
     }
 }
+
+/* Hide Metric Period Filter Label in Account Dashboard */
+.o_fd_metric_header .o_fd_toolbar label span, .o_fd_toolbar label span { display: none !important; }
