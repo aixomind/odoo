@@ -632,3 +632,6 @@ body.o_dark .o_financial_dashboard .form-control {
     color: #f8fafc !important;
     border-color: #334155 !important;
 }
+
+/* Hide Metric Period Filter Label in Account Dashboard */
+.o_fd_metric_header .o_fd_toolbar label span, .o_fd_toolbar label span { display: none !important; }
