@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="l4e_universal_field_update.DynamicRecordSelector" owl="1">
+        <div class="o_field_widget o_field_dynamic_record_selector w-100">
+            <t t-if="relationModel">
+                <AutoComplete
+                    value="state.displayName"
+                    sources="sources"
+                    onSelect="(option) => this.onSelectOption(option)"
+                    onChange="(value) => this.onInputChange(value)"
+                    placeholder="'Search record...'"
+                />
+            </t>
+            <t t-else="">
+                <input class="o_input" type="text" readonly="1" placeholder="Select a model/field first..."/>
+            </t>
+        </div>
+    </t>
+</templates>
