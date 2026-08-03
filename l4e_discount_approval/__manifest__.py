@@ -21,7 +21,7 @@
 #
 ##############################################################################
 {
-    'name': 'Discount + Approval (Sales , Purchase , Finance )',
+    'name': 'Discount Approval (Sales , Purchase , Finance)',
     'version': '16.0.1.0.0',
     'category': 'Sales',
     'summary': 'All-in-one discount governance: Per-salesperson global & line limits, tiered approval workflows, and total amount discounts with auto-distribution for Sales, Purchases, and Invoices.',
