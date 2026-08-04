@@ -23,6 +23,8 @@
 {
     'name': 'Journal Entry Transfer / Bulk Change Journal & Account',
     'version': '18.0.5.0.0',
+    'price': 149,
+    'currency': 'USD',
     'category': 'Accounting',
     'summary': 'Allows changing the Journal and Account lines of posted invoices/bills via wizard.',
     'description': """
