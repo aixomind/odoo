@@ -36,9 +36,9 @@
 
             <div class="o_sdash_daterange">
                 <span class="o_sdash_dr_sep">~</span>
-                <input type="date" class="o_sdash_date_input" t-att-value="state.fromDate" t-on-change="onFromDateChange"/>
+                <input type="date" class="o_sdash_date_input" t-att-value="state.fromDate" t-att-max="state.toDate" t-on-change="onFromDateChange"/>
                 <span class="o_sdash_dr_sep">-</span>
-                <input type="date" class="o_sdash_date_input" t-att-value="state.toDate" t-on-change="onToDateChange"/>
+                <input type="date" class="o_sdash_date_input" t-att-value="state.toDate" t-att-min="state.fromDate" t-on-change="onToDateChange"/>
                 <i class="fa fa-calendar o_sdash_dr_icon"/>
             </div>
 
