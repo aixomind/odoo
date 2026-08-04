@@ -163,6 +163,24 @@ export class L4eInventoryDashboard extends Component {
         await this.fetchDashboardData();
     }
 
+    onDateFromChange(ev) {
+        this.changeFilter('custom');
+        const val = ev.target.value || '';
+        this.state.date_from = val;
+        if (val && this.state.date_to && val > this.state.date_to) {
+            this.state.date_to = val;
+        }
+    }
+
+    onDateToChange(ev) {
+        this.changeFilter('custom');
+        const val = ev.target.value || '';
+        this.state.date_to = val;
+        if (val && this.state.date_from && val < this.state.date_from) {
+            this.state.date_from = val;
+        }
+    }
+
     async onSearchInput() {
         const query = this.state.search_query.trim();
         if (query.length < 2) {

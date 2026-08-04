@@ -53,9 +53,9 @@
           </div>
 
           <div class="l4e-input-group date-picker-group">
-            <input name="date_from" type="date" t-att-value="state.filters.date_from || ''" t-on-change="setFilter" title="Start Date"/>
+            <input name="date_from" type="date" t-att-value="state.filters.date_from || ''" t-att-max="state.filters.date_to" t-on-change="setFilter" title="Start Date"/>
             <span>-</span>
-            <input name="date_to" type="date" t-att-value="state.filters.date_to || ''" t-on-change="setFilter" title="End Date"/>
+            <input name="date_to" type="date" t-att-value="state.filters.date_to || ''" t-att-min="state.filters.date_from" t-on-change="setFilter" title="End Date"/>
           </div>
 
           <button class="l4e-btn-refresh" t-on-click="resetFilters" title="Reset Dashboard"><i class="fa fa-undo"/> Reset</button>
