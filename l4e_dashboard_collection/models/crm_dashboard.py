@@ -720,7 +720,10 @@ class CrmDashboard(models.TransientModel):
     def _domains(self, filters):
         allowed_companies = self.env.context.get("allowed_company_ids") or [self.env.company.id]
         lead_domain_base = ["|", ("company_id", "=", False), ("company_id", "in", allowed_companies)]
-        sale_domain_base = [("company_id", "in", allowed_companies), ("opportunity_id", "!=", False)]
+        if "opportunity_id" in self.env["sale.order"]._fields:
+            sale_domain_base = [("company_id", "in", allowed_companies), ("opportunity_id", "!=", False)]
+        else:
+            sale_domain_base = [("company_id", "in", allowed_companies), (0, "=", 1)]
 
         lead_domain = list(lead_domain_base)
         sale_domain = list(sale_domain_base)
