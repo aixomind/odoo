@@ -23,6 +23,8 @@
 {
     'name': 'Universal Field Update',
     'version': '16.0.1.0.0',
+    'price': 199,
+    'currency': 'USD',
     'category': 'Extra Tools',
     'summary': 'Inspect and bulk edit fields across all installed Odoo models safely with audit logs.',
     'description': """
