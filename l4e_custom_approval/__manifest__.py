@@ -23,7 +23,7 @@
 {
     'name': 'Global Approval',
     'version': '17.0.1.0.0',
-    'price': 199,
+    'price': 99,
     'currency': 'USD',
     'category': 'Approvals',
     'summary': 'Dynamic Approval Engine — any model, any field, any condition, user-configured',
