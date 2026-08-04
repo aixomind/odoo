@@ -55,9 +55,9 @@ export class L4eInventoryDashboard extends Component {
                         </div>
 
                         <div class="d-flex align-items-center gap-1.5 border rounded p-1 bg-light">
-                            <input type="date" class="form-control form-control-sm border-0 bg-transparent py-0" style="width: 110px; font-size: 0.8rem;" t-model="state.date_from" t-on-change="() => this.changeFilter('custom')"/>
+                            <input type="date" class="form-control form-control-sm border-0 bg-transparent py-0" style="width: 110px; font-size: 0.8rem;" t-att-value="state.date_from" t-att-max="state.date_to" t-on-change="onDateFromChange"/>
                             <span class="text-muted small">to</span>
-                            <input type="date" class="form-control form-control-sm border-0 bg-transparent py-0" style="width: 110px; font-size: 0.8rem;" t-model="state.date_to" t-on-change="() => this.changeFilter('custom')"/>
+                            <input type="date" class="form-control form-control-sm border-0 bg-transparent py-0" style="width: 110px; font-size: 0.8rem;" t-att-value="state.date_to" t-att-min="state.date_from" t-on-change="onDateToChange"/>
                             <button class="btn btn-sm btn-primary py-1 px-2" t-on-click="applyCustomDates">Apply</button>
                         </div>
                     </div>
@@ -523,6 +523,24 @@ export class L4eInventoryDashboard extends Component {
         sessionStorage.setItem('l4e_dashboard_date_from', this.state.date_from);
         sessionStorage.setItem('l4e_dashboard_date_to', this.state.date_to);
         await this.fetchDashboardData();
+    }
+
+    onDateFromChange(ev) {
+        this.changeFilter('custom');
+        const val = ev.target.value || '';
+        this.state.date_from = val;
+        if (val && this.state.date_to && val > this.state.date_to) {
+            this.state.date_to = val;
+        }
+    }
+
+    onDateToChange(ev) {
+        this.changeFilter('custom');
+        const val = ev.target.value || '';
+        this.state.date_to = val;
+        if (val && this.state.date_from && val < this.state.date_from) {
+            this.state.date_from = val;
+        }
     }
 
     async onSearchInput() {

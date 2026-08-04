@@ -220,6 +220,16 @@ class SalesOfficeDashboard extends Component {
         } else {
             delete this.state.filters[e.target.name];
         }
+        if (e.target.name === "date_from" && v) {
+            if (this.state.filters.date_to && v > this.state.filters.date_to) {
+                this.state.filters.date_to = v;
+            }
+        }
+        if (e.target.name === "date_to" && v) {
+            if (this.state.filters.date_from && v < this.state.filters.date_from) {
+                this.state.filters.date_from = v;
+            }
+        }
         if (e.target.name === "year_filter") {
             this.state.card_filters = {};
         }

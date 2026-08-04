@@ -342,8 +342,15 @@ export class FinancialDashboard extends Component {
     }
 
     async updateMetricDate(key, ev) {
-        this.state.metricFilters[key] = ev.target.value;
+        const val = ev.target.value;
+        this.state.metricFilters[key] = val;
         const filters = this.state.metricFilters;
+        if (key === 'date_from' && val && filters.date_to && val > filters.date_to) {
+            filters.date_to = val;
+        }
+        if (key === 'date_to' && val && filters.date_from && val < filters.date_from) {
+            filters.date_from = val;
+        }
         if (
             (filters.date_from && filters.date_to) ||
             (!filters.date_from && !filters.date_to)
@@ -430,7 +437,14 @@ export class FinancialDashboard extends Component {
 
     async updateDateFilter(cardType, key, ev) {
         const cardFilters = this.state.filters[cardType];
-        cardFilters[key] = ev.target.value;
+        const val = ev.target.value;
+        cardFilters[key] = val;
+        if (key === 'date_from' && val && cardFilters.date_to && val > cardFilters.date_to) {
+            cardFilters.date_to = val;
+        }
+        if (key === 'date_to' && val && cardFilters.date_from && val < cardFilters.date_from) {
+            cardFilters.date_from = val;
+        }
         if (
             (cardFilters.date_from && cardFilters.date_to) ||
             (!cardFilters.date_from && !cardFilters.date_to)

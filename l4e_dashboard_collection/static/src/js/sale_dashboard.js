@@ -98,7 +98,11 @@ export class SaleDashboardAction extends Component {
     }
 
     async onFromDateChange(ev) {
-        this.state.fromDate = ev.target.value || "";
+        const val = ev.target.value || "";
+        this.state.fromDate = val;
+        if (val && this.state.toDate && val > this.state.toDate) {
+            this.state.toDate = val;
+        }
         this.state.filterYear = null;
         if ((this.state.fromDate && this.state.toDate) || (!this.state.fromDate && !this.state.toDate)) {
             await this._loadStats();
@@ -106,7 +110,11 @@ export class SaleDashboardAction extends Component {
     }
 
     async onToDateChange(ev) {
-        this.state.toDate = ev.target.value || "";
+        const val = ev.target.value || "";
+        this.state.toDate = val;
+        if (val && this.state.fromDate && val < this.state.fromDate) {
+            this.state.fromDate = val;
+        }
         this.state.filterYear = null;
         if ((this.state.fromDate && this.state.toDate) || (!this.state.fromDate && !this.state.toDate)) {
             await this._loadStats();
