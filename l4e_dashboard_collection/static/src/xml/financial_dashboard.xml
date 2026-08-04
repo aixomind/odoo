@@ -92,8 +92,8 @@
                                         </t>
                                     </select>
                                 </t>
-                                <input type="date" t-att-value="getSelectValue(card.type, 'date_from')" t-on-change="(ev) => this.updateDateFilter(card.type, 'date_from', ev)"/>
-                                <input type="date" t-att-value="getSelectValue(card.type, 'date_to')" t-on-change="(ev) => this.updateDateFilter(card.type, 'date_to', ev)"/>
+                                <input type="date" t-att-value="getSelectValue(card.type, 'date_from')" t-att-max="getSelectValue(card.type, 'date_to')" t-on-change="(ev) => this.updateDateFilter(card.type, 'date_from', ev)"/>
+                                <input type="date" t-att-value="getSelectValue(card.type, 'date_to')" t-att-min="getSelectValue(card.type, 'date_from')" t-on-change="(ev) => this.updateDateFilter(card.type, 'date_to', ev)"/>
                             </div>
 
                             <div class="o_fd_stat_grid">
@@ -165,10 +165,12 @@
                             <div class="o_fd_metric_dates">
                                 <input type="date"
                                     t-att-value="state.metricFilters.date_from"
+                                    t-att-max="state.metricFilters.date_to"
                                     t-on-change="(ev) => this.updateMetricDate('date_from', ev)"/>
 
                                 <input type="date"
                                     t-att-value="state.metricFilters.date_to"
+                                    t-att-min="state.metricFilters.date_from"
                                     t-on-change="(ev) => this.updateMetricDate('date_to', ev)"/>
                             </div>
                         </div>
