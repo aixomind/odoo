@@ -23,6 +23,8 @@
 {
     'name': 'All In One dashboard ( CRM , Sales , Finance , Inventory, AMC )',
     'version': '17.0.1.0.0',
+    'price': 199,
+    'currency': 'USD',
     'category': 'Extra Tools',
     'summary': 'All-in-one Dashboard Collection: Sales, Inventory, Accounting, and AMC',
     'description': """
