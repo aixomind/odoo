@@ -59,6 +59,7 @@
             "l4e_odoo_tracking_system/static/src/scss/tracking_chatter.dark.scss",
         ],
     },
+    "images": ["static/description/banner.png"],
     "installable": True,
     "auto_install": False,
     "license": "LGPL-3",
