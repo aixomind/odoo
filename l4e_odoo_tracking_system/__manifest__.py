@@ -7,6 +7,7 @@
              Configuration for L4E Tracking System & Dust Bin Data
     """,
     'author': 'Harishbalaji',
+    'website': 'https://www.links4engg.com/',
     'depends': ['base', 'mail', 'sale_management', 'account', 'stock'],
     'data': [
         'security/ir.model.access.csv',
