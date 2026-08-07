@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.Message" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o-mail-Message-content')]" position="attributes">
+            <attribute name="t-att-class">{
+                'w-100': state.isEditing,
+                'opacity-50': message.isPending,
+                'pt-1': message.is_note,
+                'o_l4e_custom_chatter_card': message.useCustomTrackingCard and message.message_type and message.message_type.includes('email'),
+            }</attribute>
+        </xpath>
+        <xpath expr="//t[@name='trackingValues']/.." position="replace">
+            <div t-if="message.trackingValues[0]?.useCustomTrackingCard" class="mb-0 ps-4">
+                <t name="trackingValues" t-foreach="message.trackingValues" t-as="trackingValue" t-key="trackingValue.id">
+                    <div class="o_custom_tracking_card mb-2">
+                        <span class="o_l4e_tracking_title">
+                            <t t-out="trackingValue.changedField"/> updated.
+                        </span>
+                        <span>
+                            The <t t-out="trackingValue.changedField.toLowerCase()"/> has been changed
+                            from
+                            <span class="o_l4e_tracking_old" t-out="formatTrackingOrNone(trackingValue.fieldType, trackingValue.oldValue)"/>
+                            to
+                            <span class="o_l4e_tracking_new" t-out="formatTrackingOrNone(trackingValue.fieldType, trackingValue.newValue)"/>.
+                        </span>
+                    </div>
+                </t>
+            </div>
+            <ul t-else="" class="mb-0 ps-4">
+                <t name="trackingValues" t-foreach="message.trackingValues" t-as="trackingValue" t-key="trackingValue.id">
+                    <li class="o-mail-Message-tracking mb-1" role="group">
+                        <span class="o-mail-Message-trackingOld me-1 px-1 text-muted fw-bold" t-esc="formatTrackingOrNone(trackingValue.fieldType, trackingValue.oldValue)"/>
+                        <i class="o-mail-Message-trackingSeparator fa fa-long-arrow-right mx-1 text-600"/>
+                        <span class="o-mail-Message-trackingNew me-1 fw-bold text-info" t-esc="formatTrackingOrNone(trackingValue.fieldType, trackingValue.newValue)"/>
+                        <span class="o-mail-Message-trackingField ms-1 fst-italic text-muted">(<t t-esc="trackingValue.changedField"/>)</span>
+                    </li>
+                </t>
+            </ul>
+        </xpath>
+    </t>
+</templates>
