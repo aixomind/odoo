@@ -1,137 +1,247 @@
-<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
   <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b0f19"/>
-      <stop offset="50%" stop-color="#111827"/>
-      <stop offset="100%" stop-color="#1e1b4b"/>
+    <!-- Main dark navy background -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#04090f"/>
+      <stop offset="55%"  stop-color="#071222"/>
+      <stop offset="100%" stop-color="#091a30"/>
     </linearGradient>
-    <!-- Accent Gradients -->
-    <linearGradient id="crmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ec4899"/>
-      <stop offset="100%" stop-color="#be185d"/>
-    </linearGradient>
-    <linearGradient id="salesGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </linearGradient>
-    <linearGradient id="invGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </linearGradient>
-    <linearGradient id="finGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f59e0b"/>
-      <stop offset="100%" stop-color="#d97706"/>
-    </linearGradient>
-    <linearGradient id="amcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8b5cf6"/>
-      <stop offset="100%" stop-color="#6d28d9"/>
-    </linearGradient>
-    <!-- Dashboard Card Background Gradient -->
-    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1f2937" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#111827" stop-opacity="0.8"/>
+    <!-- Green ambient glow (right) -->
+    <radialGradient id="greenGlow" cx="78%" cy="52%" r="42%" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#16a34a" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#16a34a" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Blue left glow -->
+    <radialGradient id="blueGlow" cx="18%" cy="50%" r="35%" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#1e4080" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#1e4080" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Dot pattern -->
+    <pattern id="dots" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="0.5" cy="0.5" r="0.7" fill="#1e3a5f" fill-opacity="0.55"/>
+    </pattern>
+    <!-- Card drop shadow -->
+    <filter id="win-shadow" x="-5%" y="-5%" width="115%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <!-- Subtle green line gradient -->
+    <linearGradient id="greenLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#16a34a" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="400" fill="url(#bg)"/>
+  <!-- ═══════════ BACKGROUND ═══════════ -->
+  <rect width="1200" height="420" fill="url(#bgGrad)"/>
+  <rect width="1200" height="420" fill="url(#dots)"/>
+  <rect width="1200" height="420" fill="url(#greenGlow)"/>
+  <rect width="1200" height="420" fill="url(#blueGlow)"/>
 
-  <!-- Decorative Grid dots -->
-  <g opacity="0.08">
-    <circle cx="50" cy="50" r="2" fill="#ffffff"/>
-    <circle cx="100" cy="50" r="2" fill="#ffffff"/>
-    <circle cx="150" cy="50" r="2" fill="#ffffff"/>
-    <circle cx="50" cy="100" r="2" fill="#ffffff"/>
-    <circle cx="100" cy="100" r="2" fill="#ffffff"/>
-    <circle cx="150" cy="100" r="2" fill="#ffffff"/>
-    <!-- Bottom Right -->
-    <circle cx="1050" cy="300" r="2" fill="#ffffff"/>
-    <circle cx="1100" cy="300" r="2" fill="#ffffff"/>
-    <circle cx="1150" cy="300" r="2" fill="#ffffff"/>
-    <circle cx="1050" cy="350" r="2" fill="#ffffff"/>
-    <circle cx="1100" cy="350" r="2" fill="#ffffff"/>
-    <circle cx="1150" cy="350" r="2" fill="#ffffff"/>
-  </g>
+  <!-- Vertical divider line (subtle) -->
+  <line x1="572" y1="30" x2="572" y2="390" stroke="#1e3a5f" stroke-width="1" stroke-opacity="0.4"/>
 
-  <!-- Left Content Block -->
-  <text x="60" y="140" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="42" font-weight="900" fill="#ffffff" letter-spacing="-0.5px">L4E Dashboard Collection</text>
-  <text x="60" y="180" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="20" font-weight="600" fill="#60a5fa">All-In-One Business Command Center</text>
-  <text x="60" y="215" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" fill="#9ca3af">CRM, Sales, Inventory, Financials &amp; AMC in One Place</text>
+  <!-- ═══════════ LEFT SIDE — TEXT ═══════════ -->
 
-  <!-- Badges -->
-  <!-- CRM Badge -->
-  <rect x="60" y="250" width="95" height="34" rx="17" fill="url(#crmGrad)" fill-opacity="0.18" stroke="#ec4899" stroke-width="1"/>
-  <circle cx="77" cy="267" r="5" fill="#ec4899"/>
-  <text x="90" y="272" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f472b6">CRM</text>
+  <!-- Main title: line 1 -->
+  <text x="60" y="100"
+        font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900"
+        fill="#ffffff" letter-spacing="-1.5">L4E Smart Chatter</text>
 
-  <!-- Sales Badge -->
-  <rect x="165" y="250" width="100" height="34" rx="17" fill="url(#salesGrad)" fill-opacity="0.15" stroke="#3b82f6" stroke-width="1"/>
-  <circle cx="182" cy="267" r="5" fill="#3b82f6"/>
-  <text x="195" y="272" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#93c5fd">Sales</text>
+  <!-- Main title: line 2 (green) -->
+  <text x="60" y="154"
+        font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900"
+        fill="#4ade80" letter-spacing="-1.5">Tracking &amp; Dust Bin</text>
 
-  <!-- Inventory Badge -->
-  <rect x="275" y="250" width="120" height="34" rx="17" fill="url(#invGrad)" fill-opacity="0.15" stroke="#10b981" stroke-width="1"/>
-  <circle cx="292" cy="267" r="5" fill="#10b981"/>
-  <text x="305" y="272" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#6ee7b7">Inventory</text>
+  <!-- Underline accent -->
+  <rect x="60" y="166" width="400" height="3" rx="1.5" fill="url(#greenLine)"/>
 
-  <!-- Financials Badge -->
-  <rect x="405" y="250" width="125" height="34" rx="17" fill="url(#finGrad)" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
-  <circle cx="422" cy="267" r="5" fill="#f59e0b"/>
-  <text x="435" y="272" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#fcd34d">Financials</text>
+  <!-- Subtitle -->
+  <text x="60" y="196"
+        font-family="Inter, Arial, sans-serif" font-size="15.5" fill="#94a3b8">
+    Complete field audit trail · Deleted record recovery
+  </text>
 
-  <!-- AMC Badge -->
-  <rect x="540" y="250" width="95" height="34" rx="17" fill="url(#amcGrad)" fill-opacity="0.15" stroke="#8b5cf6" stroke-width="1"/>
-  <circle cx="557" cy="267" r="5" fill="#8b5cf6"/>
-  <text x="570" y="272" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#c084fc">AMC</text>
+  <!-- Bullet points -->
+  <circle cx="68" cy="225" r="3.5" fill="#22c55e"/>
+  <text x="82" y="230" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">
+    Custom green chatter cards for every field change
+  </text>
 
-  <!-- Right Side Dashboard Mockup -->
-  <g transform="translate(670, 50)">
-    <!-- Dashboard Browser Frame -->
-    <rect width="470" height="300" rx="12" fill="url(#cardBg)" stroke="#374151" stroke-width="2" filter="drop-shadow(0 20px 25px rgba(0,0,0,0.5))"/>
-    
-    <!-- Title Bar -->
-    <rect width="470" height="35" rx="12" fill="#111827" stroke="#374151" stroke-width="0.5"/>
-    <circle cx="20" cy="17.5" r="5" fill="#ef4444"/>
-    <circle cx="36" cy="17.5" r="5" fill="#f59e0b"/>
-    <circle cx="52" cy="17.5" r="5" fill="#10b981"/>
-    <text x="235" y="22" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#9ca3af" text-anchor="middle" font-weight="500">L4E Dashboards</text>
+  <circle cx="68" cy="250" r="3.5" fill="#22c55e"/>
+  <text x="82" y="255" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">
+    Order Lines diff — Added / Removed / Unchanged
+  </text>
 
-    <!-- Content Grid (5 cards mini view) -->
-    <!-- CRM Card (Top Left) -->
-    <rect x="18" y="52" width="136" height="105" rx="8" fill="#1f2937" stroke="#ec4899" stroke-width="1"/>
-    <text x="28" y="75" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#f472b6">CRM Dashboard</text>
-    <text x="28" y="98" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#ffffff">405 Leads</text>
-    <text x="28" y="118" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="10" fill="#10b981">Rf3.43M Won</text>
+  <circle cx="68" cy="275" r="3.5" fill="#22c55e"/>
+  <text x="82" y="280" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">
+    Dust Bin snapshots + admin one-click restore
+  </text>
 
-    <!-- Sales Card (Top Center) -->
-    <rect x="166" y="52" width="136" height="105" rx="8" fill="#1f2937" stroke="#3b82f6" stroke-width="1"/>
-    <text x="176" y="75" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#93c5fd">Sales Dashboard</text>
-    <text x="176" y="98" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#ffffff">$148,250</text>
-    <path d="M 176 130 L 200 118 L 224 125 L 250 112 L 285 120" fill="none" stroke="#3b82f6" stroke-width="2"/>
+  <!-- Pill row -->
+  <!-- Chatter Tracking -->
+  <rect x="60" y="302" width="150" height="28" rx="14"
+        fill="#16a34a" fill-opacity="0.12"
+        stroke="#16a34a" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="80" cy="316" r="5" fill="#4ade80"/>
+  <text x="93" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#86efac">
+    Chatter Tracking
+  </text>
 
-    <!-- Inventory Card (Top Right) -->
-    <rect x="314" y="52" width="136" height="105" rx="8" fill="#1f2937" stroke="#10b981" stroke-width="1"/>
-    <text x="324" y="75" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#6ee7b7">Inventory Stock</text>
-    <text x="324" y="98" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#ffffff">9,240 Units</text>
-    <rect x="324" y="115" width="14" height="20" rx="2" fill="#10b981" opacity="0.6"/>
-    <rect x="344" y="110" width="14" height="25" rx="2" fill="#10b981" opacity="0.8"/>
-    <rect x="364" y="118" width="14" height="17" rx="2" fill="#10b981" opacity="0.7"/>
+  <!-- Dust Bin -->
+  <rect x="220" y="302" width="96" height="28" rx="14"
+        fill="#3b82f6" fill-opacity="0.12"
+        stroke="#3b82f6" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="240" cy="316" r="5" fill="#60a5fa"/>
+  <text x="253" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#93c5fd">
+    Dust Bin
+  </text>
 
-    <!-- Accounting Card (Bottom Left) -->
-    <rect x="18" y="172" width="210" height="105" rx="8" fill="#1f2937" stroke="#f59e0b" stroke-width="1"/>
-    <text x="33" y="195" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#fcd34d">Financial Ratios</text>
-    <circle cx="180" cy="222" r="20" fill="none" stroke="#374151" stroke-width="5"/>
-    <circle cx="180" cy="222" r="20" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="90,125" stroke-dashoffset="0" transform="rotate(-90 180 222)"/>
-    <text x="180" y="226" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" fill="#ffffff" font-weight="700" text-anchor="middle">68%</text>
-    <text x="33" y="222" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#9ca3af">Gross Margin</text>
-    <text x="33" y="242" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" fill="#9ca3af">Net Profit: <tspan fill="#ffffff" font-weight="700">24%</tspan></text>
+  <!-- Restore -->
+  <rect x="326" y="302" width="88" height="28" rx="14"
+        fill="#a855f7" fill-opacity="0.12"
+        stroke="#a855f7" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="346" cy="316" r="5" fill="#c084fc"/>
+  <text x="359" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#d8b4fe">
+    Restore
+  </text>
 
-    <!-- AMC Card (Bottom Right) -->
-    <rect x="240" y="172" width="210" height="105" rx="8" fill="#1f2937" stroke="#8b5cf6" stroke-width="1"/>
-    <text x="255" y="195" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#c084fc">AMC Contracts</text>
-    <text x="255" y="222" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#ffffff">84 Active</text>
-    <rect x="255" y="237" width="70" height="16" rx="8" fill="#8b5cf6" opacity="0.2"/>
-    <text x="290" y="249" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#c084fc" text-anchor="middle">12 Scheduled</text>
-  </g>
+  <!-- Audit Trail -->
+  <rect x="424" y="302" width="100" height="28" rx="14"
+        fill="#f59e0b" fill-opacity="0.12"
+        stroke="#f59e0b" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="444" cy="316" r="5" fill="#fbbf24"/>
+  <text x="457" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#fde68a">
+    Audit Trail
+  </text>
+
+  <!-- ═══════════ RIGHT SIDE — MOCK CHATTER WINDOW ═══════════ -->
+
+  <!-- Window card (shadow + border) -->
+  <rect x="590" y="20" width="578" height="382" rx="14"
+        fill="#0d1523" stroke="#1c3152" stroke-width="1.5"
+        filter="url(#win-shadow)"/>
+
+  <!-- Title bar -->
+  <rect x="590" y="20" width="578" height="38" rx="14" fill="#080d18"/>
+  <rect x="590" y="44"  width="578" height="14" fill="#080d18"/>
+
+  <!-- Traffic light circles -->
+  <circle cx="617" cy="39" r="6.5" fill="#ff5f56"/>
+  <circle cx="638" cy="39" r="6.5" fill="#ffbd2e"/>
+  <circle cx="659" cy="39" r="6.5" fill="#28c840"/>
+
+  <!-- Window title text -->
+  <text x="879" y="44" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#4b5563">
+    Odoo Chatter — Sales Order S00025
+  </text>
+
+  <!-- ── CARD 1: Record Created ── -->
+  <rect x="605" y="72" width="549" height="66" rx="8"
+        fill="#061510" stroke="#14532d" stroke-width="1"/>
+  <!-- Avatar -->
+  <circle cx="631" cy="105" r="13.5" fill="#1c2a3a"/>
+  <text x="631" y="110" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#64748b">MA</text>
+  <!-- Header -->
+  <text x="654" y="89"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#4b5563">
+    Mitchell Admin · now
+  </text>
+  <!-- Title -->
+  <text x="654" y="107"
+        font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+    Record updated.
+  </text>
+  <!-- Body -->
+  <text x="654" y="124" font-family="Inter, Arial, sans-serif" font-size="11.5">
+    <tspan fill="#94a3b8">The record has been changed from </tspan>
+    <tspan fill="#fb923c" font-style="italic">none</tspan>
+    <tspan fill="#94a3b8"> to </tspan>
+    <tspan fill="#4ade80" font-weight="700">S00025 created.</tspan>
+  </text>
+
+  <!-- ── CARD 2: Payment Terms → empty ── -->
+  <rect x="605" y="146" width="549" height="66" rx="8"
+        fill="#061510" stroke="#14532d" stroke-width="1"/>
+  <circle cx="631" cy="179" r="13.5" fill="#1c2a3a"/>
+  <text x="631" y="184" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#64748b">MA</text>
+  <text x="654" y="163"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#4b5563">
+    Mitchell Admin · 1 min ago
+  </text>
+  <text x="654" y="181"
+        font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+    Payment Terms updated.
+  </text>
+  <text x="654" y="198" font-family="Inter, Arial, sans-serif" font-size="11.5">
+    <tspan fill="#94a3b8">Changed from </tspan>
+    <tspan fill="#f87171">End of Following Month</tspan>
+    <tspan fill="#94a3b8"> to </tspan>
+    <tspan fill="#fb923c" font-style="italic">empty.</tspan>
+  </text>
+
+  <!-- ── CARD 3: Order Lines diff ── -->
+  <rect x="605" y="220" width="549" height="80" rx="8"
+        fill="#061510" stroke="#14532d" stroke-width="1"/>
+  <circle cx="631" cy="260" r="13.5" fill="#1c2a3a"/>
+  <text x="631" y="265" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#64748b">MA</text>
+  <text x="654" y="237"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#4b5563">
+    Mitchell Admin · 2 min ago
+  </text>
+  <text x="654" y="255"
+        font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+    Order Lines updated.
+  </text>
+  <text x="654" y="271" font-family="Inter, Arial, sans-serif" font-size="11.5">
+    <tspan fill="#94a3b8">Added: </tspan>
+    <tspan fill="#4ade80" font-weight="700">S00025 - Acoustic Bloc Screens.</tspan>
+  </text>
+  <text x="654" y="288"
+        font-family="Inter, Arial, sans-serif" font-size="11.5"
+        fill="#fb923c" font-style="italic">
+    1 item unchanged.
+  </text>
+
+  <!-- ── CARD 4: Dust Bin entry ── -->
+  <rect x="605" y="308" width="549" height="68" rx="8"
+        fill="#0e0620" stroke="#3b1f6b" stroke-width="1"/>
+  <!-- Icon box -->
+  <rect x="620" y="320" width="26" height="26" rx="6" fill="#4c1d95" fill-opacity="0.5"/>
+  <text x="633" y="338" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="14" fill="#c084fc">&#128465;</text>
+  <!-- Dust Bin info -->
+  <text x="656" y="329"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#a78bfa">
+    Dust Bin Data
+  </text>
+  <text x="656" y="346"
+        font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#c4b5fd">
+    S00025 · Sales Order · Deleted 08/06/2026 11:46:10
+  </text>
+  <text x="656" y="362"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#6d5da8">
+    Record snapshot saved — admin can restore at any time
+  </text>
+  <!-- Restore button -->
+  <rect x="1046" y="320" width="90" height="30" rx="8" fill="#6d28d9"/>
+  <text x="1091" y="340" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+    &#8635; Restore
+  </text>
+
+  <!-- ═══════════ BOTTOM BRAND BAR ═══════════ -->
+  <rect x="0" y="396" width="1200" height="24" fill="#030710" fill-opacity="0.8"/>
+  <text x="600" y="413" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="11" fill="#334155">
+    Links4Engg · support@links4engg.com · www.links4engg.com
+  </text>
+
 </svg>
