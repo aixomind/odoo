@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Configure Tracking Form View -->
+    <record id="view_tracking_config_form" model="ir.ui.view">
+        <field name="name">tracking.config.form</field>
+        <field name="model">tracking.config</field>
+        <field name="arch" type="xml">
+            <form string="Configure Tracking">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="model_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="tracking_enable" attrs="{'readonly': [('remove_tracking', '=', True), ('tracking_enable', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="remove_tracking" attrs="{'readonly': [('tracking_enable', '=', True), ('remove_tracking', '=', False)]}"/>
+                            <field name="tracking_days"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Configure Tracking Tree View -->
+    <record id="view_tracking_config_tree" model="ir.ui.view">
+        <field name="name">tracking.config.list</field>
+        <field name="model">tracking.config</field>
+        <field name="arch" type="xml">
+            <tree string="Configure Tracking">
+                <field name="model_id"/>
+                <field name="tracking_enable"/>
+                <field name="remove_tracking"/>
+                <field name="tracking_days"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for Configure Tracking -->
+    <record id="action_tracking_config" model="ir.actions.act_window">
+        <field name="name">Configure Tracking</field>
+        <field name="res_model">tracking.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Tracking Configuration!
+            </p>
+            <p>
+                Configure models to enable chatter tracking and deleted record retention in Dust Bin Data.
+            </p>
+        </field>
+    </record>
+</odoo>
