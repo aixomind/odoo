@@ -1,0 +1,22 @@
+.o_custom_tracking_card,
+.o_l4e_custom_chatter_card {
+    background-color: #202735;
+    border-color: #355849;
+    color: #f4f7fb;
+
+    .o_l4e_tracking_title {
+        color: #7ee787;
+    }
+
+    .o_l4e_tracking_old {
+        color: #ff8a8a;
+    }
+
+    .o_l4e_tracking_new {
+        color: #7ee787;
+    }
+
+    .text-muted {
+        color: #aeb6c4 !important;
+    }
+}

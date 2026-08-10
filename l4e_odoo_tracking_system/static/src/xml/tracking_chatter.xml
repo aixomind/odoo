@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.Message" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o-mail-Message-content')]" position="attributes">
+            <attribute name="t-att-class">{
+                'w-100': isEditing,
+                'opacity-50': message.isPending,
+                'pt-1': message.isNote,
+                'o_l4e_custom_chatter_card': message.useCustomTrackingCard and message.message_type and message.message_type.includes('email'),
+            }</attribute>
+        </xpath>
+        <xpath expr="//t[@name='trackingValues']/.." position="replace">
+            <div t-if="message.trackingValues[0]?.fieldInfo.useCustomTrackingCard" class="mb-0">
+                <t name="trackingValues" t-foreach="message.trackingValues" t-as="trackingValue" t-key="trackingValue.id">
+                    <div class="o_custom_tracking_card mb-2">
+                        <span class="o_l4e_tracking_title">
+                            <t t-out="props.messageSearch?.highlight(trackingValue.fieldInfo.changedField) ?? trackingValue.fieldInfo.changedField"/> updated.
+                        </span>
+                        <span>
+                            The <t t-out="trackingValue.fieldInfo.changedField.toLowerCase()"/> has been changed
+                            <t t-if="trackingValue.fieldInfo.isPropertyField">
+                                from
+                                <span class="o_l4e_tracking_old" t-out="formatTrackingOrNone(trackingValue.fieldInfo, trackingValue.oldValue)"/>.
+                            </t>
+                            <t t-else="">
+                                from
+                                <span class="o_l4e_tracking_old" t-out="formatTrackingOrNone(trackingValue.fieldInfo, trackingValue.oldValue)"/>
+                                to
+                                <span class="o_l4e_tracking_new" t-out="formatTrackingOrNone(trackingValue.fieldInfo, trackingValue.newValue)"/>.
+                            </t>
+                        </span>
+                    </div>
+                </t>
+            </div>
+            <ul t-else="" class="mb-0 list-unstyled">
+                <t name="trackingValues" t-foreach="message.trackingValues" t-as="trackingValue" t-key="trackingValue.id">
+                    <li class="o-mail-Message-tracking mb-1" role="group">
+                        <span class="o-mail-Message-trackingOld text-muted fw-bold" t-out="formatTrackingOrNone(trackingValue.fieldInfo, trackingValue.oldValue)"/>
+                        <t t-if="!trackingValue.fieldInfo.isPropertyField">
+                            <i class="o-mail-Message-trackingSeparator fa fa-long-arrow-right mx-2 text-600"/>
+                            <span class="o-mail-Message-trackingNew me-1 fw-bold text-info" t-out="formatTrackingOrNone(trackingValue.fieldInfo, trackingValue.newValue)"/>
+                        </t>
+                        <span class="o-mail-Message-trackingField ms-1 fst-italic text-muted">(<t t-out="props.messageSearch?.highlight(trackingValue.fieldInfo.changedField) ?? trackingValue.fieldInfo.changedField"/>)</span>
+                    </li>
+                </t>
+            </ul>
+        </xpath>
+    </t>
+</templates>
