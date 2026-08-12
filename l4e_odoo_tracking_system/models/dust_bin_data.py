@@ -25,6 +25,7 @@ import logging
 from datetime import datetime, timedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, AccessError
+from markupsafe import Markup
 
 _logger = logging.getLogger(__name__)
 
@@ -86,22 +87,94 @@ class TrackingDustBin(models.Model):
             # Clean stored dictionary keys to only keep writable fields
             valid_fields = target_model._fields
             clean_vals = {}
+            skip_comodels = {'mail.followers', 'mail.message', 'mail.activity', 'mail.tracking.value', 'mail.notification', 'tracking.dust.bin', 'tracking.config'}
             for fname, val in data.items():
-                if fname not in valid_fields or fname in ('id', 'create_date', 'create_uid', 'write_date', 'write_uid'):
+                if fname not in valid_fields or fname in ('id', 'create_date', 'create_uid', 'write_date', 'write_uid', '__last_update'):
+                    continue
+                if fname.startswith(('message_', 'activity_')) or getattr(valid_fields[fname], 'comodel_name', None) in skip_comodels:
                     continue
                 field = valid_fields[fname]
-                # Skip compute/readonly fields unless they are explicitly store/writable
-                if field.readonly and not getattr(field, 'states', None):
+
+                # Skip compute fields unless they are stored AND writable/inverse, EXCEPT 'state'
+                if field.compute and not field.inverse and fname != 'state':
                     continue
-                if field.type in ('one2many', 'many2many'):
+
+                # Skip readonly fields UNLESS field is 'state' or field is stored
+                if field.readonly and fname != 'state' and not field.store:
                     continue
-                if field.type == 'many2one' and isinstance(val, (list, tuple)):
-                    val = val[0]
-                clean_vals[fname] = val
+
+                if field.type == 'many2one':
+                    m2o_id = val[0] if isinstance(val, (list, tuple)) else val
+                    if m2o_id and self.env[field.comodel_name].browse(m2o_id).exists():
+                        clean_vals[fname] = m2o_id
+                    else:
+                        clean_vals[fname] = False
+
+                elif field.type == 'many2many':
+                    if isinstance(val, list):
+                        existing_m2m = self.env[field.comodel_name].browse(val).exists().ids
+                        clean_vals[fname] = [(6, 0, existing_m2m)]
+
+                elif field.type == 'one2many':
+                    if isinstance(val, list) and val:
+                        comodel = self.env[field.comodel_name]
+                        comodel_fields = comodel._fields
+                        clean_lines = []
+                        for line_item in val:
+                            if isinstance(line_item, (list, tuple)) and len(line_item) == 3:
+                                line_dict = line_item[2]
+                            elif isinstance(line_item, dict):
+                                line_dict = line_item
+                            else:
+                                continue
+
+                            clean_line_vals = {}
+                            for l_fname, l_val in line_dict.items():
+                                if l_fname not in comodel_fields or l_fname in ('id', 'create_date', 'create_uid', 'write_date', 'write_uid', '__last_update'):
+                                    continue
+                                l_field = comodel_fields[l_fname]
+                                if l_field.compute and not l_field.store and not l_field.inverse:
+                                    continue
+                                if l_field.type == 'many2one':
+                                    m2o_id = l_val[0] if isinstance(l_val, (list, tuple)) else l_val
+                                    if m2o_id and self.env[l_field.comodel_name].browse(m2o_id).exists():
+                                        clean_line_vals[l_fname] = m2o_id
+                                    else:
+                                        clean_line_vals[l_fname] = False
+                                elif l_field.type == 'many2many':
+                                    if isinstance(l_val, list):
+                                        existing_m2m = self.env[l_field.comodel_name].browse(l_val).exists().ids
+                                        clean_line_vals[l_fname] = [(6, 0, existing_m2m)]
+                                else:
+                                    clean_line_vals[l_fname] = l_val
+
+                            if clean_line_vals:
+                                clean_lines.append((0, 0, clean_line_vals))
+
+                        if clean_lines:
+                            clean_vals[fname] = clean_lines
+
+                else:
+                    clean_vals[fname] = val
 
             # Bypass delete tracking during restoration to avoid loop
-            context = dict(self.env.context, bypass_dust_bin=True)
+            context = dict(self.env.context, bypass_dust_bin=True, bypass_chatter_tracking=True)
             restored_rec = target_model.with_context(context).create(clean_vals)
+
+            # GUARANTEE STATE RESTORATION:
+            # If original data had a 'state' field and restored_rec's state doesn't match, force state update
+            original_state = data.get('state')
+            if restored_rec and original_state and hasattr(restored_rec, 'state') and restored_rec.state != original_state:
+                _logger.info("Restoring state for %s (%s) to '%s'", target_model_name, restored_rec.id, original_state)
+                try:
+                    restored_rec.sudo().with_context(context).write({'state': original_state})
+                except Exception as e:
+                    _logger.warning("Standard write failed for state restoration (%s), using low-level write: %s", original_state, str(e))
+                    try:
+                        restored_rec.sudo()._write({'state': original_state})
+                    except Exception as e2:
+                        _logger.error("Low-level _write failed for state restoration: %s", str(e2))
+
             if restored_rec:
                 rec.unlink()
                 restored_count += 1
