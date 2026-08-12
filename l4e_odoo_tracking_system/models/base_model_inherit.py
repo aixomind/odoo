@@ -326,17 +326,63 @@ class BaseModelInherit(models.AbstractModel):
 
                 if config:
                     DustBin = self.env['tracking.dust.bin'].sudo()
+                    skip_comodels = {'mail.followers', 'mail.message', 'mail.activity', 'mail.tracking.value', 'mail.notification', 'tracking.dust.bin', 'tracking.config'}
                     for record in self:
                         try:
                             rec_vals = {}
+                            processed_o2m_pairs = set()
                             for fname, field in record._fields.items():
-                                if field.type in ('binary', 'one2many', 'many2many', 'serialized'):
+                                if fname in ('id', 'create_date', 'create_uid', 'write_date', 'write_uid', '__last_update'):
                                     continue
+                                if fname.startswith(('message_', 'activity_')) or getattr(field, 'comodel_name', None) in skip_comodels:
+                                    continue
+                                if field.type in ('binary', 'serialized'):
+                                    continue
+                                if field.compute and not field.store and fname != 'state':
+                                    continue
+
                                 val = record[fname]
                                 if field.type == 'many2one':
                                     val = val.id if val else False
                                 elif field.type in ('date', 'datetime'):
                                     val = str(val) if val else False
+                                elif field.type == 'many2many':
+                                    val = val.ids if val else []
+                                elif field.type == 'one2many':
+                                    pair = (field.comodel_name, field.inverse_name)
+                                    if pair in processed_o2m_pairs:
+                                        continue
+                                    processed_o2m_pairs.add(pair)
+
+                                    line_records = val
+                                    if not line_records:
+                                        val = []
+                                    else:
+                                        line_list = []
+                                        for line in line_records:
+                                            line_vals = {}
+                                            for l_fname, l_field in line._fields.items():
+                                                if l_fname in ('id', 'create_date', 'create_uid', 'write_date', 'write_uid', '__last_update'):
+                                                    continue
+                                                if l_fname == field.inverse_name:
+                                                    continue
+                                                if l_fname.startswith(('message_', 'activity_')) or getattr(l_field, 'comodel_name', None) in skip_comodels:
+                                                    continue
+                                                if l_field.type in ('binary', 'serialized', 'one2many'):
+                                                    continue
+                                                if l_field.compute and not l_field.store:
+                                                    continue
+
+                                                l_val = line[l_fname]
+                                                if l_field.type == 'many2one':
+                                                    l_val = l_val.id if l_val else False
+                                                elif l_field.type in ('date', 'datetime'):
+                                                    l_val = str(l_val) if l_val else False
+                                                elif l_field.type == 'many2many':
+                                                    l_val = l_val.ids if l_val else []
+                                                line_vals[l_fname] = l_val
+                                            line_list.append(line_vals)
+                                        val = line_list
                                 rec_vals[fname] = val
 
                             display_name = record.display_name or f"{model_name},{record.id}"
