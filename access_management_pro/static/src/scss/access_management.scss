@@ -1,0 +1,75 @@
+/* =====================================================
+   Access Management Pro – Chatter Restrictions
+   All selectors are scoped to amp-* classes that OWL
+   adds to the .o-mail-Chatter root via t-att-class.
+   Because OWL manages these classes reactively from
+   ampState, they survive every re-render automatically.
+   ===================================================== */
+
+/* Hide entire Chatter */
+.o-mail-Chatter.amp-hide-chatter {
+    display: none !important;
+}
+
+/* Hide Send Message button */
+.o-mail-Chatter.amp-hide-send {
+    .o-mail-Chatter-sendMessage {
+        display: none !important;
+    }
+}
+
+/* Hide Log Note button */
+.o-mail-Chatter.amp-hide-note {
+    .o-mail-Chatter-logNote {
+        display: none !important;
+    }
+}
+
+/* Hide Activities button */
+.o-mail-Chatter.amp-hide-activity {
+    .o-mail-Chatter-activity,
+    .o-mail-ActivityList {
+        display: none !important;
+    }
+}
+
+/* Hide Followers widget */
+.o-mail-Chatter.amp-hide-followers {
+    .o-mail-Followers,
+    .o-mail-Followers-button,
+    .o-mail-Chatter-follow {
+        display: none !important;
+    }
+}
+
+/* Hide Attachments button (paperclip) */
+.o-mail-Chatter.amp-hide-attachments {
+    .o-mail-Chatter-fileUploader,
+    .o-mail-Chatter-attachFiles,
+    [fileuploadclass],
+    button[title*="ttach"],
+    .o_field_many2many_binary {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   Custom Filter & Group hiding (Search bar)
+   ===================================================== */
+body.o_hide_custom_filter {
+    .o_add_custom_filter,
+    .o_add_custom_filter_menu,
+    .o_custom_filter_submenu,
+    [title*="Custom Filter"] {
+        display: none !important;
+    }
+}
+
+body.o_hide_custom_group {
+    .o_add_custom_group,
+    .o_add_custom_group_menu,
+    .o_custom_group_submenu,
+    [title*="Custom Group"] {
+        display: none !important;
+    }
+}
