@@ -37,13 +37,14 @@ Complete centralized security and access control suite:
     ],
     'assets': {
         'web.assets_backend': [
-            'access_management_pro/static/src/js/access_management.js',
-            'access_management_pro/static/src/js/debug_mode_hide.js',
-            'access_management_pro/static/src/xml/access_management.xml',
-            'access_management_pro/static/src/scss/access_management.scss',
+            'l4e_access_management_pro/static/src/js/access_management.js',
+            'l4e_access_management_pro/static/src/js/debug_mode_hide.js',
+            'l4e_access_management_pro/static/src/xml/access_management.xml',
+            'l4e_access_management_pro/static/src/scss/access_management.scss',
         ],
     },
     'installable': True,
     'application': True,
     'auto_install': False,
 }
+
