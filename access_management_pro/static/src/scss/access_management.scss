@@ -1,0 +1,117 @@
+/* Access Management Pro Custom SCSS Styles (Odoo 16) */
+
+.o_access_management_highlight {
+    border-left: 4px solid #7c7bad;
+}
+
+/* Chatter Hiding Rules */
+.o_form_view.o_hide_chatter,
+.o_hide_chatter {
+    .o_Chatter,
+    .o_ChatterTopbar,
+    .o-mail-Chatter,
+    .oe_chatter,
+    .o_chatter {
+        display: none !important;
+    }
+}
+
+.o_form_view.o_hide_send_message,
+.o_hide_send_message {
+    .o_ChatterTopbar_buttonSendMessage,
+    .o-mail-Chatter-sendMessage,
+    button.o-mail-Chatter-sendMessage,
+    button[title*="Send message"],
+    .o_chatter_button_new_message {
+        display: none !important;
+    }
+}
+
+.o_form_view.o_hide_log_note,
+.o_hide_log_note {
+    .o_ChatterTopbar_buttonLogNote,
+    .o-mail-Chatter-logNote,
+    button.o-mail-Chatter-logNote,
+    button[title*="Log note"],
+    .o_chatter_button_log_note {
+        display: none !important;
+    }
+}
+
+.o_form_view.o_hide_schedule_activity,
+.o_hide_schedule_activity {
+    .o_ChatterTopbar_buttonScheduleActivity,
+    .o-mail-Chatter-activity,
+    button.o-mail-Chatter-activity,
+    button[title*="Activity"],
+    button[title*="activity"],
+    button[title*="Schedule activity"],
+    .o_chatter_button_schedule_activity {
+        display: none !important;
+    }
+}
+
+.o_form_view.o_hide_followers,
+.o_hide_followers {
+    .o_ChatterTopbar_followerListMenu,
+    .o_FollowerListMenu,
+    .o_ChatterTopbar_followButton,
+    .o-mail-Followers,
+    .o_chatter_followers,
+    .o-mail-Chatter-followers,
+    [title*="follower"],
+    [title*="Follower"] {
+        display: none !important;
+    }
+}
+
+.o_form_view.o_hide_attachments,
+.o_hide_attachments {
+    .o_ChatterTopbar_buttonAddAttachments,
+    .o_ChatterTopbar_buttonToggleAttachments,
+    .o-mail-AttachmentBox,
+    .o_chatter_attachments,
+    .o-mail-Chatter-attachments,
+    [title*="attachment"],
+    [title*="Attachment"] {
+        display: none !important;
+    }
+}
+
+/* Custom Filter & Custom Group Hiding Rules */
+body.o_hide_custom_filter,
+.o_hide_custom_filter {
+    .o_add_custom_filter,
+    .o_add_custom_filter_menu,
+    .o_custom_filter_submenu,
+    .o_add_custom_filter_item,
+    [title*="Custom Filter"] {
+        display: none !important;
+    }
+}
+
+body.o_hide_custom_group,
+.o_hide_custom_group {
+    .o_add_custom_group,
+    .o_add_custom_group_menu,
+    .o_custom_group_submenu,
+    .o_add_custom_group_item,
+    [title*="Custom Group"] {
+        display: none !important;
+    }
+}
+
+/* Form view label & field alignment normalization when fields are hidden */
+.o_form_view {
+    .o_inner_group,
+    .o_group {
+        .o_td_label {
+            text-align: left !important;
+            label, .o_form_label {
+                text-align: left !important;
+                justify-content: flex-start !important;
+                margin-left: 0 !important;
+            }
+        }
+    }
+}
