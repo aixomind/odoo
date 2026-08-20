@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_inherit_access_management" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.access.management</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Access Management Rules" name="access_management_rules">
+                    <field name="access_management_ids" widget="many2many">
+                        <list string="Assigned Access Rules">
+                            <field name="name"/>
+                            <field name="priority"/>
+                            <field name="active"/>
+                            <field name="readonly_user"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

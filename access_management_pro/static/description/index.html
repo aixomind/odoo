@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Management Pro - Odoo App Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0f172a;
+            --accent: #10b981;
+            --accent-pink: #ec4899;
+            --bg-light: #f8fafc;
+            --card-border: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Banner Image Header */
+        .amp-banner-img {
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.15);
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            height: auto;
+        }
+
+        /* Hero Banner */
+        .amp-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311b92 100%);
+            border-radius: 24px;
+            padding: 4rem 2.5rem;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+
+        .amp-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .amp-badge-pill {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .amp-hero-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.15;
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .amp-hero-subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            max-width: 720px;
+            font-weight: 400;
+        }
+
+        /* Feature Card Grid */
+        .amp-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .amp-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--primary);
+        }
+
+        .amp-icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .amp-icon-purple { background: #eeefff; color: #6366f1; }
+        .amp-icon-emerald { background: #e6f4ea; color: #10b981; }
+        .amp-icon-amber   { background: #fff8e6; color: #f59e0b; }
+        .amp-icon-rose    { background: #ffe6eb; color: #f43f5e; }
+        .amp-icon-cyan    { background: #e6f7ff; color: #06b6d4; }
+        .amp-icon-indigo  { background: #eef2ff; color: #4338ca; }
+
+        .amp-card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+        }
+
+        .amp-card-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Highlights Banner */
+        .amp-highlight-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #eeefff 100%);
+            border: 1px solid #c7d2fe;
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .amp-pill-tag {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .amp-pill-tag i {
+            color: var(--primary);
+        }
+
+        /* Screenshot / Media Frame */
+        .amp-media-container {
+            background: #0f172a;
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+            border: 1px solid #334155;
+        }
+
+        .amp-media-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px 16px 12px;
+        }
+
+        .amp-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .amp-dot-red { background: #ef4444; }
+        .amp-dot-yellow { background: #f59e0b; }
+        .amp-dot-green { background: #10b981; }
+
+        .amp-media-content {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            min-height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Version Badge */
+        .amp-version-badge {
+            background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* CTA Section */
+        .amp-cta-card {
+            background: linear-gradient(135deg, #1e1b4b 0%, #311b92 100%);
+            border-radius: 24px;
+            padding: 3.5rem 2rem;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+
+    <!-- ==================== BANNER IMAGE ==================== -->
+    <div class="text-center mb-4">
+        <img src="banner.png" class="amp-banner-img img-fluid" alt="Access Management Pro Banner">
+    </div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <div class="amp-hero mb-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <div class="amp-badge-pill mb-3">
+                    <i class="fa-solid fa-shield-halved"></i> Enterprise Security Suite
+                </div>
+                <h1 class="amp-hero-title mb-3">Access Management Pro</h1>
+                <p class="amp-hero-subtitle mb-4">
+                    Take complete granular control over Odoo permissions. Hide menus, restrict model access, secure specific fields, disable chatter elements, block debug mode, and manage read-only access—all from one intuitive central dashboard.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="amp-version-badge"><i class="fa-solid fa-code-branch me-1"></i> Odoo 16 Compatible</span>
+                    <span class="amp-version-badge"><i class="fa-solid fa-code-branch me-1"></i> Odoo 17 Compatible</span>
+                    <span class="amp-version-badge"><i class="fa-solid fa-code-branch me-1"></i> Odoo 18 Compatible</span>
+                    <span class="amp-version-badge"><i class="fa-solid fa-code-branch me-1"></i> Odoo 19 Ready</span>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center mt-4 mt-lg-0">
+                <div class="p-4 rounded-4" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15);">
+                    <img src="icon.png" width="96" height="96" class="mb-3 rounded-4 shadow" alt="Module Icon">
+                    <h4 class="fw-bold text-white mb-2">Zero Coding Required</h4>
+                    <p class="text-light opacity-75 small mb-0">Configure advanced security matrix rules for specific users, user groups, or companies in seconds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== QUICK HIGHLIGHTS ==================== -->
+    <div class="amp-highlight-box mb-5">
+        <h3 class="fw-bold text-dark text-center mb-4"><i class="fa-solid fa-star text-warning me-2"></i> Key Capabilities At A Glance</h3>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <div class="amp-pill-tag"><i class="fa-solid fa-eye-slash"></i> Hide Menus & Submenus</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-lock"></i> Field Level Security</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-hand"></i> Disable Export / Import</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-bug"></i> Block Developer Mode</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-book-open"></i> Global Read-Only User</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-toggle-on"></i> Button & Tab Hiding</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-comments"></i> Chatter Controls</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-filter"></i> Search Filter Hiding</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-file-pdf"></i> Report Restrictions</div>
+            <div class="amp-pill-tag"><i class="fa-solid fa-building"></i> Multi-Company Support</div>
+        </div>
+    </div>
+
+    <!-- ==================== DETAILED FEATURE GRID ==================== -->
+    <div class="text-center mb-5">
+        <h2 class="fw-extrabold text-dark display-6 mb-2">Comprehensive Access Control Features</h2>
+        <p class="text-muted fs-5">Everything you need to secure your enterprise Odoo instance.</p>
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <!-- Card 1: Global System Security -->
+        <div class="col-md-6 col-lg-4">
+            <div class="amp-card">
+                <div class="amp-icon-box amp-icon-purple">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </div>
+                <h3 class="amp-card-title">Global System Toggles</h3>
+                <p class="amp-card-desc">
+                    Instantly restrict core system capabilities across target users:
+                </p>
+                <ul class="list-unstyled small text-secondary">
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Disable Login:</strong> Lock account access instantly.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Disable Debug Mode:</strong> Block developer mode access.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Global Read-Only:</strong> Enforce view-only rights.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Disable Export & Import:</strong> Prevent data leaks.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card 2: Model & Record Permissions -->
+        <div class="col-md-6 col-lg-4">
+            <div class="amp-card">
+                <div class="amp-icon-box amp-icon-emerald">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h3 class="amp-card-title">Model-Level Rights</h3>
+                <p class="amp-card-desc">
+                    Configure granular CRUD permissions per model for targeted users or groups:
+                </p>
+                <ul class="list-unstyled small text-secondary">
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Read, Create, Write, & Delete permissions.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Restrict Archive & Unarchive actions.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Disable Record Duplication & Copying.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Block Export on specific models.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card 3: Field Level Access -->
+        <div class="col-md-6 col-lg-4">
+            <div class="amp-card">
+                <div class="amp-icon-box amp-icon-amber">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <h3 class="amp-card-title">Field Level Restrictions</h3>
+                <p class="amp-card-desc">
+                    Control visibility and editability of sensitive fields on any form view:
+                </p>
+                <ul class="list-unstyled small text-secondary">
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Invisible:</strong> Hide sensitive fields & labels completely.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Read-Only:</strong> Prevent editing sensitive values.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> <strong>Required:</strong> Enforce mandatory data entry per user.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Auto-hides corresponding table headers & labels.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card 4: Button & Notebook Tab Restrictions -->
+        <div class="col-md-6 col-lg-4">
+            <div class="amp-card">
+                <div class="amp-icon-box amp-icon-rose">
+                    <i class="fa-solid fa-hand-pointer"></i>
+                </div>
+                <h3 class="amp-card-title">Button & Tab Hiding</h3>
+                <p class="amp-card-desc">
+                    Clean up form views by hiding or disabling specific action buttons and notebook tabs:
+                </p>
+                <ul class="list-unstyled small text-secondary">
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide workflow buttons (Confirm, Cancel, Approve).</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Disable specific action buttons without XML edit.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide entire notebook tabs (e.g. Other Info, Accounting).</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Target elements by technical name or string label.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card 5: Chatter Restrictions -->
+        <div class="col-md-6 col-lg-4">
+            <div class="amp-card">
+                <div class="amp-icon-box amp-icon-cyan">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <h3 class="amp-card-title">Chatter Restrictions</h3>
+                <p class="amp-card-desc">
+                    Control interaction and visibility inside the Odoo mail chatter area:
+                </p>
+                <ul class="list-unstyled small text-secondary">
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide <strong>Send Message</strong> button.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide <strong>Log Note</strong> button.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide <strong>Schedule Activity</strong> button.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide <strong>Followers</strong> & <strong>Attachments</strong> buttons.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Card 6: Menu & Report Restrictions -->
+        <div class="col-md-6 col-lg-4">
+            <div class="amp-card">
+                <div class="amp-icon-box amp-icon-indigo">
+                    <i class="fa-solid fa-sitemap"></i>
+                </div>
+                <h3 class="amp-card-title">Menu & Report Hiding</h3>
+                <p class="amp-card-desc">
+                    Simplify navigation and safeguard confidential PDF print reports:
+                </p>
+                <ul class="list-unstyled small text-secondary">
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide top apps, menus, and submenus cleanly.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Restrict PDF print reports from the Print dropdown.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Hide custom filters and group-by search options.</li>
+                    <li class="mb-1"><i class="fa-solid fa-check text-success me-2"></i> Company & User group scoping supported.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==================== DEMO / SCREENSHOT SECTION ==================== -->
+    <div class="my-5">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-dark mb-2">Visual Workflow & Interface</h3>
+            <p class="text-muted">Intuitive rule configuration designed for non-technical administrators.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="amp-media-container">
+                    <div class="amp-media-header">
+                        <div class="amp-dot amp-dot-red"></div>
+                        <div class="amp-dot amp-dot-yellow"></div>
+                        <div class="amp-dot amp-dot-green"></div>
+                        <span class="text-light opacity-50 small ms-2">Central Security Dashboard</span>
+                    </div>
+                    <div class="amp-media-content p-4 text-center">
+                        <div>
+                            <i class="fa-solid fa-sliders text-primary mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="fw-bold text-dark">Rule Management Interface</h5>
+                            <p class="text-muted small mb-0">Target specific users or user groups and select exact restrictions across tabs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="amp-media-container">
+                    <div class="amp-media-header">
+                        <div class="amp-dot amp-dot-red"></div>
+                        <div class="amp-dot amp-dot-yellow"></div>
+                        <div class="amp-dot amp-dot-green"></div>
+                        <span class="text-light opacity-50 small ms-2">Form & Chatter Clean Enforcement</span>
+                    </div>
+                    <div class="amp-media-content p-4 text-center">
+                        <div>
+                            <i class="fa-solid fa-user-shield text-success mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="fw-bold text-dark">Seamless User View Restrictions</h5>
+                            <p class="text-muted small mb-0">Restricted fields, buttons, chatter options, and menus disappear dynamically.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== WHY CHOOSE ACCESS MANAGEMENT PRO ==================== -->
+    <div class="row align-items-center my-5 p-4 rounded-4" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+        <div class="col-lg-7">
+            <h3 class="fw-bold text-dark mb-3"><i class="fa-solid fa-circle-check text-primary me-2"></i> Why Choose Access Management Pro?</h3>
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-bolt text-warning mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Instant Synchronous Loading</h6>
+                            <p class="text-muted small mb-0">Rules load synchronously with user session—no UI flickering or async lag.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-shield-halved text-success mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Admin Safety Guard</h6>
+                            <p class="text-muted small mb-0">System Administrators (base.group_system) are protected from accidental lockout.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-layer-group text-info mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Multi-Company Ready</h6>
+                            <p class="text-muted small mb-0">Apply rules across specific branches or multi-company environments effortlessly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex align-items-start gap-2">
+                        <i class="fa-solid fa-headset text-danger mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Full Odoo 16 - 19 Support</h6>
+                            <p class="text-muted small mb-0">Engineered specifically for each Odoo framework version with zero compatibility issues.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 text-center mt-4 mt-lg-0">
+            <div class="p-4 rounded-4" style="background: #ffffff; border: 1px dashed #cbd5e1;">
+                <h5 class="fw-bold text-dark mb-2">Need Customization or Support?</h5>
+                <p class="text-muted small mb-3">Our dedicated Odoo security team is available for custom features, deployment help, or enterprise inquiries.</p>
+                <a href="mailto:support@example.com" class="btn btn-primary rounded-pill px-4 font-weight-bold"><i class="fa-solid fa-envelope me-2"></i> Contact Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CALL TO ACTION ==================== -->
+    <div class="amp-cta-card my-5">
+        <h2 class="display-6 fw-bold mb-3">Secure Your Odoo Enterprise Today</h2>
+        <p class="fs-5 text-light opacity-75 mb-4 max-w-lg mx-auto">
+            Upgrade your security matrix with Access Management Pro and maintain complete control over user access, data visibility, and UI elements.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+            <span class="badge bg-light text-dark px-3 py-2 fs-6 rounded-pill"><i class="fa-solid fa-check text-success me-2"></i> 100% Native Integration</span>
+            <span class="badge bg-light text-dark px-3 py-2 fs-6 rounded-pill"><i class="fa-solid fa-check text-success me-2"></i> Regular Updates</span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
