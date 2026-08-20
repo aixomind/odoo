@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_access_management_tree" model="ir.ui.view">
+        <field name="name">access.management.tree</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <tree string="Access Management Configurations">
+                <field name="priority" widget="handle"/>
+                <field name="name"/>
+                <field name="user_ids" widget="many2many_tags"/>
+                <field name="group_ids" widget="many2many_tags"/>
+                <field name="company_ids" widget="many2many_tags"/>
+                <field name="readonly_user"/>
+                <field name="disable_debug_mode"/>
+                <field name="disable_export"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_access_management_form" model="ir.ui.view">
+        <field name="name">access.management.form</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <form string="Access Management Configuration">
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Sales Team Access Restrictions"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Target Audience">
+                            <field name="user_ids" widget="many2many_tags" placeholder="Select Users..."/>
+                            <field name="group_ids" widget="many2many_tags" placeholder="Select User Groups..."/>
+                            <field name="company_ids" widget="many2many_tags" placeholder="Select Companies..."/>
+                            <field name="priority"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Global System Toggles">
+                            <field name="readonly_user"/>
+                            <field name="disable_debug_mode"/>
+                            <field name="disable_export"/>
+                            <field name="disable_import"/>
+                            <field name="disable_login"/>
+                            <field name="disable_module_install"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- Tab 1: Hide Menus -->
+                        <page string="Hide Menus" name="hide_menus">
+                            <field name="hide_menu_ids">
+                                <tree editable="bottom">
+                                    <field name="menu_id"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 2: Model Access Rights -->
+                        <page string="Model Access Rights" name="model_access">
+                            <field name="model_access_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="perm_read"/>
+                                    <field name="perm_create"/>
+                                    <field name="perm_write"/>
+                                    <field name="perm_unlink"/>
+                                    <field name="perm_archive"/>
+                                    <field name="perm_duplicate"/>
+                                    <field name="perm_export"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 3: Field Access Rights -->
+                        <page string="Field Access Rights" name="field_access">
+                            <field name="field_access_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="field_id" domain="[('model_id', '=', model_id)]"/>
+                                    <field name="restriction_type"/>
+                                    <field name="domain"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 4: Button & Tab Restrictions -->
+                        <page string="Button &amp; Tab Restrictions" name="button_tab_access">
+                            <field name="button_tab_access_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="element_type"/>
+                                    <field name="element_identifier" placeholder="e.g. action_confirm, Confirm, or page_notes"/>
+                                    <field name="element_description"/>
+                                    <field name="restriction_type"/>
+                                    <field name="domain"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 5: Domain & Record Restrictions -->
+                        <page string="Domain &amp; Record Security" name="domain_access">
+                            <field name="domain_access_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="domain" widget="char" placeholder="[('state', '=', 'draft')]"/>
+                                    <field name="perm_read"/>
+                                    <field name="perm_write"/>
+                                    <field name="perm_create"/>
+                                    <field name="perm_unlink"/>
+                                    <field name="restriction_mode"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 6: Chatter Restrictions -->
+                        <page string="Chatter Restrictions" name="chatter_access">
+                            <field name="hide_chatter_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="hide_chatter"/>
+                                    <field name="hide_send_message"/>
+                                    <field name="hide_log_note"/>
+                                    <field name="hide_schedule_activity"/>
+                                    <field name="hide_followers"/>
+                                    <field name="hide_attachments"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 7: Hide View Modes -->
+                        <page string="Hide View Modes" name="hide_views">
+                            <field name="hide_view_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="view_mode"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 8: Hide Reports -->
+                        <page string="Hide Reports" name="hide_reports">
+                            <field name="hide_report_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="report_id"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- Tab 9: Search Filter Restrictions -->
+                        <page string="Search Filters" name="hide_filters">
+                            <field name="hide_filters_ids">
+                                <tree editable="bottom">
+                                    <field name="model_id"/>
+                                    <field name="filter_name" placeholder="e.g. My Sales, Salesperson, etc."/>
+                                    <field name="filter_type"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_access_management_search" model="ir.ui.view">
+        <field name="name">access.management.search</field>
+        <field name="model">access.management</field>
+        <field name="arch" type="xml">
+            <search string="Search Access Management Rules">
+                <field name="name"/>
+                <field name="user_ids"/>
+                <field name="group_ids"/>
+                <field name="company_ids"/>
+                <filter string="Active Rules" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Read-Only Users" name="readonly_user" domain="[('readonly_user', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_access_management" model="ir.actions.act_window">
+        <field name="name">Access Management Rules</field>
+        <field name="res_model">access.management</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_access_management_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Access Management Rule!
+            </p>
+            <p>
+                Configure fine-grained access rules to hide menus, models, fields, buttons, tabs, chatter, and reports for any user or group.
+            </p>
+        </field>
+    </record>
+</odoo>

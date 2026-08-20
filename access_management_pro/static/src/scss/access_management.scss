@@ -1,0 +1,65 @@
+/* =====================================================
+   Access Management Pro – Chatter Restrictions (Odoo 17)
+   OWL adds amp-* classes to .o-mail-Chatter root via
+   t-att-class in the template patch. Classes are reactive
+   and survive every re-render automatically.
+   ===================================================== */
+
+/* Hide entire Chatter */
+.o-mail-Chatter.amp-hide-chatter {
+    display: none !important;
+}
+
+/* Hide Send Message button */
+.o-mail-Chatter.amp-hide-send .o-mail-Chatter-sendMessage {
+    display: none !important;
+}
+
+/* Hide Log Note button */
+.o-mail-Chatter.amp-hide-note .o-mail-Chatter-logNote {
+    display: none !important;
+}
+
+/* Hide Activities button */
+.o-mail-Chatter.amp-hide-activity {
+    .o-mail-Chatter-activity {
+        display: none !important;
+    }
+}
+
+/* Hide Followers (Dropdown + follow/unfollow buttons)
+   In Odoo 17 the followers widget is a Dropdown with class o-mail-Followers */
+.o-mail-Chatter.amp-hide-followers {
+    .o-mail-Followers,
+    .o-mail-Followers-button,
+    .o-mail-Chatter-follow {
+        display: none !important;
+    }
+}
+
+/* Hide Attachments (paperclip) */
+.o-mail-Chatter.amp-hide-attachments {
+    .o-mail-Chatter-fileUploader,
+    .o-mail-Chatter-attachFiles {
+        display: none !important;
+    }
+}
+
+/* =====================================================
+   Custom Filter & Group hiding
+   ===================================================== */
+body.o_hide_custom_filter {
+    .o_add_custom_filter,
+    .o_add_custom_filter_menu,
+    [title*="Custom Filter"] {
+        display: none !important;
+    }
+}
+
+body.o_hide_custom_group {
+    .o_add_custom_group,
+    .o_add_custom_group_menu,
+    [title*="Custom Group"] {
+        display: none !important;
+    }
+}
