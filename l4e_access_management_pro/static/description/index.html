@@ -4,16 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Access Management Pro - AIXOMIND | Odoo Security Suite</title>
+    <style>
+#gmenu-p0:checked ~ .gmenu-panels .gmenu-panel-0 { display:block; }
+#gmenu-p0:checked ~ .gmenu-labels label[for="gmenu-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmenu-p1:checked ~ .gmenu-panels .gmenu-panel-1 { display:block; }
+#gmenu-p1:checked ~ .gmenu-labels label[for="gmenu-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gmenu-panel { display:none; }
+#gmenu-p0:checked ~ .gmenu-panels .gmenu-panel-0 { display:block; }
+#gmodel-p0:checked ~ .gmodel-panels .gmodel-panel-0 { display:block; }
+#gmodel-p0:checked ~ .gmodel-labels label[for="gmodel-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p1:checked ~ .gmodel-panels .gmodel-panel-1 { display:block; }
+#gmodel-p1:checked ~ .gmodel-labels label[for="gmodel-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p2:checked ~ .gmodel-panels .gmodel-panel-2 { display:block; }
+#gmodel-p2:checked ~ .gmodel-labels label[for="gmodel-p2"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p3:checked ~ .gmodel-panels .gmodel-panel-3 { display:block; }
+#gmodel-p3:checked ~ .gmodel-labels label[for="gmodel-p3"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p4:checked ~ .gmodel-panels .gmodel-panel-4 { display:block; }
+#gmodel-p4:checked ~ .gmodel-labels label[for="gmodel-p4"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p5:checked ~ .gmodel-panels .gmodel-panel-5 { display:block; }
+#gmodel-p5:checked ~ .gmodel-labels label[for="gmodel-p5"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p6:checked ~ .gmodel-panels .gmodel-panel-6 { display:block; }
+#gmodel-p6:checked ~ .gmodel-labels label[for="gmodel-p6"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gmodel-p7:checked ~ .gmodel-panels .gmodel-panel-7 { display:block; }
+#gmodel-p7:checked ~ .gmodel-labels label[for="gmodel-p7"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gmodel-panel { display:none; }
+#gmodel-p0:checked ~ .gmodel-panels .gmodel-panel-0 { display:block; }
+#gfield-p0:checked ~ .gfield-panels .gfield-panel-0 { display:block; }
+#gfield-p0:checked ~ .gfield-labels label[for="gfield-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gfield-p1:checked ~ .gfield-panels .gfield-panel-1 { display:block; }
+#gfield-p1:checked ~ .gfield-labels label[for="gfield-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gfield-p2:checked ~ .gfield-panels .gfield-panel-2 { display:block; }
+#gfield-p2:checked ~ .gfield-labels label[for="gfield-p2"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gfield-panel { display:none; }
+#gfield-p0:checked ~ .gfield-panels .gfield-panel-0 { display:block; }
+#gdomain-p0:checked ~ .gdomain-panels .gdomain-panel-0 { display:block; }
+#gdomain-p0:checked ~ .gdomain-labels label[for="gdomain-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gdomain-p1:checked ~ .gdomain-panels .gdomain-panel-1 { display:block; }
+#gdomain-p1:checked ~ .gdomain-labels label[for="gdomain-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gdomain-p2:checked ~ .gdomain-panels .gdomain-panel-2 { display:block; }
+#gdomain-p2:checked ~ .gdomain-labels label[for="gdomain-p2"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gdomain-p3:checked ~ .gdomain-panels .gdomain-panel-3 { display:block; }
+#gdomain-p3:checked ~ .gdomain-labels label[for="gdomain-p3"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gdomain-p4:checked ~ .gdomain-panels .gdomain-panel-4 { display:block; }
+#gdomain-p4:checked ~ .gdomain-labels label[for="gdomain-p4"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gdomain-panel { display:none; }
+#gdomain-p0:checked ~ .gdomain-panels .gdomain-panel-0 { display:block; }
+#gbutton-p0:checked ~ .gbutton-panels .gbutton-panel-0 { display:block; }
+#gbutton-p0:checked ~ .gbutton-labels label[for="gbutton-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gbutton-p1:checked ~ .gbutton-panels .gbutton-panel-1 { display:block; }
+#gbutton-p1:checked ~ .gbutton-labels label[for="gbutton-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gbutton-p2:checked ~ .gbutton-panels .gbutton-panel-2 { display:block; }
+#gbutton-p2:checked ~ .gbutton-labels label[for="gbutton-p2"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gbutton-panel { display:none; }
+#gbutton-p0:checked ~ .gbutton-panels .gbutton-panel-0 { display:block; }
+#gsearch-p0:checked ~ .gsearch-panels .gsearch-panel-0 { display:block; }
+#gsearch-p0:checked ~ .gsearch-labels label[for="gsearch-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gsearch-p1:checked ~ .gsearch-panels .gsearch-panel-1 { display:block; }
+#gsearch-p1:checked ~ .gsearch-labels label[for="gsearch-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gsearch-panel { display:none; }
+#gsearch-p0:checked ~ .gsearch-panels .gsearch-panel-0 { display:block; }
+#gchatter-p0:checked ~ .gchatter-panels .gchatter-panel-0 { display:block; }
+#gchatter-p0:checked ~ .gchatter-labels label[for="gchatter-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gchatter-p1:checked ~ .gchatter-panels .gchatter-panel-1 { display:block; }
+#gchatter-p1:checked ~ .gchatter-labels label[for="gchatter-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gchatter-p2:checked ~ .gchatter-panels .gchatter-panel-2 { display:block; }
+#gchatter-p2:checked ~ .gchatter-labels label[for="gchatter-p2"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gchatter-p3:checked ~ .gchatter-panels .gchatter-panel-3 { display:block; }
+#gchatter-p3:checked ~ .gchatter-labels label[for="gchatter-p3"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gchatter-panel { display:none; }
+#gchatter-p0:checked ~ .gchatter-panels .gchatter-panel-0 { display:block; }
+#gglobal-p0:checked ~ .gglobal-panels .gglobal-panel-0 { display:block; }
+#gglobal-p0:checked ~ .gglobal-labels label[for="gglobal-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gglobal-p1:checked ~ .gglobal-panels .gglobal-panel-1 { display:block; }
+#gglobal-p1:checked ~ .gglobal-labels label[for="gglobal-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gglobal-p2:checked ~ .gglobal-panels .gglobal-panel-2 { display:block; }
+#gglobal-p2:checked ~ .gglobal-labels label[for="gglobal-p2"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gglobal-p3:checked ~ .gglobal-panels .gglobal-panel-3 { display:block; }
+#gglobal-p3:checked ~ .gglobal-labels label[for="gglobal-p3"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gglobal-p4:checked ~ .gglobal-panels .gglobal-panel-4 { display:block; }
+#gglobal-p4:checked ~ .gglobal-labels label[for="gglobal-p4"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gglobal-panel { display:none; }
+#gglobal-p0:checked ~ .gglobal-panels .gglobal-panel-0 { display:block; }
+#gronly-p0:checked ~ .gronly-panels .gronly-panel-0 { display:block; }
+#gronly-p0:checked ~ .gronly-labels label[for="gronly-p0"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+#gronly-p1:checked ~ .gronly-panels .gronly-panel-1 { display:block; }
+#gronly-p1:checked ~ .gronly-labels label[for="gronly-p1"] { background:#6366f1; color:#ffffff; border-color:#6366f1; }
+.gronly-panel { display:none; }
+#gronly-p0:checked ~ .gronly-panels .gronly-panel-0 { display:block; }
+
+    </style>
 </head>
 <body style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;background:#ffffff;color:#1e293b;line-height:1.6;">
 
-<!-- BANNER -->
 <div style="text-align:center;margin-bottom:30px;">
     <img src="banner.png" alt="Access Management Pro Banner" style="width:696px;max-width:100%;height:auto;border-radius:12px;display:block;margin:0 auto;">
 </div>
 
-<!-- HERO -->
-<div style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 55%,#312e81 100%);border-radius:16px;padding:40px 36px;margin-bottom:28px;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 55%,#312e81 100%);border-radius:16px;padding:40px 36px;margin-bottom:28px;">
     <div style="display:table;width:100%;border-spacing:0;">
         <div style="display:table-cell;vertical-align:middle;width:68%;">
             <div style="display:inline-block;background:rgba(99,102,241,0.25);border:1px solid rgba(165,180,252,0.4);color:#a5b4fc;font-size:11px;font-weight:700;padding:5px 14px;border-radius:30px;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;">
@@ -41,11 +128,8 @@
     </div>
 </div>
 
-<!-- KEY CAPABILITIES -->
 <div style="background:linear-gradient(135deg,#f8fafc,#eef2ff);border:1px solid #c7d2fe;border-radius:14px;padding:28px 28px 20px;margin-bottom:28px;">
-    <div style="text-align:center;font-size:17px;font-weight:700;color:#1e293b;margin-bottom:20px;">
-        &#x2B50; Key Capabilities At A Glance
-    </div>
+    <div style="text-align:center;font-size:17px;font-weight:700;color:#1e293b;margin-bottom:20px;">&#x2B50; Key Capabilities At A Glance</div>
     <div style="text-align:center;">
         <span style="display:inline-block;background:#fff;border:1px solid #cbd5e1;border-radius:30px;padding:7px 16px;margin:4px;font-size:12px;font-weight:600;color:#1e293b;">Hide Menus &amp; Submenus</span>
         <span style="display:inline-block;background:#fff;border:1px solid #cbd5e1;border-radius:30px;padding:7px 16px;margin:4px;font-size:12px;font-weight:600;color:#1e293b;">Field Level Security</span>
@@ -125,6 +209,7 @@
 <div style="text-align:center;margin:36px 0 22px;">
     <div style="display:inline-block;background:rgba(99,102,241,0.1);color:#4338ca;font-size:11px;font-weight:700;padding:5px 14px;border-radius:30px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Deep Dive</div>
     <div style="font-size:24px;font-weight:800;color:#1e293b;">Explore Every Access Control Feature</div>
+    <div style="font-size:13px;color:#94a3b8;margin-top:6px;">Click a button on the left of each section to see that feature's screenshot.</div>
 </div>
 
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -134,30 +219,36 @@
         </div>
         <div style="display:table-cell;vertical-align:top;padding-left:14px;">
             <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Menu / Submenu Access Rights</div>
-            <div style="font-size:13px;color:#64748b;line-height:1.6;">Hide any app, menu, or sub-menu from specific users or groups &mdash; no XML studio edits needed. Just pick the menu and the users.</div>
+            <div style="font-size:13px;color:#64748b;line-height:1.6;">Hide any app, menu, or sub-menu from specific users or groups &mdash; no XML studio edits needed.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Hide Menu/Submenu</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Main Apps Menu</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/hide-menu-submenu.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20submenu%3C/text%3E%0A%3C/svg%3E" alt="Hide a submenu" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a submenu</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gmenu" id="gmenu-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmenu" id="gmenu-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gmenu-labels">
+            <label for="gmenu-p0" class="gmenu-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Menu/Submenu</label>
+<label for="gmenu-p1" class="gmenu-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Main Apps Menu</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gmenu-panels">
+            <div class="gmenu-panel gmenu-panel-0" style="display:block;">
+<img src="screenshots/hide-menu-submenu.png" alt="Hide Menu/Submenu" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Menu/Submenu</div>
+</div>
+<div class="gmenu-panel gmenu-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/hide-main-app-menu.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20main%20app%20menu%3C/text%3E%0A%3C/svg%3E" alt="Hide a main app menu" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a main app menu</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/menu-rule-form.png -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EMenu%20rule%20form%3C/text%3E%0A%3C/svg%3E" alt="Menu rule form" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Menu rule form</div>
-</td></tr></table>
+<img src="screenshots/hide-main-app-menu.png" alt="Hide Main Apps Menu" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Main Apps Menu</div>
+</div>
+
+        </div>
+    </div>
     
 <div style="margin-top:18px;">
-<div style="max-width:640px;margin:0 auto;">
-<!-- REPLACE this img with a real &lt;video&gt; tag, e.g.:
+<!-- REPLACE this img with a real <video> tag, e.g.:
 <video width="100%" controls><source src="videos/menu-submenu-setup.mp4" type="video/mp4"></video> -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27640%27%20height%3D%27360%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%230f172a%27%20rx%3D%2714%27/%3E%0A%3Ccircle%20cx%3D%27320%27%20cy%3D%27160%27%20r%3D%2742%27%20fill%3D%27%236366f1%27/%3E%0A%3Cpolygon%20points%3D%27308%2C140%20308%2C180%20344%2C160%27%20fill%3D%27%23ffffff%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2775%25%27%20font-family%3D%27Arial%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3EDemo%20Video%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2783%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EMenu%20/%20Submenu%20setup%20walkthrough%3C/text%3E%0A%3C/svg%3E" alt="Menu / Submenu setup walkthrough" style="width:100%;height:auto;border-radius:14px;display:block;">
-</div>
+<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27560%27%20height%3D%27320%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%230f172a%27%20rx%3D%2712%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27558%27%20height%3D%27318%27%20fill%3D%27none%27%20stroke%3D%27%2394a3b8%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%277%2C6%27%20rx%3D%2712%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2716%27%20font-weight%3D%27700%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2758%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EMenu%20/%20Submenu%20setup%20walkthrough%3C/text%3E%0A%3C/svg%3E" alt="Menu / Submenu setup walkthrough" style="width:100%;height:auto;border-radius:14px;display:block;">
 </div>
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -167,35 +258,74 @@
         </div>
         <div style="display:table-cell;vertical-align:top;padding-left:14px;">
             <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Model Access Rights</div>
-            <div style="font-size:13px;color:#64748b;line-height:1.6;">Granular, user-wise CRUD control for any model: Create, Read, Edit, Delete, Archive/Unarchive, Duplicate, Export, and restrict specific reports, actions, or views (Tree, Form, Kanban, etc).</div>
+            <div style="font-size:13px;color:#64748b;line-height:1.6;">Granular, user-wise CRUD control for any model: Create, Read, Edit, Delete, Archive/Unarchive, Duplicate, Export, and restrict specific reports, actions, or views.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Hide Reports</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Actions</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Views</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Create/Edit/Delete</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Archive</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Duplicate</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Export/Import</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/model-create-edit-delete.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3ERestrict%20Create/Edit/Delete%3C/text%3E%0A%3C/svg%3E" alt="Restrict Create/Edit/Delete" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Restrict Create/Edit/Delete</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gmodel" id="gmodel-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p2"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p3"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p4"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p5"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p6"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gmodel" id="gmodel-p7"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gmodel-labels">
+            <label for="gmodel-p0" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Reports</label>
+<label for="gmodel-p1" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Any Actions</label>
+<label for="gmodel-p2" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Any Views</label>
+<label for="gmodel-p3" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide CREATE/EDIT/DELETE</label>
+<label for="gmodel-p4" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Archive Button</label>
+<label for="gmodel-p5" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Duplicate Button</label>
+<label for="gmodel-p6" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Export Button</label>
+<label for="gmodel-p7" class="gmodel-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Import Button</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gmodel-panels">
+            <div class="gmodel-panel gmodel-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/model-hide-report.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20report%3C/text%3E%0A%3C/svg%3E" alt="Hide a report" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a report</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/model-archive-duplicate.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20archive/duplicate%3C/text%3E%0A%3C/svg%3E" alt="Hide archive/duplicate" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide archive/duplicate</div>
-</td></tr><tr><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/model-export-import.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20export/import%3C/text%3E%0A%3C/svg%3E" alt="Hide export/import" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide export/import</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/model-hide-view.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20specific%20view%20mode%3C/text%3E%0A%3C/svg%3E" alt="Hide a specific view mode" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a specific view mode</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/model-hide-report.png" alt="Hide Reports" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Reports</div>
+</div>
+<div class="gmodel-panel gmodel-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-hide-action.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20an%20action%3C/text%3E%0A%3C/svg%3E" alt="Hide an action" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide an action</div>
-</td></tr></table>
+<img src="screenshots/model-hide-action.png" alt="Hide Any Actions" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Actions</div>
+</div>
+<div class="gmodel-panel gmodel-panel-2" style="display:none;">
+<!-- REPLACE with real file: screenshots/model-hide-view.gif -->
+<img src="screenshots/model-hide-view.png" alt="Hide Any Views" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Views</div>
+</div>
+<div class="gmodel-panel gmodel-panel-3" style="display:none;">
+<!-- REPLACE with real file: screenshots/model-create-edit-delete.gif -->
+<img src="screenshots/model-create-edit-delete.png" alt="Hide CREATE/EDIT/DELETE" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide CREATE/EDIT/DELETE</div>
+</div>
+<div class="gmodel-panel gmodel-panel-4" style="display:none;">
+<!-- REPLACE with real file: screenshots/model-archive.gif -->
+<img src="screenshots/model-archive.png" alt="Hide Archive Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Archive Button</div>
+</div>
+<div class="gmodel-panel gmodel-panel-5" style="display:none;">
+<!-- REPLACE with real file: screenshots/model-duplicate.gif -->
+<img src="screenshots/model-duplicate.png" alt="Hide Duplicate Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Duplicate Button</div>
+</div>
+<div class="gmodel-panel gmodel-panel-6" style="display:none;">
+<!-- REPLACE with real file: screenshots/model-export.gif -->
+<img src="screenshots/model-export.png" alt="Hide Export Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Export Button</div>
+</div>
+<div class="gmodel-panel gmodel-panel-7" style="display:none;">
+<!-- REPLACE with real file: screenshots/model-import.gif -->
+<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27560%27%20height%3D%27340%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2712%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27558%27%20height%3D%27338%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%277%2C6%27%20rx%3D%2712%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2716%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2758%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20Import%20Button%3C/text%3E%0A%3C/svg%3E" alt="Hide Import Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Import Button</div>
+</div>
+
+        </div>
+    </div>
     
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -205,30 +335,44 @@
         </div>
         <div style="display:table-cell;vertical-align:top;padding-left:14px;">
             <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Field Access Rights</div>
-            <div style="font-size:13px;color:#64748b;line-height:1.6;">Control visibility and editability of any field on any model. Make fields Invisible, Read-only, or Required for a specific user &mdash; automatically hidden from form, list, kanban, filters, group-by and export too.</div>
+            <div style="font-size:13px;color:#64748b;line-height:1.6;">Control visibility and editability of any field on any model &mdash; Invisible, Read-only, or Required, per user.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Make Field Invisible</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Make Field Read-Only</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Make Field Required</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gfield" id="gfield-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gfield" id="gfield-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gfield" id="gfield-p2"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gfield-labels">
+            <label for="gfield-p0" class="gfield-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Make Field Invisible</label>
+<label for="gfield-p1" class="gfield-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Make Field Read-Only</label>
+<label for="gfield-p2" class="gfield-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Make Field Required</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gfield-panels">
+            <div class="gfield-panel gfield-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/field-invisible.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EMake%20a%20field%20invisible%3C/text%3E%0A%3C/svg%3E" alt="Make a field invisible" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Make a field invisible</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/field-invisible.png" alt="Make Field Invisible" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Field Invisible</div>
+</div>
+<div class="gfield-panel gfield-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/field-readonly.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EMake%20a%20field%20read-only%3C/text%3E%0A%3C/svg%3E" alt="Make a field read-only" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Make a field read-only</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/field-readonly.png" alt="Make Field Read-Only" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Field Read-Only</div>
+</div>
+<div class="gfield-panel gfield-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/field-required.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EMake%20a%20field%20required%3C/text%3E%0A%3C/svg%3E" alt="Make a field required" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Make a field required</div>
-</td></tr></table>
+<img src="screenshots/field-required.png" alt="Make Field Required" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Field Required</div>
+</div>
+
+        </div>
+    </div>
     
 <div style="margin-top:18px;">
-<div style="max-width:640px;margin:0 auto;">
-<!-- REPLACE this img with a real &lt;video&gt; tag, e.g.:
+<!-- REPLACE this img with a real <video> tag, e.g.:
 <video width="100%" controls><source src="videos/field-access-setup.mp4" type="video/mp4"></video> -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27640%27%20height%3D%27360%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%230f172a%27%20rx%3D%2714%27/%3E%0A%3Ccircle%20cx%3D%27320%27%20cy%3D%27160%27%20r%3D%2742%27%20fill%3D%27%236366f1%27/%3E%0A%3Cpolygon%20points%3D%27308%2C140%20308%2C180%20344%2C160%27%20fill%3D%27%23ffffff%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2775%25%27%20font-family%3D%27Arial%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3EDemo%20Video%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2783%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EField%20access%20setup%20walkthrough%3C/text%3E%0A%3C/svg%3E" alt="Field access setup walkthrough" style="width:100%;height:auto;border-radius:14px;display:block;">
-</div>
+<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27560%27%20height%3D%27320%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%230f172a%27%20rx%3D%2712%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27558%27%20height%3D%27318%27%20fill%3D%27none%27%20stroke%3D%27%2394a3b8%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%277%2C6%27%20rx%3D%2712%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2716%27%20font-weight%3D%27700%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2758%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EField%20access%20setup%20walkthrough%3C/text%3E%0A%3C/svg%3E" alt="Field access setup walkthrough" style="width:100%;height:auto;border-radius:14px;display:block;">
 </div>
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -238,23 +382,53 @@
         </div>
         <div style="display:table-cell;vertical-align:top;padding-left:14px;">
             <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Domain (Conditional) Access Rights</div>
-            <div style="font-size:13px;color:#64748b;line-height:1.6;">Apply record-level security conditionally. Restrict Create, Edit, Delete or Read access based on field values, or apply a fully custom domain so a user only ever sees their own records.</div>
+            <div style="font-size:13px;color:#64748b;line-height:1.6;">Apply record-level security conditionally based on field values, or a fully custom domain so a user only ever sees their own records.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Restrict Create</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Restrict Edit</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Restrict Delete</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Make Model Read-Only</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Apply Custom Domain</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gdomain" id="gdomain-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gdomain" id="gdomain-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gdomain" id="gdomain-p2"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gdomain" id="gdomain-p3"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gdomain" id="gdomain-p4"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gdomain-labels">
+            <label for="gdomain-p0" class="gdomain-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Restrict Create Record</label>
+<label for="gdomain-p1" class="gdomain-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Restrict Edit Record</label>
+<label for="gdomain-p2" class="gdomain-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Restrict Delete Record</label>
+<label for="gdomain-p3" class="gdomain-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Make Model Read-Only</label>
+<label for="gdomain-p4" class="gdomain-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Apply Custom Domain</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gdomain-panels">
+            <div class="gdomain-panel gdomain-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/domain-restrict-create.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3ERestrict%20record%20creation%3C/text%3E%0A%3C/svg%3E" alt="Restrict record creation" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Restrict record creation</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/domain-custom-filter.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EApply%20a%20custom%20domain%20filter%3C/text%3E%0A%3C/svg%3E" alt="Apply a custom domain filter" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Apply a custom domain filter</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/domain-restrict-create.png" alt="Restrict Create Record" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Restrict Create Record</div>
+</div>
+<div class="gdomain-panel gdomain-panel-1" style="display:none;">
+<!-- REPLACE with real file: screenshots/domain-restrict-edit.gif -->
+<img src="screenshots/domain-restrict-edit.png" alt="Restrict Edit Record" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Restrict Edit Record</div>
+</div>
+<div class="gdomain-panel gdomain-panel-2" style="display:none;">
+<!-- REPLACE with real file: screenshots/domain-restrict-delete.gif -->
+<img src="screenshots/domain-restrict-delete.png" alt="Restrict Delete Record" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Restrict Delete Record</div>
+</div>
+<div class="gdomain-panel gdomain-panel-3" style="display:none;">
 <!-- REPLACE with real file: screenshots/domain-readonly-model.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EMake%20a%20whole%20model%20read-only%3C/text%3E%0A%3C/svg%3E" alt="Make a whole model read-only" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Make a whole model read-only</div>
-</td></tr></table>
+<img src="screenshots/domain-readonly-model.png" alt="Make Model Read-Only" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Model Read-Only</div>
+</div>
+<div class="gdomain-panel gdomain-panel-4" style="display:none;">
+<!-- REPLACE with real file: screenshots/domain-custom-filter.gif -->
+<img src="screenshots/domain-custom-filter.png" alt="Apply Custom Domain" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Apply Custom Domain</div>
+</div>
+
+        </div>
+    </div>
     
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -267,20 +441,36 @@
             <div style="font-size:13px;color:#64748b;line-height:1.6;">Hide any button, stat button, action, or notebook tab from a form view &mdash; per user, with no view inheritance or XML required.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Hide Any Button</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Any Tab/Page</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Kanban Link</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gbutton" id="gbutton-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gbutton" id="gbutton-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gbutton" id="gbutton-p2"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gbutton-labels">
+            <label for="gbutton-p0" class="gbutton-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Any Buttons</label>
+<label for="gbutton-p1" class="gbutton-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Any Tab/Page</label>
+<label for="gbutton-p2" class="gbutton-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Kanban Link</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gbutton-panels">
+            <div class="gbutton-panel gbutton-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/button-hide.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20workflow%20button%3C/text%3E%0A%3C/svg%3E" alt="Hide a workflow button" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a workflow button</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/button-hide.png" alt="Hide Any Buttons" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Buttons</div>
+</div>
+<div class="gbutton-panel gbutton-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/tab-hide.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20notebook%20tab%3C/text%3E%0A%3C/svg%3E" alt="Hide a notebook tab" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a notebook tab</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/tab-hide.png" alt="Hide Any Tab/Page" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Tab/Page</div>
+</div>
+<div class="gbutton-panel gbutton-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/kanban-link-hide.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20kanban%20card%20link%3C/text%3E%0A%3C/svg%3E" alt="Hide a kanban card link" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a kanban card link</div>
-</td></tr></table>
+<img src="screenshots/kanban-link-hide.png" alt="Hide Kanban Link" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Kanban Link</div>
+</div>
+
+        </div>
+    </div>
     
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -293,16 +483,29 @@
             <div style="font-size:13px;color:#64748b;line-height:1.6;">Clean up the search panel by hiding specific filters or group-by options that a user shouldn't see or use.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Hide Filters</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Group By</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gsearch" id="gsearch-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gsearch" id="gsearch-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gsearch-labels">
+            <label for="gsearch-p0" class="gsearch-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Filters</label>
+<label for="gsearch-p1" class="gsearch-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Groups</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gsearch-panels">
+            <div class="gsearch-panel gsearch-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/hide-filter.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20search%20filter%3C/text%3E%0A%3C/svg%3E" alt="Hide a search filter" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a search filter</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/hide-filter.png" alt="Hide Filters" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Filters</div>
+</div>
+<div class="gsearch-panel gsearch-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/hide-groupby.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20a%20group-by%20option%3C/text%3E%0A%3C/svg%3E" alt="Hide a group-by option" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide a group-by option</div>
-</td><td style="width:33%;"></td></tr></table>
+<img src="screenshots/hide-groupby.png" alt="Hide Groups" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Groups</div>
+</div>
+
+        </div>
+    </div>
     
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
@@ -311,56 +514,145 @@
             <div style="width:44px;height:44px;background:#eef2ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;">&#x1F4AC;</div>
         </div>
         <div style="display:table-cell;vertical-align:top;padding-left:14px;">
-            <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Model-Wise &amp; Global Chatter Access</div>
-            <div style="font-size:13px;color:#64748b;line-height:1.6;">Hide the entire chatter, or just Send Message, Log Note, and Schedule Activity buttons &mdash; either per model or globally across every model at once.</div>
+            <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Model-Wise Chatter Access Rights</div>
+            <div style="font-size:13px;color:#64748b;line-height:1.6;">Hide the entire chatter, or just Send Message, Log Note, and Schedule Activity buttons, per model.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Hide Chatter</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Send Message</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Log Notes</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Hide Activity</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gchatter" id="gchatter-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gchatter" id="gchatter-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gchatter" id="gchatter-p2"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gchatter" id="gchatter-p3"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gchatter-labels">
+            <label for="gchatter-p0" class="gchatter-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Chatter Button</label>
+<label for="gchatter-p1" class="gchatter-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Send Msg Button</label>
+<label for="gchatter-p2" class="gchatter-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Log Notes Button</label>
+<label for="gchatter-p3" class="gchatter-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Activity Button</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gchatter-panels">
+            <div class="gchatter-panel gchatter-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/chatter-hide.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20chatter%20on%20a%20model%3C/text%3E%0A%3C/svg%3E" alt="Hide chatter on a model" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide chatter on a model</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/chatter-hide.png" alt="Hide Chatter Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Chatter Button</div>
+</div>
+<div class="gchatter-panel gchatter-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/chatter-send-message.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20send%20message%20button%3C/text%3E%0A%3C/svg%3E" alt="Hide send message button" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide send message button</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
-<!-- REPLACE with real file: screenshots/chatter-log-activity.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20log%20note%20/%20activity%3C/text%3E%0A%3C/svg%3E" alt="Hide log note / activity" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Hide log note / activity</div>
-</td></tr></table>
+<img src="screenshots/chatter-send-message.png" alt="Hide Send Msg Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Send Msg Button</div>
+</div>
+<div class="gchatter-panel gchatter-panel-2" style="display:none;">
+<!-- REPLACE with real file: screenshots/chatter-log-note.gif -->
+<img src="screenshots/chatter-log-note.png" alt="Hide Log Notes Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Log Notes Button</div>
+</div>
+<div class="gchatter-panel gchatter-panel-3" style="display:none;">
+<!-- REPLACE with real file: screenshots/chatter-activity.gif -->
+<img src="screenshots/chatter-activity.png" alt="Hide Activity Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Activity Button</div>
+</div>
+
+        </div>
+    </div>
     
 </div>
 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
     <div style="display:table;width:100%;margin-bottom:16px;">
         <div style="display:table-cell;width:52px;vertical-align:top;">
-            <div style="width:44px;height:44px;background:#fef3e2;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;">&#x1F512;</div>
+            <div style="width:44px;height:44px;background:#fef3e2;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;">&#x1F30D;</div>
+        </div>
+        <div style="display:table-cell;vertical-align:top;padding-left:14px;">
+            <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Global Access Rights</div>
+            <div style="font-size:13px;color:#64748b;line-height:1.6;">Apply the same restriction (chatter, import/export, login, spreadsheet) across every model at once, instead of one by one.</div>
+        </div>
+    </div>
+    <input type="radio" name="gglobal" id="gglobal-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gglobal" id="gglobal-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gglobal" id="gglobal-p2"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gglobal" id="gglobal-p3"  style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gglobal" id="gglobal-p4"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gglobal-labels">
+            <label for="gglobal-p0" class="gglobal-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Chatter</label>
+<label for="gglobal-p1" class="gglobal-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Send Message</label>
+<label for="gglobal-p2" class="gglobal-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Import</label>
+<label for="gglobal-p3" class="gglobal-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Hide Export</label>
+<label for="gglobal-p4" class="gglobal-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Disable Login</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gglobal-panels">
+            <div class="gglobal-panel gglobal-panel-0" style="display:block;">
+<!-- REPLACE with real file: screenshots/global-hide-chatter.gif -->
+<img src="screenshots/global-hide-chatter.png" alt="Hide Chatter" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Chatter</div>
+</div>
+<div class="gglobal-panel gglobal-panel-1" style="display:none;">
+<!-- REPLACE with real file: screenshots/global-send-message.gif -->
+<img src="screenshots/global-send-message.png" alt="Hide Send Message" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Send Message</div>
+</div>
+<div class="gglobal-panel gglobal-panel-2" style="display:none;">
+<!-- REPLACE with real file: screenshots/global-import.gif -->
+<img src="screenshots/global-import.png" alt="Hide Import" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Import</div>
+</div>
+<div class="gglobal-panel gglobal-panel-3" style="display:none;">
+<!-- REPLACE with real file: screenshots/global-export.gif -->
+<img src="screenshots/global-export.png" alt="Hide Export" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Export</div>
+</div>
+<div class="gglobal-panel gglobal-panel-4" style="display:none;">
+<!-- REPLACE with real file: screenshots/global-disable-login.gif -->
+<img src="screenshots/global-disable-login.png" alt="Disable Login" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Disable Login</div>
+</div>
+
+        </div>
+    </div>
+    
+</div>
+<div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin-bottom:24px;">
+    <div style="display:table;width:100%;margin-bottom:16px;">
+        <div style="display:table-cell;width:52px;vertical-align:top;">
+            <div style="width:44px;height:44px;background:#e0e7ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;">&#x1F512;</div>
         </div>
         <div style="display:table-cell;vertical-align:top;padding-left:14px;">
             <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:4px;">Read-Only User &amp; Disable Developer Mode</div>
             <div style="font-size:13px;color:#64748b;line-height:1.6;">Flip a single checkbox to make a user fully read-only across the system, or block their access to Developer (debug) mode entirely.</div>
         </div>
     </div>
-    <div style="font-size:11.5px;padding:10px 14px;background:#f8fafc;border-radius:8px;margin-bottom:16px;"><span style="color:#6366f1;font-weight:600;">Make User Read-Only</span> &nbsp;•&nbsp; <span style="color:#6366f1;font-weight:600;">Disable Developer Mode</span></div>
-    <table style="width:100%;border-collapse:collapse;"><tr><td style="padding:8px;vertical-align:top;width:33%;">
+    <input type="radio" name="gronly" id="gronly-p0" checked style="position:absolute;opacity:0;pointer-events:none;">
+<input type="radio" name="gronly" id="gronly-p1"  style="position:absolute;opacity:0;pointer-events:none;">
+
+    <div style="display:table;width:100%;table-layout:fixed;">
+        <div style="display:table-cell;width:220px;vertical-align:top;padding-right:16px;" class="gronly-labels">
+            <label for="gronly-p0" class="gronly-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Make User Read-Only</label>
+<label for="gronly-p1" class="gronly-lbl" style="display:block;padding:12px 16px;margin-bottom:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;color:#334155;cursor:pointer;">Disable Developer Mode</label>
+
+        </div>
+        <div style="display:table-cell;vertical-align:top;" class="gronly-panels">
+            <div class="gronly-panel gronly-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/readonly-user.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EMake%20a%20user%20read-only%3C/text%3E%0A%3C/svg%3E" alt="Make a user read-only" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Make a user read-only</div>
-</td><td style="padding:8px;vertical-align:top;width:33%;">
+<img src="screenshots/readonly-user.png" alt="Make User Read-Only" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make User Read-Only</div>
+</div>
+<div class="gronly-panel gronly-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/disable-debug-mode.gif -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27320%27%20height%3D%27190%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2710%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27318%27%20height%3D%27188%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%276%2C5%27%20rx%3D%2710%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2762%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EDisable%20developer%20mode%3C/text%3E%0A%3C/svg%3E" alt="Disable developer mode" style="width:100%;height:auto;border-radius:10px;display:block;margin:0 auto 6px;border:1px solid #e2e8f0;">
-<div style="font-size:11px;color:#64748b;text-align:center;">Disable developer mode</div>
-</td><td style="width:33%;"></td></tr></table>
+<img src="screenshots/disable-debug-mode.png" alt="Disable Developer Mode" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
+<div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Disable Developer Mode</div>
+</div>
+
+        </div>
+    </div>
     
 <div style="margin-top:18px;">
-<div style="max-width:640px;margin:0 auto;">
-<!-- REPLACE this img with a real &lt;video&gt; tag, e.g.:
+<!-- REPLACE this img with a real <video> tag, e.g.:
 <video width="100%" controls><source src="videos/readonly-debug-setup.mp4" type="video/mp4"></video> -->
-<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27640%27%20height%3D%27360%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%230f172a%27%20rx%3D%2714%27/%3E%0A%3Ccircle%20cx%3D%27320%27%20cy%3D%27160%27%20r%3D%2742%27%20fill%3D%27%236366f1%27/%3E%0A%3Cpolygon%20points%3D%27308%2C140%20308%2C180%20344%2C160%27%20fill%3D%27%23ffffff%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2775%25%27%20font-family%3D%27Arial%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%23ffffff%27%20text-anchor%3D%27middle%27%3EDemo%20Video%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2783%25%27%20font-family%3D%27Arial%27%20font-size%3D%2711%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3ERead-only%20%26%20debug%20mode%20setup%3C/text%3E%0A%3C/svg%3E" alt="Read-only & debug mode setup" style="width:100%;height:auto;border-radius:14px;display:block;">
+<img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27560%27%20height%3D%27320%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%230f172a%27%20rx%3D%2712%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27558%27%20height%3D%27318%27%20fill%3D%27none%27%20stroke%3D%27%2394a3b8%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%277%2C6%27%20rx%3D%2712%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2716%27%20font-weight%3D%27700%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2758%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20fill%3D%27%2394a3b8%27%20text-anchor%3D%27middle%27%3ERead-only%20%26%20debug%20mode%20setup%3C/text%3E%0A%3C/svg%3E" alt="Read-only & debug mode setup" style="width:100%;height:auto;border-radius:14px;display:block;">
 </div>
 </div>
-</div>
-<!-- SETUP GUIDE -->
 <div style="text-align:center;margin-bottom:22px;">
     <div style="font-size:22px;font-weight:800;color:#1e293b;margin-bottom:6px;">Getting Started</div>
     <div style="font-size:14px;color:#64748b;">Up and running in under a minute.</div>
@@ -370,7 +662,13 @@
     <td style="vertical-align:top;background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;width:33%;">
         <div style="width:36px;height:36px;background:#6366f1;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:12px;">1</div>
         <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:6px;">Enable the Access Group</div>
-        <div style="font-size:12px;color:#64748b;">Go to Settings &gt; Users, and check the &ldquo;Access Management&rdquo; box for any admin who should configure rules.</div>
+        <div style="font-size:12px;color:#64748b;">Go to Settings &gt; Users &amp; Companies &gt; Groups, and ensure the <strong>Access Management / Manager</strong> group is assigned to admins.<br>
+<table style="width:100%;margin-top:10px;border-spacing:6px;border-collapse:separate;">
+<tr>
+<td style="width:50%;vertical-align:top;"><img src="screenshots/access-management-groups-list.png" alt="Access Management Groups" style="width:100%;height:auto;border-radius:8px;border:1px solid #cbd5e1;"><div style="font-size:10px;color:#64748b;text-align:center;margin-top:4px;">User &amp; Manager Groups</div></td>
+<td style="width:50%;vertical-align:top;"><img src="screenshots/access-management-groups-form.png" alt="Assign Manager Users" style="width:100%;height:auto;border-radius:8px;border:1px solid #cbd5e1;"><div style="font-size:10px;color:#64748b;text-align:center;margin-top:4px;">Assign Users</div></td>
+</tr>
+</table></div>
     </td>
     <td style="vertical-align:top;background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:22px;width:33%;">
         <div style="width:36px;height:36px;background:#6366f1;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:12px;">2</div>
@@ -385,7 +683,6 @@
 </tr>
 </table>
 
-<!-- WHY CHOOSE -->
 <table style="width:100%;border-spacing:0;border-collapse:collapse;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;margin-bottom:28px;overflow:hidden;">
 <tr>
     <td style="padding:28px;width:60%;vertical-align:top;">
@@ -461,7 +758,6 @@
 </div>
 </div>
 
-<!-- CTA FOOTER -->
 <div style="background:linear-gradient(135deg,#1e1b4b,#312e81);border-radius:14px;padding:36px 28px;text-align:center;margin-bottom:10px;">
     <div style="font-size:22px;font-weight:800;color:#ffffff;margin-bottom:10px;">Secure Your Odoo Enterprise Today</div>
     <div style="font-size:14px;color:#94a3b8;margin-bottom:20px;">Maintain complete control over user access, data visibility, and UI elements &mdash; without writing a single line of code.</div>
