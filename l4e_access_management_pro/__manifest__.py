@@ -20,8 +20,8 @@ Complete centralized security and access control suite:
 - Disable Developer (Debug) Mode, Import/Export, and User Logins
 - Multi-Company & Role-based Access Evaluation
     """,
-    'author': 'AIXOMIND',
-    'website': 'https://www.aixomind.com',
+    'author': 'Links4Engg Pvt. Ltd',
+    'website': 'https://www.links4engg.com/',
     'license': 'LGPL-3',
     'depends': [
         'base',
