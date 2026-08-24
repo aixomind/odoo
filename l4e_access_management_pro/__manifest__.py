@@ -23,6 +23,9 @@ Complete centralized security and access control suite:
     'author': 'Links4Engg Pvt. Ltd',
     'website': 'https://www.links4engg.com/',
     'license': 'LGPL-3',
+    'images': [
+        'static/description/banner.gif',
+    ],
     'depends': [
         'base',
         'web',
