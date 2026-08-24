@@ -6,7 +6,7 @@
   <title>Access Management Pro - Links4Engg | Odoo Security Suite</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-    /* Terabits-style Nav Pill Tab Button */
+    /* Terabits standard Pill Tab styling */
     .tb-pill-link {
       text-decoration: none !important;
       cursor: pointer !important;
@@ -14,59 +14,55 @@
       background: transparent !important;
       padding: 0 !important;
       margin-bottom: 10px !important;
-      border-radius: 8px !important;
-      color: #334155 !important;
+      border: none !important;
     }
     
     .tb-pill-link .tb-card {
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
       transition: all 0.2s ease;
-      background-color: #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-      color: #334155;
+      background-color: #ffffff !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
 
     .tb-pill-link h5 {
-      color: #334155;
+      color: #4F4F4F !important;
       transition: all 0.2s ease;
     }
     
     /* Hover */
     .tb-pill-link:hover:not(.active) .tb-card {
-      border-color: #6366f1;
-      background-color: #f5f3ff;
-      transform: translateX(4px);
+      border-color: #cbd5e1;
+      background-color: #f8fafc !important;
     }
     .tb-pill-link:hover:not(.active) h5 {
-      color: #4338ca;
+      color: #1e293b !important;
     }
 
-    /* ACTIVE TAB PILL (White Text on Vivid Indigo Background) */
+    /* ACTIVE TAB: Bottom & Right Teal Accent Bar (Matches Odoo App Store & Screenshot) */
     .tb-pill-link.active,
     .nav-pills .nav-link.active,
     .nav-pills .show > .nav-link {
-      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%) !important;
-      background-color: #4f46e5 !important;
-      border-radius: 8px !important;
-      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
-      transform: translateX(4px);
-      color: #ffffff !important;
-    }
-
-    .tb-pill-link.active .tb-card,
-    .nav-pills .nav-link.active .tb-card {
       background: transparent !important;
       background-color: transparent !important;
       border: none !important;
       box-shadow: none !important;
     }
 
+    .tb-pill-link.active .tb-card,
+    .nav-pills .nav-link.active .tb-card {
+      background-color: #ffffff !important;
+      border-top: 1px solid #e2e8f0 !important;
+      border-left: 1px solid #e2e8f0 !important;
+      border-right: 4px solid #008784 !important;
+      border-bottom: 4px solid #008784 !important;
+      border-radius: 4px !important;
+      box-shadow: 0 2px 8px rgba(0, 135, 132, 0.1) !important;
+    }
+
     .tb-pill-link.active h5,
-    .nav-pills .nav-link.active h5,
-    .tb-pill-link.active *,
-    .nav-pills .nav-link.active * {
-      color: #ffffff !important;
+    .nav-pills .nav-link.active h5 {
+      color: #151765 !important;
       font-weight: 700 !important;
     }
 
@@ -161,20 +157,20 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gmenu-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gmenu-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gmenu-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmenu-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmenu-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gmenu-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmenu-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Menu/Submenu
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmenu-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmenu-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmenu-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmenu-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmenu-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmenu-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Main Apps Menu
                         </h5>
                     </div>
@@ -226,80 +222,80 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gmodel-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gmodel-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gmodel-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gmodel-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Reports
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Any Actions
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-3-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-3-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-3-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-3-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Any Views
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-4-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-4-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-4-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-4-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide CREATE/EDIT/DELETE
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-5-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-5-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-5-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-5-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-5-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-5-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Archive Button
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-6-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-6-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-6-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-6-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-6-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-6-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Duplicate Button
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-7-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-7-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-7-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-7-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-7-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-7-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Export Button
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gmodel-8-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gmodel-8-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-8-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gmodel-8-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gmodel-8-tab" data-bs-toggle="pill" data-toggle="pill" href="#gmodel-8-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Import Button
                         </h5>
                     </div>
@@ -405,30 +401,30 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gfield-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gfield-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gfield-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gfield-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gfield-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gfield-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gfield-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Make Field Invisible
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gfield-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gfield-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gfield-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gfield-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gfield-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gfield-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Make Field Read-Only
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gfield-3-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gfield-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gfield-3-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gfield-3-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gfield-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gfield-3-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Make Field Required
                         </h5>
                     </div>
@@ -489,50 +485,50 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gdomain-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gdomain-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gdomain-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gdomain-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gdomain-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Restrict Create Record
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gdomain-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gdomain-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gdomain-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gdomain-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Restrict Edit Record
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gdomain-3-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gdomain-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-3-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gdomain-3-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gdomain-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-3-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Restrict Delete Record
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gdomain-4-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gdomain-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-4-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gdomain-4-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gdomain-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-4-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Make Model Read-Only
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gdomain-5-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gdomain-5-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-5-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gdomain-5-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gdomain-5-tab" data-bs-toggle="pill" data-toggle="pill" href="#gdomain-5-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Apply Custom Domain
                         </h5>
                     </div>
@@ -611,30 +607,30 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gbutton-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gbutton-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gbutton-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gbutton-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gbutton-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gbutton-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gbutton-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Any Buttons
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gbutton-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gbutton-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gbutton-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gbutton-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gbutton-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gbutton-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Any Tab/Page
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gbutton-3-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gbutton-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gbutton-3-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gbutton-3-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gbutton-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gbutton-3-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Kanban Link
                         </h5>
                     </div>
@@ -695,20 +691,20 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gsearch-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gsearch-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gsearch-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gsearch-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gsearch-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gsearch-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gsearch-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Filters
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gsearch-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gsearch-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gsearch-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gsearch-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gsearch-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gsearch-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Groups
                         </h5>
                     </div>
@@ -760,40 +756,40 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gchatter-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gchatter-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gchatter-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gchatter-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gchatter-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Chatter Button
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gchatter-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gchatter-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gchatter-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gchatter-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Send Msg Button
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gchatter-3-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gchatter-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-3-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gchatter-3-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gchatter-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-3-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Log Notes Button
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gchatter-4-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gchatter-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-4-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gchatter-4-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gchatter-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gchatter-4-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Activity Button
                         </h5>
                     </div>
@@ -863,50 +859,50 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gglobal-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gglobal-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gglobal-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gglobal-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gglobal-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Chatter
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gglobal-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gglobal-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gglobal-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gglobal-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Send Message
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gglobal-3-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gglobal-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-3-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gglobal-3-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gglobal-3-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-3-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Import
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gglobal-4-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gglobal-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-4-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gglobal-4-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gglobal-4-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-4-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Hide Export
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gglobal-5-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gglobal-5-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-5-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gglobal-5-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gglobal-5-tab" data-bs-toggle="pill" data-toggle="pill" href="#gglobal-5-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Disable Login
                         </h5>
                     </div>
@@ -985,20 +981,20 @@
         <div class="col-xl-3 col-lg-4 col-md-5 col-sm-12 mb-3">
             <div aria-orientation="vertical" class="nav flex-column bg-transparent nav-pills" id="gronly-pills-tab" role="tablist" style="border-radius:10px;">
                 
-            <a aria-controls="gronly-1-pane" class="mb-2 nav-link w-100 p-0 border-0 active tb-pill-link" id="vv-gronly-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gronly-1-pane" role="tab" aria-selected="true">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gronly-1-pane" class="mb-2 nav-link w-100 p-0 border-bottom active tb-pill-link" id="vv-gronly-1-tab" data-bs-toggle="pill" data-toggle="pill" href="#gronly-1-pane" role="tab" aria-selected="true" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Make User Read-Only
                         </h5>
                     </div>
                 </div>
             </a>
 
-            <a aria-controls="gronly-2-pane" class="mb-2 nav-link w-100 p-0 border-0  tb-pill-link" id="vv-gronly-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gronly-2-pane" role="tab" aria-selected="false">
-                <div class="media bg-white align-items-center px-3 py-2 tb-card">
+            <a aria-controls="gronly-2-pane" class="mb-2 nav-link w-100 p-0 border-bottom  tb-pill-link" id="vv-gronly-2-tab" data-bs-toggle="pill" data-toggle="pill" href="#gronly-2-pane" role="tab" aria-selected="false" style="border-radius:0; padding-right:4px !important; text-decoration:none;">
+                <div class="media bg-white align-items-center px-3 py-3 tb-card">
                     <div class="media-body position-relative">
-                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:22px; font-weight:600; margin-bottom:0 !important;">
+                        <h5 class="m-0 text-left" style="font-family:'Inter', sans-serif; font-size:14px; line-height:20px; font-weight:600; text-transform:capitalize;">
                             Disable Developer Mode
                         </h5>
                     </div>
