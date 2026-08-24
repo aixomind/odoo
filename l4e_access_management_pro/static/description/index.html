@@ -5,166 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Access Management Pro - AIXOMIND | Odoo Security Suite</title>
     
+
+
 <style>
-/* Pure CSS Tab Switching - 100% compatible with Odoo App Store */
-.gmenu-panel { display: none !important; }
-#gmenu-p0:checked ~ div .gmenu-panels .gmenu-panel-0, #gmenu-p0:checked ~ * .gmenu-panels .gmenu-panel-0, #gmenu-p0:checked ~ .gmenu-panels .gmenu-panel-0 { display: block !important; }
-#gmenu-p0:checked ~ div .gmenu-labels label[for='gmenu-p0'], #gmenu-p0:checked ~ * .gmenu-labels label[for='gmenu-p0'], #gmenu-p0:checked ~ .gmenu-labels label[for='gmenu-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmenu-p1:checked ~ div .gmenu-panels .gmenu-panel-1, #gmenu-p1:checked ~ * .gmenu-panels .gmenu-panel-1, #gmenu-p1:checked ~ .gmenu-panels .gmenu-panel-1 { display: block !important; }
-#gmenu-p1:checked ~ div .gmenu-labels label[for='gmenu-p1'], #gmenu-p1:checked ~ * .gmenu-labels label[for='gmenu-p1'], #gmenu-p1:checked ~ .gmenu-labels label[for='gmenu-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gmodel-panel { display: none !important; }
-#gmodel-p0:checked ~ div .gmodel-panels .gmodel-panel-0, #gmodel-p0:checked ~ * .gmodel-panels .gmodel-panel-0, #gmodel-p0:checked ~ .gmodel-panels .gmodel-panel-0 { display: block !important; }
-#gmodel-p0:checked ~ div .gmodel-labels label[for='gmodel-p0'], #gmodel-p0:checked ~ * .gmodel-labels label[for='gmodel-p0'], #gmodel-p0:checked ~ .gmodel-labels label[for='gmodel-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p1:checked ~ div .gmodel-panels .gmodel-panel-1, #gmodel-p1:checked ~ * .gmodel-panels .gmodel-panel-1, #gmodel-p1:checked ~ .gmodel-panels .gmodel-panel-1 { display: block !important; }
-#gmodel-p1:checked ~ div .gmodel-labels label[for='gmodel-p1'], #gmodel-p1:checked ~ * .gmodel-labels label[for='gmodel-p1'], #gmodel-p1:checked ~ .gmodel-labels label[for='gmodel-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p2:checked ~ div .gmodel-panels .gmodel-panel-2, #gmodel-p2:checked ~ * .gmodel-panels .gmodel-panel-2, #gmodel-p2:checked ~ .gmodel-panels .gmodel-panel-2 { display: block !important; }
-#gmodel-p2:checked ~ div .gmodel-labels label[for='gmodel-p2'], #gmodel-p2:checked ~ * .gmodel-labels label[for='gmodel-p2'], #gmodel-p2:checked ~ .gmodel-labels label[for='gmodel-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p3:checked ~ div .gmodel-panels .gmodel-panel-3, #gmodel-p3:checked ~ * .gmodel-panels .gmodel-panel-3, #gmodel-p3:checked ~ .gmodel-panels .gmodel-panel-3 { display: block !important; }
-#gmodel-p3:checked ~ div .gmodel-labels label[for='gmodel-p3'], #gmodel-p3:checked ~ * .gmodel-labels label[for='gmodel-p3'], #gmodel-p3:checked ~ .gmodel-labels label[for='gmodel-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p4:checked ~ div .gmodel-panels .gmodel-panel-4, #gmodel-p4:checked ~ * .gmodel-panels .gmodel-panel-4, #gmodel-p4:checked ~ .gmodel-panels .gmodel-panel-4 { display: block !important; }
-#gmodel-p4:checked ~ div .gmodel-labels label[for='gmodel-p4'], #gmodel-p4:checked ~ * .gmodel-labels label[for='gmodel-p4'], #gmodel-p4:checked ~ .gmodel-labels label[for='gmodel-p4'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p5:checked ~ div .gmodel-panels .gmodel-panel-5, #gmodel-p5:checked ~ * .gmodel-panels .gmodel-panel-5, #gmodel-p5:checked ~ .gmodel-panels .gmodel-panel-5 { display: block !important; }
-#gmodel-p5:checked ~ div .gmodel-labels label[for='gmodel-p5'], #gmodel-p5:checked ~ * .gmodel-labels label[for='gmodel-p5'], #gmodel-p5:checked ~ .gmodel-labels label[for='gmodel-p5'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p6:checked ~ div .gmodel-panels .gmodel-panel-6, #gmodel-p6:checked ~ * .gmodel-panels .gmodel-panel-6, #gmodel-p6:checked ~ .gmodel-panels .gmodel-panel-6 { display: block !important; }
-#gmodel-p6:checked ~ div .gmodel-labels label[for='gmodel-p6'], #gmodel-p6:checked ~ * .gmodel-labels label[for='gmodel-p6'], #gmodel-p6:checked ~ .gmodel-labels label[for='gmodel-p6'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p7:checked ~ div .gmodel-panels .gmodel-panel-7, #gmodel-p7:checked ~ * .gmodel-panels .gmodel-panel-7, #gmodel-p7:checked ~ .gmodel-panels .gmodel-panel-7 { display: block !important; }
-#gmodel-p7:checked ~ div .gmodel-labels label[for='gmodel-p7'], #gmodel-p7:checked ~ * .gmodel-labels label[for='gmodel-p7'], #gmodel-p7:checked ~ .gmodel-labels label[for='gmodel-p7'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gfield-panel { display: none !important; }
-#gfield-p0:checked ~ div .gfield-panels .gfield-panel-0, #gfield-p0:checked ~ * .gfield-panels .gfield-panel-0, #gfield-p0:checked ~ .gfield-panels .gfield-panel-0 { display: block !important; }
-#gfield-p0:checked ~ div .gfield-labels label[for='gfield-p0'], #gfield-p0:checked ~ * .gfield-labels label[for='gfield-p0'], #gfield-p0:checked ~ .gfield-labels label[for='gfield-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gfield-p1:checked ~ div .gfield-panels .gfield-panel-1, #gfield-p1:checked ~ * .gfield-panels .gfield-panel-1, #gfield-p1:checked ~ .gfield-panels .gfield-panel-1 { display: block !important; }
-#gfield-p1:checked ~ div .gfield-labels label[for='gfield-p1'], #gfield-p1:checked ~ * .gfield-labels label[for='gfield-p1'], #gfield-p1:checked ~ .gfield-labels label[for='gfield-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gfield-p2:checked ~ div .gfield-panels .gfield-panel-2, #gfield-p2:checked ~ * .gfield-panels .gfield-panel-2, #gfield-p2:checked ~ .gfield-panels .gfield-panel-2 { display: block !important; }
-#gfield-p2:checked ~ div .gfield-labels label[for='gfield-p2'], #gfield-p2:checked ~ * .gfield-labels label[for='gfield-p2'], #gfield-p2:checked ~ .gfield-labels label[for='gfield-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gdomain-panel { display: none !important; }
-#gdomain-p0:checked ~ div .gdomain-panels .gdomain-panel-0, #gdomain-p0:checked ~ * .gdomain-panels .gdomain-panel-0, #gdomain-p0:checked ~ .gdomain-panels .gdomain-panel-0 { display: block !important; }
-#gdomain-p0:checked ~ div .gdomain-labels label[for='gdomain-p0'], #gdomain-p0:checked ~ * .gdomain-labels label[for='gdomain-p0'], #gdomain-p0:checked ~ .gdomain-labels label[for='gdomain-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p1:checked ~ div .gdomain-panels .gdomain-panel-1, #gdomain-p1:checked ~ * .gdomain-panels .gdomain-panel-1, #gdomain-p1:checked ~ .gdomain-panels .gdomain-panel-1 { display: block !important; }
-#gdomain-p1:checked ~ div .gdomain-labels label[for='gdomain-p1'], #gdomain-p1:checked ~ * .gdomain-labels label[for='gdomain-p1'], #gdomain-p1:checked ~ .gdomain-labels label[for='gdomain-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p2:checked ~ div .gdomain-panels .gdomain-panel-2, #gdomain-p2:checked ~ * .gdomain-panels .gdomain-panel-2, #gdomain-p2:checked ~ .gdomain-panels .gdomain-panel-2 { display: block !important; }
-#gdomain-p2:checked ~ div .gdomain-labels label[for='gdomain-p2'], #gdomain-p2:checked ~ * .gdomain-labels label[for='gdomain-p2'], #gdomain-p2:checked ~ .gdomain-labels label[for='gdomain-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p3:checked ~ div .gdomain-panels .gdomain-panel-3, #gdomain-p3:checked ~ * .gdomain-panels .gdomain-panel-3, #gdomain-p3:checked ~ .gdomain-panels .gdomain-panel-3 { display: block !important; }
-#gdomain-p3:checked ~ div .gdomain-labels label[for='gdomain-p3'], #gdomain-p3:checked ~ * .gdomain-labels label[for='gdomain-p3'], #gdomain-p3:checked ~ .gdomain-labels label[for='gdomain-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p4:checked ~ div .gdomain-panels .gdomain-panel-4, #gdomain-p4:checked ~ * .gdomain-panels .gdomain-panel-4, #gdomain-p4:checked ~ .gdomain-panels .gdomain-panel-4 { display: block !important; }
-#gdomain-p4:checked ~ div .gdomain-labels label[for='gdomain-p4'], #gdomain-p4:checked ~ * .gdomain-labels label[for='gdomain-p4'], #gdomain-p4:checked ~ .gdomain-labels label[for='gdomain-p4'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gbutton-panel { display: none !important; }
-#gbutton-p0:checked ~ div .gbutton-panels .gbutton-panel-0, #gbutton-p0:checked ~ * .gbutton-panels .gbutton-panel-0, #gbutton-p0:checked ~ .gbutton-panels .gbutton-panel-0 { display: block !important; }
-#gbutton-p0:checked ~ div .gbutton-labels label[for='gbutton-p0'], #gbutton-p0:checked ~ * .gbutton-labels label[for='gbutton-p0'], #gbutton-p0:checked ~ .gbutton-labels label[for='gbutton-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gbutton-p1:checked ~ div .gbutton-panels .gbutton-panel-1, #gbutton-p1:checked ~ * .gbutton-panels .gbutton-panel-1, #gbutton-p1:checked ~ .gbutton-panels .gbutton-panel-1 { display: block !important; }
-#gbutton-p1:checked ~ div .gbutton-labels label[for='gbutton-p1'], #gbutton-p1:checked ~ * .gbutton-labels label[for='gbutton-p1'], #gbutton-p1:checked ~ .gbutton-labels label[for='gbutton-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gbutton-p2:checked ~ div .gbutton-panels .gbutton-panel-2, #gbutton-p2:checked ~ * .gbutton-panels .gbutton-panel-2, #gbutton-p2:checked ~ .gbutton-panels .gbutton-panel-2 { display: block !important; }
-#gbutton-p2:checked ~ div .gbutton-labels label[for='gbutton-p2'], #gbutton-p2:checked ~ * .gbutton-labels label[for='gbutton-p2'], #gbutton-p2:checked ~ .gbutton-labels label[for='gbutton-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gsearch-panel { display: none !important; }
-#gsearch-p0:checked ~ div .gsearch-panels .gsearch-panel-0, #gsearch-p0:checked ~ * .gsearch-panels .gsearch-panel-0, #gsearch-p0:checked ~ .gsearch-panels .gsearch-panel-0 { display: block !important; }
-#gsearch-p0:checked ~ div .gsearch-labels label[for='gsearch-p0'], #gsearch-p0:checked ~ * .gsearch-labels label[for='gsearch-p0'], #gsearch-p0:checked ~ .gsearch-labels label[for='gsearch-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gsearch-p1:checked ~ div .gsearch-panels .gsearch-panel-1, #gsearch-p1:checked ~ * .gsearch-panels .gsearch-panel-1, #gsearch-p1:checked ~ .gsearch-panels .gsearch-panel-1 { display: block !important; }
-#gsearch-p1:checked ~ div .gsearch-labels label[for='gsearch-p1'], #gsearch-p1:checked ~ * .gsearch-labels label[for='gsearch-p1'], #gsearch-p1:checked ~ .gsearch-labels label[for='gsearch-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gchatter-panel { display: none !important; }
-#gchatter-p0:checked ~ div .gchatter-panels .gchatter-panel-0, #gchatter-p0:checked ~ * .gchatter-panels .gchatter-panel-0, #gchatter-p0:checked ~ .gchatter-panels .gchatter-panel-0 { display: block !important; }
-#gchatter-p0:checked ~ div .gchatter-labels label[for='gchatter-p0'], #gchatter-p0:checked ~ * .gchatter-labels label[for='gchatter-p0'], #gchatter-p0:checked ~ .gchatter-labels label[for='gchatter-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gchatter-p1:checked ~ div .gchatter-panels .gchatter-panel-1, #gchatter-p1:checked ~ * .gchatter-panels .gchatter-panel-1, #gchatter-p1:checked ~ .gchatter-panels .gchatter-panel-1 { display: block !important; }
-#gchatter-p1:checked ~ div .gchatter-labels label[for='gchatter-p1'], #gchatter-p1:checked ~ * .gchatter-labels label[for='gchatter-p1'], #gchatter-p1:checked ~ .gchatter-labels label[for='gchatter-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gchatter-p2:checked ~ div .gchatter-panels .gchatter-panel-2, #gchatter-p2:checked ~ * .gchatter-panels .gchatter-panel-2, #gchatter-p2:checked ~ .gchatter-panels .gchatter-panel-2 { display: block !important; }
-#gchatter-p2:checked ~ div .gchatter-labels label[for='gchatter-p2'], #gchatter-p2:checked ~ * .gchatter-labels label[for='gchatter-p2'], #gchatter-p2:checked ~ .gchatter-labels label[for='gchatter-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gchatter-p3:checked ~ div .gchatter-panels .gchatter-panel-3, #gchatter-p3:checked ~ * .gchatter-panels .gchatter-panel-3, #gchatter-p3:checked ~ .gchatter-panels .gchatter-panel-3 { display: block !important; }
-#gchatter-p3:checked ~ div .gchatter-labels label[for='gchatter-p3'], #gchatter-p3:checked ~ * .gchatter-labels label[for='gchatter-p3'], #gchatter-p3:checked ~ .gchatter-labels label[for='gchatter-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gglobal-panel { display: none !important; }
-#gglobal-p0:checked ~ div .gglobal-panels .gglobal-panel-0, #gglobal-p0:checked ~ * .gglobal-panels .gglobal-panel-0, #gglobal-p0:checked ~ .gglobal-panels .gglobal-panel-0 { display: block !important; }
-#gglobal-p0:checked ~ div .gglobal-labels label[for='gglobal-p0'], #gglobal-p0:checked ~ * .gglobal-labels label[for='gglobal-p0'], #gglobal-p0:checked ~ .gglobal-labels label[for='gglobal-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p1:checked ~ div .gglobal-panels .gglobal-panel-1, #gglobal-p1:checked ~ * .gglobal-panels .gglobal-panel-1, #gglobal-p1:checked ~ .gglobal-panels .gglobal-panel-1 { display: block !important; }
-#gglobal-p1:checked ~ div .gglobal-labels label[for='gglobal-p1'], #gglobal-p1:checked ~ * .gglobal-labels label[for='gglobal-p1'], #gglobal-p1:checked ~ .gglobal-labels label[for='gglobal-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p2:checked ~ div .gglobal-panels .gglobal-panel-2, #gglobal-p2:checked ~ * .gglobal-panels .gglobal-panel-2, #gglobal-p2:checked ~ .gglobal-panels .gglobal-panel-2 { display: block !important; }
-#gglobal-p2:checked ~ div .gglobal-labels label[for='gglobal-p2'], #gglobal-p2:checked ~ * .gglobal-labels label[for='gglobal-p2'], #gglobal-p2:checked ~ .gglobal-labels label[for='gglobal-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p3:checked ~ div .gglobal-panels .gglobal-panel-3, #gglobal-p3:checked ~ * .gglobal-panels .gglobal-panel-3, #gglobal-p3:checked ~ .gglobal-panels .gglobal-panel-3 { display: block !important; }
-#gglobal-p3:checked ~ div .gglobal-labels label[for='gglobal-p3'], #gglobal-p3:checked ~ * .gglobal-labels label[for='gglobal-p3'], #gglobal-p3:checked ~ .gglobal-labels label[for='gglobal-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p4:checked ~ div .gglobal-panels .gglobal-panel-4, #gglobal-p4:checked ~ * .gglobal-panels .gglobal-panel-4, #gglobal-p4:checked ~ .gglobal-panels .gglobal-panel-4 { display: block !important; }
-#gglobal-p4:checked ~ div .gglobal-labels label[for='gglobal-p4'], #gglobal-p4:checked ~ * .gglobal-labels label[for='gglobal-p4'], #gglobal-p4:checked ~ .gglobal-labels label[for='gglobal-p4'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gronly-panel { display: none !important; }
-#gronly-p0:checked ~ div .gronly-panels .gronly-panel-0, #gronly-p0:checked ~ * .gronly-panels .gronly-panel-0, #gronly-p0:checked ~ .gronly-panels .gronly-panel-0 { display: block !important; }
-#gronly-p0:checked ~ div .gronly-labels label[for='gronly-p0'], #gronly-p0:checked ~ * .gronly-labels label[for='gronly-p0'], #gronly-p0:checked ~ .gronly-labels label[for='gronly-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gronly-p1:checked ~ div .gronly-panels .gronly-panel-1, #gronly-p1:checked ~ * .gronly-panels .gronly-panel-1, #gronly-p1:checked ~ .gronly-panels .gronly-panel-1 { display: block !important; }
-#gronly-p1:checked ~ div .gronly-labels label[for='gronly-p1'], #gronly-p1:checked ~ * .gronly-labels label[for='gronly-p1'], #gronly-p1:checked ~ .gronly-labels label[for='gronly-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
+/* Tab Button Hover & Active States */
+.g-tab-btn, .gmenu-lbl, .gmodel-lbl, .gfield-lbl, .gdomain-lbl, .gbutton-lbl, .gsearch-lbl, .gchatter-lbl, .gglobal-lbl, .gronly-lbl {
+    display: block !important;
+    padding: 12px 16px !important;
+    margin-bottom: 8px !important;
+    background: #f8fafc !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-align: left !important;
+    user-select: none !important;
+}
+
+.g-tab-btn:hover, .gmenu-lbl:hover, .gmodel-lbl:hover, .gfield-lbl:hover, .gdomain-lbl:hover, .gbutton-lbl:hover, .gsearch-lbl:hover, .gchatter-lbl:hover, .gglobal-lbl:hover, .gronly-lbl:hover {
+    background: #eef2ff !important;
+    color: #4338ca !important;
+    border-color: #818cf8 !important;
+    transform: translateX(3px) !important;
+}
+
+.g-tab-btn.active, .tab-active {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+    border-color: #4f46e5 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+}
 </style>
 </head>
+
+
 <style>
-/* Pure CSS Tab Switching - 100% compatible with Odoo App Store */
-.gmenu-panel { display: none !important; }
-#gmenu-p0:checked ~ div .gmenu-panels .gmenu-panel-0, #gmenu-p0:checked ~ * .gmenu-panels .gmenu-panel-0, #gmenu-p0:checked ~ .gmenu-panels .gmenu-panel-0 { display: block !important; }
-#gmenu-p0:checked ~ div .gmenu-labels label[for='gmenu-p0'], #gmenu-p0:checked ~ * .gmenu-labels label[for='gmenu-p0'], #gmenu-p0:checked ~ .gmenu-labels label[for='gmenu-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmenu-p1:checked ~ div .gmenu-panels .gmenu-panel-1, #gmenu-p1:checked ~ * .gmenu-panels .gmenu-panel-1, #gmenu-p1:checked ~ .gmenu-panels .gmenu-panel-1 { display: block !important; }
-#gmenu-p1:checked ~ div .gmenu-labels label[for='gmenu-p1'], #gmenu-p1:checked ~ * .gmenu-labels label[for='gmenu-p1'], #gmenu-p1:checked ~ .gmenu-labels label[for='gmenu-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gmodel-panel { display: none !important; }
-#gmodel-p0:checked ~ div .gmodel-panels .gmodel-panel-0, #gmodel-p0:checked ~ * .gmodel-panels .gmodel-panel-0, #gmodel-p0:checked ~ .gmodel-panels .gmodel-panel-0 { display: block !important; }
-#gmodel-p0:checked ~ div .gmodel-labels label[for='gmodel-p0'], #gmodel-p0:checked ~ * .gmodel-labels label[for='gmodel-p0'], #gmodel-p0:checked ~ .gmodel-labels label[for='gmodel-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p1:checked ~ div .gmodel-panels .gmodel-panel-1, #gmodel-p1:checked ~ * .gmodel-panels .gmodel-panel-1, #gmodel-p1:checked ~ .gmodel-panels .gmodel-panel-1 { display: block !important; }
-#gmodel-p1:checked ~ div .gmodel-labels label[for='gmodel-p1'], #gmodel-p1:checked ~ * .gmodel-labels label[for='gmodel-p1'], #gmodel-p1:checked ~ .gmodel-labels label[for='gmodel-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p2:checked ~ div .gmodel-panels .gmodel-panel-2, #gmodel-p2:checked ~ * .gmodel-panels .gmodel-panel-2, #gmodel-p2:checked ~ .gmodel-panels .gmodel-panel-2 { display: block !important; }
-#gmodel-p2:checked ~ div .gmodel-labels label[for='gmodel-p2'], #gmodel-p2:checked ~ * .gmodel-labels label[for='gmodel-p2'], #gmodel-p2:checked ~ .gmodel-labels label[for='gmodel-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p3:checked ~ div .gmodel-panels .gmodel-panel-3, #gmodel-p3:checked ~ * .gmodel-panels .gmodel-panel-3, #gmodel-p3:checked ~ .gmodel-panels .gmodel-panel-3 { display: block !important; }
-#gmodel-p3:checked ~ div .gmodel-labels label[for='gmodel-p3'], #gmodel-p3:checked ~ * .gmodel-labels label[for='gmodel-p3'], #gmodel-p3:checked ~ .gmodel-labels label[for='gmodel-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p4:checked ~ div .gmodel-panels .gmodel-panel-4, #gmodel-p4:checked ~ * .gmodel-panels .gmodel-panel-4, #gmodel-p4:checked ~ .gmodel-panels .gmodel-panel-4 { display: block !important; }
-#gmodel-p4:checked ~ div .gmodel-labels label[for='gmodel-p4'], #gmodel-p4:checked ~ * .gmodel-labels label[for='gmodel-p4'], #gmodel-p4:checked ~ .gmodel-labels label[for='gmodel-p4'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p5:checked ~ div .gmodel-panels .gmodel-panel-5, #gmodel-p5:checked ~ * .gmodel-panels .gmodel-panel-5, #gmodel-p5:checked ~ .gmodel-panels .gmodel-panel-5 { display: block !important; }
-#gmodel-p5:checked ~ div .gmodel-labels label[for='gmodel-p5'], #gmodel-p5:checked ~ * .gmodel-labels label[for='gmodel-p5'], #gmodel-p5:checked ~ .gmodel-labels label[for='gmodel-p5'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p6:checked ~ div .gmodel-panels .gmodel-panel-6, #gmodel-p6:checked ~ * .gmodel-panels .gmodel-panel-6, #gmodel-p6:checked ~ .gmodel-panels .gmodel-panel-6 { display: block !important; }
-#gmodel-p6:checked ~ div .gmodel-labels label[for='gmodel-p6'], #gmodel-p6:checked ~ * .gmodel-labels label[for='gmodel-p6'], #gmodel-p6:checked ~ .gmodel-labels label[for='gmodel-p6'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gmodel-p7:checked ~ div .gmodel-panels .gmodel-panel-7, #gmodel-p7:checked ~ * .gmodel-panels .gmodel-panel-7, #gmodel-p7:checked ~ .gmodel-panels .gmodel-panel-7 { display: block !important; }
-#gmodel-p7:checked ~ div .gmodel-labels label[for='gmodel-p7'], #gmodel-p7:checked ~ * .gmodel-labels label[for='gmodel-p7'], #gmodel-p7:checked ~ .gmodel-labels label[for='gmodel-p7'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gfield-panel { display: none !important; }
-#gfield-p0:checked ~ div .gfield-panels .gfield-panel-0, #gfield-p0:checked ~ * .gfield-panels .gfield-panel-0, #gfield-p0:checked ~ .gfield-panels .gfield-panel-0 { display: block !important; }
-#gfield-p0:checked ~ div .gfield-labels label[for='gfield-p0'], #gfield-p0:checked ~ * .gfield-labels label[for='gfield-p0'], #gfield-p0:checked ~ .gfield-labels label[for='gfield-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gfield-p1:checked ~ div .gfield-panels .gfield-panel-1, #gfield-p1:checked ~ * .gfield-panels .gfield-panel-1, #gfield-p1:checked ~ .gfield-panels .gfield-panel-1 { display: block !important; }
-#gfield-p1:checked ~ div .gfield-labels label[for='gfield-p1'], #gfield-p1:checked ~ * .gfield-labels label[for='gfield-p1'], #gfield-p1:checked ~ .gfield-labels label[for='gfield-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gfield-p2:checked ~ div .gfield-panels .gfield-panel-2, #gfield-p2:checked ~ * .gfield-panels .gfield-panel-2, #gfield-p2:checked ~ .gfield-panels .gfield-panel-2 { display: block !important; }
-#gfield-p2:checked ~ div .gfield-labels label[for='gfield-p2'], #gfield-p2:checked ~ * .gfield-labels label[for='gfield-p2'], #gfield-p2:checked ~ .gfield-labels label[for='gfield-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gdomain-panel { display: none !important; }
-#gdomain-p0:checked ~ div .gdomain-panels .gdomain-panel-0, #gdomain-p0:checked ~ * .gdomain-panels .gdomain-panel-0, #gdomain-p0:checked ~ .gdomain-panels .gdomain-panel-0 { display: block !important; }
-#gdomain-p0:checked ~ div .gdomain-labels label[for='gdomain-p0'], #gdomain-p0:checked ~ * .gdomain-labels label[for='gdomain-p0'], #gdomain-p0:checked ~ .gdomain-labels label[for='gdomain-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p1:checked ~ div .gdomain-panels .gdomain-panel-1, #gdomain-p1:checked ~ * .gdomain-panels .gdomain-panel-1, #gdomain-p1:checked ~ .gdomain-panels .gdomain-panel-1 { display: block !important; }
-#gdomain-p1:checked ~ div .gdomain-labels label[for='gdomain-p1'], #gdomain-p1:checked ~ * .gdomain-labels label[for='gdomain-p1'], #gdomain-p1:checked ~ .gdomain-labels label[for='gdomain-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p2:checked ~ div .gdomain-panels .gdomain-panel-2, #gdomain-p2:checked ~ * .gdomain-panels .gdomain-panel-2, #gdomain-p2:checked ~ .gdomain-panels .gdomain-panel-2 { display: block !important; }
-#gdomain-p2:checked ~ div .gdomain-labels label[for='gdomain-p2'], #gdomain-p2:checked ~ * .gdomain-labels label[for='gdomain-p2'], #gdomain-p2:checked ~ .gdomain-labels label[for='gdomain-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p3:checked ~ div .gdomain-panels .gdomain-panel-3, #gdomain-p3:checked ~ * .gdomain-panels .gdomain-panel-3, #gdomain-p3:checked ~ .gdomain-panels .gdomain-panel-3 { display: block !important; }
-#gdomain-p3:checked ~ div .gdomain-labels label[for='gdomain-p3'], #gdomain-p3:checked ~ * .gdomain-labels label[for='gdomain-p3'], #gdomain-p3:checked ~ .gdomain-labels label[for='gdomain-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gdomain-p4:checked ~ div .gdomain-panels .gdomain-panel-4, #gdomain-p4:checked ~ * .gdomain-panels .gdomain-panel-4, #gdomain-p4:checked ~ .gdomain-panels .gdomain-panel-4 { display: block !important; }
-#gdomain-p4:checked ~ div .gdomain-labels label[for='gdomain-p4'], #gdomain-p4:checked ~ * .gdomain-labels label[for='gdomain-p4'], #gdomain-p4:checked ~ .gdomain-labels label[for='gdomain-p4'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gbutton-panel { display: none !important; }
-#gbutton-p0:checked ~ div .gbutton-panels .gbutton-panel-0, #gbutton-p0:checked ~ * .gbutton-panels .gbutton-panel-0, #gbutton-p0:checked ~ .gbutton-panels .gbutton-panel-0 { display: block !important; }
-#gbutton-p0:checked ~ div .gbutton-labels label[for='gbutton-p0'], #gbutton-p0:checked ~ * .gbutton-labels label[for='gbutton-p0'], #gbutton-p0:checked ~ .gbutton-labels label[for='gbutton-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gbutton-p1:checked ~ div .gbutton-panels .gbutton-panel-1, #gbutton-p1:checked ~ * .gbutton-panels .gbutton-panel-1, #gbutton-p1:checked ~ .gbutton-panels .gbutton-panel-1 { display: block !important; }
-#gbutton-p1:checked ~ div .gbutton-labels label[for='gbutton-p1'], #gbutton-p1:checked ~ * .gbutton-labels label[for='gbutton-p1'], #gbutton-p1:checked ~ .gbutton-labels label[for='gbutton-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gbutton-p2:checked ~ div .gbutton-panels .gbutton-panel-2, #gbutton-p2:checked ~ * .gbutton-panels .gbutton-panel-2, #gbutton-p2:checked ~ .gbutton-panels .gbutton-panel-2 { display: block !important; }
-#gbutton-p2:checked ~ div .gbutton-labels label[for='gbutton-p2'], #gbutton-p2:checked ~ * .gbutton-labels label[for='gbutton-p2'], #gbutton-p2:checked ~ .gbutton-labels label[for='gbutton-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gsearch-panel { display: none !important; }
-#gsearch-p0:checked ~ div .gsearch-panels .gsearch-panel-0, #gsearch-p0:checked ~ * .gsearch-panels .gsearch-panel-0, #gsearch-p0:checked ~ .gsearch-panels .gsearch-panel-0 { display: block !important; }
-#gsearch-p0:checked ~ div .gsearch-labels label[for='gsearch-p0'], #gsearch-p0:checked ~ * .gsearch-labels label[for='gsearch-p0'], #gsearch-p0:checked ~ .gsearch-labels label[for='gsearch-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gsearch-p1:checked ~ div .gsearch-panels .gsearch-panel-1, #gsearch-p1:checked ~ * .gsearch-panels .gsearch-panel-1, #gsearch-p1:checked ~ .gsearch-panels .gsearch-panel-1 { display: block !important; }
-#gsearch-p1:checked ~ div .gsearch-labels label[for='gsearch-p1'], #gsearch-p1:checked ~ * .gsearch-labels label[for='gsearch-p1'], #gsearch-p1:checked ~ .gsearch-labels label[for='gsearch-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gchatter-panel { display: none !important; }
-#gchatter-p0:checked ~ div .gchatter-panels .gchatter-panel-0, #gchatter-p0:checked ~ * .gchatter-panels .gchatter-panel-0, #gchatter-p0:checked ~ .gchatter-panels .gchatter-panel-0 { display: block !important; }
-#gchatter-p0:checked ~ div .gchatter-labels label[for='gchatter-p0'], #gchatter-p0:checked ~ * .gchatter-labels label[for='gchatter-p0'], #gchatter-p0:checked ~ .gchatter-labels label[for='gchatter-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gchatter-p1:checked ~ div .gchatter-panels .gchatter-panel-1, #gchatter-p1:checked ~ * .gchatter-panels .gchatter-panel-1, #gchatter-p1:checked ~ .gchatter-panels .gchatter-panel-1 { display: block !important; }
-#gchatter-p1:checked ~ div .gchatter-labels label[for='gchatter-p1'], #gchatter-p1:checked ~ * .gchatter-labels label[for='gchatter-p1'], #gchatter-p1:checked ~ .gchatter-labels label[for='gchatter-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gchatter-p2:checked ~ div .gchatter-panels .gchatter-panel-2, #gchatter-p2:checked ~ * .gchatter-panels .gchatter-panel-2, #gchatter-p2:checked ~ .gchatter-panels .gchatter-panel-2 { display: block !important; }
-#gchatter-p2:checked ~ div .gchatter-labels label[for='gchatter-p2'], #gchatter-p2:checked ~ * .gchatter-labels label[for='gchatter-p2'], #gchatter-p2:checked ~ .gchatter-labels label[for='gchatter-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gchatter-p3:checked ~ div .gchatter-panels .gchatter-panel-3, #gchatter-p3:checked ~ * .gchatter-panels .gchatter-panel-3, #gchatter-p3:checked ~ .gchatter-panels .gchatter-panel-3 { display: block !important; }
-#gchatter-p3:checked ~ div .gchatter-labels label[for='gchatter-p3'], #gchatter-p3:checked ~ * .gchatter-labels label[for='gchatter-p3'], #gchatter-p3:checked ~ .gchatter-labels label[for='gchatter-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gglobal-panel { display: none !important; }
-#gglobal-p0:checked ~ div .gglobal-panels .gglobal-panel-0, #gglobal-p0:checked ~ * .gglobal-panels .gglobal-panel-0, #gglobal-p0:checked ~ .gglobal-panels .gglobal-panel-0 { display: block !important; }
-#gglobal-p0:checked ~ div .gglobal-labels label[for='gglobal-p0'], #gglobal-p0:checked ~ * .gglobal-labels label[for='gglobal-p0'], #gglobal-p0:checked ~ .gglobal-labels label[for='gglobal-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p1:checked ~ div .gglobal-panels .gglobal-panel-1, #gglobal-p1:checked ~ * .gglobal-panels .gglobal-panel-1, #gglobal-p1:checked ~ .gglobal-panels .gglobal-panel-1 { display: block !important; }
-#gglobal-p1:checked ~ div .gglobal-labels label[for='gglobal-p1'], #gglobal-p1:checked ~ * .gglobal-labels label[for='gglobal-p1'], #gglobal-p1:checked ~ .gglobal-labels label[for='gglobal-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p2:checked ~ div .gglobal-panels .gglobal-panel-2, #gglobal-p2:checked ~ * .gglobal-panels .gglobal-panel-2, #gglobal-p2:checked ~ .gglobal-panels .gglobal-panel-2 { display: block !important; }
-#gglobal-p2:checked ~ div .gglobal-labels label[for='gglobal-p2'], #gglobal-p2:checked ~ * .gglobal-labels label[for='gglobal-p2'], #gglobal-p2:checked ~ .gglobal-labels label[for='gglobal-p2'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p3:checked ~ div .gglobal-panels .gglobal-panel-3, #gglobal-p3:checked ~ * .gglobal-panels .gglobal-panel-3, #gglobal-p3:checked ~ .gglobal-panels .gglobal-panel-3 { display: block !important; }
-#gglobal-p3:checked ~ div .gglobal-labels label[for='gglobal-p3'], #gglobal-p3:checked ~ * .gglobal-labels label[for='gglobal-p3'], #gglobal-p3:checked ~ .gglobal-labels label[for='gglobal-p3'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gglobal-p4:checked ~ div .gglobal-panels .gglobal-panel-4, #gglobal-p4:checked ~ * .gglobal-panels .gglobal-panel-4, #gglobal-p4:checked ~ .gglobal-panels .gglobal-panel-4 { display: block !important; }
-#gglobal-p4:checked ~ div .gglobal-labels label[for='gglobal-p4'], #gglobal-p4:checked ~ * .gglobal-labels label[for='gglobal-p4'], #gglobal-p4:checked ~ .gglobal-labels label[for='gglobal-p4'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-.gronly-panel { display: none !important; }
-#gronly-p0:checked ~ div .gronly-panels .gronly-panel-0, #gronly-p0:checked ~ * .gronly-panels .gronly-panel-0, #gronly-p0:checked ~ .gronly-panels .gronly-panel-0 { display: block !important; }
-#gronly-p0:checked ~ div .gronly-labels label[for='gronly-p0'], #gronly-p0:checked ~ * .gronly-labels label[for='gronly-p0'], #gronly-p0:checked ~ .gronly-labels label[for='gronly-p0'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
-#gronly-p1:checked ~ div .gronly-panels .gronly-panel-1, #gronly-p1:checked ~ * .gronly-panels .gronly-panel-1, #gronly-p1:checked ~ .gronly-panels .gronly-panel-1 { display: block !important; }
-#gronly-p1:checked ~ div .gronly-labels label[for='gronly-p1'], #gronly-p1:checked ~ * .gronly-labels label[for='gronly-p1'], #gronly-p1:checked ~ .gronly-labels label[for='gronly-p1'] { background: #6366f1 !important; color: #ffffff !important; border-color: #6366f1 !important; font-weight: 700 !important; }
+/* Tab Button Hover & Active States */
+.g-tab-btn, .gmenu-lbl, .gmodel-lbl, .gfield-lbl, .gdomain-lbl, .gbutton-lbl, .gsearch-lbl, .gchatter-lbl, .gglobal-lbl, .gronly-lbl {
+    display: block !important;
+    padding: 12px 16px !important;
+    margin-bottom: 8px !important;
+    background: #f8fafc !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    text-align: left !important;
+    user-select: none !important;
+}
+
+.g-tab-btn:hover, .gmenu-lbl:hover, .gmodel-lbl:hover, .gfield-lbl:hover, .gdomain-lbl:hover, .gbutton-lbl:hover, .gsearch-lbl:hover, .gchatter-lbl:hover, .gglobal-lbl:hover, .gronly-lbl:hover {
+    background: #eef2ff !important;
+    color: #4338ca !important;
+    border-color: #818cf8 !important;
+    transform: translateX(3px) !important;
+}
+
+.g-tab-btn.active, .tab-active {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+    border-color: #4f46e5 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3) !important;
+}
 </style>
 <body style="margin:0;padding:0;font-family:Arial,Helvetica,sans-serif;background:#ffffff;color:#1e293b;line-height:1.6;">
 
@@ -304,11 +214,11 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gmenu-panels">
-            <div class="gmenu-panel gmenu-panel-0">
+            <div class="gmenu-panel gmenu-panel-0" style="display:block;">
 <img src="screenshots/hide-menu-submenu.png" alt="Hide Menu/Submenu" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Menu/Submenu</div>
 </div>
-<div class="gmenu-panel gmenu-panel-1">
+<div class="gmenu-panel gmenu-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/hide-main-app-menu.gif -->
 <img src="screenshots/hide-main-app-menu.png" alt="Hide Main Apps Menu" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Main Apps Menu</div>
@@ -351,42 +261,42 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gmodel-panels">
-            <div class="gmodel-panel gmodel-panel-0">
+            <div class="gmodel-panel gmodel-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/model-hide-report.gif -->
 <img src="screenshots/model-hide-report.png" alt="Hide Reports" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Reports</div>
 </div>
-<div class="gmodel-panel gmodel-panel-1">
+<div class="gmodel-panel gmodel-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-hide-action.gif -->
 <img src="screenshots/model-hide-action.png" alt="Hide Any Actions" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Actions</div>
 </div>
-<div class="gmodel-panel gmodel-panel-2">
+<div class="gmodel-panel gmodel-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-hide-view.gif -->
 <img src="screenshots/model-hide-view.png" alt="Hide Any Views" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Views</div>
 </div>
-<div class="gmodel-panel gmodel-panel-3">
+<div class="gmodel-panel gmodel-panel-3" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-create-edit-delete.gif -->
 <img src="screenshots/model-create-edit-delete.png" alt="Hide CREATE/EDIT/DELETE" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide CREATE/EDIT/DELETE</div>
 </div>
-<div class="gmodel-panel gmodel-panel-4">
+<div class="gmodel-panel gmodel-panel-4" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-archive.gif -->
 <img src="screenshots/model-archive.png" alt="Hide Archive Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Archive Button</div>
 </div>
-<div class="gmodel-panel gmodel-panel-5">
+<div class="gmodel-panel gmodel-panel-5" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-duplicate.gif -->
 <img src="screenshots/model-duplicate.png" alt="Hide Duplicate Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Duplicate Button</div>
 </div>
-<div class="gmodel-panel gmodel-panel-6">
+<div class="gmodel-panel gmodel-panel-6" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-export.gif -->
 <img src="screenshots/model-export.png" alt="Hide Export Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Export Button</div>
 </div>
-<div class="gmodel-panel gmodel-panel-7">
+<div class="gmodel-panel gmodel-panel-7" style="display:none;">
 <!-- REPLACE with real file: screenshots/model-import.gif -->
 <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27560%27%20height%3D%27340%27%3E%0A%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20fill%3D%27%23eef2ff%27%20rx%3D%2712%27/%3E%0A%3Crect%20x%3D%271%27%20y%3D%271%27%20width%3D%27558%27%20height%3D%27338%27%20fill%3D%27none%27%20stroke%3D%27%236366f1%27%20stroke-width%3D%272%27%20stroke-dasharray%3D%277%2C6%27%20rx%3D%2712%27/%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2746%25%27%20font-family%3D%27Arial%27%20font-size%3D%2716%27%20font-weight%3D%27700%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EScreenshot%20/%20GIF%3C/text%3E%0A%3Ctext%20x%3D%2750%25%27%20y%3D%2758%25%27%20font-family%3D%27Arial%27%20font-size%3D%2713%27%20fill%3D%27%236366f1%27%20text-anchor%3D%27middle%27%3EHide%20Import%20Button%3C/text%3E%0A%3C/svg%3E" alt="Hide Import Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Import Button</div>
@@ -418,17 +328,17 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gfield-panels">
-            <div class="gfield-panel gfield-panel-0">
+            <div class="gfield-panel gfield-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/field-invisible.gif -->
 <img src="screenshots/field-invisible.png" alt="Make Field Invisible" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Field Invisible</div>
 </div>
-<div class="gfield-panel gfield-panel-1">
+<div class="gfield-panel gfield-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/field-readonly.gif -->
 <img src="screenshots/field-readonly.png" alt="Make Field Read-Only" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Field Read-Only</div>
 </div>
-<div class="gfield-panel gfield-panel-2">
+<div class="gfield-panel gfield-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/field-required.gif -->
 <img src="screenshots/field-required.png" alt="Make Field Required" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Field Required</div>
@@ -465,27 +375,27 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gdomain-panels">
-            <div class="gdomain-panel gdomain-panel-0">
+            <div class="gdomain-panel gdomain-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/domain-restrict-create.gif -->
 <img src="screenshots/domain-restrict-create.png" alt="Restrict Create Record" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Restrict Create Record</div>
 </div>
-<div class="gdomain-panel gdomain-panel-1">
+<div class="gdomain-panel gdomain-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/domain-restrict-edit.gif -->
 <img src="screenshots/domain-restrict-edit.png" alt="Restrict Edit Record" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Restrict Edit Record</div>
 </div>
-<div class="gdomain-panel gdomain-panel-2">
+<div class="gdomain-panel gdomain-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/domain-restrict-delete.gif -->
 <img src="screenshots/domain-restrict-delete.png" alt="Restrict Delete Record" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Restrict Delete Record</div>
 </div>
-<div class="gdomain-panel gdomain-panel-3">
+<div class="gdomain-panel gdomain-panel-3" style="display:none;">
 <!-- REPLACE with real file: screenshots/domain-readonly-model.gif -->
 <img src="screenshots/domain-readonly-model.png" alt="Make Model Read-Only" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make Model Read-Only</div>
 </div>
-<div class="gdomain-panel gdomain-panel-4">
+<div class="gdomain-panel gdomain-panel-4" style="display:none;">
 <!-- REPLACE with real file: screenshots/domain-custom-filter.gif -->
 <img src="screenshots/domain-custom-filter.png" alt="Apply Custom Domain" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Apply Custom Domain</div>
@@ -517,17 +427,17 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gbutton-panels">
-            <div class="gbutton-panel gbutton-panel-0">
+            <div class="gbutton-panel gbutton-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/button-hide.gif -->
 <img src="screenshots/button-hide.png" alt="Hide Any Buttons" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Buttons</div>
 </div>
-<div class="gbutton-panel gbutton-panel-1">
+<div class="gbutton-panel gbutton-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/tab-hide.gif -->
 <img src="screenshots/tab-hide.png" alt="Hide Any Tab/Page" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Any Tab/Page</div>
 </div>
-<div class="gbutton-panel gbutton-panel-2">
+<div class="gbutton-panel gbutton-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/kanban-link-hide.gif -->
 <img src="screenshots/kanban-link-hide.png" alt="Hide Kanban Link" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Kanban Link</div>
@@ -557,12 +467,12 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gsearch-panels">
-            <div class="gsearch-panel gsearch-panel-0">
+            <div class="gsearch-panel gsearch-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/hide-filter.gif -->
 <img src="screenshots/hide-filter.png" alt="Hide Filters" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Filters</div>
 </div>
-<div class="gsearch-panel gsearch-panel-1">
+<div class="gsearch-panel gsearch-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/hide-groupby.gif -->
 <img src="screenshots/hide-groupby.png" alt="Hide Groups" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Groups</div>
@@ -596,22 +506,22 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gchatter-panels">
-            <div class="gchatter-panel gchatter-panel-0">
+            <div class="gchatter-panel gchatter-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/chatter-hide.gif -->
 <img src="screenshots/chatter-hide.png" alt="Hide Chatter Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Chatter Button</div>
 </div>
-<div class="gchatter-panel gchatter-panel-1">
+<div class="gchatter-panel gchatter-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/chatter-send-message.gif -->
 <img src="screenshots/chatter-send-message.png" alt="Hide Send Msg Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Send Msg Button</div>
 </div>
-<div class="gchatter-panel gchatter-panel-2">
+<div class="gchatter-panel gchatter-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/chatter-log-note.gif -->
 <img src="screenshots/chatter-log-note.png" alt="Hide Log Notes Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Log Notes Button</div>
 </div>
-<div class="gchatter-panel gchatter-panel-3">
+<div class="gchatter-panel gchatter-panel-3" style="display:none;">
 <!-- REPLACE with real file: screenshots/chatter-activity.gif -->
 <img src="screenshots/chatter-activity.png" alt="Hide Activity Button" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Activity Button</div>
@@ -647,27 +557,27 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gglobal-panels">
-            <div class="gglobal-panel gglobal-panel-0">
+            <div class="gglobal-panel gglobal-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/global-hide-chatter.gif -->
 <img src="screenshots/global-hide-chatter.png" alt="Hide Chatter" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Chatter</div>
 </div>
-<div class="gglobal-panel gglobal-panel-1">
+<div class="gglobal-panel gglobal-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/global-send-message.gif -->
 <img src="screenshots/global-send-message.png" alt="Hide Send Message" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Send Message</div>
 </div>
-<div class="gglobal-panel gglobal-panel-2">
+<div class="gglobal-panel gglobal-panel-2" style="display:none;">
 <!-- REPLACE with real file: screenshots/global-import.gif -->
 <img src="screenshots/global-import.png" alt="Hide Import" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Import</div>
 </div>
-<div class="gglobal-panel gglobal-panel-3">
+<div class="gglobal-panel gglobal-panel-3" style="display:none;">
 <!-- REPLACE with real file: screenshots/global-export.gif -->
 <img src="screenshots/global-export.png" alt="Hide Export" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Hide Export</div>
 </div>
-<div class="gglobal-panel gglobal-panel-4">
+<div class="gglobal-panel gglobal-panel-4" style="display:none;">
 <!-- REPLACE with real file: screenshots/global-disable-login.gif -->
 <img src="screenshots/global-disable-login.png" alt="Disable Login" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Disable Login</div>
@@ -697,12 +607,12 @@
 
         </div>
         <div style="display:table-cell;vertical-align:top;" class="gronly-panels">
-            <div class="gronly-panel gronly-panel-0">
+            <div class="gronly-panel gronly-panel-0" style="display:block;">
 <!-- REPLACE with real file: screenshots/readonly-user.gif -->
 <img src="screenshots/readonly-user.png" alt="Make User Read-Only" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Make User Read-Only</div>
 </div>
-<div class="gronly-panel gronly-panel-1">
+<div class="gronly-panel gronly-panel-1" style="display:none;">
 <!-- REPLACE with real file: screenshots/disable-debug-mode.gif -->
 <img src="screenshots/disable-debug-mode.png" alt="Disable Developer Mode" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid #e2e8f0;">
 <div style="font-size:12px;color:#64748b;text-align:center;margin-top:8px;font-weight:600;">Disable Developer Mode</div>
@@ -828,52 +738,60 @@
     </div>
 </div>
 
+
+
+
+
+
 <script>
 function switchTab(group, index) {
-    // Hide all panels in this group
+    // 1. Hide ALL panels in this group
     var panels = document.querySelectorAll('.' + group + '-panel');
-    panels.forEach(function(p) {
-        p.style.display = 'none';
-    });
-    // Show the target panel
+    for (var i = 0; i < panels.length; i++) {
+        panels[i].style.display = 'none';
+    }
+
+    // 2. Show only the target panel
     var targetPanel = document.querySelector('.' + group + '-panel-' + index);
     if (targetPanel) {
         targetPanel.style.display = 'block';
     }
-    // Update label styles
+
+    // 3. Update active style on all buttons in this group
     var labelsContainer = document.querySelector('.' + group + '-labels');
     if (labelsContainer) {
-        var labels = labelsContainer.querySelectorAll('label, .g' + group + '-lbl');
-        labels.forEach(function(lbl, idx) {
-            if (idx === index) {
-                lbl.style.background = '#6366f1';
-                lbl.style.color = '#ffffff';
-                lbl.style.borderColor = '#6366f1';
-                lbl.style.fontWeight = '700';
+        var labels = labelsContainer.querySelectorAll('label');
+        for (var j = 0; j < labels.length; j++) {
+            if (j === index) {
+                labels[j].style.background = '#4f46e5';
+                labels[j].style.color = '#ffffff';
+                labels[j].style.borderColor = '#4f46e5';
+                labels[j].style.fontWeight = '700';
+                labels[j].style.boxShadow = '0 4px 12px rgba(79, 70, 229, 0.3)';
             } else {
-                lbl.style.background = '#f8fafc';
-                lbl.style.color = '#334155';
-                lbl.style.borderColor = '#e2e8f0';
-                lbl.style.fontWeight = '600';
+                labels[j].style.background = '#f8fafc';
+                labels[j].style.color = '#334155';
+                labels[j].style.borderColor = '#e2e8f0';
+                labels[j].style.fontWeight = '600';
+                labels[j].style.boxShadow = 'none';
             }
-        });
+        }
     }
 }
 
-// Auto-initialize tabs when the document is loaded
-function initTabs() {
+// Initialize on page load
+function initAllTabs() {
     var groups = ['gmenu', 'gmodel', 'gfield', 'gdomain', 'gbutton', 'gsearch', 'gchatter', 'gglobal', 'gronly'];
-    groups.forEach(function(group) {
-        switchTab(group, 0);
-    });
+    for (var i = 0; i < groups.length; i++) {
+        switchTab(groups[i], 0);
+    }
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTabs);
+    document.addEventListener('DOMContentLoaded', initAllTabs);
 } else {
-    initTabs();
+    initAllTabs();
 }
 </script>
-
 </body>
 </html>
