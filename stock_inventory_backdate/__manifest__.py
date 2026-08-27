@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'Inventory Adjustment Backdating',
-    'version': '19.0.1.0.0',
+    'version': '16.0.1.0.0',
     'category': 'Inventory/Inventory',
     'summary': 'Move a validated inventory adjustment to a past date, together with its '
                'stock moves and journal entries',
@@ -46,7 +46,7 @@ This module adds:
    purchase cost, posted and valued directly in the historical period with zero sequence gaps.
 3. Complete Audit Trail: Read-only history tracking of all date modifications.
 
-This is the Odoo 19 edition. Odoo 19 removed stock.valuation.layer and moved
+This is the Odoo 16 edition. Odoo 16 removed stock.valuation.layer and moved
 the valuation onto stock.move itself.
 """,
     'author': 'Links4Engg Pvt. Ltd',
