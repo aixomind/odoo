@@ -1,0 +1,253 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060c18"/>
+      <stop offset="50%" stop-color="#0b1329"/>
+      <stop offset="100%" stop-color="#050a16"/>
+    </linearGradient>
+
+    <!-- Emerald Title Gradient -->
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111c38"/>
+      <stop offset="100%" stop-color="#0b1326"/>
+    </linearGradient>
+
+    <!-- Window Background Gradient -->
+    <linearGradient id="windowBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e172e"/>
+      <stop offset="100%" stop-color="#080e1e"/>
+    </linearGradient>
+
+    <!-- Button Gradient -->
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <!-- Purple Button Gradient -->
+    <linearGradient id="purpleBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+
+    <!-- Glow Effect Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="60" result="blur"/>
+    </filter>
+    
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="15" stdDeviation="20" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- ═════════════════════ BACKGROUND ═════════════════════ -->
+  <rect width="1200" height="500" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Radial Glow Behind Content -->
+  <circle cx="200" cy="180" r="180" fill="#10b981" opacity="0.07" filter="url(#glow)"/>
+  <circle cx="950" cy="250" r="220" fill="#3b82f6" opacity="0.06" filter="url(#glow)"/>
+
+  <!-- Subtle Grid Dots Pattern -->
+  <g opacity="0.12" fill="#94a3b8">
+    <circle cx="50" cy="50" r="1.2"/><circle cx="100" cy="50" r="1.2"/><circle cx="150" cy="50" r="1.2"/><circle cx="200" cy="50" r="1.2"/><circle cx="250" cy="50" r="1.2"/><circle cx="300" cy="50" r="1.2"/><circle cx="350" cy="50" r="1.2"/><circle cx="400" cy="50" r="1.2"/><circle cx="450" cy="50" r="1.2"/><circle cx="500" cy="50" r="1.2"/>
+    <circle cx="50" cy="100" r="1.2"/><circle cx="100" cy="100" r="1.2"/><circle cx="150" cy="100" r="1.2"/><circle cx="200" cy="100" r="1.2"/><circle cx="250" cy="100" r="1.2"/><circle cx="300" cy="100" r="1.2"/><circle cx="350" cy="100" r="1.2"/><circle cx="400" cy="100" r="1.2"/><circle cx="450" cy="100" r="1.2"/><circle cx="500" cy="100" r="1.2"/>
+    <circle cx="50" cy="150" r="1.2"/><circle cx="100" cy="150" r="1.2"/><circle cx="150" cy="150" r="1.2"/><circle cx="200" cy="150" r="1.2"/><circle cx="250" cy="150" r="1.2"/><circle cx="300" cy="150" r="1.2"/><circle cx="350" cy="150" r="1.2"/><circle cx="400" cy="150" r="1.2"/><circle cx="450" cy="150" r="1.2"/><circle cx="500" cy="150" r="1.2"/>
+    <circle cx="50" cy="200" r="1.2"/><circle cx="100" cy="200" r="1.2"/><circle cx="150" cy="200" r="1.2"/><circle cx="200" cy="200" r="1.2"/><circle cx="250" cy="200" r="1.2"/><circle cx="300" cy="200" r="1.2"/><circle cx="350" cy="200" r="1.2"/><circle cx="400" cy="200" r="1.2"/><circle cx="450" cy="200" r="1.2"/><circle cx="500" cy="200" r="1.2"/>
+    <circle cx="50" cy="250" r="1.2"/><circle cx="100" cy="250" r="1.2"/><circle cx="150" cy="250" r="1.2"/><circle cx="200" cy="250" r="1.2"/><circle cx="250" cy="250" r="1.2"/><circle cx="300" cy="250" r="1.2"/><circle cx="350" cy="250" r="1.2"/><circle cx="400" cy="250" r="1.2"/><circle cx="450" cy="250" r="1.2"/><circle cx="500" cy="250" r="1.2"/>
+    <circle cx="50" cy="300" r="1.2"/><circle cx="100" cy="300" r="1.2"/><circle cx="150" cy="300" r="1.2"/><circle cx="200" cy="300" r="1.2"/><circle cx="250" cy="300" r="1.2"/><circle cx="300" cy="300" r="1.2"/><circle cx="350" cy="300" r="1.2"/><circle cx="400" cy="300" r="1.2"/><circle cx="450" cy="300" r="1.2"/><circle cx="500" cy="300" r="1.2"/>
+    <circle cx="50" cy="350" r="1.2"/><circle cx="100" cy="350" r="1.2"/><circle cx="150" cy="350" r="1.2"/><circle cx="200" cy="350" r="1.2"/><circle cx="250" cy="350" r="1.2"/><circle cx="300" cy="350" r="1.2"/><circle cx="350" cy="350" r="1.2"/><circle cx="400" cy="350" r="1.2"/><circle cx="450" cy="350" r="1.2"/><circle cx="500" cy="350" r="1.2"/>
+    <circle cx="50" cy="400" r="1.2"/><circle cx="100" cy="400" r="1.2"/><circle cx="150" cy="400" r="1.2"/><circle cx="200" cy="400" r="1.2"/><circle cx="250" cy="400" r="1.2"/><circle cx="300" cy="400" r="1.2"/><circle cx="350" cy="400" r="1.2"/><circle cx="400" cy="400" r="1.2"/><circle cx="450" cy="400" r="1.2"/><circle cx="500" cy="400" r="1.2"/>
+  </g>
+
+  <!-- ═════════════════════ LEFT COLUMN (BRANDING & TEXT) ═════════════════════ -->
+  <g transform="translate(60, 60)">
+    
+    <!-- Title Line 1 (White) -->
+    <text x="0" y="52" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="38" font-weight="900" fill="#ffffff" letter-spacing="-0.8">
+      L4E Inventory Adjustment
+    </text>
+
+    <!-- Title Line 2 (Emerald Gradient) -->
+    <text x="0" y="104" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="42" font-weight="900" fill="url(#emeraldGrad)" letter-spacing="-0.8">
+      Backdating &amp; Past Counts
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="142" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="500" fill="#94a3b8">
+      Historical Stock Movements · Accurate Past Valuation · Audit Trail
+    </text>
+
+    <!-- Bullet 1 -->
+    <g transform="translate(0, 182)">
+      <circle cx="5" cy="5" r="4" fill="#10b981"/>
+      <text x="18" y="9" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="500" fill="#cbd5e1">
+        Backdate validated moves, lines &amp; journal entries in 1 transaction
+      </text>
+    </g>
+
+    <!-- Bullet 2 -->
+    <g transform="translate(0, 214)">
+      <circle cx="5" cy="5" r="4" fill="#10b981"/>
+      <text x="18" y="9" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="500" fill="#cbd5e1">
+        Import past counting sheets priced at historical purchase cost
+      </text>
+    </g>
+
+    <!-- Bullet 3 -->
+    <g transform="translate(0, 246)">
+      <circle cx="5" cy="5" r="4" fill="#10b981"/>
+      <text x="18" y="9" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="500" fill="#cbd5e1">
+        Permanent audit history log + journal chatter change tracking
+      </text>
+    </g>
+
+    <!-- Pills / Badges -->
+    <g transform="translate(0, 296)">
+      <!-- Pill 1: Backdating -->
+      <rect x="0" y="0" width="128" height="32" rx="16" fill="#064e3b" stroke="#059669" stroke-width="1.2"/>
+      <circle cx="16" cy="16" r="4.5" fill="#34d399"/>
+      <text x="30" y="21" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6ee7b7">Backdating</text>
+
+      <!-- Pill 2: Past Counts -->
+      <rect x="138" y="0" width="124" height="32" rx="16" fill="#1e3a8a" stroke="#2563eb" stroke-width="1.2"/>
+      <circle cx="154" cy="16" r="4.5" fill="#60a5fa"/>
+      <text x="168" y="21" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#93c5fd">Past Counts</text>
+
+      <!-- Pill 3: Valuation -->
+      <rect x="272" y="0" width="112" height="32" rx="16" fill="#4c1d95" stroke="#7c3aed" stroke-width="1.2"/>
+      <circle cx="288" cy="16" r="4.5" fill="#c084fc"/>
+      <text x="302" y="21" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#e9d5ff">Valuation</text>
+
+      <!-- Pill 4: Audit Trail -->
+      <rect x="394" y="0" width="114" height="32" rx="16" fill="#78350f" stroke="#d97706" stroke-width="1.2"/>
+      <circle cx="410" cy="16" r="4.5" fill="#fbbf24"/>
+      <text x="424" y="21" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#fde68a">Audit Trail</text>
+    </g>
+
+  </g>
+
+  <!-- ═════════════════════ RIGHT COLUMN (MOCK UI WINDOW) ═════════════════════ -->
+  <g transform="translate(605, 42)" filter="url(#shadow)">
+    
+    <!-- Main Window Container -->
+    <rect width="535" height="395" rx="14" fill="url(#windowBg)" stroke="#1e293b" stroke-width="1.5"/>
+
+    <!-- Window Header -->
+    <path d="M 0,14 Q 0,0 14,0 L 521,0 Q 535,0 535,14 L 535,40 L 0,40 Z" fill="#091022"/>
+    <line x1="0" y1="40" x2="535" y2="40" stroke="#1e293b" stroke-width="1"/>
+
+    <!-- Mac Window Control Dots -->
+    <circle cx="22" cy="20" r="5.5" fill="#ef4444"/>
+    <circle cx="38" cy="20" r="5.5" fill="#f59e0b"/>
+    <circle cx="54" cy="20" r="5.5" fill="#10b981"/>
+
+    <!-- Window Title -->
+    <text x="267" y="24" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="500" fill="#64748b" text-anchor="middle">
+      Odoo Inventory &amp; Accounting — Date Corrections
+    </text>
+
+    <!-- ── CARD 1: Backdate Wizard ── -->
+    <g transform="translate(18, 54)">
+      <rect width="499" height="74" rx="8" fill="#0d182e" stroke="#166534" stroke-width="1.2"/>
+      
+      <!-- Icon Avatar -->
+      <rect x="12" y="15" width="44" height="44" rx="22" fill="#052e16" stroke="#15803d" stroke-width="1"/>
+      <text x="34" y="42" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#4ade80" text-anchor="middle">BW</text>
+      
+      <!-- Title -->
+      <text x="68" y="32" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+        Backdate Inventory Adjustment
+      </text>
+      <text x="485" y="32" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="500" fill="#64748b" text-anchor="end">
+        Applied
+      </text>
+
+      <!-- Details -->
+      <text x="68" y="52" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#cbd5e1">
+        Moved <tspan fill="#f87171" font-weight="600">27/08/2026</tspan> ➔ <tspan fill="#4ade80" font-weight="700">15/05/2026</tspan> (stock moves &amp; journal entries)
+      </text>
+    </g>
+
+    <!-- ── CARD 2: Past Inventory Count ── -->
+    <g transform="translate(18, 138)">
+      <rect width="499" height="74" rx="8" fill="#0d182e" stroke="#1e3a8a" stroke-width="1.2"/>
+      
+      <!-- Icon Avatar -->
+      <rect x="12" y="15" width="44" height="44" rx="22" fill="#0c2340" stroke="#2563eb" stroke-width="1"/>
+      <text x="34" y="42" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#60a5fa" text-anchor="middle">PC</text>
+      
+      <!-- Title -->
+      <text x="68" y="32" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">
+        Past Inventory Count Applied
+      </text>
+      <text x="485" y="32" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="500" fill="#64748b" text-anchor="end">
+        07/01/2026
+      </text>
+
+      <!-- Details -->
+      <text x="68" y="52" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#cbd5e1">
+        Count: <tspan fill="#ffffff" font-weight="600">10.0 Units</tspan> · Valued @ <tspan fill="#fbbf24" font-weight="700">$10.00/unit</tspan> · <tspan fill="#a78bfa">STJ/2026/07/0001</tspan>
+      </text>
+    </g>
+
+    <!-- ── CARD 3: Journal Entry Link ── -->
+    <g transform="translate(18, 222)">
+      <rect width="499" height="74" rx="8" fill="#0d182e" stroke="#334155" stroke-width="1.2"/>
+      
+      <!-- Icon Avatar -->
+      <rect x="12" y="15" width="44" height="44" rx="22" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="34" y="42" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#cbd5e1" text-anchor="middle">JE</text>
+      
+      <!-- Title -->
+      <text x="68" y="32" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#e2e8f0">
+        Accounting Journal Entry Posted
+      </text>
+      <text x="485" y="32" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="500" fill="#10b981" text-anchor="end">
+        Posted
+      </text>
+
+      <!-- Details -->
+      <text x="68" y="52" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#cbd5e1">
+        Debit: <tspan fill="#34d399">Stock Valuation $100.00</tspan> · Credit: <tspan fill="#93c5fd">Stock Interim $100.00</tspan>
+      </text>
+    </g>
+
+    <!-- ── CARD 4: Bottom Action Card ── -->
+    <g transform="translate(18, 306)">
+      <rect width="499" height="70" rx="8" fill="#140f2b" stroke="#581c87" stroke-width="1.2"/>
+      
+      <!-- Icon Avatar -->
+      <rect x="14" y="16" width="38" height="38" rx="8" fill="#2e1065" stroke="#7e22ce" stroke-width="1"/>
+      <text x="33" y="40" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#c084fc" text-anchor="middle">HL</text>
+
+      <text x="64" y="34" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#e9d5ff">
+        Backdating History Log #104
+      </text>
+      <text x="64" y="52" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#a78bfa">
+        Date moved from 27/08/2026 to 01/07/2026 by Administrator
+      </text>
+
+      <!-- Right Action Button -->
+      <g transform="translate(390, 18)">
+        <rect width="95" height="34" rx="6" fill="url(#purpleBtn)"/>
+        <text x="47" y="22" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">
+          Audited
+        </text>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- ═════════════════════ FOOTER BRANDING ═════════════════════ -->
+  <text x="600" y="478" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="500" fill="#475569" text-anchor="middle">
+    Links4Engg &nbsp;·&nbsp; support@links4engg.com &nbsp;·&nbsp; www.links4engg.com
+  </text>
+
+</svg>
