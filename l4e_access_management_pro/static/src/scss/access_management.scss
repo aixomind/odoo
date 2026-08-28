@@ -1,117 +1,75 @@
-/* Access Management Pro Custom SCSS Styles (Odoo 16) */
+/* =====================================================
+   Access Management Pro – Chatter Restrictions
+   All selectors are scoped to amp-* classes that OWL
+   adds to the .o-mail-Chatter root via t-att-class.
+   Because OWL manages these classes reactively from
+   ampState, they survive every re-render automatically.
+   ===================================================== */
 
-.o_access_management_highlight {
-    border-left: 4px solid #7c7bad;
+/* Hide entire Chatter */
+.o-mail-Chatter.amp-hide-chatter {
+    display: none !important;
 }
 
-/* Chatter Hiding Rules */
-.o_form_view.o_hide_chatter,
-.o_hide_chatter {
-    .o_Chatter,
-    .o_ChatterTopbar,
-    .o-mail-Chatter,
-    .oe_chatter,
-    .o_chatter {
+/* Hide Send Message button */
+.o-mail-Chatter.amp-hide-send {
+    .o-mail-Chatter-sendMessage {
         display: none !important;
     }
 }
 
-.o_form_view.o_hide_send_message,
-.o_hide_send_message {
-    .o_ChatterTopbar_buttonSendMessage,
-    .o-mail-Chatter-sendMessage,
-    button.o-mail-Chatter-sendMessage,
-    button[title*="Send message"],
-    .o_chatter_button_new_message {
+/* Hide Log Note button */
+.o-mail-Chatter.amp-hide-note {
+    .o-mail-Chatter-logNote {
         display: none !important;
     }
 }
 
-.o_form_view.o_hide_log_note,
-.o_hide_log_note {
-    .o_ChatterTopbar_buttonLogNote,
-    .o-mail-Chatter-logNote,
-    button.o-mail-Chatter-logNote,
-    button[title*="Log note"],
-    .o_chatter_button_log_note {
-        display: none !important;
-    }
-}
-
-.o_form_view.o_hide_schedule_activity,
-.o_hide_schedule_activity {
-    .o_ChatterTopbar_buttonScheduleActivity,
+/* Hide Activities button */
+.o-mail-Chatter.amp-hide-activity {
     .o-mail-Chatter-activity,
-    button.o-mail-Chatter-activity,
-    button[title*="Activity"],
-    button[title*="activity"],
-    button[title*="Schedule activity"],
-    .o_chatter_button_schedule_activity {
+    .o-mail-ActivityList {
         display: none !important;
     }
 }
 
-.o_form_view.o_hide_followers,
-.o_hide_followers {
-    .o_ChatterTopbar_followerListMenu,
-    .o_FollowerListMenu,
-    .o_ChatterTopbar_followButton,
+/* Hide Followers widget */
+.o-mail-Chatter.amp-hide-followers {
     .o-mail-Followers,
-    .o_chatter_followers,
-    .o-mail-Chatter-followers,
-    [title*="follower"],
-    [title*="Follower"] {
+    .o-mail-Followers-button,
+    .o-mail-Chatter-follow {
         display: none !important;
     }
 }
 
-.o_form_view.o_hide_attachments,
-.o_hide_attachments {
-    .o_ChatterTopbar_buttonAddAttachments,
-    .o_ChatterTopbar_buttonToggleAttachments,
-    .o-mail-AttachmentBox,
-    .o_chatter_attachments,
-    .o-mail-Chatter-attachments,
-    [title*="attachment"],
-    [title*="Attachment"] {
+/* Hide Attachments button (paperclip) */
+.o-mail-Chatter.amp-hide-attachments {
+    .o-mail-Chatter-fileUploader,
+    .o-mail-Chatter-attachFiles,
+    [fileuploadclass],
+    button[title*="ttach"],
+    .o_field_many2many_binary {
         display: none !important;
     }
 }
 
-/* Custom Filter & Custom Group Hiding Rules */
-body.o_hide_custom_filter,
-.o_hide_custom_filter {
+/* =====================================================
+   Custom Filter & Group hiding (Search bar)
+   ===================================================== */
+body.o_hide_custom_filter {
     .o_add_custom_filter,
     .o_add_custom_filter_menu,
     .o_custom_filter_submenu,
-    .o_add_custom_filter_item,
     [title*="Custom Filter"] {
         display: none !important;
     }
 }
 
-body.o_hide_custom_group,
-.o_hide_custom_group {
+body.o_hide_custom_group {
     .o_add_custom_group,
     .o_add_custom_group_menu,
     .o_custom_group_submenu,
-    .o_add_custom_group_item,
     [title*="Custom Group"] {
         display: none !important;
-    }
-}
-
-/* Form view label & field alignment normalization when fields are hidden */
-.o_form_view {
-    .o_inner_group,
-    .o_group {
-        .o_td_label {
-            text-align: left !important;
-            label, .o_form_label {
-                text-align: left !important;
-                justify-content: flex-start !important;
-                margin-left: 0 !important;
-            }
-        }
     }
 }
