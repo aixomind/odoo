@@ -1,40 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-
-    <!--
-        Access Management Pro – Chatter template patch.
-
-        Strategy:
-          1. Add OWL-managed CSS classes to the Chatter root div via t-att-class.
-             Because this is part of the OWL template, the classes are kept reactive
-             across every re-render – OWL itself manages them, CSS cannot fight them.
-          2. SCSS targets those classes to hide the relevant elements.
-          3. For Send Message / Log Note we also use direct t-if (belt-and-suspenders).
-    -->
-    <t t-inherit="mail.Chatter" t-inherit-mode="extension">
-
-        <!-- Add reactive amp-* classes to the chatter root div -->
-        <xpath expr="//div[hasclass('o-mail-Chatter')]" position="attributes">
-            <attribute name="t-att-class">{
-                'amp-hide-send':        ampState.hideSendMessage,
-                'amp-hide-note':        ampState.hideLogNote,
-                'amp-hide-activity':    ampState.hideScheduleActivity,
-                'amp-hide-followers':   ampState.hideFollowers,
-                'amp-hide-attachments': ampState.hideAttachments,
-                'amp-hide-chatter':     ampState.hideChatter
-            }</attribute>
-        </xpath>
-
-        <!-- Belt-and-suspenders: also t-if on Send Message -->
-        <xpath expr="//button[hasclass('o-mail-Chatter-sendMessage')]" position="attributes">
-            <attribute name="t-if">!ampState.hideSendMessage</attribute>
-        </xpath>
-
-        <!-- Belt-and-suspenders: also t-if on Log Note -->
-        <xpath expr="//button[hasclass('o-mail-Chatter-logNote')]" position="attributes">
-            <attribute name="t-if">!ampState.hideLogNote</attribute>
-        </xpath>
-
-    </t>
-
+    <!-- Clean template container -->
 </templates>
