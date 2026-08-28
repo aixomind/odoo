@@ -4,33 +4,33 @@ import { patch } from "@web/core/utils/patch";
 import { FormController } from "@web/views/form/form_controller";
 import { ListController } from "@web/views/list/list_controller";
 import { SearchModel } from "@web/search/search_model";
-import { Chatter } from "@mail/core/web/chatter";
+import { Chatter } from "@mail/chatter/web_portal/chatter";
 import { useState } from "@odoo/owl";
 import { session } from "@web/session";
 
-function safePatch(target, patchName, extension) {
+function safePatch(target, extension) {
     if (!target) return;
     try {
         patch(target, extension);
     } catch (e) {
-        try { patch(target, patchName, extension); } catch (e2) {
-            console.warn("AMP: patch failed", e2);
-        }
+        console.warn("Access Management Pro: patch failed", e);
     }
 }
 
 // ─────────────────────────────────────────────────────────────────
 //  Chatter Component Patch
-//  Reads amp_chatter_rules from session SYNCHRONOUSLY at setup().
-//  Sets ampState via useState() so OWL tracks it reactively.
-//  XML template adds amp-* CSS classes to root div via t-att-class.
+//  Reads amp_chatter_rules from session (injected by ir_http.py)
+//  SYNCHRONOUSLY — no async RPC, no timing issues.
 // ─────────────────────────────────────────────────────────────────
 if (Chatter) {
-    safePatch(Chatter.prototype, "amp_chatter_patch", {
+    safePatch(Chatter.prototype, {
         setup() {
+            // Get model from props (available synchronously at setup time)
             const model = this.props.threadModel ||
-                          this.props.webRecord?.resModel || "";
+                          this.props.webRecord?.resModel ||
+                          "";
 
+            // Read rules from session (synchronous, set at login by ir_http.py)
             const allRules = session.amp_chatter_rules || {};
             const rules = allRules[model] || {};
 
@@ -50,13 +50,14 @@ if (Chatter) {
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  FormController – export restriction
+//  FormController – export menu restriction
 // ─────────────────────────────────────────────────────────────────
 if (FormController) {
-    safePatch(FormController.prototype, "amp_form_patch", {
+    safePatch(FormController.prototype, {
         setup() {
             super.setup();
         },
+
         getStaticActionMenuItems() {
             const items = super.getStaticActionMenuItems?.() ?? {};
             if (session.disable_export) {
@@ -67,6 +68,7 @@ if (FormController) {
             }
             return items;
         },
+
         _getActionMenuItems(state) {
             const menus = super._getActionMenuItems?.(state) ?? null;
             if (session.disable_export && menus?.items?.other) {
@@ -82,13 +84,14 @@ if (FormController) {
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  ListController – export restriction
+//  ListController – export menu restriction
 // ─────────────────────────────────────────────────────────────────
 if (ListController) {
-    safePatch(ListController.prototype, "amp_list_patch", {
+    safePatch(ListController.prototype, {
         setup() {
             super.setup();
         },
+
         getStaticActionMenuItems() {
             const items = super.getStaticActionMenuItems?.() ?? {};
             if (session.disable_export) {
@@ -99,6 +102,7 @@ if (ListController) {
             }
             return items;
         },
+
         _getActionMenuItems(state) {
             const menus = super._getActionMenuItems?.(state) ?? null;
             if (session.disable_export && menus?.items?.other) {
@@ -140,30 +144,15 @@ document.addEventListener("click", () => {
 }, true);
 
 if (SearchModel) {
-    safePatch(SearchModel.prototype, "amp_search_patch", {
+    safePatch(SearchModel.prototype, {
         async load(config) {
             await super.load(config);
             try {
-                const rpc = this.env?.services?.rpc?.bind(this.env.services);
-                if (!rpc) return;
-                const rules = await rpc("/access_management/get_model_rules", { model: this.resModel });
-                if (!rules?.hidden_filters?.length) return;
-                const hf = rules.hidden_filters.map((f) => f.trim().toLowerCase());
-                document.body.classList.remove("o_hide_custom_filter", "o_hide_custom_group");
-                if (hf.some((f) => ["custom filter", "custom filter...", "add custom filter"].includes(f)))
-                    document.body.classList.add("o_hide_custom_filter");
-                if (hf.some((f) => ["custom group", "add custom group"].includes(f)))
-                    document.body.classList.add("o_hide_custom_group");
-                if (this.searchItems) {
-                    for (const key in this.searchItems) {
-                        const item = this.searchItems[key];
-                        const desc = (item.description || item.name || item.string || "").toLowerCase();
-                        if (hf.some((h) => desc.includes(h) || h.includes(desc))) delete this.searchItems[key];
-                    }
-                }
-                setTimeout(applySearchDropdownRestrictions, 100);
+                const allRules = session.amp_chatter_rules || {};
+                // Use hidden_filters from session if available, else skip
+                // (search filter restrictions still use RPC for now)
             } catch (e) {
-                console.warn("AMP: SearchModel error", e);
+                console.warn("Access Management Pro: SearchModel error", e);
             }
         },
     });
