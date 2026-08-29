@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_inherit_l4e_reports" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.l4e.reports</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Report Header &amp; Footer" name="report_header_footer">
+                    <group>
+                        <group string="Configuration">
+                            <field name="header_footer_type" widget="radio"/>
+                        </group>
+                        <group string="Report Color Theme">
+                            <field name="report_text_color" widget="color"/>
+                            <field name="report_table_color" widget="color"/>
+                            <field name="report_text_bg_color" widget="color"/>
+                            <div colspan="2" class="mt-2">
+                                <button name="action_reset_report_colors" type="object" string="Reset to Default Colors" icon="fa-refresh" class="btn btn-secondary btn-sm"/>
+                            </div>
+                        </group>
+                    </group>
+                    <group invisible="header_footer_type != 'custom_image'">
+                        <group string="Header Banner">
+                            <field name="report_header_image" widget="image" class="oe_avatar" style="max-width: 300px; max-height: 100px;"/>
+                        </group>
+                        <group string="Footer Banner">
+                            <field name="report_footer_image" widget="image" class="oe_avatar" style="max-width: 300px; max-height: 100px;"/>
+                            <field name="report_footer_text"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
