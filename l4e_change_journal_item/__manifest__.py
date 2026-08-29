@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'Journal Entry Transfer / Bulk Change Journal & Account',
-    'version': '18.0.5.0.0',
+    'version': '18.0.5.0.1',
     'price': 149,
     'currency': 'USD',
     'category': 'Accounting',
@@ -52,5 +52,5 @@ Key Features:
     'installable': True,
     'license': 'LGPL-3',
     'application': True,
-    'images': ['static/description/logo_screenshot.png',]
+    'images': ['static/description/banner.gif',]
 }
