@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchaseorder_document_custom_l4e" inherit_id="purchase.report_purchaseorder_document">
+        <!-- Wrap in custom external layout supporting company custom header/footer images -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+            <attribute name="t-call">l4e_custom_reports_suite.custom_external_layout</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('page')]" position="replace">
+            <t t-set="doc" t-value="o"/>
+            <t t-set="comp" t-value="doc and 'company_id' in doc._fields and doc.company_id or env.company"/>
+            <t t-set="text_col" t-value="comp and comp.report_text_color or '#000000'"/>
+            <t t-set="table_col" t-value="comp and comp.report_table_color or '#dcdcdc'"/>
+            <t t-set="banner_col" t-value="comp and comp.report_text_bg_color or '#dcdcdc'"/>
+            <div class="page" t-attf-style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #{text_col}; font-size: 14px; line-height: 1.45;">
+
+                <!-- 1. Header Title Banner & QR Code -->
+                <div class="row mb-3 align-items-center">
+                    <div class="col-7">
+                        <div t-attf-style="background-color: #{banner_col}; color: #{text_col}; padding: 4px 12px; display: inline-block; font-weight: 900; font-size: 21px; letter-spacing: 0.5px; border-radius: 0px;">
+                            <t t-if="doc.state in ['draft', 'sent', 'to approve']">PURCHASE QUOTATION</t>
+                            <t t-else="">PURCHASE ORDER</t>
+                        </div>
+                    </div>
+                    <div class="col-5 text-end" id="qrcode">
+                        <img t-if="doc.name" t-att-src="'/report/barcode/?barcode_type=QR&amp;value=' + doc.name + '&amp;width=90&amp;height=90'" style="max-height: 90px; max-width: 90px;"/>
+                    </div>
+                </div>
+
+                <!-- Hidden anchor elements for standard Odoo child view xpaths -->
+                <div class="d-none" style="display: none !important;">
+                    <div id="informations"/>
+                    <div id="total"/>
+                    <p name="comment"/>
+                    <p name="note"/>
+                </div>
+
+                <!-- 2. Vendor Address Section (Right side empty) -->
+                <div class="row mb-3" style="font-size: 14px;">
+                    <div class="col-6">
+                        <div t-attf-style="font-weight: 900; font-size: 15.5px; margin-bottom: 3px; color: #{text_col};">Vendor Address</div>
+                        <div style="padding-left: 8px;">
+                            <div t-field="doc.partner_id.name" t-attf-style="font-weight: bold; text-transform: uppercase; font-size: 15px; color: #{text_col};"/>
+                            <div t-if="doc.partner_id.street">
+                                <span class="fa fa-map-marker me-1" style="color: #444;"/>
+                                <span t-field="doc.partner_id.street"/>
+                            </div>
+                            <div t-if="doc.partner_id.street2" t-field="doc.partner_id.street2"/>
+                            <div>
+                                <span t-if="doc.partner_id.city" t-field="doc.partner_id.city"/>
+                                <span t-if="doc.partner_id.state_id">, <span t-field="doc.partner_id.state_id.name"/></span>
+                                <span t-if="doc.partner_id.zip"> - <span t-field="doc.partner_id.zip"/></span>
+                            </div>
+                            <div t-if="doc.partner_id.country_id" t-field="doc.partner_id.country_id.name"/>
+                            <div t-if="doc.partner_id.phone" class="mt-1">
+                                <strong style="font-weight: 900;">Phone: </strong><span t-field="doc.partner_id.phone"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                    </div>
+                </div>
+
+                <!-- 3. Key Meta Info Grid (Splitted equally left and right) -->
+                <div class="row mb-3" style="font-size: 14px;">
+                    <!-- Left Side Meta Info -->
+                    <div class="col-6">
+                        <table class="table table-sm table-borderless" style="font-size: 14px; margin-bottom: 0;">
+                            <tbody>
+                                <tr t-if="doc.name">
+                                    <td t-attf-style="font-weight: 900; width: 45%; padding: 3px 0; color: #{text_col};">PO No.</td>
+                                    <td t-attf-style="width: 55%; padding: 3px 0; color: #{text_col};"><span t-field="doc.name"/></td>
+                                </tr>
+                                <tr t-if="doc.date_order">
+                                    <td t-attf-style="font-weight: 900; padding: 3px 0; color: #{text_col};">Order Date</td>
+                                    <td t-attf-style="padding: 3px 0; color: #{text_col};"><span t-field="doc.date_order" t-options='{"widget": "datetime", "format": "MM/dd/yyyy HH:mm:ss"}'/></td>
+                                </tr>
+                                <tr t-if="doc.payment_term_id">
+                                    <td t-attf-style="font-weight: 900; padding: 3px 0; color: #{text_col};">Payment Terms</td>
+                                    <td t-attf-style="padding: 3px 0; color: #{text_col};"><span t-field="doc.payment_term_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Right Side Meta Info -->
+                    <div class="col-6">
+                        <table class="table table-sm table-borderless" style="font-size: 14px; margin-bottom: 0;">
+                            <tbody>
+                                <tr t-if="doc.partner_ref">
+                                    <td t-attf-style="font-weight: 900; width: 45%; padding: 3px 0; color: #{text_col};">Vendor Ref</td>
+                                    <td t-attf-style="width: 55%; padding: 3px 0; color: #{text_col};"><span t-field="doc.partner_ref"/></td>
+                                </tr>
+                                <tr t-if="doc.date_planned">
+                                    <td t-attf-style="font-weight: 900; padding: 3px 0; color: #{text_col};">Expected Arrival</td>
+                                    <td t-attf-style="padding: 3px 0; color: #{text_col};"><span t-field="doc.date_planned" t-options='{"widget": "datetime", "format": "MM/dd/yyyy HH:mm:ss"}'/></td>
+                                </tr>
+                                <tr t-if="doc.user_id">
+                                    <td t-attf-style="font-weight: 900; padding: 3px 0; color: #{text_col};">Buyer</td>
+                                    <td t-attf-style="padding: 3px 0; color: #{text_col};"><span t-field="doc.user_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 4. Line Items Table -->
+                <table class="table table-sm o_main_table" style="width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 12px; margin-bottom: 16px; border: 1.5px solid #555555;">
+                    <thead style="display: table-row-group;">
+                        <tr t-attf-style="background-color: #{table_col}; color: #{text_col}; font-weight: 900; text-align: center; text-transform: uppercase; font-size: 14px; page-break-inside: avoid;">
+                            <th style="padding: 7px 6px; border: 1.5px solid #555555; width: 6%; font-weight: 900;">SNO</th>
+                            <th style="padding: 7px 6px; border: 1.5px solid #555555; text-align: left; width: 50%; font-weight: 900;">DESCRIPTION</th>
+                            <th style="padding: 7px 6px; border: 1.5px solid #555555; width: 10%; font-weight: 900;">QTY</th>
+                            <th style="padding: 7px 6px; border: 1.5px solid #555555; text-align: right; width: 17%; font-weight: 900;">UNIT PRICE</th>
+                            <th style="padding: 7px 6px; border: 1.5px solid #555555; text-align: right; width: 17%; font-weight: 900;">TOTAL PRICE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="line_no" t-value="1"/>
+                        <t t-foreach="doc.order_line" t-as="line">
+                            <!-- 1. Normal Product Line -->
+                            <t t-if="not line.display_type or line.display_type in ('product', False)">
+                                <tr style="border-bottom: 1.5px solid #555555; vertical-align: top; page-break-inside: avoid;">
+                                    <td style="padding: 7px 6px; text-align: center; border: 1.5px solid #555555;">
+                                        <span t-esc="line_no"/>
+                                        <t t-set="line_no" t-value="line_no + 1"/>
+                                    </td>
+                                    <td style="padding: 7px 6px; border: 1.5px solid #555555; vertical-align: top;">
+                                        <t t-if="'product_id' in line._fields and line.product_id and line.name and line.name != line.product_id.name and line.name != line.product_id.display_name">
+                                            <strong t-field="line.product_id.name"/><br/>
+                                            <span t-field="line.name" style="white-space: pre-line;"/>
+                                        </t>
+                                        <t t-elif="'product_id' in line._fields and line.product_id and not line.name">
+                                            <span t-field="line.product_id.name" style="white-space: pre-line;"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-field="line.name" style="white-space: pre-line;"/>
+                                        </t>
+                                    </td>
+                                    <td style="padding: 7px 6px; text-align: center; border: 1.5px solid #555555;">
+                                        <span t-field="line.product_qty" t-options='{"widget": "float", "decimal_precision": "Product Unit of Measure"}'/>
+                                    </td>
+                                    <td style="padding: 7px 6px; text-align: right; border: 1.5px solid #555555;">
+                                        <span t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                    </td>
+                                    <td style="padding: 7px 6px; text-align: right; border: 1.5px solid #555555;">
+                                        <span t-field="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <!-- 2. Section Header Line -->
+                            <t t-elif="line.display_type == 'line_section'">
+                                <tr t-attf-style="background-color: #{table_col}; font-weight: 900; page-break-inside: avoid;">
+                                    <td colspan="5" t-attf-style="padding: 7px 8px; border: 1.5px solid #555555; font-size: 14px; color: #{text_col}; font-weight: 900;">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <!-- 3. Note Line -->
+                            <t t-elif="line.display_type == 'line_note'">
+                                <tr style="font-style: italic; background-color: #ffffff; page-break-inside: avoid; vertical-align: top;">
+                                    <td colspan="5" style="padding: 7px 10px 10px 10px; border: 1.5px solid #555555; font-size: 13px; color: #333333; line-height: 1.35; vertical-align: top;">
+                                        <div t-field="line.name" style="white-space: pre-wrap; margin: 0; padding: 0; line-height: 1.35;"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+
+                <!-- 5. Subtotal and Total Banner Section (Prevent page-break cutting) -->
+                <div style="page-break-inside: avoid !important; margin-top: 8px;">
+                    <div class="row justify-content-end mb-2" style="font-size: 14.5px;">
+                        <div class="col-auto">
+                            <table class="table table-sm table-borderless mb-0" style="font-size: 14.5px;">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-end" t-attf-style="font-weight: 900; padding: 3px 20px 3px 0; color: #{text_col};">Subtotal</td>
+                                        <td class="text-end" t-attf-style="padding: 3px 0; min-width: 130px; color: #{text_col};">
+                                            <span t-field="doc.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <t t-if="doc.amount_tax">
+                                        <tr>
+                                            <td class="text-end" t-attf-style="font-weight: 900; padding: 3px 20px 3px 0; color: #{text_col};">Taxes</td>
+                                            <td class="text-end" t-attf-style="padding: 3px 0; min-width: 130px; color: #{text_col};">
+                                                <span t-field="doc.amount_tax" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 6. Total Grey Box Banner -->
+                    <div class="row align-items-center mb-3" t-attf-style="background-color: #{banner_col}; padding: 10px 14px; font-size: 15.5px; font-weight: 900; color: #{text_col}; border-radius: 0px; page-break-inside: avoid !important;">
+                        <div class="col-7">
+                            <span>Total (<span t-field="doc.currency_id.name"/>) : </span>
+                            <span t-if="'amount_to_text' in doc._fields and doc.amount_to_text" t-field="doc.amount_to_text"/>
+                            <span t-else="" t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>
+                        </div>
+                        <div class="col-5 text-end">
+                            <span>Total <span t-field="doc.currency_id.name"/></span>
+                            <span class="ms-2" t-field="doc.amount_total" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Note / Terms Section -->
+                <t t-if="'notes' in doc._fields and doc.notes">
+                    <div class="mb-3" t-attf-style="font-size: 13px; page-break-inside: avoid; color: #{text_col};">
+                        <strong style="font-weight: 900;">Note:</strong>
+                        <p t-field="doc.notes" class="mt-1" style="white-space: pre-line;"/>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+</odoo>
