@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Purchase Order Form View Extension -->
+    <record id="purchase_order_form_inherit_l4e_signatures" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.l4e.signatures</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Report Signatures &amp; Stamp" name="signatures_page">
+                    <group>
+                        <group string="Company Stamp Options">
+                            <field name="company_enable_stamp" invisible="1"/>
+                            <field name="show_company_stamp" widget="boolean_toggle" attrs="{'readonly': [('company_enable_stamp', '=', False)]}"/>
+                        </group>
+                        <group string="Vendor Signature Options">
+                            <field name="show_vendor_signature" widget="boolean_toggle"/>
+                            <field name="vendor_signature" widget="signature" attrs="{'invisible': [('show_vendor_signature', '=', False)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

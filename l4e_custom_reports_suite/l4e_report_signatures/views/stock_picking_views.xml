@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Stock Picking Form View Extension -->
+    <record id="view_picking_form_inherit_l4e_signatures" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.l4e.signatures</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Report Signatures &amp; Stamp" name="signatures_page">
+                    <group>
+                        <group string="Company Stamp Options">
+                            <field name="company_enable_stamp" invisible="1"/>
+                            <field name="show_company_stamp" widget="boolean_toggle" attrs="{'readonly': [('company_enable_stamp', '=', False)]}"/>
+                        </group>
+                        <group string="Customer Signature Options">
+                            <field name="show_customer_signature" widget="boolean_toggle"/>
+                            <field name="customer_signature" widget="signature" attrs="{'invisible': [('show_customer_signature', '=', False)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

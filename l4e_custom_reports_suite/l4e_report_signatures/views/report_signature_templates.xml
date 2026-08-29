@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Standalone Reusable Signature & Company Stamp QWeb Template -->
+    <template id="l4e_report_signature_block">
+        <t t-set="doc" t-value="doc or o"/>
+        <div class="row mb-1" style="font-size: 15px; text-align: center;">
+            <!-- Left Side: Customer / Vendor Signature -->
+            <div class="col-6 text-center">
+                <t t-set="print_sig" t-value="bool(doc and (('show_customer_signature' in doc._fields and doc.show_customer_signature) or ('show_vendor_signature' in doc._fields and doc.show_vendor_signature)))"/>
+                <t t-if="print_sig">
+                    <div style="height: 75px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 0; padding-bottom: 0; overflow: visible;">
+                        <t t-if="'customer_signature' in doc._fields and doc.customer_signature">
+                            <img t-att-src="image_data_uri(doc.customer_signature)" style="height: 75px; max-height: 75px; max-width: 260px; width: auto; object-fit: contain; vertical-align: bottom; margin-bottom: 0; transform: scale(1.65); transform-origin: center bottom;"/>
+                        </t>
+                        <t t-elif="'vendor_signature' in doc._fields and doc.vendor_signature">
+                            <img t-att-src="image_data_uri(doc.vendor_signature)" style="height: 75px; max-height: 75px; max-width: 260px; width: auto; object-fit: contain; vertical-align: bottom; margin-bottom: 0; transform: scale(1.65); transform-origin: center bottom;"/>
+                        </t>
+                    </div>
+                    <div style="border-top: 1.5px solid #000000; width: 75%; margin: 0 auto 2px auto;"/>
+                    <div style="font-weight: 600; font-size: 14px;">
+                        <t t-if="doc and doc._name == 'purchase.order'">Vendor Signature</t>
+                        <t t-else="">Customer Signature</t>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Right Side: Official Company Stamp & Seal -->
+            <div class="col-6 text-center">
+                <t t-set="comp" t-value="doc and 'company_id' in doc._fields and doc.company_id or env.company"/>
+                <t t-set="print_stamp" t-value="bool(doc and 'show_company_stamp' in doc._fields and doc.show_company_stamp)"/>
+                <t t-if="print_stamp">
+                    <div style="height: 75px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 0; padding-bottom: 0; overflow: visible;">
+                        <t t-if="comp and comp.enable_company_stamp and comp.company_stamp_image">
+                            <img t-att-src="image_data_uri(comp.company_stamp_image)" style="height: 75px; max-height: 75px; max-width: 260px; width: auto; object-fit: contain; vertical-align: bottom; margin-bottom: 0; transform: scale(1.4); transform-origin: center bottom;"/>
+                        </t>
+                    </div>
+                    <div style="border-top: 1.5px solid #000000; width: 75%; margin: 0 auto 2px auto;"/>
+                    <div style="font-weight: 900; font-size: 14px;" t-if="comp" t-field="comp.name"/>
+                </t>
+            </div>
+        </div>
+    </template>
+
+    <!-- JS snippet to show signature block only on last page and align footer -->
+    <template id="l4e_last_page_js">
+        <script type="text/javascript">
+        <![CDATA[
+            (function() {
+                var vars = {};
+                var query = window.location.search.substring(1).split('&');
+                for (var i = 0; i < query.length; i++) {
+                    var pair = query[i].split('=');
+                    vars[pair[0]] = decodeURIComponent(pair[1]);
+                }
+                var page = parseInt(vars.page, 10);
+                var topage = parseInt(vars.topage, 10);
+                var sigs = document.getElementsByClassName('l4e-sig-block');
+                var footers = document.getElementsByClassName('o_footer_content');
+
+                for (var j = 0; j < sigs.length; j++) {
+                    if (!vars.page || page === topage) {
+                        sigs[j].style.display = 'block';
+                    } else {
+                        sigs[j].style.display = 'none';
+                    }
+                }
+
+                for (var k = 0; k < footers.length; k++) {
+                    if (!vars.page || page === topage) {
+                        footers[k].style.position = 'static';
+                        footers[k].style.bottom = 'auto';
+                    } else {
+                        footers[k].style.position = 'absolute';
+                        footers[k].style.bottom = '-18px';
+                        footers[k].style.left = '0px';
+                        footers[k].style.right = '0px';
+                        footers[k].style.width = '100%';
+                    }
+                }
+            })();
+        ]]>
+        </script>
+    </template>
+
+    <!-- web.external_layout_standard -->
+    <template id="external_layout_standard_inherit_l4e" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[contains(@t-attf-class, 'o_standard_footer')]/div" position="attributes">
+            <attribute name="class">text-center o_footer_content</attribute>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'o_standard_footer')]/div" position="before">
+            <div class="l4e-sig-block" style="display:none; margin-bottom: 6px;">
+                <t t-call="l4e_custom_reports_suite.l4e_report_signature_block"/>
+            </div>
+            <t t-call="l4e_custom_reports_suite.l4e_last_page_js"/>
+        </xpath>
+    </template>
+
+    <!-- web.external_layout_striped -->
+    <template id="external_layout_striped_inherit_l4e" inherit_id="web.external_layout_striped">
+        <xpath expr="//div[contains(@t-attf-class, 'o_background_footer')]/div" position="attributes">
+            <attribute name="class">text-center o_footer_content</attribute>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'o_background_footer')]/div" position="before">
+            <div class="l4e-sig-block" style="display:none; margin-bottom: 6px;">
+                <t t-call="l4e_custom_reports_suite.l4e_report_signature_block"/>
+            </div>
+            <t t-call="l4e_custom_reports_suite.l4e_last_page_js"/>
+        </xpath>
+    </template>
+
+    <!-- web.external_layout_boxed -->
+    <template id="external_layout_boxed_inherit_l4e" inherit_id="web.external_layout_boxed">
+        <xpath expr="//div[contains(@t-attf-class, 'o_boxed_footer')]/div" position="attributes">
+            <attribute name="class">text-center o_footer_content</attribute>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'o_boxed_footer')]/div" position="before">
+            <div class="l4e-sig-block" style="display:none; margin-bottom: 6px;">
+                <t t-call="l4e_custom_reports_suite.l4e_report_signature_block"/>
+            </div>
+            <t t-call="l4e_custom_reports_suite.l4e_last_page_js"/>
+        </xpath>
+    </template>
+
+    <!-- web.external_layout_bold -->
+    <template id="external_layout_bold_inherit_l4e" inherit_id="web.external_layout_bold">
+        <xpath expr="//div[contains(@t-attf-class, 'o_clean_footer')]/div" position="attributes">
+            <attribute name="class">row o_footer_content</attribute>
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'o_clean_footer')]/div" position="before">
+            <div class="l4e-sig-block" style="display:none; margin-bottom: 6px;">
+                <t t-call="l4e_custom_reports_suite.l4e_report_signature_block"/>
+            </div>
+            <t t-call="l4e_custom_reports_suite.l4e_last_page_js"/>
+        </xpath>
+    </template>
+
+    <!-- web.external_layout_folder (Not supported in Odoo 17, commented out)
+    <template id="external_layout_folder_inherit_l4e" inherit_id="web.external_layout_folder">
+        <xpath expr="//div[hasclass('o_footer_content')]" position="before">
+            <div class="l4e-sig-block" style="display:none; margin-bottom: 6px;">
+                <t t-call="l4e_custom_reports_suite.l4e_report_signature_block"/>
+            </div>
+            <t t-call="l4e_custom_reports_suite.l4e_last_page_js"/>
+        </xpath>
+    </template>
+    -->
+
+    <!--
+        NOTE: web.external_layout_wave and web.external_layout_bubble are NOT supported
+        because their footer divs use t-attf-class exclusively (no static class attributes),
+        making xpath targeting impossible. These are decorative layouts rarely used for
+        business documents. All standard business layouts (standard, striped, boxed, bold,
+        folder) are fully supported above.
+    -->
+</odoo>
