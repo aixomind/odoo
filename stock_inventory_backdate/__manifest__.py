@@ -1,3 +1,25 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 {
     'name': 'Inventory Adjustment Backdating',
     'version': '16.0.1.5.0',
@@ -31,7 +53,7 @@ dates are enforced unless an administrator explicitly overrides them.
 This is the Odoo 18 edition. Odoo 19 removed stock.valuation.layer and moved
 the valuation onto stock.move itself, so it needs the separate 19.0 build.
 """,
-    'author': 'Custom',
+    'author': 'Links4Engg Pvt. Ltd',
     'license': 'LGPL-3',
     'depends': ['stock_account'],
     'images': ['static/description/banner.png'],

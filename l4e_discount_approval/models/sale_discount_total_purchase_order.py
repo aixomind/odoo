@@ -167,4 +167,3 @@ class PurchaseOrder(models.Model):
         })
         return invoice_vals
 
-

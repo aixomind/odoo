@@ -43,8 +43,8 @@ Key Features:
 * Audit log creation containing record-by-record execution statuses.
 * Compatible with Odoo 16 Community and Enterprise editions.
     """,
-    'author': 'Links4engg',
-    'website': 'https://www.links4engg.com',
+    'author': 'Links4Engg Pvt. Ltd',
+    'website': 'https://links4engg.com',
     'depends': ['base', 'web'],
     'data': [
         'security/security.xml',

@@ -94,4 +94,3 @@ class TrackingConfig(models.Model):
             vals['tracking_enable'] = False
         return super(TrackingConfig, self).write(vals)
 
-
