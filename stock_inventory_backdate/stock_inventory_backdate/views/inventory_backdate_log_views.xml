@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_inventory_backdate_log_list" model="ir.ui.view">
+        <field name="name">inventory.backdate.log.list</field>
+        <field name="model">inventory.backdate.log</field>
+        <field name="arch" type="xml">
+            <tree string="Backdating History" create="false" edit="false" delete="false">
+                <field name="apply_datetime"/>
+                <field name="reference"/>
+                <field name="product_id"/>
+                <field name="quantity" optional="hide"/>
+                <field name="old_date"/>
+                <field name="new_date" decoration-bf="1"/>
+                <field name="old_accounting_date" optional="hide"/>
+                <field name="new_accounting_date" optional="show"/>
+                <field name="account_move_names" optional="show"/>
+                <field name="account_move_ids" widget="many2many_tags" optional="hide"
+                       groups="account.group_account_readonly"/>
+                <field name="valuation_layer_count" optional="hide"/>
+                <field name="move_line_count" optional="hide"/>
+                <field name="analytic_line_count" optional="hide"/>
+                <field name="user_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_inventory_backdate_log_form" model="ir.ui.view">
+        <field name="name">inventory.backdate.log.form</field>
+        <field name="model">inventory.backdate.log</field>
+        <field name="arch" type="xml">
+            <form string="Backdating History" create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="reference" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Adjustment">
+                            <field name="move_id" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="quantity" readonly="1"/>
+                            <field name="company_id" readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Change">
+                            <field name="old_date" readonly="1"/>
+                            <field name="new_date" readonly="1"/>
+                            <field name="old_accounting_date" readonly="1"/>
+                            <field name="new_accounting_date" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="apply_datetime" readonly="1"/>
+                        </group>
+                        <group string="Impacted Records">
+                            <field name="account_move_names" readonly="1"/>
+                            <field name="account_move_ids" widget="many2many_tags" readonly="1"
+                                   groups="account.group_account_readonly"/>
+                            <field name="valuation_layer_count" readonly="1"/>
+                            <field name="move_line_count" readonly="1"/>
+                            <field name="analytic_line_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="note" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inventory_backdate_log_search" model="ir.ui.view">
+        <field name="name">inventory.backdate.log.search</field>
+        <field name="model">inventory.backdate.log</field>
+        <field name="arch" type="xml">
+            <search string="Backdating History">
+                <field name="reference"/>
+                <field name="product_id"/>
+                <field name="user_id"/>
+                <field name="move_id"/>
+                <filter name="filter_my_changes" string="My Changes"
+                        domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="filter_applied_today" string="Applied Today"
+                        domain="[('apply_datetime', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                <!-- Odoo 18's search_view.rng still allows expand and string on group;
+                     19 dropped both, which is why the 19.0 build uses a bare group. -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_user" string="Changed By" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_by_apply_date" string="Applied On"
+                            context="{'group_by': 'apply_datetime:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_inventory_backdate_log" model="ir.actions.act_window">
+        <field name="name">Backdating History</field>
+        <field name="res_model">inventory.backdate.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_inventory_backdate_log_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No inventory adjustment has been backdated yet</p>
+            <p>Every date correction applied through the backdating wizard is recorded here:
+               what was changed, from which date to which date, by whom and when.</p>
+        </field>
+    </record>
+
+</odoo>
