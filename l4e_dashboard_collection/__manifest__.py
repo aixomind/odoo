@@ -103,4 +103,3 @@
         'static/description/screenshot_amc_dashboard_kpis.png',
     ],
 }
-

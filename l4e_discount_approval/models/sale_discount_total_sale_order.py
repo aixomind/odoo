@@ -228,4 +228,3 @@ class SaleOrder(models.Model):
         return True
 
 
-

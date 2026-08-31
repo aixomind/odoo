@@ -39,8 +39,8 @@
            - Per-model configuration menu to enable/disable custom tracking or remove tracking.
            - Mutually exclusive boolean controls to prevent configuration conflicts.
     """,
-    "author": "Links4Engg Pvt. Ltd",
-    "website": "https://www.links4engg.com/",
+    "author": 'Links4Engg Pvt. Ltd',
+    "website": 'https://links4engg.com',
     "depends": ["base", "mail", "sale_management", "account", "stock"],
     "data": [
         "security/ir.model.access.csv",
