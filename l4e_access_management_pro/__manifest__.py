@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 {
     'name': 'Simplify & Advanced Access Management Pro',
     'version': '19.0.1.0.0',
@@ -21,7 +42,7 @@ Complete centralized security and access control suite:
 - Multi-Company & Role-based Access Evaluation
     """,
     'author': 'Links4Engg Pvt. Ltd',
-    'website': 'https://www.links4engg.com/',
+    'website': 'https://links4engg.com',
     'license': 'LGPL-3',
     'images': [
         'static/description/banner.gif',
@@ -50,4 +71,3 @@ Complete centralized security and access control suite:
     'application': True,
     'auto_install': False,
 }
-

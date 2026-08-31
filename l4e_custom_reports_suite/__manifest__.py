@@ -45,8 +45,8 @@
         5. Interactive Digital Signatures:
            - Built-in touch/stylus customer and vendor signature pads docked cleanly on the last page.
     """,
-    "author": "Links4Engg Private Limited",
-    "website": "https://links4engg.com",
+    "author": 'Links4Engg Pvt. Ltd',
+    "website": 'https://links4engg.com',
     "depends": [
         "base",
         "web",

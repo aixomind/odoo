@@ -225,4 +225,3 @@ class SaleOrder(models.Model):
         if self.state in ['draft', 'sent']:
             return _('Quotation created')
         return super(SaleOrder, self)._creation_message()
-
