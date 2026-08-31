@@ -1,0 +1,474 @@
+<section class="oe_container"
+    style="font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.6; max-width: 100%; overflow-x: hidden; box-sizing: border-box;">
+
+    <!-- ============================================= HERO ============================================= -->
+    <div
+        style="background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%); padding: 40px 20px 20px 20px; border-radius: 16px; margin-bottom: 40px;">
+        <div class="row align-items-center mb-4">
+            <div class="col-lg-8 col-md-12 text-center text-lg-left">
+                <div style="margin-bottom: 12px;">
+                    <span class="l4e-pill"><i class="fa fa-cubes"></i> Odoo 19 Compatible</span>
+                    <span class="l4e-pill"><i class="fa fa-book"></i> stock_account</span>
+                    <span class="l4e-pill"><i class="fa fa-shield"></i> LGPL-3 License</span>
+                </div>
+                <h1
+                    style="color: #0f172a; font-weight: 800; font-size: 36px; margin-bottom: 12px; letter-spacing: -0.5px;">
+                    Inventory Adjustment Backdating &amp; Historical Counts
+                </h1>
+                <p
+                    style="color: #64748b; font-size: 18px; font-weight: 500; margin-bottom: 0;">
+                    Move validated inventory adjustments and linked journal entries to the correct past period in a single atomic transaction - or import historical counting sheets with accurate past valuation.
+                </p>
+            </div>
+        </div>
+
+        <div
+            style="border-radius: 12px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e2e8f0;">
+            <img src="banner.png"
+                alt="Inventory Adjustment Backdating Banner"
+                style="width: 100%; display: block; min-height: 200px; background: #eef2f5;" />
+        </div>
+    </div>
+
+    <!-- ============================================= STYLES ============================================= -->
+    <style>
+        .l4e-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        .l4e-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+            border-color: #bbf7d0;
+        }
+        .l4e-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background: #f0fdf4;
+            color: #16a34a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .l4e-step-number {
+            background: #16a34a;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+        .l4e-section-title {
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 28px;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        .l4e-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: #16a34a;
+            border-radius: 2px;
+        }
+        .use-case-box {
+            background: #f8fafc;
+            border-left: 4px solid #16a34a;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        .l4e-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-weight: 700;
+            font-size: 13px;
+            margin: 4px;
+        }
+    </style>
+
+    <!-- ============================================= PROBLEM / SOLUTION ============================================= -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-6" style="padding: 20px;">
+            <h3
+                style="color: #0f172a; font-weight: 800; font-size: 26px; margin-bottom: 20px;">
+                Validating Adjustments Stamps "Today" - Distorting Historical Valuation Reports
+            </h3>
+            <p
+                style="font-size: 16px; color: #475569; margin-bottom: 15px; line-height: 1.8;">
+                In native Odoo, validating an inventory adjustment immediately hardcodes the current date and time on stock moves, move lines, and accounting journal entries with no supported way to correct it afterwards.
+            </p>
+            <p style="font-size: 16px; color: #475569; line-height: 1.8;">
+                If a physical stock count happened last month but is entered today, your financial and stock valuation reports show the variance in the wrong accounting period.
+            </p>
+            <p style="font-size: 16px; color: #475569; line-height: 1.8;">
+                <strong>Inventory Adjustment Backdating</strong> solves this by allowing you to safely move validated adjustments - along with stock moves, move lines, journal entries, and analytic lines - to any chosen past date in one atomic transaction, while maintaining a full audit log.
+            </p>
+        </div>
+        <div class="col-md-6 text-center" style="padding: 20px;">
+            <div
+                style="background: #f0fdf4; padding: 30px; border-radius: 16px; display: inline-block; border: 1px dashed #86efac; width: 100%;">
+                <h4
+                    style="color: #14532d; font-weight: 700; margin-bottom: 20px;">
+                    Standard Odoo vs. With App
+                </h4>
+                <div
+                    style="display: flex; justify-content: space-between; gap: 20px; text-align: left;">
+                    <div style="flex: 1;">
+                        <span
+                            style="color: #ef4444; font-weight: bold; font-size: 16px;"><i
+                                class="fa fa-times-circle"></i> Without App</span>
+                        <ul
+                            style="padding-left: 20px; margin-top: 15px; font-size: 14px; color: #475569; line-height: 1.8;">
+                            <li>Adjustment date locked to current timestamp</li>
+                            <li>Journal entry posted in current financial period</li>
+                            <li>Past-dated physical counts distort current P&amp;L</li>
+                            <li>ORM blocks date edits on posted entries</li>
+                            <li><em>No audit history of date corrections</em></li>
+                        </ul>
+                    </div>
+                    <div style="flex: 1;">
+                        <span
+                            style="color: #16a34a; font-weight: bold; font-size: 16px;"><i
+                                class="fa fa-check-circle"></i> With App</span>
+                        <ul
+                            style="padding-left: 20px; margin-top: 15px; font-size: 14px; color: #475569; line-height: 1.8;">
+                            <li>Backdate moves, lines &amp; journal entries</li>
+                            <li>Historical unit cost override support</li>
+                            <li>Period-aligned sequence renumbering</li>
+                            <li>Lock date validation &amp; admin override</li>
+                            <li><strong>Permanent audit trail in History</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= FEATURE GRID ============================================= -->
+    <div class="mb-5 mt-4">
+        <div class="text-center mb-5">
+            <h2 class="l4e-section-title text-center"
+                style="display: inline-block;">Key Features &amp; Capabilities</h2>
+            <p
+                style="color: #64748b; font-size: 16px; max-width: 650px; margin: 16px auto 0 auto;">
+                A comprehensive solution for backdating inventory adjustments, posting past counts, and maintaining financial integrity.
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-calendar-check-o"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Bulk Backdate Wizard</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">
+                        Filter validated adjustments by date range, product, location, or reference. Select adjustments and rewrite linked dates in one batch.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-file-excel-o"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Past Inventory Counts</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">
+                        Import historical physical counting sheets directly into Odoo. Adjustments are posted and valued in the historical period with zero numbering gaps.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-money"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Historical Cost Correction</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">
+                        Specify the exact unit cost on the counted date to ensure inventory valuation and journal entries reflect actual historical purchase cost rather than today's price.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-random"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Journal Resequencing</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">
+                        Optionally renumber journal entries to match the target period's sequence series, with automated protection for hash-secured journals.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-history"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Complete Audit Trail</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">
+                        Every backdating event is permanently recorded in a read-only history model capturing previous and new dates, touched lines, user, and timestamps.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="l4e-card">
+                    <div class="l4e-icon-wrapper"><i class="fa fa-lock"></i></div>
+                    <h4 style="font-weight: 700; color: #1e293b; font-size: 18px;">Accounting Lock Dates</h4>
+                    <p style="color: #64748b; font-size: 14px; margin: 0;">
+                        Enforces fiscal year, hard lock, and period lock dates. Only system administrators can explicitly override lock dates when required.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="border-top: 1px solid #e2e8f0; margin: 60px 0;">
+
+    <!-- ============================================= HOW IT WORKS (SCREENSHOTS) ============================================= -->
+    <div class="mb-5" style="max-width: 850px; margin: 0 auto;">
+        <div class="text-center mb-5">
+            <h2 class="l4e-section-title text-center"
+                style="display: inline-block;">How It Works</h2>
+            <p style="color: #64748b; font-size: 16px;">A visual walkthrough of the backdating workflow and past counts management.</p>
+        </div>
+
+        <!-- STEP 1 -->
+        <div
+            style="margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px dashed #e2e8f0;">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">1</span> Filter and Load Validated Adjustments
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                Navigate to <strong>Inventory ➔ Date Corrections ➔ Backdate Inventory Adjustments</strong>. Set your validation date range, optional product, location, or reference filter, and click <strong>Load Adjustments</strong>. All matching adjustments appear with current dates, quantities, and linked journal entries.
+            </p>
+            <div
+                style="width: 100%; max-width: 820px; margin: 18px auto 30px auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div
+                    style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#f59e0b;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#10b981;"></span>
+                </div>
+                <img src="screenshots/sc01_wizard_loaded.png"
+                    style="display:block;width:100%;max-width:100%;height:auto;margin:0 auto;background:#ffffff;"
+                    alt="Backdate Wizard - Adjustments Loaded"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPldpemFyZCAtIEFkanVzdG1lbnRzIExvYWRlZDwvdGV4dD48L3N2Zz4='" />
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div
+            style="margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px dashed #e2e8f0;">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">2</span> Choose New Target Date &amp; Rewrite Settings
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                Select the target date and time. Configure which linked models to update - Stock Move Lines, Journal Entries, Analytic Lines, and Chatter log notes. Click <strong>Apply</strong> to execute all updates in one atomic database transaction.
+            </p>
+            <div
+                style="width: 100%; max-width: 820px; margin: 18px auto 30px auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div
+                    style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#f59e0b;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#10b981;"></span>
+                </div>
+                <img src="screenshots/sc02_wizard_options.png"
+                    style="display:block;width:100%;max-width:100%;height:auto;margin:0 auto;background:#ffffff;"
+                    alt="Backdate Wizard - Options Panel"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPldpemFyZCAtIE9wdGlvbnMgUGFuZWw8L3RleHQ+PC9zdmc+'" />
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div
+            style="margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px dashed #e2e8f0;">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">3</span> Manage Historical Counting Sheets
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                In <strong>Inventory ➔ Date Corrections ➔ Past Inventory Counts</strong>, import or create physical count sheets. Rows are evaluated in oldest-first order against what stock actually stood at on that date, calculating exact variance.
+            </p>
+            <div
+                style="width: 100%; max-width: 820px; margin: 18px auto 30px auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div
+                    style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#f59e0b;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#10b981;"></span>
+                </div>
+                <img src="screenshots/sc03_past_count_list.png"
+                    style="display:block;width:100%;max-width:100%;height:auto;margin:0 auto;background:#ffffff;"
+                    alt="Past Inventory Counts List View"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBhc3QgQ291bnRzIExpc3QgVmlldzwvdGV4dD48L3N2Zz4='" />
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div
+            style="margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px dashed #e2e8f0;">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">4</span> Apply Count with Historical Valuation &amp; Journal Link
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                Applying a row posts the stock move and creates the accounting entry directly into the counted period. The form view displays full breakdown metrics including quantity before, difference, valuation value, and a direct clickable link to the created Journal Entry.
+            </p>
+            <div
+                style="width: 100%; max-width: 820px; margin: 18px auto 30px auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div
+                    style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#f59e0b;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#10b981;"></span>
+                </div>
+                <img src="screenshots/sc04_past_count_form.png"
+                    style="display:block;width:100%;max-width:100%;height:auto;margin:0 auto;background:#ffffff;"
+                    alt="Past Inventory Count Form View"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBhc3QgQ291bnQgRm9ybSBWaWV3PC90ZXh0Pjwvc3ZnPg=='" />
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div
+            style="margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px dashed #e2e8f0;">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">5</span> Historical Period-Aligned Accounting Journal Entries
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                Clicking the generated Journal Entry link opens the entry directly. Notice that the journal entry date, period sequence number, and valuation debit/credit line balances match the historical count date and cost price.
+            </p>
+            <div
+                style="width: 100%; max-width: 820px; margin: 18px auto 30px auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div
+                    style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#f59e0b;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#10b981;"></span>
+                </div>
+                <img src="screenshots/sc05_journal_entry_dated.png"
+                    style="display:block;width:100%;max-width:100%;height:auto;margin:0 auto;background:#ffffff;"
+                    alt="Journal Entry Historical Date &amp; Valuation"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkpvdXJuYWwgRW50cnkgSGlzdG9yaWNhbCBEYXRlPC90ZXh0Pjwvc3ZnPg=='" />
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div style="margin-bottom: 50px; padding-bottom: 20px;">
+            <h3 style="color: #1e293b; font-weight: 700; font-size: 22px;">
+                <span class="l4e-step-number">6</span> Permanent Read-Only Audit History
+            </h3>
+            <p style="color: #475569; font-size: 15px; max-width: 800px;">
+                Under <strong>Inventory ➔ Date Corrections ➔ Backdating History</strong>, view full read-only audit records. Tracks previous vs new dates, previous vs new accounting dates, journal entry numbers, user, and execution timestamps.
+            </p>
+            <div
+                style="width: 100%; max-width: 820px; margin: 18px auto 30px auto; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.12); overflow: hidden; background: #f8fafc; box-sizing: border-box;">
+                <div
+                    style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e2e8f0;">
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#f59e0b;"></span>
+                    <span style="width:10px;height:10px;border-radius:50%;display:inline-block;background:#10b981;"></span>
+                </div>
+                <img src="screenshots/sc07_backdate_log_list.png"
+                    style="display:block;width:100%;max-width:100%;height:auto;margin:0 auto;background:#ffffff;"
+                    alt="Backdating History List View"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjIwMCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2Y4ZmFmYyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJhY2tkYXRpbmcgSGlzdG9yeSBMaXN0PC90ZXh0Pjwvc3ZnPg=='" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= IDEAL FOR ============================================= -->
+    <div class="mb-5" style="max-width: 850px; margin: 0 auto;">
+        <div class="text-center mb-5">
+            <h2 class="l4e-section-title text-center"
+                style="display: inline-block;">Ideal For</h2>
+            <p style="color: #64748b; font-size: 16px;">Essential for accounting and inventory teams managing period-end closing and stock reconciliations.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="use-case-box">
+                    <strong style="color: #0f172a;"><i class="fa fa-calculator"
+                            style="color:#16a34a;"></i> Accounting &amp; Finance Teams</strong>
+                    <p
+                        style="margin: 8px 0 0 0; color: #475569; font-size: 14px;">
+                        Ensure physical count variances are recognized in the correct financial reporting period and match month-end General Ledger statements.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="use-case-box">
+                    <strong style="color: #0f172a;"><i class="fa fa-cubes"
+                            style="color:#16a34a;"></i> Warehouse &amp; Inventory Managers</strong>
+                    <p
+                        style="margin: 8px 0 0 0; color: #475569; font-size: 14px;">
+                        Import historical stock counts and key in late count sheets without skewing contemporary real-time on-hand figures.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="use-case-box">
+                    <strong style="color: #0f172a;"><i
+                            class="fa fa-balance-scale"
+                            style="color:#16a34a;"></i> Auditors &amp; Compliance Officers</strong>
+                    <p
+                        style="margin: 8px 0 0 0; color: #475569; font-size: 14px;">
+                        Track every date modification with a non-destructive, permanent audit trail recording user, timestamp, previous date, and new date.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="use-case-box">
+                    <strong style="color: #0f172a;"><i class="fa fa-industry"
+                            style="color:#16a34a;"></i> Manufacturing &amp; Wholesale Businesses</strong>
+                    <p
+                        style="margin: 8px 0 0 0; color: #475569; font-size: 14px;">
+                        Accurately price past inventory counts using true historical batch/unit cost rather than today's fluctuating standard price.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= CONTACT / FOOTER ============================================= -->
+    <div class="text-center"
+        style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 16px; padding: 50px 30px; border: 1px solid #bbf7d0; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);">
+        <h2
+            style="font-weight:800; font-size:32px; margin-bottom:15px; color: #0f172a; letter-spacing: -0.5px;">
+            Need Help or Customization?
+        </h2>
+        <p
+            style="font-size:16px; color:#475569; margin-bottom:30px; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            Our expert team at <strong>Links4Engg</strong> is ready to assist you. Whether you need support configuring this module or want to request custom Odoo features, get in touch with us!
+        </p>
+        <div style="margin-top: 25px; margin-bottom: 15px;">
+            <a href="mailto:support@links4engg.com" target="_blank"
+                style="display: inline-block !important; background-color: #10b981 !important; color: #ffffff !important; text-decoration: none !important; font-weight: 700 !important; padding: 14px 32px !important; border-radius: 10px !important; box-shadow: 0 10px 15px -3px rgba(16,185,129,0.3) !important; font-size: 16px !important; line-height: 1.2 !important;">
+                <i class="fa fa-envelope"
+                    style="margin-right: 8px; color: #ffffff !important;"></i>
+                support@links4engg.com
+            </a>
+        </div>
+
+        <div style="margin-top: 25px;">
+            <a href="https://www.links4engg.com" target="_blank"
+                style="color: #141414; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s;">
+                <i class="fa fa-globe"></i> www.links4engg.com
+            </a>
+        </div>
+    </div>
+
+</section>

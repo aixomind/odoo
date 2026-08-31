@@ -22,7 +22,7 @@
 ##############################################################################
 {
     'name': 'Inventory Adjustment Backdating',
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.5.0',
     'category': 'Inventory/Inventory',
     'summary': 'Move a validated inventory adjustment to a past date, together with its '
                'stock moves and journal entries',
