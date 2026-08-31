@@ -55,7 +55,7 @@ the valuation onto stock.move itself.
     'author': 'Links4Engg Pvt. Ltd',
     'license': 'LGPL-3',
     'depends': ['stock_account'],
-    'images': ['static/description/banner.png'],
+    'images': ['static/description/banner.gif'],
     'data': [
         'security/backdate_security.xml',
         'security/ir.model.access.csv',
