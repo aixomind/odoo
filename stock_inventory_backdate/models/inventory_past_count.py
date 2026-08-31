@@ -19,7 +19,7 @@ class InventoryPastCount(models.Model):
         string='Counted Date', required=True, default=fields.Date.context_today,
         help="The past date you are recording a count for.")
     product_id = fields.Many2one(
-        'product.product', string='Product', required=True, domain="[('type', '=', 'product')]",
+        'product.product', string='Product', required=True, domain="[('type', 'in', ('consu', 'product'))]",
         help="Storable product to record a count for.")
     product_tmpl_id = fields.Many2one(
         'product.template', related='product_id.product_tmpl_id', string='Product Template')

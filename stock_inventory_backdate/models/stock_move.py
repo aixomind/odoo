@@ -23,11 +23,11 @@ class StockMove(models.Model):
         self.ensure_one()
         move = self.sudo()
 
-        layers = move.stock_valuation_layer_ids
-        account_moves = move.account_move_ids | layers.account_move_id
+        layers = getattr(move, 'stock_valuation_layer_ids', self.env['stock.valuation.layer'])
+        account_moves = getattr(move, 'account_move_ids', self.env['account.move']) | layers.account_move_id
         account_move_lines = account_moves.line_ids
 
-        analytic_lines = move.analytic_account_line_ids
+        analytic_lines = getattr(move, 'analytic_account_line_ids', False) or self.env['account.analytic.line']
         if account_move_lines:
             analytic_lines |= self.env['account.analytic.line'].sudo().search(
                 [('move_line_id', 'in', account_move_lines.ids)])

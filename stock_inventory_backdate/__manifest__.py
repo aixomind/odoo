@@ -5,7 +5,7 @@
     'summary': 'Move a validated inventory adjustment to a past date, together with its '
                'stock moves, valuation layers and journal entries',
     'description': """
-Inventory Adjustment Backdating
+Inventory Adjustment Backdating — Odoo 18
 ===============================
 Validating an inventory adjustment stamps "now" on several records at once:
 
