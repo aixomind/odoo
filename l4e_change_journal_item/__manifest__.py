@@ -41,7 +41,7 @@ Key Features:
 * Success toast notification on update completion.
     """,
     'author': 'Links4Engg Pvt. Ltd',
-    'website': 'https://www.links4engg.com',
+    'website': 'https://links4engg.com',
     'depends': ['account', 'accountant'],
     'data': [
         'security/ir.model.access.csv',

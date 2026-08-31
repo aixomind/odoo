@@ -58,4 +58,3 @@ class ApprovalRaiseQuery(models.Model):
         return {'type': 'ir.actions.act_window_close'}
 
 
-

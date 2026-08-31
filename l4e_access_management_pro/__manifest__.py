@@ -1,4 +1,25 @@
 # -*- coding: utf-8 -*-
+##############################################################################
+#
+# Copyright (C) 2026 Links4Engg Private Limited.
+# All Rights Reserved.
+#
+# This software is proprietary and confidential.
+#
+# Unauthorized copying, modification, redistribution,
+# reverse engineering, decompilation, sublicensing,
+# or commercial use of this software is strictly prohibited
+# without prior written permission from
+# Links4Engg Private Limited.
+#
+# Licensed under the Odoo Proprietary License v1.0 (OPL-1).
+#
+# Links4Engg Private Limited
+# Website : https://links4engg.com
+# Email   : info@links4engg.com
+# Phone   : +91 471 3592209 | +91 7306889096
+#
+##############################################################################
 {
     'name': 'Simplify & Advanced Access Management Pro',
     'version': '18.0.1.0.0',
@@ -20,8 +41,8 @@ Complete centralized security and access control suite:
 - Disable Developer (Debug) Mode, Import/Export, and User Logins
 - Multi-Company & Role-based Access Evaluation
     """,
-    'author': 'AIXOMIND',
-    'website': 'https://www.aixomind.com',
+    'author': 'Links4Engg Pvt. Ltd',
+    'website': 'https://links4engg.com',
     'license': 'LGPL-3',
     'depends': [
         'base',
@@ -47,4 +68,3 @@ Complete centralized security and access control suite:
     'application': True,
     'auto_install': False,
 }
-
