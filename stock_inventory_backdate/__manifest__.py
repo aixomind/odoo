@@ -23,6 +23,8 @@
 {
     'name': 'Inventory Adjustment Backdating',
     'version': '19.0.1.5.0',
+    'price': 70,
+    'currency': 'USD',
     'category': 'Inventory/Inventory',
     'summary': 'Move a validated inventory adjustment to a past date, together with its '
                'stock moves and journal entries',
