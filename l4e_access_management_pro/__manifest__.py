@@ -23,7 +23,7 @@
 {
     'name': 'Simplify & Advanced Access Management Pro',
     'version': '19.0.1.0.0',
-    'price': 150.00,
+    'price': 150,
     'currency': 'USD',
     'category': 'Tools/Administration',
     'summary': 'All-in-one Access Management solution to restrict Menus, Models, Fields, Buttons, Tabs, Views, Chatter, Reports, Export/Import, and Debug Mode.',
