@@ -23,9 +23,9 @@
 {
     'name': 'Simplify & Advanced Access Management Pro',
     'version': '19.0.1.0.0',
-    'category': 'Tools/Administration',
     'price': 150.00,
     'currency': 'USD',
+    'category': 'Tools/Administration',
     'summary': 'All-in-one Access Management solution to restrict Menus, Models, Fields, Buttons, Tabs, Views, Chatter, Reports, Export/Import, and Debug Mode.',
     'description': """
 Access Management Pro for Odoo 19
