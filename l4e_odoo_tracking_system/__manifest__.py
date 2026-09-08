@@ -23,6 +23,8 @@
 {
     "name": "L4E Tracking System",
     "version": "16.0.1.0.0",
+    'price': 49,
+    'currency': 'USD',
     "category": "All Modules",
     "summary": "All Modules to set a Tracking Automatically and store it for Deleted Records / Restore it",
     "description": """
