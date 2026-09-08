@@ -23,6 +23,8 @@
 {
     "name": "Custom Reports & Digital Signatures Suite",
     "version": "17.0.1.0.1",
+    'price': 49,
+    'currency': 'USD',
     "category": "Sales/Sales",
     "summary": "All-in-One Custom PDF Reports, Color Themes, Company Stamps & Digital Signatures",
     "description": """
