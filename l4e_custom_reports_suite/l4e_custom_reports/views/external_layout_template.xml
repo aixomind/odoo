@@ -110,9 +110,27 @@
             </div>
         </t>
         <t t-else="">
-            <t t-call="web.external_layout">
+            <t t-call="{{company.external_report_layout_id.sudo().key or 'web.external_layout_standard'}}">
                 <t t-out="0"/>
             </t>
         </t>
+    </template>
+
+    <!-- Inherit web.external_layout globally to route to custom layout when enabled,
+         without touching any per-document report templates (avoids XPath conflict) -->
+    <template id="external_layout_inherit_custom_l4e" inherit_id="web.external_layout">
+        <xpath expr="//t[contains(@t-call, 'external_report_layout_id')]" position="replace">
+            <t t-set="company" t-value="company or (doc and 'company_id' in doc._fields and doc.company_id) or env.company"/>
+            <t t-if="company and company.header_footer_type == 'custom_image' and (company.report_header_image or company.report_footer_image)">
+                <t t-call="l4e_custom_reports_suite.custom_external_layout">
+                    <t t-out="0"/>
+                </t>
+            </t>
+            <t t-else="">
+                <t t-call="{{company.external_report_layout_id.sudo().key or 'web.external_layout_standard'}}">
+                    <t t-out="0"/>
+                </t>
+            </t>
+        </xpath>
     </template>
 </odoo>
