@@ -5,10 +5,10 @@
          l4e.approval.rule — List View
     ══════════════════════════════════════════════════════════════════════════ -->
     <record id="l4e_approval_rule_view_list" model="ir.ui.view">
-        <field name="name">l4e.approval.rule.list</field>
+        <field name="name">l4e.approval.rule.tree</field>
         <field name="model">l4e.approval.rule</field>
         <field name="arch" type="xml">
-            <list string="Approval Rules" decoration-muted="not active">
+            <tree string="Approval Rules" decoration-muted="not active">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="model_id"/>
@@ -17,7 +17,7 @@
                 <field name="approval_mode"/>
                 <field name="active" invisible="1"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -51,15 +51,15 @@
 
                             <!-- Plain text value for non-Many2one fields -->
                             <field name="trigger_value"
-                                   invisible="trigger_field_ttype == 'many2one'"
+                                   attrs="{'invisible': [('trigger_field_ttype', '=', 'many2one')]}"
                                    placeholder="e.g. sale / purchase / posted / True / 50000"/>
 
                             <!-- Record picker for Many2one trigger fields -->
                             <field name="trigger_value_ref"
                                    string="Trigger Record"
-                                   invisible="trigger_field_ttype != 'many2one'"
+                                   attrs="{'invisible': [('trigger_field_ttype', '!=', 'many2one')]}"
                                    placeholder="Select record…"/>
-                            <div invisible="trigger_field_ttype != 'many2one'" class="text-muted small">
+                            <div attrs="{'invisible': [('trigger_field_ttype', '!=', 'many2one')]}" class="text-muted small">
                                 Select the exact record that triggers approval
                                 (e.g. a specific Stage, Status, or Category).
                             </div>
@@ -79,13 +79,12 @@
                         </group>
                         <group>
                             <field name="finalize_method"
-                                   invisible="finalize_action != 'method'"
-                                   placeholder="e.g. action_confirm"
-                                   required="finalize_action == 'method'"/>
+                                   attrs="{'invisible': [('finalize_action', '!=', 'method')], 'required': [('finalize_action', '=', 'method')]}"
+                                   placeholder="e.g. action_confirm"/>
                             <field name="finalize_method_context"
-                                   invisible="finalize_action != 'method'"
+                                   attrs="{'invisible': [('finalize_action', '!=', 'method')]}"
                                    placeholder='e.g. {"validate_analytic": true}'/>
-                            <div invisible="finalize_action != 'method'" class="text-muted small">
+                            <div attrs="{'invisible': [('finalize_action', '!=', 'method')]}" class="text-muted small">
                                 The method is called on the record with no arguments.<br/>
                                 Example: <b>action_confirm</b> with context <b>{"validate_analytic": true}</b>
                                 triggers the full sale order confirmation flow (creates delivery, updates state, etc.).<br/>
@@ -103,12 +102,12 @@
                                    options="{'no_create': True, 'no_open': True}"
                                    placeholder="Select a selection field…"/>
                             <field name="pending_value"
-                                   invisible="not pending_field_id"
+                                   attrs="{'invisible': [('pending_field_id', '=', False)]}"
                                    placeholder="Value to set while pending (e.g. pending_approval)"/>
                         </group>
                         <group>
                             <field name="refused_value"
-                                   invisible="not pending_field_id"
+                                   attrs="{'invisible': [('pending_field_id', '=', False)]}"
                                    placeholder="Value to set on refusal (e.g. draft). Leave empty to not change."/>
                         </group>
                     </group>
@@ -121,7 +120,7 @@
                                 <field name="condition_logic" widget="radio" class="oe_inline"/>
                             </group>
                             <field name="condition_ids" nolabel="1">
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="sequence" widget="handle"/>
 
                                     <!-- Level 1: field on main model -->
@@ -132,34 +131,34 @@
                                            placeholder="Field…"/>
 
                                     <!-- Level 2: sub-field on related model (dotted path) -->
-                                    <field name="related_model_id" column_invisible="True"/>
+                                    <field name="related_model_id" invisible="1"/>
                                     <field name="related_field_id"
                                            string="→ Sub-Field"
                                            domain="[('model_id', '=', related_model_id), ('ttype', 'not in', ['one2many', 'html'])]"
                                            options="{'no_create': True, 'no_open': True}"
                                            placeholder="(optional sub-field)"
-                                           invisible="field_ttype != 'many2one'"/>
+                                           attrs="{'invisible': [('field_ttype', '!=', 'many2one')]}"/>
 
                                     <field name="operator"/>
 
                                     <!-- Plain value: for non-Many2one fields -->
                                     <field name="value"
                                            string="Value"
-                                           invisible="operator in ('set', 'not_set') or (field_ttype == 'many2one' and not related_field_id) or (related_field_ttype == 'many2one')"
+                                           attrs="{'invisible': ['|', ('operator', 'in', ('set', 'not_set')), '|', '&amp;', ('field_ttype', '=', 'many2one'), ('related_field_id', '=', False), ('related_field_ttype', '=', 'many2one')]}"
                                            placeholder="Value…"/>
 
                                     <!-- Record picker: for Many2one fields -->
                                     <field name="value_ref"
                                            string="Record"
-                                           invisible="operator in ('set', 'not_set') or (field_ttype != 'many2one' and not related_field_id) or (related_field_id and related_field_ttype != 'many2one')"
+                                           attrs="{'invisible': ['|', ('operator', 'in', ('set', 'not_set')), '|', '&amp;', ('field_ttype', '!=', 'many2one'), ('related_field_id', '=', False), '&amp;', ('related_field_id', '!=', False), ('related_field_ttype', '!=', 'many2one')]}"
                                            placeholder="Select record…"/>
 
                                     <!-- Hidden helpers -->
-                                    <field name="field_name" column_invisible="True"/>
-                                    <field name="field_ttype" column_invisible="True"/>
-                                    <field name="related_field_name" column_invisible="True"/>
-                                    <field name="related_field_ttype" column_invisible="True"/>
-                                </list>
+                                    <field name="field_name" invisible="1"/>
+                                    <field name="field_ttype" invisible="1"/>
+                                    <field name="related_field_name" invisible="1"/>
+                                    <field name="related_field_ttype" invisible="1"/>
+                                </tree>
                             </field>
                             <div class="text-muted small mt-1">
                                 <b>Sub-Field</b>: shown only when Field is a Many2one — lets you check a field on the related record (e.g. Opportunity → PO Date).<br/>
@@ -174,25 +173,25 @@
                                 <field name="approval_mode" widget="radio"/>
                             </group>
                             <field name="approver_ids" nolabel="1">
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="sequence"
                                            string="Level"
                                            help="Lower = first to approve. Same level = parallel."/>
                                     <field name="approver_type"/>
                                     <field name="user_id"
-                                           invisible="approver_type != 'user'"
+                                           attrs="{'invisible': [('approver_type', '!=', 'user')]}"
                                            placeholder="Select user…"
                                            domain="[('share', '=', False)]"/>
                                     <field name="group_id"
-                                           invisible="approver_type != 'group'"
+                                           attrs="{'invisible': [('approver_type', '!=', 'group')]}"
                                            placeholder="Select group…"/>
                                     <field name="field_id"
-                                           invisible="approver_type != 'field'"
+                                           attrs="{'invisible': [('approver_type', '!=', 'field')]}"
                                            domain="[('model_id', '=', parent.model_id), ('ttype', '=', 'many2one'), ('relation', '=', 'res.users')]"
                                            options="{'no_create': True, 'no_open': True}"
                                            placeholder="Select user field on record…"/>
                                     <field name="label" string="Resolved As" readonly="1"/>
-                                </list>
+                                </tree>
                             </field>
                             <p class="text-muted">
                                 <b>Sequence</b> controls order for Sequential mode.
@@ -279,7 +278,7 @@
     <record id="action_l4e_approval_rule" model="ir.actions.act_window">
         <field name="name">Approval Rules</field>
         <field name="res_model">l4e.approval.rule</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="context">{'search_default_active': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

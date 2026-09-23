@@ -22,14 +22,14 @@
 ##############################################################################
 {
     'name': 'Global Approval',
-    'version': '18.0.1.0.0',
+    'version': '16.0.1.0.0',
     'price': 99,
     'currency': 'USD',
     'category': 'Approvals',
     'summary': 'Dynamic Approval Engine — any model, any field, any condition, user-configured',
     'description': """
-L4E Custom Approval (v5 — Odoo 19)
-====================================
+L4E Custom Approval (Odoo 16)
+=============================
 
 Pure Dynamic Approval Engine — no PO/discount features (moved to separate modules).
 

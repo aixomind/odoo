@@ -5,10 +5,10 @@
          l4e.approval.record.request — List View
     ══════════════════════════════════════════════════════════════════════════ -->
     <record id="l4e_approval_record_request_view_list" model="ir.ui.view">
-        <field name="name">l4e.approval.record.request.list</field>
+        <field name="name">l4e.approval.record.request.tree</field>
         <field name="model">l4e.approval.record.request</field>
         <field name="arch" type="xml">
-            <list string="Approval Requests"
+            <tree string="Approval Requests"
                   decoration-warning="state == 'pending'"
                   decoration-success="state == 'approved'"
                   decoration-danger="state == 'refused'"
@@ -26,41 +26,43 @@
                        decoration-warning="state == 'pending'"
                        decoration-success="state == 'approved'"
                        decoration-danger="state == 'refused'"/>
-            </list>
+            </tree>
         </field>
     </record>
 
     <!-- ══════════════════════════════════════════════════════════════════════
          l4e.approval.record.request — Form View
-    ══════════════════════════════════════════════════════════════════════════ -->
+     ══════════════════════════════════════════════════════════════════════════ -->
     <record id="l4e_approval_record_request_view_form" model="ir.ui.view">
         <field name="name">l4e.approval.record.request.form</field>
         <field name="model">l4e.approval.record.request</field>
         <field name="arch" type="xml">
             <form string="Approval Request">
                 <header>
+                    <field name="can_approve" invisible="1"/>
+                    <field name="is_admin" invisible="1"/>
                     <button name="action_approve"
                             type="object"
                             string="Approve"
                             class="btn-success"
-                            invisible="not can_approve or state != 'pending'"
+                            attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', '!=', 'pending')]}"
                             confirm="Confirm approval? This action cannot be undone."/>
                     <button name="action_refuse"
                             type="object"
                             string="Refuse"
                             class="btn-danger"
-                            invisible="not can_approve or state != 'pending'"/>
+                            attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', '!=', 'pending')]}"/>
                     
                     <button name="action_query"
                         type="object"
                         string="Raise Query"
                         class="btn-warning"
-                        invisible="(not can_approve and not is_admin) or state not in ('pending', 'approved', 'refused')"/>
+                        attrs="{'invisible': ['|', '&amp;', ('can_approve', '=', False), ('is_admin', '=', False), ('state', 'not in', ('pending', 'approved', 'refused'))]}"/>
 
                     <button name="action_cancel"
                             type="object"
                             string="Cancel Request"
-                            invisible="state != 'pending'"
+                            attrs="{'invisible': [('state', '!=', 'pending')]}"
                             groups="base.group_system"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="pending,approved,refused"/>
@@ -93,7 +95,7 @@
                             <field name="pending_count" readonly="1"/>
                             <field name="refused_count" readonly="1"/>
                             <field name="waiting_count" readonly="1"
-                                   invisible="approval_mode != 'sequential'"/>
+                                   attrs="{'invisible': [('approval_mode', '!=', 'sequential')]}"/>
                         </group>
 
                         <group string="Query Details">
@@ -103,7 +105,7 @@
 
                     <!-- Approval note from rule -->
                     <group string="Approval Instructions"
-                           invisible="not rule_note">
+                           attrs="{'invisible': [('rule_note', '=', False)]}">
                         <field name="rule_note" readonly="1" widget="html" nolabel="1"/>
                     </group>
 
@@ -111,7 +113,7 @@
                     <notebook>
                         <page string="Approvers" name="approvers">
                             <field name="approver_ids" readonly="1">
-                                <list string="Approvers"
+                                <tree string="Approvers"
                                       decoration-success="status == 'approved'"
                                       decoration-danger="status == 'refused'"
                                       decoration-warning="status == 'pending'"
@@ -125,12 +127,16 @@
                                            decoration-muted="status == 'waiting'"/>
                                     <field name="date"/>
                                     <field name="note"/>
-                                </list>
+                                </tree>
                             </field>
                         </page>
                     </notebook>
                 </sheet>
-                <chatter/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -168,7 +174,7 @@
     <record id="action_l4e_approval_record_request" model="ir.actions.act_window">
         <field name="name">Approval Requests</field>
         <field name="res_model">l4e.approval.record.request</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="context">{'search_default_pending': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No approval requests yet</p>
@@ -180,7 +186,7 @@
     <record id="action_l4e_my_pending_approvals" model="ir.actions.act_window">
         <field name="name">My Pending Approvals</field>
         <field name="res_model">l4e.approval.record.request</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="domain">[
             ('approver_ids.user_id', '=', uid),
             ('approver_ids.status', '=', 'pending'),
@@ -221,7 +227,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_view_l4e_approvals" type="object"
                         class="oe_stat_button" icon="fa-check-circle"
-                        invisible="l4e_approval_count == 0">
+                        attrs="{'invisible': [('l4e_approval_count', '=', 0)]}">
                     <field name="l4e_approval_count" widget="statinfo" string="Approvals"/>
                 </button>
             </xpath>
@@ -237,7 +243,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_view_l4e_approvals" type="object"
                         class="oe_stat_button" icon="fa-check-circle"
-                        invisible="l4e_approval_count == 0">
+                        attrs="{'invisible': [('l4e_approval_count', '=', 0)]}">
                     <field name="l4e_approval_count" widget="statinfo" string="Approvals"/>
                 </button>
             </xpath>
@@ -253,7 +259,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_view_l4e_approvals" type="object"
                         class="oe_stat_button" icon="fa-check-circle"
-                        invisible="l4e_approval_count == 0">
+                        attrs="{'invisible': [('l4e_approval_count', '=', 0)]}">
                     <field name="l4e_approval_count" widget="statinfo" string="Approvals"/>
                 </button>
             </xpath>
@@ -269,7 +275,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_view_l4e_approvals" type="object"
                         class="oe_stat_button" icon="fa-check-circle"
-                        invisible="l4e_approval_count == 0">
+                        attrs="{'invisible': [('l4e_approval_count', '=', 0)]}">
                     <field name="l4e_approval_count" widget="statinfo" string="Approvals"/>
                 </button>
             </xpath>
@@ -285,7 +291,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_view_l4e_approvals" type="object"
                         class="oe_stat_button" icon="fa-check-circle"
-                        invisible="l4e_approval_count == 0">
+                        attrs="{'invisible': [('l4e_approval_count', '=', 0)]}">
                     <field name="l4e_approval_count" widget="statinfo" string="Approvals"/>
                 </button>
             </xpath>

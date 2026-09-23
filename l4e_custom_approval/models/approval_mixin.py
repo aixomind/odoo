@@ -222,7 +222,7 @@ class L4eApprovalMixin(models.AbstractModel):
             'type': 'ir.actions.act_window',
             'name': _('Approval Requests'),
             'res_model': 'l4e.approval.record.request',
-            'view_mode': 'list,form',
+            'view_mode': 'tree,form',
             'domain': [('res_model', '=', self._name), ('res_id', '=', self.id)],
             'context': {
                 'default_res_model': self._name,

@@ -7,13 +7,14 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
+                <field name="l4e_approval_state" invisible="1"/>
                 <div class="alert alert-info mb-0" role="alert"
-                     invisible="l4e_approval_state != 'pending'">
+                     attrs="{'invisible': [('l4e_approval_state', '!=', 'pending')]}">
                     <i class="fa fa-clock-o me-1"/>
                     <strong>Approval Pending</strong> — This sale order is waiting for approval.
                 </div>
                 <div class="alert alert-danger mb-0" role="alert"
-                     invisible="l4e_approval_state != 'refused'">
+                     attrs="{'invisible': [('l4e_approval_state', '!=', 'refused')]}">
                     <i class="fa fa-times-circle me-1"/>
                     <strong>Approval Refused</strong> — The approval request was refused. Please review and resubmit.
                 </div>
