@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_inventory_backdate_wizard_form" model="ir.ui.view">
+        <field name="name">inventory.backdate.wizard.form</field>
+        <field name="model">inventory.backdate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Backdate Inventory Adjustments">
+                <div class="alert alert-warning" role="alert">
+                    Dates are rewritten straight into the database, bypassing the
+                    accounting checks Odoo normally applies to posted entries.
+                    Take a backup before running this on production data.
+                </div>
+
+                <group>
+                    <group string="1. Find the adjustments">
+                        <field name="company_id" groups="base.group_multi_company"
+                               options="{'no_create': True}"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="product_id" options="{'no_create': True}"/>
+                        <field name="location_id" options="{'no_create': True}"/>
+                        <field name="reference_filter"/>
+                    </group>
+                    <group string="2. New date">
+                        <field name="new_date"/>
+                        <field name="new_time" widget="float_time"/>
+                    </group>
+                </group>
+
+                <group string="3. Records to rewrite" col="4">
+                    <field name="update_move_lines"/>
+                    <field name="update_journal_entry"/>
+                    <field name="update_analytic_lines"/>
+                    <field name="update_quant_count_date"/>
+                    <field name="post_chatter_note"/>
+                    <field name="resequence_journal_entry"/>
+                    <field name="ignore_lock_date" groups="base.group_system"/>
+                </group>
+                <div class="text-muted small mb-2" invisible="not resequence_journal_entry">
+                    Renumbering moves the entry into its new period's sequence and
+                    leaves a gap where it used to be. A gap is what sequence-integrity
+                    checks look for, so only do this if a mis-periodised number is the
+                    bigger problem for you.
+                </div>
+
+                <div class="d-flex align-items-center gap-2 mt-3 mb-2">
+                    <button name="action_load_moves" type="object" string="Load Adjustments"
+                            class="btn-primary" icon="fa-search"/>
+                    <button name="action_select_all" type="object" string="Select All"
+                            class="btn-link" invisible="not line_ids"/>
+                    <button name="action_unselect_all" type="object" string="Unselect All"
+                            class="btn-link" invisible="not line_ids"/>
+                    <span invisible="not line_ids" class="text-muted ms-auto">
+                        <field name="selected_count" readonly="1" class="oe_inline"/>
+                        of
+                        <field name="line_count" readonly="1" class="oe_inline"/>
+                        selected
+                    </span>
+                </div>
+
+                <field name="line_ids" nolabel="1" invisible="not line_ids">
+                    <list editable="bottom" create="false" delete="true"
+                          string="Inventory Adjustments">
+                        <field name="selected" widget="boolean_toggle"/>
+                        <field name="reference" readonly="1"/>
+                        <field name="product_id" readonly="1"/>
+                        <field name="quantity" readonly="1"/>
+                        <field name="location_name" readonly="1" optional="show"/>
+                        <field name="current_date" readonly="1"/>
+                        <field name="account_move_names" readonly="1"/>
+                        <field name="move_id" column_invisible="1"/>
+                    </list>
+                </field>
+
+                <footer>
+                    <button name="action_apply" type="object" string="Apply New Date"
+                            class="btn-primary" invisible="not line_ids"
+                            confirm="The selected adjustments, their valuation layers and their journal entries will be rewritten to the new date. Continue?"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_inventory_backdate_wizard" model="ir.actions.act_window">
+        <field name="name">Backdate Inventory Adjustments</field>
+        <field name="res_model">inventory.backdate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_inventory_backdate_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
