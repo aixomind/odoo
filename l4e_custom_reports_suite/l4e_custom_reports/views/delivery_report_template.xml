@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_delivery_document_custom_l4e" inherit_id="stock.report_delivery_document">
-        <!-- Wrap in custom external layout supporting company custom header/footer images -->
-        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
-            <attribute name="t-call">l4e_custom_reports_suite.custom_external_layout</attribute>
-        </xpath>
-
+    <template id="report_delivery_document_custom_l4e" inherit_id="stock.report_delivery_document" priority="90">
         <xpath expr="//div[hasclass('page')]" position="replace">
             <t t-set="doc" t-value="o"/>
             <t t-set="comp" t-value="doc and 'company_id' in doc._fields and doc.company_id or env.company"/>
