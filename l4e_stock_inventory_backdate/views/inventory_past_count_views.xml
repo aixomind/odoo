@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_inventory_past_count_list" model="ir.ui.view">
+        <field name="name">inventory.past.count.list</field>
+        <field name="model">inventory.past.count</field>
+        <field name="arch" type="xml">
+            <tree string="Past Inventory Counts" sample="1"
+                  decoration-danger="state == 'failed'"
+                  decoration-muted="state == 'draft'">
+                <field name="counted_date"/>
+                <field name="product_id"/>
+                <field name="counted_qty"/>
+                <field name="cost_price" optional="show"/>
+                <field name="count_basis" optional="hide"/>
+                <field name="location_id" optional="show"/>
+                <field name="lot_id" optional="hide"/>
+                <field name="quantity_at_date" optional="show"/>
+                <field name="quantity_before" optional="hide"/>
+                <field name="difference_qty" optional="show"/>
+                <field name="applied_value" optional="show"/>
+                <field name="move_id" optional="hide"/>
+                <field name="account_move_id" optional="show"/>
+                <field name="valuation_layer_count" optional="hide"/>
+                <field name="applied_datetime" optional="hide"/>
+                <field name="message" optional="hide"/>
+                <field name="auto_apply" column_invisible="1"/>
+                <field name="counted_time" column_invisible="1"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'failed'"
+                       decoration-warning="state == 'draft'"/>
+                <button name="action_apply" type="object" string="Confirm" icon="fa-check"
+                        invisible="state == 'done'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_inventory_past_count_form" model="ir.ui.view">
+        <field name="name">inventory.past.count.form</field>
+        <field name="model">inventory.past.count</field>
+        <field name="arch" type="xml">
+            <form string="Past Inventory Count">
+                <header>
+                    <button name="action_apply" type="object" string="Confirm"
+                            class="btn-primary" invisible="state == 'done'"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-info" role="alert" invisible="state != 'draft'">
+                        <p class="mb-1">
+                            Applying this row posts a real inventory adjustment - stock move,
+                            valuation layer and journal entry - all dated to the counted date.
+                        </p>
+                        <p class="mb-0">
+                            A count is a <b>movement</b>, not a stored total, so it also shifts
+                            today's on-hand by the same amount. To insert history without
+                            disturbing today, add a second row restating the total on the next
+                            date that already has stock activity.
+                        </p>
+                    </div>
+                    <div class="alert alert-danger" role="alert" invisible="state != 'failed'">
+                        <field name="message" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="Count">
+                            <field name="product_id" options="{'no_create': True}"
+                                   readonly="state == 'done'"/>
+                            <field name="counted_date" readonly="state == 'done'"/>
+                            <field name="counted_qty" readonly="state == 'done'"/>
+                            <field name="cost_price"/>
+                            <field name="count_basis" readonly="state == 'done'"/>
+                            <field name="counted_time" widget="float_time"
+                                   readonly="state == 'done'"/>
+                        </group>
+                        <group string="Where">
+                            <field name="location_id" options="{'no_create': True}"
+                                   readonly="state == 'done'"/>
+                            <field name="lot_id" options="{'no_create': True}"
+                                   readonly="state == 'done'"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   readonly="state == 'done'"/>
+                            <field name="auto_apply" readonly="state == 'done'"/>
+                        </group>
+                    </group>
+                    <group string="Result" invisible="state != 'done'">
+                        <group>
+                            <field name="quantity_at_date"/>
+                            <field name="difference_qty"/>
+                            <field name="quantity_before"/>
+                            <field name="valuation_layer_count"/>
+                            <field name="applied_value"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="applied_datetime"/>
+                        </group>
+                        <group>
+                            <field name="move_id"/>
+                            <field name="account_move_id"/>
+                        </group>
+                        <field name="message" nolabel="1" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inventory_past_count_search" model="ir.ui.view">
+        <field name="name">inventory.past.count.search</field>
+        <field name="model">inventory.past.count</field>
+        <field name="arch" type="xml">
+            <search string="Past Inventory Counts">
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="lot_id"/>
+                <filter name="filter_to_apply" string="To Apply"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_failed" string="Failed"
+                        domain="[('state', '=', 'failed')]"/>
+                <filter name="filter_applied" string="Applied"
+                        domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="filter_counted_date" string="Counted Date" date="counted_date"/>
+                <group>
+                    <filter name="group_by_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_by_product" string="Product"
+                            context="{'group_by': 'product_id'}"/>
+                    <filter name="group_by_counted_date" string="Counted Date"
+                            context="{'group_by': 'counted_date'}"/>
+                    <filter name="group_by_location" string="Location"
+                            context="{'group_by': 'location_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_inventory_past_count" model="ir.actions.act_window">
+        <field name="name">Past Inventory Counts</field>
+        <field name="res_model">inventory.past.count</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_inventory_past_count_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Import a counting sheet</p>
+            <p>
+                Use <b>Favorites &gt; Import records</b> with three columns:
+                <b>Product</b>, <b>Counted Date</b> and <b>Counted Quantity</b>.
+                Each row is applied as a real inventory adjustment dated to the
+                day it was counted - stock move, valuation layer and journal
+                entry included.
+            </p>
+            <p>
+                Add a <b>Location</b> column to count somewhere other than the
+                warehouse's default stock location, a <b>Lot/Serial</b> column for
+                tracked products, an <b>Apply on Import</b> column set to 0 to
+                stage rows for review instead of posting them straight away, or a
+                <b>Cost Price</b> column to value the count at what the stock
+                actually cost on that date instead of today's cost.
+            </p>
+            <p>
+                A count is a <b>movement</b>, not a stored total, so inserting one
+                into the past shifts today's on-hand by the same amount. To record
+                history without disturbing today, add a second row restating the
+                total on the next date that already has stock activity, with a late
+                <b>Counted Time</b> such as 23:00 so it lands after what is already
+                there.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_update_cost_price" model="ir.actions.server">
+        <field name="name">Update Cost Price</field>
+        <field name="model_id" ref="model_inventory_past_count"/>
+        <field name="binding_model_id" ref="model_inventory_past_count"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_update_cost_price()</field>
+        <field name="groups_id" eval="[(4, ref('group_inventory_backdate'))]"/>
+    </record>
+
+</odoo>
