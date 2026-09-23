@@ -1,8 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_inventory_backdate_wizard,inventory.backdate.wizard,model_inventory_backdate_wizard,stock_inventory_backdate.group_inventory_backdate,1,1,1,1
-access_inventory_backdate_wizard_line,inventory.backdate.wizard.line,model_inventory_backdate_wizard_line,stock_inventory_backdate.group_inventory_backdate,1,1,1,1
-access_inventory_backdate_log_manager,inventory.backdate.log manager,model_inventory_backdate_log,stock_inventory_backdate.group_inventory_backdate,1,0,1,0
-access_inventory_past_count_manager,inventory.past.count manager,model_inventory_past_count,stock_inventory_backdate.group_inventory_backdate,1,1,1,1
-access_inventory_past_count_stock_user,inventory.past.count stock user,model_inventory_past_count,stock.group_stock_user,1,0,0,0
-access_inventory_backdate_log_stock_user,inventory.backdate.log stock user,model_inventory_backdate_log,stock.group_stock_user,1,0,0,0
-access_inventory_backdate_log_account_user,inventory.backdate.log account user,model_inventory_backdate_log,account.group_account_readonly,1,0,0,0
