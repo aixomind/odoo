@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l4e_discount_req_view_list" model="ir.ui.view">
+        <field name="name">l4e.discount.approval.request.list</field>
+        <field name="model">l4e.discount.approval.request</field>
+        <field name="arch" type="xml">
+            <list string="Discount Approval Requests"
+                  decoration-warning="state == 'pending'"
+                  decoration-success="state == 'approved'"
+                  decoration-danger="state == 'refused'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="document_type" string="Type"/>
+                <field name="sale_order_id" optional="show"/>
+                <field name="purchase_order_id" optional="show"/>
+                <field name="account_move_id" optional="show"/>
+                <field name="requester_id"/>
+                <field name="tier_id"/>
+                <field name="max_discount" string="Max Discount (%)"/>
+                <field name="date_request"/>
+                <field name="state" widget="badge"
+                       decoration-warning="state == 'pending'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'refused'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l4e_discount_req_view_form" model="ir.ui.view">
+        <field name="name">l4e.discount.approval.request.form</field>
+        <field name="model">l4e.discount.approval.request</field>
+        <field name="arch" type="xml">
+            <form string="Discount Approval Request">
+                <header>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="btn-success"
+                            invisible="not can_approve"
+                            confirm="Approve this discount? This cannot be undone."/>
+                    <button name="action_refuse" type="object"
+                            string="Refuse" class="btn-danger"
+                            invisible="not can_approve"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel" invisible="state != 'pending'"
+                            groups="l4e_discount_approval.group_discount_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,approved,refused"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_document" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Open Document</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Request Details">
+                            <field name="document_type" readonly="1"/>
+                            <field name="sale_order_id" readonly="1"
+                                   invisible="document_type != 'sale'"/>
+                            <field name="purchase_order_id" readonly="1"
+                                   invisible="document_type != 'purchase'"/>
+                            <field name="account_move_id" readonly="1"
+                                   invisible="document_type != 'invoice'"/>
+                            <field name="requester_id" readonly="1"/>
+                            <field name="date_request" readonly="1"/>
+                            <field name="tier_id" readonly="1"/>
+                        </group>
+                        <group string="Discount Info">
+                            <field name="max_discount" readonly="1" string="Max Discount (%)"/>
+                            <field name="approver_ids" readonly="1" widget="many2many_tags"/>
+                            <field name="approved_by_ids" readonly="1" widget="many2many_tags"
+                                   invisible="state not in ('approved',)"/>
+                        </group>
+                    </group>
+                    <group string="Discount Details" invisible="not discount_info">
+                        <field name="discount_info" readonly="1" nolabel="1"/>
+                    </group>
+                    <group string="Refusal Reason" invisible="state != 'refused'">
+                        <field name="refuse_note" readonly="1" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="l4e_discount_req_view_search" model="ir.ui.view">
+        <field name="name">l4e.discount.approval.request.search</field>
+        <field name="model">l4e.discount.approval.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="sale_order_id"/>
+                <field name="purchase_order_id"/>
+                <field name="account_move_id"/>
+                <field name="requester_id"/>
+                <filter string="Pending" name="pending" domain="[('state', '=', 'pending')]"/>
+                <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Refused" name="refused" domain="[('state', '=', 'refused')]"/>
+                <separator/>
+                <filter string="My Requests" name="mine" domain="[('requester_id', '=', uid)]"/>
+                <filter string="Waiting My Approval" name="my_approval"
+                        domain="[('approver_ids', 'in', [uid]), ('state', '=', 'pending')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l4e_discount_approval_request" model="ir.actions.act_window">
+        <field name="name">Discount Approval Requests</field>
+        <field name="res_model">l4e.discount.approval.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+
+    <record id="action_l4e_my_discount_approvals" model="ir.actions.act_window">
+        <field name="name">My Pending Discount Approvals</field>
+        <field name="res_model">l4e.discount.approval.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('approver_ids', 'in', [uid]), ('state', '=', 'pending')]</field>
+    </record>
+
+    <!-- Refuse Wizard -->
+    <record id="l4e_discount_refuse_wizard_view_form" model="ir.ui.view">
+        <field name="name">l4e.discount.refuse.wizard.form</field>
+        <field name="model">l4e.discount.refuse.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Refuse Discount Approval">
+                <group>
+                    <field name="request_id" readonly="1"/>
+                    <field name="note" placeholder="Enter reason for refusal…" required="1"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_refuse" type="object"
+                            string="Refuse" class="btn-danger"/>
+                    <button special="cancel" string="Cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

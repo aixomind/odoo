@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level Root Menu -->
+    <menuitem id="menu_tracking_system_root"
+              name="Tracking System"
+              sequence="10"
+              web_icon="l4e_odoo_tracking_system,static/description/tracking_icon.jpg"/>
+
+    <!-- Submenu: Configure Tracking -->
+    <menuitem id="menu_tracking_config"
+              name="Configure Tracking"
+              parent="menu_tracking_system_root"
+              action="action_tracking_config"
+              sequence="1"/>
+
+    <!-- Submenu: Dust Bin Data -->
+    <menuitem id="menu_dust_bin_data"
+              name="Dust Bin Data"
+              parent="menu_tracking_system_root"
+              action="action_dust_bin_data"
+              sequence="2"/>
+</odoo>
