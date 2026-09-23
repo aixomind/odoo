@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Approval settings removed from this module.
+         Stale DB view records are cleaned up by pre_init_hook. -->
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Config parameters are NOT seeded here.
+        All get_param() calls already supply a default value,
+        so these records are created on first use — not on install.
+        Seeding them caused duplicate key errors on module upgrade
+        when the DB already had the keys from a previous install.
+    -->
+</odoo>

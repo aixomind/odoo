@@ -1,0 +1,8 @@
+/** @odoo-module **/
+
+import { Message } from "@mail/core/common/message_model";
+import { patch } from "@web/core/utils/patch";
+
+patch(Message.prototype, {
+    useCustomTrackingCard: false,
+});

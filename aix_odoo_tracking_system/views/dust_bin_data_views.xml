@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dust Bin Data Form View -->
+    <record id="view_dust_bin_data_form" model="ir.ui.view">
+        <field name="name">tracking.dust.bin.form</field>
+        <field name="model">tracking.dust.bin</field>
+        <field name="arch" type="xml">
+            <form string="Dust Bin Data" create="false">
+                <header>
+                    <button name="action_restore" string="Restore" type="object" class="oe_highlight" groups="base.group_system"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="model_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="res_id" readonly="1"/>
+                            <field name="deletion_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Record Data Snapshot">
+                            <field name="record_data" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dust Bin Data List View -->
+    <record id="view_dust_bin_data_tree" model="ir.ui.view">
+        <field name="name">tracking.dust.bin.list</field>
+        <field name="model">tracking.dust.bin</field>
+        <field name="arch" type="xml">
+            <list string="Dust Bin Data" create="false">
+                <header>
+                    <button name="action_restore" string="Restore Selected" type="object" class="oe_highlight" groups="base.group_system"/>
+                </header>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="res_id"/>
+                <field name="deletion_date"/>
+                <button name="action_restore" string="Restore" type="object" icon="fa-undo" groups="base.group_system"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action for Dust Bin Data -->
+    <record id="action_dust_bin_data" model="ir.actions.act_window">
+        <field name="name">Dust Bin Data</field>
+        <field name="res_model">tracking.dust.bin</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No deleted records in Dust Bin Data!
+            </p>
+            <p>
+                Deleted records for configured models will appear here and can be restored by System Administrators.
+            </p>
+        </field>
+    </record>
+</odoo>
