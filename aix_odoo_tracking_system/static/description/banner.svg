@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
+  <defs>
+    <!-- Main dark navy background -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#04090f"/>
+      <stop offset="55%"  stop-color="#071222"/>
+      <stop offset="100%" stop-color="#091a30"/>
+    </linearGradient>
+    <!-- Green ambient glow (right) -->
+    <radialGradient id="greenGlow" cx="78%" cy="52%" r="42%" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#16a34a" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#16a34a" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Blue left glow -->
+    <radialGradient id="blueGlow" cx="18%" cy="50%" r="35%" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#1e4080" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#1e4080" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Dot pattern -->
+    <pattern id="dots" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="0.5" cy="0.5" r="0.7" fill="#1e3a5f" fill-opacity="0.55"/>
+    </pattern>
+    <!-- Card drop shadow -->
+    <filter id="win-shadow" x="-5%" y="-5%" width="115%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <!-- Subtle green line gradient -->
+    <linearGradient id="greenLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#16a34a"/>
+      <stop offset="100%" stop-color="#16a34a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ═══════════ BACKGROUND ═══════════ -->
+  <rect width="1200" height="420" fill="url(#bgGrad)"/>
+  <rect width="1200" height="420" fill="url(#dots)"/>
+  <rect width="1200" height="420" fill="url(#greenGlow)"/>
+  <rect width="1200" height="420" fill="url(#blueGlow)"/>
+
+  <!-- Vertical divider line (subtle) -->
+  <line x1="572" y1="30" x2="572" y2="390" stroke="#1e3a5f" stroke-width="1" stroke-opacity="0.4"/>
+
+  <!-- ═══════════ LEFT SIDE — TEXT ═══════════ -->
+
+  <!-- Main title: line 1 -->
+  <text x="60" y="100"
+        font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900"
+        fill="#ffffff" letter-spacing="-1.5">L4E Smart Chatter</text>
+
+  <!-- Main title: line 2 (green) -->
+  <text x="60" y="154"
+        font-family="Inter, Arial, sans-serif" font-size="44" font-weight="900"
+        fill="#4ade80" letter-spacing="-1.5">Tracking &amp; Dust Bin</text>
+
+  <!-- Underline accent -->
+  <rect x="60" y="166" width="400" height="3" rx="1.5" fill="url(#greenLine)"/>
+
+  <!-- Subtitle -->
+  <text x="60" y="196"
+        font-family="Inter, Arial, sans-serif" font-size="15.5" fill="#94a3b8">
+    Complete field audit trail · Deleted record recovery
+  </text>
+
+  <!-- Bullet points -->
+  <circle cx="68" cy="225" r="3.5" fill="#22c55e"/>
+  <text x="82" y="230" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">
+    Custom green chatter cards for every field change
+  </text>
+
+  <circle cx="68" cy="250" r="3.5" fill="#22c55e"/>
+  <text x="82" y="255" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">
+    Order Lines diff — Added / Removed / Unchanged
+  </text>
+
+  <circle cx="68" cy="275" r="3.5" fill="#22c55e"/>
+  <text x="82" y="280" font-family="Inter, Arial, sans-serif" font-size="13" fill="#64748b">
+    Dust Bin snapshots + admin one-click restore
+  </text>
+
+  <!-- Pill row -->
+  <!-- Chatter Tracking -->
+  <rect x="60" y="302" width="150" height="28" rx="14"
+        fill="#16a34a" fill-opacity="0.12"
+        stroke="#16a34a" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="80" cy="316" r="5" fill="#4ade80"/>
+  <text x="93" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#86efac">
+    Chatter Tracking
+  </text>
+
+  <!-- Dust Bin -->
+  <rect x="220" y="302" width="96" height="28" rx="14"
+        fill="#3b82f6" fill-opacity="0.12"
+        stroke="#3b82f6" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="240" cy="316" r="5" fill="#60a5fa"/>
+  <text x="253" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#93c5fd">
+    Dust Bin
+  </text>
+
+  <!-- Restore -->
+  <rect x="326" y="302" width="88" height="28" rx="14"
+        fill="#a855f7" fill-opacity="0.12"
+        stroke="#a855f7" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="346" cy="316" r="5" fill="#c084fc"/>
+  <text x="359" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#d8b4fe">
+    Restore
+  </text>
+
+  <!-- Audit Trail -->
+  <rect x="424" y="302" width="100" height="28" rx="14"
+        fill="#f59e0b" fill-opacity="0.12"
+        stroke="#f59e0b" stroke-width="1.2" stroke-opacity="0.55"/>
+  <circle cx="444" cy="316" r="5" fill="#fbbf24"/>
+  <text x="457" y="320"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#fde68a">
+    Audit Trail
+  </text>
+
+  <!-- ═══════════ RIGHT SIDE — MOCK CHATTER WINDOW ═══════════ -->
+
+  <!-- Window card (shadow + border) -->
+  <rect x="590" y="20" width="578" height="382" rx="14"
+        fill="#0d1523" stroke="#1c3152" stroke-width="1.5"
+        filter="url(#win-shadow)"/>
+
+  <!-- Title bar -->
+  <rect x="590" y="20" width="578" height="38" rx="14" fill="#080d18"/>
+  <rect x="590" y="44"  width="578" height="14" fill="#080d18"/>
+
+  <!-- Traffic light circles -->
+  <circle cx="617" cy="39" r="6.5" fill="#ff5f56"/>
+  <circle cx="638" cy="39" r="6.5" fill="#ffbd2e"/>
+  <circle cx="659" cy="39" r="6.5" fill="#28c840"/>
+
+  <!-- Window title text -->
+  <text x="879" y="44" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#4b5563">
+    Odoo Chatter — Sales Order S00025
+  </text>
+
+  <!-- ── CARD 1: Record Created ── -->
+  <rect x="605" y="72" width="549" height="66" rx="8"
+        fill="#061510" stroke="#14532d" stroke-width="1"/>
+  <!-- Avatar -->
+  <circle cx="631" cy="105" r="13.5" fill="#1c2a3a"/>
+  <text x="631" y="110" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#64748b">MA</text>
+  <!-- Header -->
+  <text x="654" y="89"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#4b5563">
+    Mitchell Admin · now
+  </text>
+  <!-- Title -->
+  <text x="654" y="107"
+        font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+    Record updated.
+  </text>
+  <!-- Body -->
+  <text x="654" y="124" font-family="Inter, Arial, sans-serif" font-size="11.5">
+    <tspan fill="#94a3b8">The record has been changed from </tspan>
+    <tspan fill="#fb923c" font-style="italic">none</tspan>
+    <tspan fill="#94a3b8"> to </tspan>
+    <tspan fill="#4ade80" font-weight="700">S00025 created.</tspan>
+  </text>
+
+  <!-- ── CARD 2: Payment Terms → empty ── -->
+  <rect x="605" y="146" width="549" height="66" rx="8"
+        fill="#061510" stroke="#14532d" stroke-width="1"/>
+  <circle cx="631" cy="179" r="13.5" fill="#1c2a3a"/>
+  <text x="631" y="184" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#64748b">MA</text>
+  <text x="654" y="163"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#4b5563">
+    Mitchell Admin · 1 min ago
+  </text>
+  <text x="654" y="181"
+        font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+    Payment Terms updated.
+  </text>
+  <text x="654" y="198" font-family="Inter, Arial, sans-serif" font-size="11.5">
+    <tspan fill="#94a3b8">Changed from </tspan>
+    <tspan fill="#f87171">End of Following Month</tspan>
+    <tspan fill="#94a3b8"> to </tspan>
+    <tspan fill="#fb923c" font-style="italic">empty.</tspan>
+  </text>
+
+  <!-- ── CARD 3: Order Lines diff ── -->
+  <rect x="605" y="220" width="549" height="80" rx="8"
+        fill="#061510" stroke="#14532d" stroke-width="1"/>
+  <circle cx="631" cy="260" r="13.5" fill="#1c2a3a"/>
+  <text x="631" y="265" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="10" font-weight="700" fill="#64748b">MA</text>
+  <text x="654" y="237"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#4b5563">
+    Mitchell Admin · 2 min ago
+  </text>
+  <text x="654" y="255"
+        font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#22c55e">
+    Order Lines updated.
+  </text>
+  <text x="654" y="271" font-family="Inter, Arial, sans-serif" font-size="11.5">
+    <tspan fill="#94a3b8">Added: </tspan>
+    <tspan fill="#4ade80" font-weight="700">S00025 - Acoustic Bloc Screens.</tspan>
+  </text>
+  <text x="654" y="288"
+        font-family="Inter, Arial, sans-serif" font-size="11.5"
+        fill="#fb923c" font-style="italic">
+    1 item unchanged.
+  </text>
+
+  <!-- ── CARD 4: Dust Bin entry ── -->
+  <rect x="605" y="308" width="549" height="68" rx="8"
+        fill="#0e0620" stroke="#3b1f6b" stroke-width="1"/>
+  <!-- Icon box -->
+  <rect x="620" y="320" width="26" height="26" rx="6" fill="#4c1d95" fill-opacity="0.5"/>
+  <text x="633" y="338" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="14" fill="#c084fc">&#128465;</text>
+  <!-- Dust Bin info -->
+  <text x="656" y="329"
+        font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#a78bfa">
+    Dust Bin Data
+  </text>
+  <text x="656" y="346"
+        font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#c4b5fd">
+    S00025 · Sales Order · Deleted 08/06/2026 11:46:10
+  </text>
+  <text x="656" y="362"
+        font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#6d5da8">
+    Record snapshot saved — admin can restore at any time
+  </text>
+  <!-- Restore button -->
+  <rect x="1046" y="320" width="90" height="30" rx="8" fill="#6d28d9"/>
+  <text x="1091" y="340" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#ffffff">
+    &#8635; Restore
+  </text>
+
+  <!-- ═══════════ BOTTOM BRAND BAR ═══════════ -->
+  <rect x="0" y="396" width="1200" height="24" fill="#030710" fill-opacity="0.8"/>
+  <text x="600" y="413" text-anchor="middle"
+        font-family="Inter, Arial, sans-serif" font-size="11" fill="#334155">
+    Links4Engg · support@links4engg.com · www.links4engg.com
+  </text>
+
+</svg>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Log list view -->
+    <record id="universal_field_update_log_view_list" model="ir.ui.view">
+        <field name="name">universal.field.update.log.list</field>
+        <field name="model">universal.field.update.log</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="model_label" string="Model"/>
+                <field name="field_label" string="Field"/>
+                <field name="old_value_display" string="From"/>
+                <field name="new_value_display" string="To"/>
+                <field name="requested_count" string="Requested"/>
+                <field name="updated_count" string="Updated"/>
+                <field name="skipped_count" string="Skipped"/>
+                <field name="failed_count" string="Failed"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'completed'"
+                       decoration-danger="state == 'reverted'"/>
+                <field name="is_revert" string="Is Revert" widget="boolean_toggle" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Log form view -->
+    <record id="universal_field_update_log_view_form" model="ir.ui.view">
+        <field name="name">universal.field.update.log.form</field>
+        <field name="model">universal.field.update.log</field>
+        <field name="arch" type="xml">
+            <form string="Universal Field Update Log" create="false" edit="false" delete="false">
+                <header>
+                    <button name="action_revert_update" type="object"
+                            string="Revert Field Update"
+                            class="btn-danger"
+                            invisible="state == 'reverted' or is_revert or updated_count == 0"
+                            confirm="This will restore the previous value on every record that was successfully updated. Continue?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="completed,reverted"
+                           invisible="is_revert"/>
+                    <field name="is_revert" invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <widget name="web_ribbon" title="Revert Entry" bg_color="text-bg-warning" invisible="not is_revert"/>
+                    </div>
+                    <group>
+                        <group string="Audit Details">
+                            <field name="user_id"/>
+                            <field name="date"/>
+                            <field name="reverted_log_id" invisible="not reverted_log_id"/>
+                            <field name="revert_log_id" invisible="not revert_log_id"/>
+                        </group>
+                        <group string="Model &amp; Field">
+                            <field name="model_label"/>
+                            <field name="model_name"/>
+                            <field name="field_label"/>
+                            <field name="field_name"/>
+                            <field name="field_type"/>
+                            <field name="relation_model" invisible="field_type != 'many2one'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Value Details">
+                            <field name="old_value_display"/>
+                            <field name="new_value_display"/>
+                        </group>
+                        <group string="Execution Stats">
+                            <field name="requested_count"/>
+                            <field name="updated_count"/>
+                            <field name="skipped_count"/>
+                            <field name="failed_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="details" string="Update Details">
+                            <field name="line_ids">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="res_id"/>
+                                    <field name="res_name"/>
+                                    <field name="status" widget="badge" 
+                                           decoration-success="status == 'updated'" 
+                                           decoration-warning="status == 'skipped'" 
+                                           decoration-danger="status == 'failed'"/>
+                                    <field name="old_value_display" string="Old Value"/>
+                                    <field name="new_value_display" string="New Value"/>
+                                    <field name="error_message" string="Error Details"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Log action -->
+    <record id="action_universal_field_update_log" model="ir.actions.act_window">
+        <field name="name">Update History</field>
+        <field name="res_model">universal.field.update.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

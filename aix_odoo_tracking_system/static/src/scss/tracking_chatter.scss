@@ -1,0 +1,37 @@
+.o_custom_tracking_card,
+.o_l4e_custom_chatter_card {
+    background-color: #f4fbf7;
+    border: 1px solid #d4edda;
+    border-radius: 12px;
+    color: #212529;
+    font-family: inherit;
+    font-size: 14px;
+    margin: 4px 0 8px;
+    padding: 12px 18px;
+
+    .o-mail-AttachmentList {
+        margin-top: 8px;
+    }
+}
+
+.o_l4e_tracking_title {
+    color: #1e7e34;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.o_l4e_tracking_old {
+    color: #d9534f;
+    font-weight: 500;
+}
+
+.o_l4e_tracking_new {
+    color: #28a745;
+    font-weight: 700;
+}
+
+.o_l4e_tracking_empty {
+    color: #fd7e14;
+    font-style: italic;
+    font-weight: 600;
+}
