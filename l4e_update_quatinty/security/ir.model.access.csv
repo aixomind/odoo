@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_l4e_update_lot_serial_wizard,l4e.update.lot.serial.wizard,model_l4e_update_lot_serial_wizard,stock.group_stock_user,1,1,1,1
-access_l4e_update_lot_serial_line,l4e.update.lot.serial.line,model_l4e_update_lot_serial_line,stock.group_stock_user,1,1,1,1
