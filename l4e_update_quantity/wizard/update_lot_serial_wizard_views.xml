@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_lot_serial_wizard_form" model="ir.ui.view">
+            <field name="name">l4e.update.lot.serial.wizard.form</field>
+            <field name="model">l4e.update.lot.serial.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Update Lot / Serial Numbers for Existing Stock">
+                    <field name="available_location_ids" invisible="1"/>
+                    <field name="available_source_lot_ids" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+
+                    <div class="alert alert-info py-2 mb-3" role="status">
+                        <i class="fa fa-info-circle me-1"/>
+                        This wizard updates the <strong>existing on-hand quantity</strong> by assigning or converting lot/serial numbers.
+                        <strong>No new or duplicate inventory will be created.</strong>
+                    </div>
+
+                    <group>
+                        <group name="product_info" string="Product &amp; Source">
+                            <field name="product_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="tracking" widget="radio" options="{'horizontal': true}"/>
+                            <field name="source_lot_id" options="{'no_create': True}" placeholder="Untracked Stock (No Lot)"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                        </group>
+                        <group name="quantities_info" string="Inventory Quantities">
+                            <label for="existing_qty" string="Available to Assign"/>
+                            <div class="o_row">
+                                <field name="existing_qty" class="oe_inline fw-bold"/>
+                                <field name="uom_id" class="oe_inline"/>
+                            </div>
+                            <label for="assigned_qty" string="Assigned Quantity"/>
+                            <div class="o_row">
+                                <field name="assigned_qty" class="oe_inline text-primary fw-bold"/>
+                                <field name="uom_id" class="oe_inline"/>
+                            </div>
+                            <label for="remaining_qty" string="Remaining Quantity"/>
+                            <div class="o_row">
+                                <field name="remaining_qty" class="oe_inline text-warning fw-bold"/>
+                                <field name="uom_id" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+
+                    <!-- Auto-Generate Serials / Lots Bar (like Detailed Operations) -->
+                    <div class="d-flex align-items-center gap-2 p-2 my-2 bg-light border rounded" attrs="{'invisible': [('tracking', '!=', 'serial')]}">
+                        <span class="fw-bold text-nowrap"><i class="fa fa-magic text-primary me-1"/>Auto Generate Serials:</span>
+                        <field name="first_lot_name" placeholder="First serial (e.g. SN-001)" class="w-auto"/>
+                        <span class="text-muted text-nowrap">Count:</span>
+                        <field name="lot_count" class="w-auto" style="max-width: 90px;"/>
+                        <button name="action_generate_serials" string="Generate Serials" type="object" class="btn btn-secondary btn-sm" icon="fa-plus-circle"/>
+                    </div>
+
+                    <!-- Excel / CSV Import Bar -->
+                    <div class="d-flex align-items-center gap-2 p-2 my-2 bg-light border rounded">
+                        <span class="fw-bold text-nowrap"><i class="fa fa-file-excel-o text-success me-1"/>Import from Excel / CSV:</span>
+                        <field name="import_filename" invisible="1"/>
+                        <field name="import_file" filename="import_filename" widget="binary" class="w-auto"/>
+                        <button name="action_import_file" string="Import" type="object" class="btn btn-secondary btn-sm" icon="fa-upload" attrs="{'invisible': [('import_file', '=', False)]}"/>
+                        <span class="text-muted small ms-auto" attrs="{'invisible': [('import_file', '!=', False)]}">Excel Format: Col 1 = Lot/Serial Number, Col 2 = Quantity (optional)</span>
+                    </div>
+
+                    <field name="line_ids" nolabel="1">
+                        <tree editable="bottom" decoration-info="tracking == 'serial'">
+                            <field name="tracking" invisible="1"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                            <field name="lot_name" string="Lot / Serial Number" placeholder="e.g. SN0001, LOT-A"/>
+                            <field name="lot_id" string="Existing Lot" optional="hide" domain="[('product_id', '=', parent.product_id)]" options="{'no_create': True}"/>
+                            <field name="quantity" attrs="{'readonly': [('tracking', '=', 'serial')]}" force_save="1"/>
+                            <field name="uom_id" options="{'no_open': True}"/>
+                        </tree>
+                    </field>
+
+                    <footer>
+                        <button name="action_apply" string="Update Lot / Serial" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Discard" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_update_lot_serial_wizard" model="ir.actions.act_window">
+            <field name="name">Update Lot / Serial Number</field>
+            <field name="res_model">l4e.update.lot.serial.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
