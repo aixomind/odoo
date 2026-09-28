@@ -21,12 +21,12 @@
 #
 ##############################################################################
 {
-    'name': 'AIX – Lot & Serial Number Manager (New & Existing Quantities)',
+    'name': 'L4E – Lot & Serial Number Manager (New & Existing Quantities)',
     'version': '19.0.1.0.0',
     'category': 'Inventory/Inventory',
     'summary': 'Update and assign lot/serial numbers for existing on-hand stock quantity without duplicating stock',
     'description': """
-AIX – Lot & Serial Number Manager (New & Existing Quantities)
+L4E – Lot & Serial Number Manager (New & Existing Quantities)
 ===========================================================
 This module allows warehouse managers and users to assign Lot or Serial numbers to existing
 on-hand stock quantities when changing product tracking from 'By Quantity' to 'By Lots' or
