@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L4E – Lot &amp; Serial Number Manager (New &amp; Existing Quantities)</title>
+</head>
+<body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1E293B; background-color: #FFFFFF; line-height: 1.6; margin: 0; padding: 0;">
+
+<div class="container py-5" style="max-width: 1140px; margin: 0 auto; padding: 20px;">
+
+    <!-- ==================== APP STORE BANNER ==================== -->
+    <div class="text-center mb-4" style="text-align: center; margin-bottom: 30px;" align="center">
+        <img src="banner.gif" alt="L4E – Lot &amp; Serial Number Manager (New &amp; Existing Quantities) Banner" style="width: 100%; max-width: 1100px; height: auto; border-radius: 16px; box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.15); border: 1px solid #E2E8F0;">
+    </div>
+
+    <!-- ==================== HERO HEADER ==================== -->
+    <div class="text-center p-5 mb-5" style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); text-align: center; padding: 40px 20px; margin-bottom: 40px;" align="center">
+        <div class="d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; background-color: #FFFFFF; border-radius: 16px; border: 1px solid #E2E8F0; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <img src="icon.png" alt="Module Icon" style="width: 58px; height: 58px; object-fit: contain;">
+        </div>
+        <h1 style="font-size: 34px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; color: #0F172A !important;">L4E &ndash; Lot &amp; Serial Number Manager (New &amp; Existing Quantities)</h1>
+        <p style="font-size: 19px; font-weight: 400; max-width: 820px; margin: 0 auto 24px auto; color: #475569 !important;">
+            Update &amp; assign Lot or Serial numbers to existing warehouse on-hand stock directly &mdash; <strong style="color: #0284C7 !important;">without creating duplicate inventory or scrap moves!</strong>
+        </p>
+
+        <!-- Version & Compatibility Badges -->
+        <div class="d-flex flex-wrap justify-content-center gap-2" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; text-align: center; margin: 0 auto;" align="center">
+            <span style="display: inline-block; background-color: #E0F2FE; color: #0369A1 !important; border: 1.5px solid #BAE6FD; padding: 6px 14px; border-radius: 30px; font-size: 13px; font-weight: 700; margin: 4px;">Odoo 16, 17, 18, 19 Ready</span>
+            <span style="display: inline-block; background-color: #F1F5F9; color: #334155 !important; border: 1.5px solid #CBD5E1; padding: 6px 14px; border-radius: 30px; font-size: 13px; font-weight: 700; margin: 4px;">Community &amp; Enterprise</span>
+            <span style="display: inline-block; background-color: #DCFCE7; color: #15803D !important; border: 1.5px solid #86EFAC; padding: 6px 14px; border-radius: 30px; font-size: 13px; font-weight: 700; margin: 4px;">Zero Stock Duplication</span>
+            <span style="display: inline-block; background-color: #EDE9FE; color: #6D28D9 !important; border: 1.5px solid #DDD6FE; padding: 6px 14px; border-radius: 30px; font-size: 13px; font-weight: 700; margin: 4px;">Odoo.sh &amp; On-Premise</span>
+        </div>
+    </div>
+
+    <!-- ==================== PROBLEM VS SOLUTION ==================== -->
+    <div class="row mb-5" style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; gap: 20px 0; margin-bottom: 40px;">
+        <div class="col-md-6" style="flex: 0 0 50%; max-width: 50%; padding: 0 15px; box-sizing: border-box;">
+            <div style="background-color: #FFF1F2; border: 1px solid #FECDD3; border-radius: 16px; padding: 28px; height: 100%; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; margin-bottom: 14px;">
+                    <img src="cross_icon.png" alt="Limitation" width="36" height="36" style="width: 36px; height: 36px; min-width: 36px; display: inline-block; vertical-align: middle; margin-right: 12px;">
+                    <h3 style="color: #9F1239 !important; font-size: 20px; font-weight: 700; margin: 0; display: inline-block; vertical-align: middle;">The Standard Odoo Limitation</h3>
+                </div>
+                <ul style="color: #881337 !important; font-size: 15px; padding-left: 20px; margin: 0;">
+                    <li style="margin-bottom: 8px;">Odoo restricts changing product tracking to Lots/Serials once inventory transactions exist.</li>
+                    <li style="margin-bottom: 8px;">Warehouse managers are forced to scrap or adjust existing stock out, then re-import it with lot numbers.</li>
+                    <li style="margin-bottom: 8px;">Distorts accounting valuation, creates extra duplicate picking moves, and disrupts open orders.</li>
+                    <li>Very time-consuming and error-prone when managing hundreds of untracked serial items.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6" style="flex: 0 0 50%; max-width: 50%; padding: 0 15px; box-sizing: border-box;">
+            <div style="background-color: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 16px; padding: 28px; height: 100%; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; margin-bottom: 14px;">
+                    <img src="tick_icon.png" alt="Solution" width="36" height="36" style="width: 36px; height: 36px; min-width: 36px; display: inline-block; vertical-align: middle; margin-right: 12px;">
+                    <h3 style="color: #065F46 !important; font-size: 20px; font-weight: 700; margin: 0; display: inline-block; vertical-align: middle;">The L4E Solution</h3>
+                </div>
+                <ul style="color: #064E3B !important; font-size: 15px; padding-left: 20px; margin: 0;">
+                    <li style="margin-bottom: 8px;"><strong>Converts stock in-place:</strong> Directly modifies warehouse stock quants to bind them to lots/serials.</li>
+                    <li style="margin-bottom: 8px;"><strong>Zero stock duplication:</strong> Total on-hand quantity remains exactly the same before and after.</li>
+                    <li style="margin-bottom: 8px;"><strong>Preserves audit integrity:</strong> Original packages, locations, and in-dates are maintained seamlessly.</li>
+                    <li><strong>Automatic move re-assignment:</strong> Safely unreserves open moves and re-reserves them with new serials.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== KEY FEATURES GRID (NO EMOJIS) ==================== -->
+    <div class="mb-5" style="margin-bottom: 45px;">
+        <div class="text-center mb-4" style="text-align: center; margin-bottom: 25px;" align="center">
+            <h2 style="font-size: 28px; font-weight: 800; color: #0F172A !important; margin-bottom: 8px;">Powerful Features at a Glance</h2>
+            <p style="color: #64748B !important; font-size: 16px; max-width: 650px; margin: 0 auto;">Designed specifically for warehouse operators, inventory controllers, and logistics managers.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-top: 3px solid #0284C7; border-radius: 14px; padding: 22px;">
+                <h4 style="font-size: 17px; font-weight: 700; color: #0F172A !important; margin: 0 0 8px 0;">Smart Button on Product Form</h4>
+                <p style="font-size: 14px; color: #64748B !important; margin: 0;">View untracked positive warehouse quantity directly on Product Template and Variant forms.</p>
+            </div>
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-top: 3px solid #7C3AED; border-radius: 14px; padding: 22px;">
+                <h4 style="font-size: 17px; font-weight: 700; color: #0F172A !important; margin: 0 0 8px 0;">One-Click Auto Generation</h4>
+                <p style="font-size: 14px; color: #64748B !important; margin: 0;">Provide a starting serial pattern (e.g. SN-001) and quantity count to instantly generate sequences.</p>
+            </div>
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-top: 3px solid #059669; border-radius: 14px; padding: 22px;">
+                <h4 style="font-size: 17px; font-weight: 700; color: #0F172A !important; margin: 0 0 8px 0;">Excel &amp; CSV Batch Import</h4>
+                <p style="font-size: 14px; color: #64748B !important; margin: 0;">Upload manufacturer or supplier serial number spreadsheets (.xlsx, .xls, .csv) with single-click parsing.</p>
+            </div>
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-top: 3px solid #D97706; border-radius: 14px; padding: 22px;">
+                <h4 style="font-size: 17px; font-weight: 700; color: #0F172A !important; margin: 0 0 8px 0;">Lot to Serial Conversion</h4>
+                <p style="font-size: 14px; color: #64748B !important; margin: 0;">Split bulk lot batches into individual unique serial numbers seamlessly without manual scrap.</p>
+            </div>
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-top: 3px solid #2563EB; border-radius: 14px; padding: 22px;">
+                <h4 style="font-size: 17px; font-weight: 700; color: #0F172A !important; margin: 0 0 8px 0;">Live Balance Validation</h4>
+                <p style="font-size: 14px; color: #64748B !important; margin: 0;">Real-time counters for Available, Assigned, and Remaining quantities prevent over-allocation errors.</p>
+            </div>
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-top: 3px solid #0D9488; border-radius: 14px; padding: 22px;">
+                <h4 style="font-size: 17px; font-weight: 700; color: #0F172A !important; margin: 0 0 8px 0;">Full Audit Trail in Chatter</h4>
+                <p style="font-size: 14px; color: #64748B !important; margin: 0;">Automatically logs conversion details, source lot, and assigned serial numbers in the product chatter.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DETAILED SCREENSHOT WALKTHROUGH ==================== -->
+    <div class="mb-5" style="margin-bottom: 45px;">
+        <div class="text-center mb-5" style="text-align: center; margin-bottom: 35px;" align="center">
+            <span style="display: inline-block; background-color: #E0E7FF; color: #4338CA !important; border: 1px solid #C7D2FE; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Visual Walkthrough</span>
+            <h2 style="font-size: 30px; font-weight: 800; color: #0F172A !important; margin-top: 8px; margin-bottom: 8px;">How It Works Step-by-Step</h2>
+            <p style="color: #64748B !important; font-size: 16px; max-width: 600px; margin: 0 auto;">See how easy it is to manage serial and lot assignments in real production environments.</p>
+        </div>
+
+        <!-- Step 1 -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #E0F2FE; color: #0284C7 !important; border: 1.5px solid #0284C7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">STEP 1</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">Smart Button on Product Form</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    A dedicated <strong>Update Lot/Serial</strong> smart button appears on Storable Products, displaying the exact quantity of on-hand inventory needing lot or serial assignment.
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9; text-align: center;" align="center">
+                <img src="01_product_smart_button.png" alt="Smart Button on Product Form" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #E0F2FE; color: #0284C7 !important; border: 1.5px solid #0284C7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">STEP 2</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">Intuitive &amp; Safe Conversion Wizard</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    Clicking the smart button launches the wizard. It highlights that <strong>no duplicate stock will be created</strong> and provides real-time indicators for Available to Assign, Assigned Quantity, and Remaining Quantity.
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9; text-align: center;" align="center">
+                <img src="02_wizard_overview.png" alt="Update Lot/Serial Wizard Overview" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #E0F2FE; color: #0284C7 !important; border: 1.5px solid #0284C7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">STEP 3</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">One-Click Bulk Serial Auto-Generation</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    Enter your initial serial number pattern (e.g. <code>0000001</code>) and count. Clicking <strong>Generate Serials</strong> automatically creates the sequential entries with quantity 1.0 each.
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9; text-align: center;" align="center">
+                <img src="03_auto_generate_serials.png" alt="Auto Generate Serials Bar" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+            </div>
+        </div>
+
+        <!-- Step 4: Import -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #E0F2FE; color: #0284C7 !important; border: 1.5px solid #0284C7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">STEP 4</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">Batch Import from Excel (.xlsx) or CSV</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    Have manufacturer barcodes or a supplier manifest? Simply select your Excel or CSV file and click <strong>Import</strong>.
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9;">
+                <div style="margin-bottom: 24px; text-align: center;" align="center">
+                    <p style="font-size: 14px; font-weight: 600; color: #334155 !important; margin-bottom: 10px;">(a) Upload Excel / CSV file directly inside the wizard</p>
+                    <img src="04_excel_csv_import (a).png" alt="Upload Excel/CSV file" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+                </div>
+                <div style="text-align: center;" align="center">
+                    <p style="font-size: 14px; font-weight: 600; color: #334155 !important; margin-bottom: 10px;">(b) Lines populated automatically with quantities and locations</p>
+                    <img src="04_excel_csv_import(b).png" alt="Lines populated from file" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Lot to Serial -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #E0F2FE; color: #0284C7 !important; border: 1.5px solid #0284C7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">STEP 5</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">Lot to Unique Serial Number Conversion</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    Need to split an existing batch Lot into individual serialized products? Select the source lot in the <strong>Convert From</strong> dropdown to break down the multi-unit batch into unique serials.
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9;">
+                <div style="margin-bottom: 24px; text-align: center;" align="center">
+                    <p style="font-size: 14px; font-weight: 600; color: #334155 !important; margin-bottom: 10px;">(a) Select the existing Lot to convert</p>
+                    <img src="05_lot_to_serial_conversion(a).png" alt="Select Lot to convert" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+                </div>
+                <div style="text-align: center;" align="center">
+                    <p style="font-size: 14px; font-weight: 600; color: #334155 !important; margin-bottom: 10px;">(b) Generate individual serials for the batch quantity</p>
+                    <img src="05_lot_to_serial_conversion(b).png" alt="Generate serials for lot" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: Verified Quants -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #DCFCE7; color: #059669 !important; border: 1.5px solid #059669; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">RESULT</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">Verified Inventory Quants (Zero Duplication)</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    Checking the stock location confirms that each unit has been directly assigned its unique serial number. Total on-hand quantity remains exact with no extra moves or double counts!
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9; text-align: center;" align="center">
+                <img src="06_inventory_quants_verified.png" alt="Verified On-Hand Quants" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+            </div>
+        </div>
+
+        <!-- Step 7: Audit Trail -->
+        <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 18px; overflow: hidden; margin-bottom: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);">
+            <div style="padding: 24px 30px; background-color: #F8FAFC; border-bottom: 1px solid #E2E8F0;">
+                <span style="display: inline-block; background-color: #DCFCE7; color: #059669 !important; border: 1.5px solid #059669; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; margin-right: 8px;">AUDIT</span>
+                <h3 style="display: inline; font-size: 20px; font-weight: 700; color: #0F172A !important; vertical-align: middle;">Full Audit Trail in Product Chatter</h3>
+                <p style="color: #64748B !important; font-size: 14px; margin: 8px 0 0 0;">
+                    Every update writes a structured, formatted log in the product chatter, recording the converted source (Untracked or Lot), the quantity updated, and all assigned numbers for complete traceability.
+                </p>
+            </div>
+            <div style="padding: 20px; background-color: #F1F5F9; text-align: center;" align="center">
+                <img src="07_chatter_audit_trail.png" alt="Audit Trail in Chatter" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); border: 1px solid #CBD5E1;">
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TECHNICAL SPECS ==================== -->
+    <div class="mb-5" style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px; margin-bottom: 40px;">
+        <h3 style="font-size: 22px; font-weight: 800; color: #0F172A !important; margin-top: 0; margin-bottom: 20px; text-align: center;" align="center">Technical Specifications</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+            <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px 18px;">
+                <span style="font-size: 12px; color: #64748B !important; font-weight: 600; text-transform: uppercase;">Supported Versions</span>
+                <div style="font-size: 16px; font-weight: 700; color: #0F172A !important; margin-top: 4px;">16.0, 17.0, 18.0, 19.0</div>
+            </div>
+            <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px 18px;">
+                <span style="font-size: 12px; color: #64748B !important; font-weight: 600; text-transform: uppercase;">Editions</span>
+                <div style="font-size: 16px; font-weight: 700; color: #0F172A !important; margin-top: 4px;">Community &amp; Enterprise</div>
+            </div>
+            <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px 18px;">
+                <span style="font-size: 12px; color: #64748B !important; font-weight: 600; text-transform: uppercase;">Hosting</span>
+                <div style="font-size: 16px; font-weight: 700; color: #0F172A !important; margin-top: 4px;">Odoo.sh, On-Premise, Cloud</div>
+            </div>
+            <div style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px 18px;">
+                <span style="font-size: 12px; color: #64748B !important; font-weight: 600; text-transform: uppercase;">Dependencies</span>
+                <div style="font-size: 16px; font-weight: 700; color: #0F172A !important; margin-top: 4px;">stock</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SUPPORT & FOOTER ==================== -->
+    <div class="text-center p-5" style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); text-align: center; padding: 40px 20px; margin-bottom: 20px;" align="center">
+        <h3 style="font-size: 26px; font-weight: 800; margin-top: 0; margin-bottom: 12px; color: #0F172A !important; text-align: center;">Need Customization or Support?</h3>
+        <p style="color: #475569 !important; font-size: 16px; max-width: 620px; margin: 0 auto 28px auto; text-align: center;">
+            We provide prompt technical support and custom feature development for all our Odoo modules.
+        </p>
+
+        <div class="text-center" style="text-align: center; margin: 0 auto; width: 100%;" align="center">
+            <a href="https://links4engg.com" target="_blank" style="text-decoration: none; display: inline-block; background-color: #E0F2FE; border: 1.5px solid #0284C7; padding: 12px 28px; border-radius: 30px; font-size: 15px; font-weight: 600; color: #0284C7 !important; margin: 6px 10px;">
+                <span>Website: links4engg.com</span>
+            </a>
+            <a href="mailto:info@links4engg.com" style="text-decoration: none; display: inline-block; background-color: #DCFCE7; border: 1.5px solid #059669; padding: 12px 28px; border-radius: 30px; font-size: 15px; font-weight: 600; color: #059669 !important; margin: 6px 10px;">
+                <span>Email: info@links4engg.com</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
