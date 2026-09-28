@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_update_product" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.update.product</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Line Level Update Icon Button -->
+            <xpath expr="//field[@name='order_line']/list" position="inside">
+                <field name="state" column_invisible="True"/>
+                <button name="action_open_update_product_wizard"
+                        type="object"
+                        title="Update Product"
+                        icon="fa-exchange"
+                        invisible="parent.state != 'sale' or display_type"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

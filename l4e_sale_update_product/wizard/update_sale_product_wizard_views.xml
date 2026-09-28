@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sale_order_update_product_wizard_form" model="ir.ui.view">
+        <field name="name">sale.order.update.product.wizard.form</field>
+        <field name="model">sale.order.update.product.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Update Product">
+                <field name="is_single_line" invisible="1"/>
+                <field name="order_id" invisible="1"/>
+                <field name="sale_line_id" invisible="1"/>
+
+                <!-- Single Line View -->
+                <div invisible="not is_single_line">
+                    <p class="text-muted">
+                        Replace the product on this order line. The agreed quantity and unit price will remain unchanged.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="current_product_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="new_product_id"
+                                   required="is_single_line"
+                                   options="{'no_create': True}"
+                                   placeholder="Select new product..."/>
+                        </group>
+                    </group>
+                </div>
+
+                <!-- Multi-Line View -->
+                <div invisible="is_single_line">
+                    <p class="text-muted">
+                        Select new replacement products for any lines you wish to update. Lines left empty will keep their current product. Quantity and price will remain unchanged.
+                    </p>
+                    <field name="line_ids">
+                        <list editable="bottom" create="0" delete="0">
+                            <field name="sale_line_id" column_invisible="True" force_save="1"/>
+                            <field name="current_product_id" readonly="1" force_save="1"/>
+                            <field name="new_product_id"
+                                   options="{'no_create': True}"
+                                   placeholder="Select replacement..."/>
+                        </list>
+                    </field>
+                </div>
+
+                <footer>
+                    <button name="action_apply"
+                            string="Update Product"
+                            type="object"
+                            class="btn-primary"
+                            data-hotkey="q"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                            data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Menu item on Sale Order -->
+    <record id="action_sale_order_update_product" model="ir.actions.act_window">
+        <field name="name">Update Product</field>
+        <field name="res_model">sale.order.update.product.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+</odoo>
